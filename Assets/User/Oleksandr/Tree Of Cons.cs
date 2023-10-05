@@ -7,14 +7,14 @@ public class TreeOfCons : MonoBehaviour
 {
     
     public Material[] material; 
-    Renderer Rend;
+    MeshRenderer Rend;
     public GameObject TreeCam;
     public GameObject FreeCam;
     public GameObject LeevesBlue;
     public GameObject LeevesRed;
     public GameObject LeevesYellow;
     public GameObject LeevesPurple;
-    
+    private Renderer LeevesBlueRenderer; 
     public short x ;
     public short y ;
     bool CamSwitched = false;
@@ -23,10 +23,10 @@ public class TreeOfCons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LeevesBlueRenderer = LeevesBlue.GetComponent<Renderer>();
+            
         
-
-        Rend = GetComponent<Renderer>();
-        Rend.enabled = true;
+        
 
     }
 
@@ -50,13 +50,17 @@ public class TreeOfCons : MonoBehaviour
         else if ((Input.GetKeyUp(KeyCode.E) && CamSwitched))
         {
 
+
+
             TreeCam.SetActive(false);
             FreeCam.SetActive(true);
             CamSwitched = false;
             Console.WriteLine("2");
             //Material switch
-            Rend.material = material[x];
 
+            LeevesBlueRenderer.materials = material;
+
+            
 
         }
     }
