@@ -10,8 +10,40 @@ public class ConstructionSystem : MonoBehaviour
     private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
+    public int roundRange = 60;
+
+    List<List<bool>> gridsUsageStatement = new List<List<bool>>();
+
+    private void Start()
+    {
+        print(Global.gridSize);
+        //Create 2 dimension table
+        for(int i = 0; i < roundRange * 2 / Global.gridSize + 1 ; i++)
+        {
+            
+            List<bool> tmpGrid = new List<bool>();
+
+            for (int j = 0; j < roundRange * 2 / Global.gridSize + 1; j++)
+                tmpGrid.Add(false);
+
+            gridsUsageStatement.Add(tmpGrid);
+        }
+
+        print(gridsUsageStatement.Count);
+
+    }
+   
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(Vector3.zero, roundRange);
+    }
+
+
     void Update()
     {
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -28,36 +60,44 @@ public class ConstructionSystem : MonoBehaviour
         //Spawn object
         if (Input.GetKeyDown(KeyCode.E))
         {
-            objectSpawned = SpawnGameObject(hit.point);
+            if (objectSpawned == null) {
+                objectSpawned = SpawnGameObject(Vector3.zero);
+            }
+            
+            
         }
         
         //Move object
         if (objectSpawned != null)
         {
+            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= roundRange)
+                objectSpawned.transform.position = Global.ClampPositionToGrid(hit.point);
 
-            objectSpawned.transform.position = ClampPosition(hit.point, 5);
         }
 
         //Place Object
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
-            objectSpawned = null;
+            //Get index base in gridUsageStatement based on position
+            int indexX = (int)objectSpawned.transform.position.x / Global.gridSize + gridsUsageStatement.Count / 2;
+            int indexZ = (int)objectSpawned.transform.position.z / Global.gridSize + gridsUsageStatement.Count / 2;
+
+            
+            if (!gridsUsageStatement[indexX][indexZ])
+            {
+                objectSpawned = null;
+                gridsUsageStatement[indexX][indexZ] = true;
+            }
+
+            print(indexX);
+            print(indexZ);
+
         }
 
     }
-    float RoundToGrid(float valueToRound, float gridSize = 1)
-    {
-        return Mathf.Round(valueToRound / gridSize) * gridSize;
-    }
 
-    Vector3 ClampPosition(Vector3 position, float gridSize)
-    {
-        float clampedX = RoundToGrid(position.x, gridSize);
-        float clampedZ = RoundToGrid(position.z, gridSize);
 
-        
-        return new Vector3(clampedX, position.y, clampedZ);
-    }
+    
     GameObject SpawnGameObject(Vector3 spawnPoint)
     {
         if (objectToSpawn != null && spawnPoint != null)
