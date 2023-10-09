@@ -84,10 +84,8 @@ public class ConstructionSystem : MonoBehaviour
             debugTiles = !debugTiles;
 
         if (Input.GetKeyDown(KeyCode.F2))
-        {
             IncreaseRoundRange(1);
-            print("test");
-        }
+        
 
         //Spawn object
         if (Input.GetKeyDown(KeyCode.E))
@@ -110,20 +108,19 @@ public class ConstructionSystem : MonoBehaviour
         //Place Object
         if (Input.GetMouseButtonDown(0))
         {
-            //Get index base in gridUsageStatement based on position
-            int indexX = (int)objectSpawned.transform.position.x / Global.gridSize + gridsUsageStatement.Count / 2;
-            int indexZ = (int)objectSpawned.transform.position.z / Global.gridSize + gridsUsageStatement.Count / 2;
-
-            
-            if (!gridsUsageStatement[indexX][indexZ])
+            if(objectSpawned != null)
             {
-                objectSpawned = null;
-                gridsUsageStatement[indexX][indexZ] = true;
-            }
-            
-            print(indexX);
-            print(indexZ);
+                //Get index base in gridUsageStatement based on position
+                int indexX = (int)objectSpawned.transform.position.x / Global.gridSize + gridsUsageStatement.Count / 2;
+                int indexZ = (int)objectSpawned.transform.position.z / Global.gridSize + gridsUsageStatement.Count / 2;
 
+
+                if (!gridsUsageStatement[indexX][indexZ])
+                {
+                    objectSpawned = null;
+                    gridsUsageStatement[indexX][indexZ] = true;
+                }
+            }
         }
 
         
@@ -152,14 +149,16 @@ public class ConstructionSystem : MonoBehaviour
             newGridsUsageStatement.Add(tmpGrid);
         }
 
+        print(newGridsUsageStatement.Count);
 
-        for (int i = 0; i < newGridsUsageStatement.Count; i++)
+        for (int i = 0; i < newGridsUsageStatement.Count - tilesAmount*2; i++)
         {
-            for (int j = 0; j < newGridsUsageStatement[i].Count; j++)
+            for (int j = 0; j < newGridsUsageStatement[i].Count - tilesAmount * 2; j++)
             {
+                
                 if (gridsUsageStatement[i][j])
                 {
-                    newGridsUsageStatement[i + tilesAmount][j - tilesAmount] = true;
+                    newGridsUsageStatement[i + tilesAmount][j + tilesAmount] = true;
                 }
             }
         }
