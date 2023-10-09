@@ -14,6 +14,8 @@ public class ConstructionSystem : MonoBehaviour
 
     List<List<bool>> gridsUsageStatement = new List<List<bool>>();
 
+    bool debugTiles = false;
+
     private void Start()
     {
         print(Global.gridSize);
@@ -38,12 +40,33 @@ public class ConstructionSystem : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(Vector3.zero, roundRange);
+
+        if (debugTiles)
+        {
+            for (int i = 0; i < gridsUsageStatement.Count; i++)
+            {
+                for (int j = 0; j < gridsUsageStatement[i].Count; j++)
+                {
+                    if (gridsUsageStatement[i][j])
+                        Gizmos.color = Color.green;
+                    else
+                        Gizmos.color = Color.red;
+
+                    Gizmos.DrawWireCube(new Vector3(gridsUsageStatement[i].Count / 2 * -Global.gridSize + i * Global.gridSize,
+                        0,
+                        gridsUsageStatement[j].Count / 2 * -Global.gridSize + j * Global.gridSize), new Vector3(Global.gridSize - 0.6f, Global.gridSize - 0.6f, Global.gridSize - 0.6f));
+
+                }
+            }
+        }
+        
+       
     }
+
 
 
     void Update()
     {
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -55,6 +78,15 @@ public class ConstructionSystem : MonoBehaviour
             
             UnityEngine.Debug.DrawRay(hit.point, hit.normal, Color.blue);
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+            debugTiles = !debugTiles;
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            IncreaseRoundRange(1);
+            print("test");
         }
 
         //Spawn object
@@ -88,16 +120,54 @@ public class ConstructionSystem : MonoBehaviour
                 objectSpawned = null;
                 gridsUsageStatement[indexX][indexZ] = true;
             }
-
+            
             print(indexX);
             print(indexZ);
 
         }
 
+        
+            
+
     }
 
+    /// <summary>
+    /// The number of tile to add
+    /// </summary>
+    /// <param name="tilesAmount">The number of tile to add</param>
+    void IncreaseRoundRange(int tilesAmount)
+    {
+        roundRange += tilesAmount * Global.gridSize;
 
-    
+        List<List<bool>> newGridsUsageStatement = new List<List<bool>>();
+
+        for (int i = 0; i < roundRange * 2 / Global.gridSize + 1; i++)
+        {
+
+            List<bool> tmpGrid = new List<bool>();
+
+            for (int j = 0; j < roundRange * 2 / Global.gridSize + 1; j++)
+                tmpGrid.Add(false);
+
+            newGridsUsageStatement.Add(tmpGrid);
+        }
+
+
+        for (int i = 0; i < newGridsUsageStatement.Count; i++)
+        {
+            for (int j = 0; j < newGridsUsageStatement[i].Count; j++)
+            {
+                if (gridsUsageStatement[i][j])
+                {
+                    newGridsUsageStatement[i + tilesAmount][j - tilesAmount] = true;
+                }
+            }
+        }
+
+        gridsUsageStatement = newGridsUsageStatement;
+
+    }
+
     GameObject SpawnGameObject(Vector3 spawnPoint)
     {
         if (objectToSpawn != null && spawnPoint != null)
