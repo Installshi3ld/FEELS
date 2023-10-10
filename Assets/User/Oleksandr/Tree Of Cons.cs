@@ -20,11 +20,17 @@ public class TreeOfCons : MonoBehaviour
     public GameObject LeevesYellow;
     public GameObject LeevesPurple;
 
+    //ButtonsInit
+    public GameObject LeevesBlueButton;
+    public GameObject LeevesRedButton;
+    public GameObject LeevesYellowButton;
+    public GameObject LeevesPurpleButton;
+
     //Leeves Renderers
-    private Renderer LeevesBlueRenderer;
-    private Renderer LeevesPurpleRenderer;
-    private Renderer LeevesRedRenderer;
-    private Renderer LeevesYellowRenderer;
+    protected Renderer LeevesBlueRenderer;
+    protected Renderer LeevesPurpleRenderer;
+    protected Renderer LeevesRedRenderer;
+    protected Renderer LeevesYellowRenderer;
 
 
     //Counters for switchers
@@ -33,43 +39,55 @@ public class TreeOfCons : MonoBehaviour
     bool CamSwitched = false;
 
 
-    private Transform Selection;
+    private String Selection;
 
     private Transform RedTransform;
-    public Ray ray;
-    RaycastHit hit;
+    Ray ray;
+    
     //Materials
     Material Blue;
     Material Purple;
     Material Red;
     Material Yellow;
     Material LeevesOff;
+
+    String BlueLeevesName;
+    String RedLeevesName;
+    String PurpleLeevesName;
+    String YellowLeevesName;
     // Start is called before the first frame update
     void Start()
     {
 
         RedTransform = LeevesRed.GetComponent<Transform>();
-
+        // Cameras Init
         TreeCam.SetActive(false);
         FreeCam.SetActive(true);
         
         TreeCamera = TreeCam.GetComponent<Camera>();
         FreeCamera = FreeCam.GetComponent<Camera>();
-
-
+        // Leeves Name Init
+        BlueLeevesName = LeevesBlueButton.name;
+        RedLeevesName = LeevesRedButton.name;
+        PurpleLeevesName = LeevesPurpleButton.name;
+        YellowLeevesName = LeevesYellowButton.name;
+        //Materials Init
         Blue = material[0];
         Purple = material[1];
         Red = material[2];
         Yellow = material[3];
         LeevesOff = material[4];
 
-        //Add Render Components 
+        //Renderers Init 
         LeevesBlueRenderer = LeevesBlue.GetComponent<Renderer>();
         LeevesPurpleRenderer = LeevesPurple.GetComponent<Renderer>();
         LeevesRedRenderer = LeevesRed.GetComponent<Renderer>();
         LeevesYellowRenderer = LeevesYellow.GetComponent<Renderer>();
-        
 
+        LeevesBlueButton.SetActive(false);
+        LeevesPurpleButton.SetActive(false);
+        LeevesRedButton.SetActive(false);
+        LeevesYellowButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -77,17 +95,48 @@ public class TreeOfCons : MonoBehaviour
     {
 
         if(Input.GetMouseButtonDown(0) && CamSwitched) {
-
-             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            //RayTrace
+             ray = TreeCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            
+            if (Physics.Raycast(ray, out hit))
             {
-                Selection = hit.transform;
+                
                 if (hit.transform != null)
                 {
+                    Selection = hit.transform.name;
+
+                    // LeevesColoring
+                    if (Selection == BlueLeevesName) {
+                        LeevesBlueRenderer.material = Blue;
                     
                     
                     
-                    if (hit.transform.gameObject)
+                    }
+                    if (Selection == RedLeevesName)
+                    {
+                        LeevesRedRenderer.material = Red;
+
+
+
+                    }
+
+                    if (Selection == PurpleLeevesName)
+                    {
+                        LeevesPurpleRenderer.material = Purple;
+
+
+
+                    }
+                    if (Selection == YellowLeevesName)
+                    {
+                        LeevesYellowRenderer.material = Yellow;
+
+
+
+                    }
+
+                    /*if (hit.transform.gameObject)
 
                     {
                         Debug.Log("1");
@@ -96,13 +145,13 @@ public class TreeOfCons : MonoBehaviour
                     }
                     
                     
-                    
-
-                    
+                    */
 
 
 
-                    
+
+
+
                 }
             
             }
@@ -120,6 +169,11 @@ public class TreeOfCons : MonoBehaviour
             TreeCam.SetActive(true);
             FreeCam.SetActive(false);
             CamSwitched = true;
+
+            LeevesBlueButton.SetActive(true);
+            LeevesPurpleButton.SetActive(true);
+            LeevesRedButton.SetActive(true);
+            LeevesYellowButton.SetActive(true);
             Console.WriteLine("1");
             
 
@@ -129,19 +183,16 @@ public class TreeOfCons : MonoBehaviour
         else if ((Input.GetKeyUp(KeyCode.E) && CamSwitched))
         {
 
-            LeevesBlueRenderer.material = LeevesOff;
-
-            LeevesPurpleRenderer.material = LeevesOff;
-
-            LeevesRedRenderer.material = LeevesOff;
-
-            LeevesYellowRenderer.material = LeevesOff;
+            LeevesBlueButton.SetActive(false);
+            LeevesPurpleButton.SetActive(false);
+            LeevesRedButton.SetActive(false);
+            LeevesYellowButton.SetActive(false);
 
             TreeCam.SetActive(false);
             FreeCam.SetActive(true);
             CamSwitched = false;
             Console.WriteLine("2");
-            //Material switch
+            
 
             
 
