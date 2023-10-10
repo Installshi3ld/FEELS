@@ -34,8 +34,7 @@ public class TreeOfCons : MonoBehaviour
 
 
     //Counters for switchers
-    public short x ;
-    public short y ;
+
     bool CamSwitched = false;
 
 
@@ -73,9 +72,9 @@ public class TreeOfCons : MonoBehaviour
         YellowLeevesName = LeevesYellowButton.name;
         //Materials Init
         Blue = material[0];
-        Purple = material[1];
-        Red = material[2];
-        Yellow = material[3];
+        Purple = material[3];
+        Red = material[1];
+        Yellow = material[2];
         LeevesOff = material[4];
 
         //Renderers Init 
@@ -161,7 +160,7 @@ public class TreeOfCons : MonoBehaviour
 
 
         //Tree Mode
-        if (Input.GetKeyUp(KeyCode.E) && !CamSwitched)
+        if (Input.GetKeyUp(KeyCode.T) && !CamSwitched)
         {
 
 
@@ -180,7 +179,7 @@ public class TreeOfCons : MonoBehaviour
 
         }
         //Free Mode
-        else if ((Input.GetKeyUp(KeyCode.E) && CamSwitched))
+        else if ((Input.GetKeyUp(KeyCode.T) && CamSwitched))
         {
 
             LeevesBlueButton.SetActive(false);
