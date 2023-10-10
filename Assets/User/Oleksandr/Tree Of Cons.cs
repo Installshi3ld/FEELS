@@ -70,7 +70,7 @@ public class TreeOfCons : MonoBehaviour
         RedLeevesName = LeevesRedButton.name;
         PurpleLeevesName = LeevesPurpleButton.name;
         YellowLeevesName = LeevesYellowButton.name;
-        //Materials Init
+        //Materials Inits
         Blue = material[0];
         Purple = material[3];
         Red = material[1];
