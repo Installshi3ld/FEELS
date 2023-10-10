@@ -39,7 +39,7 @@ public class ConstructionSystem : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(Vector3.zero, roundRange);
+        Gizmos.DrawWireSphere(Vector3.zero, roundRange - 5); // - 5 Cause need one tile each side for Fog
 
         if (debugTiles)
         {
@@ -100,7 +100,7 @@ public class ConstructionSystem : MonoBehaviour
         //Move object
         if (objectSpawned != null)
         {
-            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= roundRange)
+            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= roundRange - 5)
                 objectSpawned.transform.position = Global.ClampPositionToGrid(hit.point);
 
         }
@@ -110,22 +110,27 @@ public class ConstructionSystem : MonoBehaviour
         {
             if(objectSpawned != null)
             {
-                //Get index base in gridUsageStatement based on position
-                int indexX = (int)objectSpawned.transform.position.x / Global.gridSize + gridsUsageStatement.Count / 2;
-                int indexZ = (int)objectSpawned.transform.position.z / Global.gridSize + gridsUsageStatement.Count / 2;
+                List<Vector2Int> objectSpawnTilesUsage = objectSpawned.GetComponent<S_Building>().tilesCoordinate;
 
-
-                if (!gridsUsageStatement[indexX][indexZ])
+                for(int i = 0;  i < objectSpawnTilesUsage.Count; i++)
                 {
-                    objectSpawned = null;
-                    gridsUsageStatement[indexX][indexZ] = true;
+                    Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
+                    gridsUsageStatement[tmpIndexInGrid.x - objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
                 }
+
+                objectSpawned = null;
+
             }
         }
+    }
 
-        
-            
+    Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
+    {
+        //Get index base in gridUsageStatement based on position
+        int indexX = (int)objectSpawned.transform.position.x / Global.gridSize + gridsUsageStatement.Count / 2;
+        int indexZ = (int)objectSpawned.transform.position.z / Global.gridSize + gridsUsageStatement.Count / 2;
 
+        return new Vector2Int(indexX, indexZ);
     }
 
     /// <summary>
@@ -138,6 +143,7 @@ public class ConstructionSystem : MonoBehaviour
 
         List<List<bool>> newGridsUsageStatement = new List<List<bool>>();
 
+        //Create new 2 dimension list
         for (int i = 0; i < roundRange * 2 / Global.gridSize + 1; i++)
         {
 
@@ -149,8 +155,7 @@ public class ConstructionSystem : MonoBehaviour
             newGridsUsageStatement.Add(tmpGrid);
         }
 
-        print(newGridsUsageStatement.Count);
-
+        //Set old data in new list
         for (int i = 0; i < newGridsUsageStatement.Count - tilesAmount*2; i++)
         {
             for (int j = 0; j < newGridsUsageStatement[i].Count - tilesAmount * 2; j++)
