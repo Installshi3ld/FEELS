@@ -9,8 +9,6 @@ public class S_GameInfosScriptableObject : ScriptableObject
     public int joyFeels, angerFeels, sadnessFeels, fearFeels;
     public int[] emotions;
 
-    // People subscribe to those events to get notified of joy, angel, sadness or fear changes.
-
     [System.NonSerialized]
     public UnityEvent emotionFeelsChangeEvent;
 
