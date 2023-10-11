@@ -10,59 +10,6 @@ public class ConstructionSystem : MonoBehaviour
     private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
-    public int roundRange = 60;
-
-    List<List<bool>> gridsUsageStatement = new List<List<bool>>();
-
-    bool debugTiles = false;
-
-    private void Start()
-    {
-        print(Global.gridSize);
-        //Create 2 dimension table
-        for(int i = 0; i < roundRange * 2 / Global.gridSize + 1 ; i++)
-        {
-            
-            List<bool> tmpGrid = new List<bool>();
-
-            for (int j = 0; j < roundRange * 2 / Global.gridSize + 1; j++)
-                tmpGrid.Add(false);
-
-            gridsUsageStatement.Add(tmpGrid);
-        }
-
-        print(gridsUsageStatement.Count);
-
-    }
-   
-
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(Vector3.zero, roundRange - 5); // - 5 Cause need one tile each side for Fog
-
-        if (debugTiles)
-        {
-            for (int i = 0; i < gridsUsageStatement.Count; i++)
-            {
-                for (int j = 0; j < gridsUsageStatement[i].Count; j++)
-                {
-                    if (gridsUsageStatement[i][j])
-                        Gizmos.color = Color.green;
-                    else
-                        Gizmos.color = Color.red;
-
-                    Gizmos.DrawWireCube(new Vector3(gridsUsageStatement[i].Count / 2 * -Global.gridSize + i * Global.gridSize,
-                        0,
-                        gridsUsageStatement[j].Count / 2 * -Global.gridSize + j * Global.gridSize), new Vector3(Global.gridSize - 0.6f, Global.gridSize - 0.6f, Global.gridSize - 0.6f));
-
-                }
-            }
-        }
-        
-       
-    }
-
 
 
     void Update()
@@ -80,12 +27,6 @@ public class ConstructionSystem : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.F1))
-            debugTiles = !debugTiles;
-
-        if (Input.GetKeyDown(KeyCode.F2))
-            IncreaseRoundRange(1);
-        
 
         //Spawn object
         if (Input.GetKeyDown(KeyCode.E))
@@ -100,8 +41,8 @@ public class ConstructionSystem : MonoBehaviour
         //Move object
         if (objectSpawned != null)
         {
-            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= roundRange - 5)
-                objectSpawned.transform.position = Global.ClampPositionToGrid(hit.point);
+            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= Grid.mapSphereArea - Grid.padding)
+                objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
 
         }
 
@@ -112,11 +53,28 @@ public class ConstructionSystem : MonoBehaviour
             {
                 List<Vector2Int> objectSpawnTilesUsage = objectSpawned.GetComponent<S_Building>().tilesCoordinate;
 
-                for(int i = 0;  i < objectSpawnTilesUsage.Count; i++)
+
+                Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
+                for (int i = 0;  i < objectSpawnTilesUsage.Count; i++)
                 {
-                    Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
-                    gridsUsageStatement[tmpIndexInGrid.x - objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
+                    print(objectSpawnTilesUsage[i].x + " " + objectSpawnTilesUsage[i].y);
+                    Grid.gridsUsageStatement[tmpIndexInGrid.x - objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
                 }
+
+                /*
+                //Check if Index are on non used tile
+                for(int i = 0; i < objectSpawnTilesUsage.Count; i++)
+                {
+                    print(Grid.gridsUsageStatement[(tmpIndexInGrid + objectSpawnTilesUsage[i]).x][(tmpIndexInGrid + objectSpawnTilesUsage[i]).y]);
+
+                    if (Grid.gridsUsageStatement[(tmpIndexInGrid + objectSpawnTilesUsage[i]).x][(tmpIndexInGrid + objectSpawnTilesUsage[i]).y])
+                        print("CanPlace");
+                        //print("CanPlace");
+
+                        //print("!!CantPlace!!");
+                    
+                }*/
+
 
                 objectSpawned = null;
 
@@ -127,50 +85,19 @@ public class ConstructionSystem : MonoBehaviour
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
     {
         //Get index base in gridUsageStatement based on position
-        int indexX = (int)objectSpawned.transform.position.x / Global.gridSize + gridsUsageStatement.Count / 2;
-        int indexZ = (int)objectSpawned.transform.position.z / Global.gridSize + gridsUsageStatement.Count / 2;
+        int indexX = (int)objectSpawned.transform.position.x / Grid.tileSize + Grid.gridsUsageStatement.Count / 2;
+        int indexZ = (int)objectSpawned.transform.position.z / Grid.tileSize + Grid.gridsUsageStatement.Count / 2;
 
         return new Vector2Int(indexX, indexZ);
     }
 
-    /// <summary>
-    /// The number of tile to add
-    /// </summary>
-    /// <param name="tilesAmount">The number of tile to add</param>
-    void IncreaseRoundRange(int tilesAmount)
+    bool GetTileStatementWithIndex(Vector2Int positionOnGrid)
     {
-        roundRange += tilesAmount * Global.gridSize;
+        float positionX = (float)positionOnGrid.x * Grid.tileSize - Grid.gridsUsageStatement.Count * 2;
 
-        List<List<bool>> newGridsUsageStatement = new List<List<bool>>();
-
-        //Create new 2 dimension list
-        for (int i = 0; i < roundRange * 2 / Global.gridSize + 1; i++)
-        {
-
-            List<bool> tmpGrid = new List<bool>();
-
-            for (int j = 0; j < roundRange * 2 / Global.gridSize + 1; j++)
-                tmpGrid.Add(false);
-
-            newGridsUsageStatement.Add(tmpGrid);
-        }
-
-        //Set old data in new list
-        for (int i = 0; i < newGridsUsageStatement.Count - tilesAmount*2; i++)
-        {
-            for (int j = 0; j < newGridsUsageStatement[i].Count - tilesAmount * 2; j++)
-            {
-                
-                if (gridsUsageStatement[i][j])
-                {
-                    newGridsUsageStatement[i + tilesAmount][j + tilesAmount] = true;
-                }
-            }
-        }
-
-        gridsUsageStatement = newGridsUsageStatement;
-
+        return true;
     }
+
 
     GameObject SpawnGameObject(Vector3 spawnPoint)
     {
