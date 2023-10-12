@@ -97,5 +97,7 @@ public class S_CustomInspector : Editor
         }
         EditorGUILayout.EndVertical();
 
+        EditorUtility.SetDirty(myTarget);
+
     }
 }
