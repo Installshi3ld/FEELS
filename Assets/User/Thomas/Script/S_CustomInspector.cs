@@ -16,12 +16,11 @@ public class S_CustomInspector : Editor
     int gridSize = 5;
 
     List<List<bool>> gridBoolean = new List<List<bool>>();
-    
+    S_Building myTarget;
 
-    public override void OnInspectorGUI()
+    private void OnEnable()
     {
-        S_Building myTarget = (S_Building)target;
-        DrawDefaultInspector();
+        myTarget = (S_Building)target;
 
         // Create grid Boolean
         for (int x = 0; x < gridSize; x++)
@@ -31,7 +30,7 @@ public class S_CustomInspector : Editor
             {
                 // Check if element is already checked
                 bool tmpObjectFind = false;
-                for(int tile = 0; tile < myTarget.tilesCoordinate.Count; tile++)
+                for (int tile = 0; tile < myTarget.tilesCoordinate.Count; tile++)
                 {
                     if (myTarget.tilesCoordinate[tile] == new Vector2Int(x - gridSize / 2, y - gridSize / 2))
                     {
@@ -40,12 +39,16 @@ public class S_CustomInspector : Editor
                     }
                 }
 
-                if(!tmpObjectFind)
+                if (!tmpObjectFind)
                     tmpGrid.Add(false);
             }
 
             gridBoolean.Add(tmpGrid);
         }
+    }
+    public override void OnInspectorGUI()
+    {
+        //DrawDefaultInspector();
 
         // Table of check box
         EditorGUILayout.BeginHorizontal(GUILayout.Width(50));
@@ -71,9 +74,21 @@ public class S_CustomInspector : Editor
 
                         if (newState != gridBoolean[x][y])
                         {
-
                             gridBoolean[x][y] = newState;
-                            myTarget.tilesCoordinate.Add(new Vector2Int(x - gridSize / 2, y - gridSize / 2));
+
+                            if (newState)
+                            {
+                                myTarget.tilesCoordinate.Add(new Vector2Int(x - gridSize / 2, y - gridSize / 2));
+                                EditorUtility.SetDirty(myTarget);
+                            }
+
+                            else
+                            {
+
+                                int tmpIndex = myTarget.tilesCoordinate.FindIndex(tile => tile.x == x - gridSize / 2 && tile.y == y - gridSize / 2);
+                                myTarget.tilesCoordinate.RemoveAt(tmpIndex);
+                                EditorUtility.SetDirty(myTarget);
+                            }
                         }
 
                     }
@@ -85,7 +100,7 @@ public class S_CustomInspector : Editor
         }
         EditorGUILayout.EndVertical();
 
-
+        
 
         GUILayout.Space(10); //Create separation
 
@@ -97,7 +112,7 @@ public class S_CustomInspector : Editor
         }
         EditorGUILayout.EndVertical();
 
-        EditorUtility.SetDirty(myTarget);
+
 
     }
 }

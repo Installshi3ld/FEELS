@@ -51,35 +51,37 @@ public class ConstructionSystem : MonoBehaviour
         {
             if(objectSpawned != null)
             {
-                List<Vector2Int> objectSpawnTilesUsage = objectSpawned.GetComponent<S_Building>().tilesCoordinate;
-
-
-                Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
-                for (int i = 0;  i < objectSpawnTilesUsage.Count; i++)
-                {
-                    print(objectSpawnTilesUsage[i].x + " " + objectSpawnTilesUsage[i].y);
-                    Grid.gridsUsageStatement[tmpIndexInGrid.x - objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
-                }
-
-                /*
-                //Check if Index are on non used tile
-                for(int i = 0; i < objectSpawnTilesUsage.Count; i++)
-                {
-                    print(Grid.gridsUsageStatement[(tmpIndexInGrid + objectSpawnTilesUsage[i]).x][(tmpIndexInGrid + objectSpawnTilesUsage[i]).y]);
-
-                    if (Grid.gridsUsageStatement[(tmpIndexInGrid + objectSpawnTilesUsage[i]).x][(tmpIndexInGrid + objectSpawnTilesUsage[i]).y])
-                        print("CanPlace");
-                        //print("CanPlace");
-
-                        //print("!!CantPlace!!");
-                    
-                }*/
-
-
-                objectSpawned = null;
-
+                PlaceBuilding();
             }
         }
+    }
+
+    void PlaceBuilding()
+    {
+        List<Vector2Int> objectSpawnTilesUsage = objectSpawned.GetComponent<S_Building>().tilesCoordinate;
+
+        Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
+        bool canPlaceBuilding = true;
+
+        //Check if Index are on non used tile
+        for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+        {
+            //if all tile available
+            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
+            {
+                canPlaceBuilding = false;
+            }
+        }
+
+        if (canPlaceBuilding)
+        {
+            for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+            {
+                Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
+            }
+            objectSpawned = null;
+        }
+        
     }
 
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
