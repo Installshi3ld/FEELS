@@ -41,7 +41,7 @@ public class ConstructionSystem : MonoBehaviour
         //Move object
         if (objectSpawned != null)
         {
-            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= Grid.mapSphereArea - Grid.padding)
+            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= Grid.mapSphereArea)
                 objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
 
         }
@@ -66,11 +66,19 @@ public class ConstructionSystem : MonoBehaviour
         //Check if Index are on non used tile
         for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
         {
-            //if all tile available
-            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
+            //1 -> Tile used 2 -> If outside mapSphereArea 
+            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] 
+                || 
+                Vector3.Distance(Vector3Int.zero, new Vector3Int(Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x) * Grid.tileSize),
+                0,
+                Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.y + objectSpawnTilesUsage[i].y) * Grid.tileSize))) > Grid.mapSphereArea)
             {
                 canPlaceBuilding = false;
             }
+
+            //print(Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x) * Grid.tileSize) > Grid.mapSphereArea);
+
+            //print(tmpIndexInGrid.x + objectSpawnTilesUsage[i].x);
         }
 
         if (canPlaceBuilding)

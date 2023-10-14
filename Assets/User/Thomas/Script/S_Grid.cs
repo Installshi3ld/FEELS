@@ -8,10 +8,10 @@ public class Grid : MonoBehaviour
     public int tileSize_def = 5;
     public static int tileSize;
 
-    public int roundRange_def = 60;
+    public int mapSphereArea_def = 60;
     public static int mapSphereArea;
 
-    [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding).")]
+    [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding). ")]
     public int padding_def = 1;
     public static int padding;
 
@@ -23,15 +23,16 @@ public class Grid : MonoBehaviour
     private void Awake()
     {
         tileSize = tileSize_def;
-        mapSphereArea = roundRange_def;
-        padding = padding_def * tileSize;
+        mapSphereArea = mapSphereArea_def;
+        padding = padding_def;
     }
 
     private void Start()
     {
         //Create 2 dimension table
-        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1;
+        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
         gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
+        print(gridsUsageStatement.Count);
     }
 
     private void Update()
@@ -45,7 +46,7 @@ public class Grid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(Vector3.zero, mapSphereArea - padding); // - 5 Cause need one tile each side for Fog
+        Gizmos.DrawWireSphere(Vector3.zero, mapSphereArea); // - 5 Cause need one tile each side for Fog
 
         if (debugTiles)
         {
