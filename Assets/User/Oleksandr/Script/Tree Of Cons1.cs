@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TreeOfCons : MonoBehaviour
+public class TreeOfCons1 : MonoBehaviour
 {
     
     public Material[] material;
