@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class S_Tets : MonoBehaviour
 {
-    public S_FeelsScriptableObject playerInfos;
+    public S_FeelsScriptableObject feels;
 
     public void TestFunction()
     {
-        playerInfos.IncreaseJoy(3);
+        feels.IncreaseFeels(3);
     }
 }

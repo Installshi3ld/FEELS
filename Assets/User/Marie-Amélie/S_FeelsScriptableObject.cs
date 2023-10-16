@@ -4,52 +4,52 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[CreateAssetMenu(fileName = "Scriptable Object", menuName = "JOY")]
-public class S_JoyScriptableObject : ScriptableObject
+[CreateAssetMenu(fileName = "Scriptable Object", menuName = "FEELS")]
+public class S_FeelsScriptableObject : ScriptableObject
 {
-    [System.NonSerialized]
-    public int joyFeels;
+    public string feelsType;
 
     [System.NonSerialized]
-    public UnityEvent joyChangeEvent;
+    public int feelsAmount;
 
-    public int JoyFeels
+    [System.NonSerialized]
+    public UnityEvent feelsAmountChangeEvent;
+
+    public int FeelsAmount
     {
-        get { return joyFeels; } //read
+        get { return feelsAmount; } //read
         set
         {
             if (value > 100)
             {
-                joyFeels = 100;
+                feelsAmount = 100;
             }
             else
             {
-                joyFeels = value;
+                feelsAmount = value;
             }
-            
-            joyChangeEvent.Invoke();
+
+            feelsAmountChangeEvent.Invoke();
         }
 
     }
     private void OnEnable()
     {
-        joyFeels = 0;
+        feelsAmount = 0;
 
-        if (joyChangeEvent == null)
+        if (feelsAmountChangeEvent == null)
         {
-            joyChangeEvent = new UnityEvent();
+            feelsAmountChangeEvent = new UnityEvent();
         }
     }
 
-    public void IncreaseJoy(int amount)
+    public void IncreaseFeels(int amount)
     {
-        joyFeels += amount;
-        //joyChangeEvent.Invoke();
+        FeelsAmount += amount;
     }
 
-    public void DecreaseJoy(int amount)
+    public void DecreaseFeels(int amount)
     {
-        joyFeels -= amount;
-        //joyChangeEvent.Invoke();
+        FeelsAmount -= amount;
     }
 }

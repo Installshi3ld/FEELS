@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class S_ColorChangeAnimation : MonoBehaviour
 {
-    public Color startColor = Color.white;
-    public Color endColor = Color.red;
     public float duration = 2.0f;
+    private Color startColor;
 
     public Material material;
 
     private void Start()
     {
-        StartCoroutine(ChangeColorOverTime());
+        //StartCoroutine(ChangeColorOverTime());
     }
 
-    private IEnumerator ChangeColorOverTime()
+    private IEnumerator ChangeColorOverTime(Color targetedColor)
     {
         float elapsedTime = 0;
+        startColor = material.color;
 
         while (elapsedTime < duration)
         {
-            material.color = Color.Lerp(startColor, endColor, elapsedTime / duration);
+            material.color = Color.Lerp(startColor, targetedColor, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        material.color = endColor; // Ensure the final color is exactly the endColor
+        material.color = targetedColor; // Ensure the final color is exactly the endColor
     }
 }
