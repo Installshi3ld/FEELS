@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_Tets : MonoBehaviour
+public class S_TestButton : MonoBehaviour
 {
-    public S_FeelsScriptableObject feels;
+    public S_EmotionScriptableObject emotion;
 
     public void TestFunction()
     {
-        feels.IncreaseFeels(3);
+        emotion.IncreaseEmotion(3);
     }
 }

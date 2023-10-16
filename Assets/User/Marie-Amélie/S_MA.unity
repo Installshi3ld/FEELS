@@ -128,6 +128,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1991439507}
     m_Modifications:
+    - target: {fileID: 1224497714067488404, guid: f6d52132ba5488c48974618c15376c04, type: 3}
+      propertyPath: playerFeels
+      value: 
+      objectReference: {fileID: 11400000, guid: b4fb49cacf3c7b6438110dc87b6f9310, type: 2}
     - target: {fileID: 3660811051462916748, guid: f6d52132ba5488c48974618c15376c04, type: 3}
       propertyPath: m_Name
       value: Anger_Gauge
@@ -238,6 +242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1991439507}
     m_Modifications:
+    - target: {fileID: 1224497714067488404, guid: d82ca899bf8d1124da383b27f8916b2b, type: 3}
+      propertyPath: playerFeels
+      value: 
+      objectReference: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
     - target: {fileID: 3660811051462916748, guid: d82ca899bf8d1124da383b27f8916b2b, type: 3}
       propertyPath: m_Name
       value: Sadness_Gauge
@@ -614,6 +622,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1991439507}
     m_Modifications:
+    - target: {fileID: 1224497714067488404, guid: e8dd07107be4d4d4a82e118085177ecc, type: 3}
+      propertyPath: playerFeels
+      value: 
+      objectReference: {fileID: 11400000, guid: 900e455844bacb4468a78bba5ef5f542, type: 2}
+    - target: {fileID: 2459869594030025102, guid: e8dd07107be4d4d4a82e118085177ecc, type: 3}
+      propertyPath: m_Value
+      value: 35.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3660811051462916748, guid: e8dd07107be4d4d4a82e118085177ecc, type: 3}
       propertyPath: m_Name
       value: Fear_Gauge
@@ -996,7 +1012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a5fe7f4bbe6db4d85181829d592d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feels: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
+  emotion: {fileID: 11400000, guid: f2907559fa7433b4593706a58329e3fc, type: 2}
 --- !u!1 &1622142885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -127.099976, y: 176.87}
+  m_AnchoredPosition: {x: -127.099976, y: -208}
   m_SizeDelta: {x: 253.20789, y: 160.2548}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622142887
@@ -1431,6 +1447,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1991439507}
     m_Modifications:
+    - target: {fileID: 1224497714067488404, guid: 23e7c8a9b35074b4da4e7e8f00b92986, type: 3}
+      propertyPath: playerFeels
+      value: 
+      objectReference: {fileID: 11400000, guid: f2907559fa7433b4593706a58329e3fc, type: 2}
     - target: {fileID: 3660811051462916748, guid: 23e7c8a9b35074b4da4e7e8f00b92986, type: 3}
       propertyPath: m_Name
       value: Joy_Gauge
