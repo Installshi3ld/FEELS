@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MM_cloud
+  m_Name: MM_cloud_V2
   m_Shader: {fileID: -6465566751694194690, guid: 2f0d847a9f64f5e4689008803c50f1fc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -39,7 +39,24 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _base_scale: 0.05
+    - _base_speed: 1.5
+    - _base_strengh: 1.13
+    - _curvature_radius: 216.9
+    - _emission_strenght: 0
+    - _fresnel_opacity: 1
+    - _fresnel_power: 8
+    - _height_noise: 0.0015
+    - _noise_edge_1: 0
+    - _noise_edge_2: 1.46
+    - _noise_power_strengh: 1.93
+    - _noise_scale: 0.3
+    - _noise_speed: 2
+    m_Colors:
+    - _color_peak: {r: 1, g: 1, b: 1, a: 0}
+    - _color_valley: {r: 0, g: 0.07986283, b: 1, a: 0}
+    - _noise_remap: {r: 0, g: 1, b: -1, a: 0}
+    - _rotate_projection: {r: 1, g: 0, b: 0, a: 90}
   m_BuildTextureStacks: []
 --- !u!114 &584446756081147362
 MonoBehaviour:
