@@ -37,17 +37,28 @@ public class GetGoogleSheetData : MonoBehaviour
         {
             json = www.downloadHandler.text;
 
+            //separate data receive
             MatchCollection regexSort = Regex.Matches(json, "\\[([^\\]\\[]*)\\]");
 
-            foreach (Match item in regexSort)
+            for (int i = 0; i < regexSort.Count; i++)
             {
                 List<string> tmpList = new List<string>();
 
-                string resultat = Regex.Replace(item.ToString(), @"[\n\[\]]|\s*[\""]*", "").Trim();
-                print(resultat);
-                //jsonElement[i].AddRange(resultat.Split(',').ToList());
-            }
+                //remove " \n space
+                string resultat = Regex.Replace(regexSort[i].ToString(), @"[\n\[\]]|\s*[\""]*", "").Trim();
 
+                tmpList.AddRange(resultat.Split(',').ToList());
+                jsonElement.Add(tmpList);
+
+            }
+        }
+
+        for (int i = 0;i < jsonElement.Count;i++)
+        {
+            for(int j = 0; j < jsonElement[i].Count; j++)
+            {
+                print(jsonElement[i][j]);
+            }
         }
     }
 }
