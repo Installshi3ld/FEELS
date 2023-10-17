@@ -6,29 +6,34 @@ using TMPro;
 
 public class S_Tokens : MonoBehaviour
 {
-    public float Tokens;
+    public int tokens;
     public TMP_Text tokenValue;
     string variableNumber;
 
     // Start is called before the first frame update
     void Start()
     {
-        string variableNumber = Tokens.ToString();
+       
 
-        tokenValue.text = variableNumber;
+        tokenValue.text = tokens.ToString();
         
     }
 
     public void AddToken()
     {
-        Tokens = Tokens + 1;
-        string variableNumber = Tokens.ToString();
-        tokenValue.text = variableNumber;
+        tokens +=1;
+        tokenValue.text = tokens.ToString();
+
+      
+
     }
     public void UseToken()
     {
-        Tokens -- ;
-        string variableNumber = Tokens.ToString();
-        tokenValue.text = variableNumber;
+        tokens -= 1 ;
+        tokenValue.text = tokens.ToString();
+
+       
     }
 }
+//   string variableNumber = Tokens.ToString();
+ //       tokenValue.text = variableNumber;
