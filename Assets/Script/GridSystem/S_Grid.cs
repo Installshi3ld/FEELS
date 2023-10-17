@@ -46,7 +46,7 @@ public class Grid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(Vector3.zero, mapSphereArea); // - 5 Cause need one tile each side for Fog
+        DrawGizmoDisk(mapSphereArea + 5);
 
         if (debugTiles)
         {
@@ -65,6 +65,22 @@ public class Grid : MonoBehaviour
 
                 }
             }
+        }
+    }
+
+    public static void DrawGizmoDisk(float radius)
+    {
+        float corners = 72; 
+        Vector3 origin = Vector3.zero; 
+        Vector3 startRotation = Vector3.right * radius; 
+        Vector3 lastPosition = origin + startRotation;
+        float angle = 0;
+        while (angle <= 360)
+        {
+            angle += 360 / corners;
+            Vector3 nextPosition = origin + (Quaternion.Euler(90, 0, angle) * startRotation);
+            Gizmos.DrawLine(lastPosition, nextPosition);
+            lastPosition = nextPosition;
         }
     }
 
