@@ -15,9 +15,13 @@ public class Grid : MonoBehaviour
     public int padding_def = 1;
     public static int padding;
 
+    int debugTileStatement = 0;
     bool debugTiles = false;
+    bool debugFog = false;
 
     public static List<List<bool>> gridsUsageStatement = new List<List<bool>>();
+
+    public static List<List<bool>> fogGridsUsageStatement = new List<List<bool>>();
 
     //Set variable from editor as static
     private void Awake()
@@ -32,32 +36,47 @@ public class Grid : MonoBehaviour
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
         gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
+        fogGridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
+
+        SetFogGridUsageStatement();
+
         print(gridsUsageStatement.Count);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
-            debugTiles = !debugTiles;
+        {
+            debugTileStatement++;
+            if (debugTileStatement >= 4)
+                debugTileStatement = 0;
+        }
 
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.F3))
             IncreaseMapSphereArea(1);
     }
 
     private void OnDrawGizmos()
     {
-        DrawGizmoDisk(mapSphereArea + 5);
+        DrawGizmoDisk(mapSphereArea);
 
-        if (debugTiles)
+        if (debugTileStatement > 0)
         {
             for (int x = 0; x < gridsUsageStatement.Count; x++)
             {
                 for (int y = 0; y < gridsUsageStatement[x].Count; y++)
                 {
-                    if (gridsUsageStatement[x][y])
+                    if (gridsUsageStatement[x][y] && (debugTileStatement == 1 || debugTileStatement == 3))
                         Gizmos.color = Color.green;
-                    else
+
+                    else if (fogGridsUsageStatement[x][y] && (debugTileStatement == 2 || debugTileStatement == 3)) 
+                        Gizmos.color = Color.blue;
+
+                    else if (!fogGridsUsageStatement[x][y] && (debugTileStatement == 1 || debugTileStatement == 3))
                         Gizmos.color = Color.red;
+
+                    else
+                        Gizmos.color = Color.clear;
 
                     Gizmos.DrawWireCube(new Vector3(gridsUsageStatement[x].Count / 2 * -tileSize + x * tileSize,
                         0,
@@ -131,6 +150,30 @@ public class Grid : MonoBehaviour
         }
 
         return dimensionalList;
+    }
+
+    void SetFogGridUsageStatement()
+    {
+        for (int i = 0; i < gridsUsageStatement.Count; i++)
+        {
+            for (int j = 0; j < gridsUsageStatement.Count ; j++)
+            {
+                if (Vector3Int.Distance(Vector3Int.zero, GetPositionBasedOnIndex(i, j)) > mapSphereArea)
+                {
+                    fogGridsUsageStatement[i][j] = true;
+                }
+            }
+        }
+    }
+
+    Vector3Int GetPositionBasedOnIndex(int x, int y)
+    {
+        int xCoord = -(gridsUsageStatement.Count / 2 * tileSize) + x * tileSize;
+        int zCoord = -(gridsUsageStatement.Count / 2 * tileSize) + y * tileSize;
+
+        print(gridsUsageStatement.Count / 2 * tileSize);
+
+        return new Vector3Int(xCoord, 0, zCoord);
     }
 
 
