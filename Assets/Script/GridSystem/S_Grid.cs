@@ -36,8 +36,7 @@ public class Grid : MonoBehaviour
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
         gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
-        fogGridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
-
+        
         SetFogGridUsageStatement();
 
         print(gridsUsageStatement.Count);
@@ -113,7 +112,7 @@ public class Grid : MonoBehaviour
     {
         mapSphereArea += tilesAmount * tileSize;
 
-        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1;
+        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
         List<List<bool>> newGridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
 
 
@@ -131,7 +130,7 @@ public class Grid : MonoBehaviour
         }
 
         gridsUsageStatement = newGridsUsageStatement;
-
+        SetFogGridUsageStatement();
     }
 
     List<List<bool>> Create2DimensionalBoolList(int size)
@@ -154,6 +153,9 @@ public class Grid : MonoBehaviour
 
     void SetFogGridUsageStatement()
     {
+        fogGridsUsageStatement.Clear();
+        fogGridsUsageStatement = Create2DimensionalBoolList(mapSphereArea * 2 / tileSize + 1 + (padding * 2));
+
         for (int i = 0; i < gridsUsageStatement.Count; i++)
         {
             for (int j = 0; j < gridsUsageStatement.Count ; j++)
@@ -165,6 +167,12 @@ public class Grid : MonoBehaviour
             }
         }
     }
+
+    /*
+    Vector2Int GetRandomTileInGrid()
+    {
+
+    }*/
 
     Vector3Int GetPositionBasedOnIndex(int x, int y)
     {

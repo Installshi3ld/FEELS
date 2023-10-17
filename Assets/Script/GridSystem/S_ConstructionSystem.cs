@@ -68,17 +68,12 @@ public class ConstructionSystem : MonoBehaviour
         {
             //1 -> Tile used 2 -> If outside mapSphereArea 
             if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] 
-                || 
-                Vector3.Distance(Vector3Int.zero, new Vector3Int(Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x) * Grid.tileSize),
-                0,
-                Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.y + objectSpawnTilesUsage[i].y) * Grid.tileSize))) > Grid.mapSphereArea)
+                ||
+                Grid.fogGridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
             {
                 canPlaceBuilding = false;
             }
 
-            //print(Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x) * Grid.tileSize) > Grid.mapSphereArea);
-
-            //print(tmpIndexInGrid.x + objectSpawnTilesUsage[i].x);
         }
 
         if (canPlaceBuilding)
