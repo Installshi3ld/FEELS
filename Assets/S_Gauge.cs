@@ -8,21 +8,21 @@ public class S_Gauge : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
-    public S_EmotionScriptableObject playerFeels;
+    public S_EmotionScriptableObject playerEmotion;
 
     private void OnEnable()
     {
-        playerFeels.emotionAmountChangeEvent.AddListener(SetSliderValue);
+        playerEmotion.emotionAmountChangeEvent.AddListener(SetSliderValue);
         SetSliderValue();
     }
 
     private void OnDisable()
     {
-        playerFeels.emotionAmountChangeEvent.RemoveListener(SetSliderValue);
+        playerEmotion.emotionAmountChangeEvent.RemoveListener(SetSliderValue);
     }
 
     public void SetSliderValue()
     {
-        slider.value = playerFeels.EmotionAmount;
+        slider.value = playerEmotion.EmotionAmount;
     }
 }

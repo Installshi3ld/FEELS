@@ -11,7 +11,7 @@ public class S_ColorChangeAnimation : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ChangeColorOverTime(Color.blue));
+        //StartCoroutine(ChangeColorOverTime(Color.blue));
     }
 
     private IEnumerator ChangeColorOverTime(Color targetedColor)

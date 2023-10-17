@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class S_EmotionScriptableObject : ScriptableObject
 {
     public string emotionType;
+    public Color color;
 
     [System.NonSerialized]
     public int emotionAmount;
