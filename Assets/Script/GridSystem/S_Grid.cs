@@ -38,8 +38,6 @@ public class Grid : MonoBehaviour
         gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
         
         SetFogGridUsageStatement();
-
-        print(gridsUsageStatement.Count);
     }
 
     private void Update()
@@ -168,18 +166,28 @@ public class Grid : MonoBehaviour
         }
     }
 
-    /*
+    
     Vector2Int GetRandomTileInGrid()
     {
+        List<Vector2Int> tmpIndex = new List<Vector2Int>();
 
-    }*/
+        for(int i = 0; i < gridsUsageStatement.Count; i++)
+        {
+            for( int j = 0; j < gridsUsageStatement.Count; j++)
+            {
+                if (!gridsUsageStatement[i][j] && !fogGridsUsageStatement[i][j])
+                    tmpIndex.Add(new Vector2Int(i, j));
+            }
+        }
+        int index = Random.Range(0, tmpIndex.Count);
+
+        return tmpIndex[index];
+    }
 
     Vector3Int GetPositionBasedOnIndex(int x, int y)
     {
         int xCoord = -(gridsUsageStatement.Count / 2 * tileSize) + x * tileSize;
         int zCoord = -(gridsUsageStatement.Count / 2 * tileSize) + y * tileSize;
-
-        print(gridsUsageStatement.Count / 2 * tileSize);
 
         return new Vector3Int(xCoord, 0, zCoord);
     }
