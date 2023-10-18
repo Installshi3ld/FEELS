@@ -29,4 +29,9 @@ public class S_Tokens : MonoBehaviour
         tokenValue.text = currency.amount.ToString();
 
     }
+
+    public void RefreshScreen()
+    {
+        tokenValue.text = currency.amount.ToString();
+    }
 }

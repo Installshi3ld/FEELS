@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.InputManagerEntry;
 
 public class ConstructionSystem : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class ConstructionSystem : MonoBehaviour
     private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
-
+    public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
+    public S_FeelsUI feelsUI;
 
     void Update()
     {
@@ -34,22 +36,24 @@ public class ConstructionSystem : MonoBehaviour
             if (objectSpawned == null) {
                 objectSpawned = SpawnGameObject(Vector3.zero);
             }
-            
-            
+            else if (objectSpawned != null)
+            {
+                Destroy(objectSpawned);
+            }
         }
         
         //Move object
         if (objectSpawned != null)
         {
-            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= Grid.mapSphereArea)
-                objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
+
+            objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
 
         }
 
         //Place Object
         if (Input.GetMouseButtonDown(0))
         {
-            if(objectSpawned != null)
+            if(objectSpawned != null )
             {
                 PlaceBuilding();
             }
@@ -58,14 +62,25 @@ public class ConstructionSystem : MonoBehaviour
 
     void PlaceBuilding()
     {
-        List<Vector2Int> objectSpawnTilesUsage = objectSpawned.GetComponent<S_Building>().tilesCoordinate;
-
+        S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
+        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.tilesCoordinate;
+       
         Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
         bool canPlaceBuilding = true;
 
         //Check if Index are on non used tile
         for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
         {
+            //If building is outside 2 dimension list
+            if (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x >= Grid.gridsUsageStatement.Count ||
+                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y >= Grid.gridsUsageStatement.Count ||
+                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y < 0 ||
+                tmpIndexInGrid.x + objectSpawnTilesUsage[i].x < 0)
+            {
+                canPlaceBuilding = false;
+                break;
+            }
+
             //1 -> Tile used 2 -> If outside mapSphereArea 
             if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] 
                 ||
@@ -76,15 +91,60 @@ public class ConstructionSystem : MonoBehaviour
 
         }
 
+        List<int> tmpAmountToRemove = new List<int> { 0, 0, 0, 0 };
+        //Check if enough feel
+        for(int i = 0; i < objectSpawnedBuildingScript.feelsCostList.Count; i++)
+        {
+            switch (objectSpawnedBuildingScript.feelsCostList[i].feelsType)
+            {
+                case S_Building.FeelsType.Joy:
+                    if (!(joyCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+
+                    tmpAmountToRemove[0] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+
+                case S_Building.FeelsType.Anger:
+                    if (!(angerCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+                    tmpAmountToRemove[1] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+
+                case S_Building.FeelsType.Sad:
+                    if (!(sadCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+                    tmpAmountToRemove[2] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+
+                case S_Building.FeelsType.Fear:
+                    if (!(fearCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+                    tmpAmountToRemove[3] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+            }
+        }
+
         if (canPlaceBuilding)
         {
             for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
             {
                 Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
             }
+
+            joyCurrency.amount -= tmpAmountToRemove[0];
+            angerCurrency.amount -= tmpAmountToRemove[1];
+            sadCurrency.amount -= tmpAmountToRemove[2];
+            fearCurrency.amount -= tmpAmountToRemove[3];
+            feelsUI.RefreshUI();
+
+            consciousTreeToken.amount += 1;
+
             objectSpawned = null;
         }
-        
+        else
+            feelsUI.Info("Need more feels");
+
+
     }
 
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
