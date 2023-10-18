@@ -18,7 +18,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -64,14 +64,15 @@ Material:
     - _fresnel_opacity: 1
     - _fresnel_power: 3
     - _height_noise: 0.04
-    - _noise_edge_1: 1.03
-    - _noise_edge_2: 0.19
-    - _noise_power_strengh: 1.41
-    - _noise_scale: 0.4
-    - _noise_speed: 1.89
+    - _noise_edge_1: 0.7
+    - _noise_edge_2: 0.1
+    - _noise_power_strengh: 0.39
+    - _noise_scale: 0.33
+    - _noise_scale_v2: 0.11
+    - _noise_speed: 3.25
     m_Colors:
-    - _color_peak: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 0}
-    - _color_valley: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 0}
+    - _color_peak: {r: 0.4816661, g: 0.5500678, b: 0.8301887, a: 0}
+    - _color_valley: {r: 0.7028302, g: 0.82915914, b: 1, a: 0}
     - _noise_remap: {r: 0, g: 1, b: -1, a: 0}
     - _rotate_projection: {r: 1, g: 0, b: 0, a: 90}
   m_BuildTextureStacks: []
