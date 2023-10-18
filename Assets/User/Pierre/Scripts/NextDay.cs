@@ -16,16 +16,23 @@ public class NextDay : MonoBehaviour
     public float joyIncrease;
     public float fearIncrease;
 
-    public float angerTemp;
-    public float sadTemp;
-    public float joyTemp;
-    public float fearTemp;
+    private float angerTemp;
+    private float sadTemp;
+    private float joyTemp;
+    private float fearTemp;
+
+    public float cycleCount;
 
     public float TEMP;
     // Start is called before the first frame update
     void Start()
     {
-        TEMP = 1f;  
+        TEMP = 1f;
+        cycleCount = 0;
+        NextCycle();
+
+        cycleCount++;
+        Debug.Log("Day: " + cycleCount);
     }
 
     // Update is called once per frame
@@ -33,69 +40,67 @@ public class NextDay : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            float randomValue = Random.Range(0f, 1f);
+            NextCycle();
 
-            if (randomValue <= redProbability)
-            {
-                angerTemp = (float)Variables.ActiveScene.Get("anger");
-
-                angerTemp = angerTemp + angerIncrease;
-
-                Variables.ActiveScene.Set("anger", angerTemp);
-
-                Debug.Log("Stepped in shit");
-            }
-            else if (randomValue <= blueProbability)
-            {
-                sadTemp = (float)Variables.ActiveScene.Get("sad");
-
-                sadTemp = sadTemp + sadIncrease;
-
-                Variables.ActiveScene.Set("sad", sadTemp);
-
-                Debug.Log("Your mom died");
-            }
-            else if (randomValue <= yellowProbability)
-            {
-                joyTemp = (float)Variables.ActiveScene.Get("joy");
-
-                joyTemp = joyTemp + joyIncrease;
-
-                Variables.ActiveScene.Set("joy", joyTemp);
-
-                Debug.Log("Woooooooh we ballin!!!");
-            }
-            else if (randomValue <= purpleProbability)
-            {
-                fearTemp = (float)Variables.ActiveScene.Get("fear");
-
-                fearTemp = fearTemp + fearIncrease;
-
-                Variables.ActiveScene.Set("fear", fearTemp);
-
-                Debug.Log("I am going to die");
-            }
+            cycleCount++;
+            Debug.Log("Day: " + cycleCount);
         }
+    }
 
-        /* if (Input.GetKeyDown(KeyCode.Space))
+    public float NextCycle()
+    {
+        float randomValue = Random.Range(0f, 1f);
+
+        if (randomValue <= redProbability)
         {
-        Debug.Log("Suce");
+            angerTemp = (float)Variables.ActiveScene.Get("anger");
 
-            angerIncrease = (float)Variables.ActiveScene.Get("anger");
+            angerTemp = angerTemp + angerIncrease;
 
-            angerIncrease = angerIncrease + 1f;
-            Debug.Log(angerIncrease);
+            Variables.ActiveScene.Set("anger", angerTemp);
 
-            Variables.ActiveScene.Set("anger" , angerIncrease);
+            Debug.Log("Stepped in shit");
 
+            return (float)Variables.ActiveScene.Get("anger");
         }
+        else if (randomValue <= blueProbability)
+        {
+            sadTemp = (float)Variables.ActiveScene.Get("sad");
 
-        angerTemp = (float)Variables.ActiveScene.Get("anger");
+            sadTemp = sadTemp + sadIncrease;
 
-        angerTemp = angerTemp + angerIncrease;
+            Variables.ActiveScene.Set("sad", sadTemp);
 
-        Variables.ActiveScene.Set("anger", angerTemp);
-        */
+            Debug.Log("Your mom died");
+
+            return (float)Variables.ActiveScene.Get("sad");
+        }
+        else if (randomValue <= yellowProbability)
+        {
+            joyTemp = (float)Variables.ActiveScene.Get("joy");
+
+            joyTemp = joyTemp + joyIncrease;
+
+            Variables.ActiveScene.Set("joy", joyTemp);
+
+            Debug.Log("Woooooooh we ballin!!!");
+
+            return (float)Variables.ActiveScene.Get("joy");
+        }
+        else if (randomValue <= purpleProbability)
+        {
+            fearTemp = (float)Variables.ActiveScene.Get("fear");
+
+            fearTemp = fearTemp + fearIncrease;
+
+            Variables.ActiveScene.Set("fear", fearTemp);
+
+            Debug.Log("I am going to die");
+
+            return (float)Variables.ActiveScene.Get("fear");
+        }
+        // will never return this anyway
+        return 0;
     }
 }
 
