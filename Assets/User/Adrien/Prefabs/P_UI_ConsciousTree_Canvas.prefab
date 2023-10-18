@@ -2255,7 +2255,6 @@ GameObject:
   - component: {fileID: 494014423084384358}
   - component: {fileID: 2335277145905852841}
   - component: {fileID: 2555544882221069567}
-  - component: {fileID: 3767056401873648078}
   m_Layer: 5
   m_Name: Button_Nature_01
   m_TagString: Untagged
@@ -2425,7 +2424,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 3767056401873648078}
+      - m_Target: {fileID: 6717033647820633432}
         m_TargetAssemblyTypeName: S_Tokens, Assembly-CSharp
         m_MethodName: UseToken
         m_Mode: 1
@@ -2437,20 +2436,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &3767056401873648078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4454911351057995379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a68133ffd8e3941a9df8841d3f143a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tokens: 0
-  tokenValue: {fileID: 1244126340387444702}
 --- !u!1 &4642085322361838336
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,6 +2690,7 @@ GameObject:
   - component: {fileID: 8903963263134628725}
   - component: {fileID: 4283271880448036504}
   - component: {fileID: 3224133483486131555}
+  - component: {fileID: 6717033647820633432}
   m_Layer: 5
   m_Name: P_UI_ConsciousTree_Canvas
   m_TagString: Untagged
@@ -2796,6 +2782,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6717033647820633432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5159283238707079615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a68133ffd8e3941a9df8841d3f143a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tokens: 0
+  tokenValue: {fileID: 1244126340387444702}
 --- !u!1 &5477854424159457499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,7 +3098,6 @@ GameObject:
   - component: {fileID: 7450677452588934421}
   - component: {fileID: 7599261800962258421}
   - component: {fileID: 4485633750525369649}
-  - component: {fileID: 953887065837243444}
   m_Layer: 5
   m_Name: Button_AddToken
   m_TagString: Untagged
@@ -3208,7 +3207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 953887065837243444}
+      - m_Target: {fileID: 6717033647820633432}
         m_TargetAssemblyTypeName: S_Tokens, Assembly-CSharp
         m_MethodName: AddToken
         m_Mode: 1
@@ -3220,20 +3219,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &953887065837243444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6302810746225501510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71a68133ffd8e3941a9df8841d3f143a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tokens: 0
-  tokenValue: {fileID: 1244126340387444702}
 --- !u!1 &6693717726574002263
 GameObject:
   m_ObjectHideFlags: 0

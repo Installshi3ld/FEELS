@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 150}
+  m_AnchoredPosition: {x: 50, y: 0}
   m_SizeDelta: {x: 29.3, y: 54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8423226949960107320
@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 170, y: 135}
+  m_AnchoredPosition: {x: 170, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5841530416704033527
@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 1964560410569232910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 60, y: -45, z: 0}
+  m_LocalPosition: {x: -390, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 2563675061639450961}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150, y: 30, z: 0}
+  m_LocalPosition: {x: 50, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -313,7 +313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 130, y: 210}
+  m_AnchoredPosition: {x: 130, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7852162168210669255
@@ -449,7 +449,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -40, y: 300}
+  m_AnchoredPosition: {x: -40, y: 0}
   m_SizeDelta: {x: 47.2, y: 60.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1910854972103436899
@@ -524,7 +524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 45, y: 360}
+  m_AnchoredPosition: {x: 45, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5768116804968683474
@@ -660,7 +660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 110, y: 215}
+  m_AnchoredPosition: {x: 110, y: -5}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &469204419869578749
@@ -744,7 +744,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9164740328222600510}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8722856028040474169}
+        m_TargetAssemblyTypeName: S_FeelsCurrencies, Assembly-CSharp
+        m_MethodName: AddAFeels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3663985667016715888
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +769,7 @@ GameObject:
   - component: {fileID: 5314836403570160682}
   - component: {fileID: 1930435501111934387}
   - component: {fileID: 1743874347164284722}
+  - component: {fileID: 8722856028040474169}
   m_Layer: 5
   m_Name: P_UI_Feels
   m_TagString: Untagged
@@ -825,7 +838,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -850,6 +863,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8722856028040474169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3663985667016715888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75ce23ceaa11a545b44f808b81a64d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joyFeels: 0
+  angerFeels: 0
+  fearFeels: 0
+  sadnessFeels: 0
+  jFeelsValue: {fileID: 6857690671251471916}
+  aFeelsValue: {fileID: 7183158506556249585}
+  fFeelsValue: {fileID: 6753317377436964344}
+  sFeelsValue: {fileID: 5455341087392413955}
 --- !u!1 &4112777752067826415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,7 +1053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 70, y: 290}
+  m_AnchoredPosition: {x: 70, y: -5}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8787596517092780553
@@ -1104,7 +1137,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6526670471316810293}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8722856028040474169}
+        m_TargetAssemblyTypeName: S_FeelsCurrencies, Assembly-CSharp
+        m_MethodName: AddFFeels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5881235158136664277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 90, y: 285}
+  m_AnchoredPosition: {x: 90, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2042886288472904071
@@ -1273,7 +1318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -80, y: 375}
+  m_AnchoredPosition: {x: -80, y: 0}
   m_SizeDelta: {x: 40, y: 51.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6188251149609018900
@@ -1339,7 +1384,7 @@ Transform:
   m_GameObject: {fileID: 6995075791701703073}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -360, y: 105, z: 0}
+  m_LocalPosition: {x: -300, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1384,7 +1429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 25, y: 365}
+  m_AnchoredPosition: {x: 25, y: -5}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1530258657577646846
@@ -1468,7 +1513,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9078811632350473117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8722856028040474169}
+        m_TargetAssemblyTypeName: S_FeelsCurrencies, Assembly-CSharp
+        m_MethodName: AddJFeels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7477032626110580492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,13 +1551,13 @@ Transform:
   m_GameObject: {fileID: 7477032626110580492}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -570, y: 180, z: 0}
+  m_LocalPosition: {x: -200, y: 250, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3182703664422102724}
   - {fileID: 4435741001253965881}
   - {fileID: 4957043215154989324}
+  - {fileID: 3182703664422102724}
   m_Father: {fileID: 6111837550121130757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7581262351500233852
@@ -1539,7 +1596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 150, y: 140}
+  m_AnchoredPosition: {x: 150, y: -5}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7401223257293527248
@@ -1623,7 +1680,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2839806847591090151}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8722856028040474169}
+        m_TargetAssemblyTypeName: S_FeelsCurrencies, Assembly-CSharp
+        m_MethodName: AddSFeels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7755490160272972150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,7 +1995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 220}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 46, y: 43.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1625776873263562661

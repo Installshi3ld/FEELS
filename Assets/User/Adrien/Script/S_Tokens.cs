@@ -21,6 +21,7 @@ public class S_Tokens : MonoBehaviour
 
     public void AddToken()
     {
+        print(tokens);
         tokens +=1;
         tokenValue.text = tokens.ToString();
 
@@ -29,7 +30,9 @@ public class S_Tokens : MonoBehaviour
     }
     public void UseToken()
     {
+        print(tokens);
         tokens -= 1 ;
+        
         tokenValue.text = tokens.ToString();
 
        

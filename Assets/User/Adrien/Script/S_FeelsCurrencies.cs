@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using TMPro;
 
-public class S_Feels : MonoBehaviour
+public class S_FeelsCurrencies : MonoBehaviour
 {
     public int joyFeels;
     public int angerFeels;
@@ -46,7 +46,7 @@ public class S_Feels : MonoBehaviour
     public void AddSFeels()
     {
         sadnessFeels += 1;
-        sFeelsValue.text = joyFeels.ToString();
+        sFeelsValue.text = sadnessFeels.ToString();
     }
 
 
