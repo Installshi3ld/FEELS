@@ -25,23 +25,12 @@ public class S_Building : MonoBehaviour
 
     public List<FeelsCost> feelsCostList = new List<FeelsCost>();   
 
-    float RoundToGrid(float valueToRound, float gridSize = 1)
-    {
-        return Mathf.Round(valueToRound / gridSize) * gridSize;
-    }
 
     /// <summary>
     /// This function return a Vector3, the closest one on grid based on Position input
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public Vector3 ClampPositionToGrid(Vector3 position)
-    {
-        float clampedX = RoundToGrid(position.x, Grid.tileSize);
-        float clampedZ = RoundToGrid(position.z, Grid.tileSize);
-
-
-        return new Vector3(clampedX, position.y, clampedZ);
-    }
+    
 
 }
