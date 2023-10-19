@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static S_Building;
 
 public class Grid : MonoBehaviour
 {
@@ -190,6 +191,24 @@ public class Grid : MonoBehaviour
         int zCoord = -(gridsUsageStatement.Count / 2 * tileSize) + y * tileSize;
 
         return new Vector3Int(xCoord, 0, zCoord);
+    }
+    static float RoundToGrid(float valueToRound, float gridSize = 1)
+    {
+        return Mathf.Round(valueToRound / gridSize) * gridSize;
+    }
+
+    /// <summary>
+    /// This function return a Vector3, the closest one on grid based on Position input
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    static public Vector3 ClampPositionToGrid(Vector3 position)
+    {
+        float clampedX = RoundToGrid(position.x, Grid.tileSize);
+        float clampedZ = RoundToGrid(position.z, Grid.tileSize);
+
+
+        return new Vector3(clampedX, position.y, clampedZ);
     }
 
 

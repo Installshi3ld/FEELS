@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.InputManagerEntry;
@@ -14,6 +15,7 @@ public class ConstructionSystem : MonoBehaviour
     public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
     public S_FeelsUI feelsUI;
 
+    Vector3 lastCursorPosition;
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,8 +25,13 @@ public class ConstructionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-            Vector3 positionDuHit = hit.point;
-            
+
+            if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
+            {
+                StartCoroutine(SmoothObjectPositionBetweenVector(objectSpawned, Grid.ClampPositionToGrid(hit.point)));
+                lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
+            }
+
             UnityEngine.Debug.DrawRay(hit.point, hit.normal, Color.blue);
 
         }
@@ -46,7 +53,7 @@ public class ConstructionSystem : MonoBehaviour
         if (objectSpawned != null)
         {
 
-            objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
+            //objectSpawned.transform.position = Grid.ClampPositionToGrid(hit.point);
 
         }
 
@@ -57,6 +64,18 @@ public class ConstructionSystem : MonoBehaviour
             {
                 PlaceBuilding();
             }
+        }
+    }
+
+
+    IEnumerator SmoothObjectPositionBetweenVector(GameObject curObject, Vector3 destination)
+    {
+        float lerpAlpha = 0f;
+        while(lerpAlpha < 1)
+        {
+            curObject.transform.position = Vector3.Lerp(curObject.transform.position, destination, lerpAlpha);
+            yield return new WaitForEndOfFrame();
+            lerpAlpha += 0.0075f;
         }
     }
 
@@ -143,9 +162,8 @@ public class ConstructionSystem : MonoBehaviour
         }
         else
             feelsUI.Info("Need more feels");
-
-
     }
+
 
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
     {
