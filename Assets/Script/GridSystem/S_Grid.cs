@@ -12,6 +12,8 @@ public class Grid : MonoBehaviour
     public int mapSphereArea_def = 60;
     public static int mapSphereArea;
 
+    public GameObject fog;
+
     [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding). ")]
     public int padding_def = 1;
     public static int padding;
@@ -51,7 +53,11 @@ public class Grid : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
+        {
+            fog.transform.localScale = new Vector3 (fog.transform.localScale.x + 20, 45, fog.transform.localScale.z + 20);
             IncreaseMapSphereArea(1);
+        }
+
     }
 
     private void OnDrawGizmos()

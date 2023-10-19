@@ -479,6 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileSize_def: 5
   mapSphereArea_def: 60
+  fog: {fileID: 603580593}
   padding_def: 1
 --- !u!4 &464625814
 Transform:
@@ -555,6 +556,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1069257176}
   m_SourcePrefab: {fileID: 100100000, guid: c644521834a75364e8c1576957ac24c7, type: 3}
+--- !u!1 &603580593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 50eea54952ba85f458143440a02070c4, type: 3}
+  m_PrefabInstance: {fileID: 1475035563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &795916912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -767,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eea54952ba85f458143440a02070c4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 45.178017
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eea54952ba85f458143440a02070c4, type: 3}
       propertyPath: m_LocalScale.z
@@ -811,6 +817,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 50eea54952ba85f458143440a02070c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 50eea54952ba85f458143440a02070c4, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 50eea54952ba85f458143440a02070c4, type: 3}
