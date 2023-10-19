@@ -80,10 +80,12 @@ public class S_CameraController : MonoBehaviour
     private void Update()
     {
 
-        Debug.Log(maxSpeed);
         GetKeyboardMovement(); //Getting inputs
 
-        CheckMouseAtScreenEdge();
+        if (useScreenEdge)
+        {
+            CheckMouseAtScreenEdge();
+        }
 
         UpdateVelocity();
 
@@ -155,7 +157,7 @@ public class S_CameraController : MonoBehaviour
         }
 
         // Adjust maxSpeed based on zoomHeight
-        maxSpeed = 10f + (zoomHeight - minHeight) / (maxHeight - minHeight) * (100f - 10f);
+        maxSpeed = 10f + (zoomHeight - minHeight) / (maxHeight - minHeight) * (100f - 10f); //modify 100 and 10 to change the scales
     }
 
     private void UpdateCameraPosition()
