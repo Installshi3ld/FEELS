@@ -11,15 +11,9 @@ public class NextDay : MonoBehaviour
     public float yellowProbability = 0.75f;
     public float purpleProbability = 1f;
 
-    public float angerIncrease;
-    public float sadIncrease;
-    public float joyIncrease;
-    public float fearIncrease;
+    public float angerIncrease, sadIncrease, joyIncrease, fearIncrease;
 
-    private float angerTemp;
-    private float sadTemp;
-    private float joyTemp;
-    private float fearTemp;
+    private float angerTemp, sadTemp, joyTemp, fearTemp;
 
     public float cycleCount;
 
