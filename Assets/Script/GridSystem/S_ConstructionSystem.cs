@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.InputManagerEntry;
 
 public class ConstructionSystem : MonoBehaviour
 {
@@ -10,8 +12,10 @@ public class ConstructionSystem : MonoBehaviour
     private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
+    public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
+    public S_FeelsUI feelsUI;
 
-
+    Vector3 lastCursorPosition;
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -21,8 +25,13 @@ public class ConstructionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-            Vector3 positionDuHit = hit.point;
-            
+
+            if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
+            {
+                StartCoroutine(SmoothObjectPositionBetweenVector(objectSpawned, Grid.ClampPositionToGrid(hit.point)));
+                lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
+            }
+
             UnityEngine.Debug.DrawRay(hit.point, hit.normal, Color.blue);
 
         }
@@ -34,51 +43,104 @@ public class ConstructionSystem : MonoBehaviour
             if (objectSpawned == null) {
                 objectSpawned = SpawnGameObject(Vector3.zero);
             }
-            
-            
+            else if (objectSpawned != null)
+            {
+                Destroy(objectSpawned);
+            }
         }
         
         //Move object
         if (objectSpawned != null)
         {
-            if(Vector3.Distance(new Vector3(0,0,0), hit.point) <= Grid.mapSphereArea)
-                objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
+
+            //objectSpawned.transform.position = Grid.ClampPositionToGrid(hit.point);
 
         }
 
         //Place Object
         if (Input.GetMouseButtonDown(0))
         {
-            if(objectSpawned != null)
+            if(objectSpawned != null )
             {
                 PlaceBuilding();
             }
         }
     }
 
+
+    IEnumerator SmoothObjectPositionBetweenVector(GameObject curObject, Vector3 destination)
+    {
+        float lerpAlpha = 0f;
+        while(lerpAlpha < 1)
+        {
+            curObject.transform.position = Vector3.Lerp(curObject.transform.position, destination, lerpAlpha);
+            yield return new WaitForEndOfFrame();
+            lerpAlpha += 0.0075f;
+        }
+    }
+
     void PlaceBuilding()
     {
-        List<Vector2Int> objectSpawnTilesUsage = objectSpawned.GetComponent<S_Building>().tilesCoordinate;
-
+        S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
+        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.tilesCoordinate;
+       
         Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
         bool canPlaceBuilding = true;
 
         //Check if Index are on non used tile
         for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
         {
+            //If building is outside 2 dimension list
+            if (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x >= Grid.gridsUsageStatement.Count ||
+                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y >= Grid.gridsUsageStatement.Count ||
+                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y < 0 ||
+                tmpIndexInGrid.x + objectSpawnTilesUsage[i].x < 0)
+            {
+                canPlaceBuilding = false;
+                break;
+            }
+
             //1 -> Tile used 2 -> If outside mapSphereArea 
             if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] 
-                || 
-                Vector3.Distance(Vector3Int.zero, new Vector3Int(Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x) * Grid.tileSize),
-                0,
-                Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.y + objectSpawnTilesUsage[i].y) * Grid.tileSize))) > Grid.mapSphereArea)
+                ||
+                Grid.fogGridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
             {
                 canPlaceBuilding = false;
             }
 
-            //print(Mathf.Abs(0 - (Grid.gridsUsageStatement.Count / 2) * Grid.tileSize + (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x) * Grid.tileSize) > Grid.mapSphereArea);
+        }
 
-            //print(tmpIndexInGrid.x + objectSpawnTilesUsage[i].x);
+        List<int> tmpAmountToRemove = new List<int> { 0, 0, 0, 0 };
+        //Check if enough feel
+        for(int i = 0; i < objectSpawnedBuildingScript.feelsCostList.Count; i++)
+        {
+            switch (objectSpawnedBuildingScript.feelsCostList[i].feelsType)
+            {
+                case S_Building.FeelsType.Joy:
+                    if (!(joyCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+
+                    tmpAmountToRemove[0] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+
+                case S_Building.FeelsType.Anger:
+                    if (!(angerCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+                    tmpAmountToRemove[1] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+
+                case S_Building.FeelsType.Sad:
+                    if (!(sadCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+                    tmpAmountToRemove[2] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+
+                case S_Building.FeelsType.Fear:
+                    if (!(fearCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
+                        canPlaceBuilding = false;
+                    tmpAmountToRemove[3] = objectSpawnedBuildingScript.feelsCostList[i].cost;
+                    break;
+            }
         }
 
         if (canPlaceBuilding)
@@ -87,10 +149,21 @@ public class ConstructionSystem : MonoBehaviour
             {
                 Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
             }
+
+            joyCurrency.amount -= tmpAmountToRemove[0];
+            angerCurrency.amount -= tmpAmountToRemove[1];
+            sadCurrency.amount -= tmpAmountToRemove[2];
+            fearCurrency.amount -= tmpAmountToRemove[3];
+            feelsUI.RefreshUI();
+
+            consciousTreeToken.amount += 1;
+
             objectSpawned = null;
         }
-        
+        else
+            feelsUI.Info("Need more feels");
     }
+
 
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
     {

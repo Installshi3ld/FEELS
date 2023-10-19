@@ -48,7 +48,7 @@ public class S_CustomInspector : Editor
     }
     public override void OnInspectorGUI()
     {
-        //DrawDefaultInspector();
+        DrawDefaultInspector();
 
         // Table of check box
         EditorGUILayout.BeginHorizontal(GUILayout.Width(50));
