@@ -199,7 +199,7 @@ public class S_CameraController : MonoBehaviour
         targetPosition += moveDirection;
     }
 
-    private void DragCamera()
+    private void DragCamera() // DEPENDS ON MOUSE SENSITIVITY. CAN BE VERY AGRESSIVE IF DPI TOO HIGH
     {
         if(!Mouse.current.rightButton.isPressed)
         {
