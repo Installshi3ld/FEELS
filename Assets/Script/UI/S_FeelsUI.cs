@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using TMPro;
 using Unity.VisualScripting;
-using static UnityEditor.Rendering.ShadowCascadeGUI;
 
 public class S_FeelsUI : MonoBehaviour
 {

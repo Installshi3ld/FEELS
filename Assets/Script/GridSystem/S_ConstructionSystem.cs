@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEngine.InputManagerEntry;
 
 public class ConstructionSystem : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class ConstructionSystem : MonoBehaviour
 
             if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
-                StartCoroutine(SmoothObjectPositionBetweenVector(objectSpawned, Grid.ClampPositionToGrid(hit.point)));
+                StartCoroutine(objectSpawned.GetComponent<S_Building>().SmoothObjectPositionBetweenVector(Grid.ClampPositionToGrid(hit.point)));
                 lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
             }
 
@@ -69,22 +68,6 @@ public class ConstructionSystem : MonoBehaviour
             {
                 PlaceBuilding();
             }
-        }
-    }
-
-
-    IEnumerator SmoothObjectPositionBetweenVector(GameObject curObject, Vector3 destination)
-    {
-        float lerpAlpha = 0f;
-        while(lerpAlpha < 1)
-        {
-            if(objectSpawned != null)
-            {
-                curObject.transform.position = Vector3.Lerp(curObject.transform.position, destination, lerpAlpha);
-            }
-            else { break; }
-            yield return new WaitForEndOfFrame();
-            lerpAlpha += 0.0075f;
         }
     }
 
