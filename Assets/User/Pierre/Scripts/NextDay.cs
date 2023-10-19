@@ -23,7 +23,7 @@ public class NextDay : MonoBehaviour
 
     public float cycleCount;
 
-    public float TEMP;
+    private float TEMP;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +59,7 @@ public class NextDay : MonoBehaviour
 
             Variables.ActiveScene.Set("anger", angerTemp);
 
-            Debug.Log("Stepped in shit");
+            Debug.Log("Stepped in shit (+15 anger).");
 
             return (float)Variables.ActiveScene.Get("anger");
         }
@@ -71,7 +71,7 @@ public class NextDay : MonoBehaviour
 
             Variables.ActiveScene.Set("sad", sadTemp);
 
-            Debug.Log("Your mom died");
+            Debug.Log("Your mom died (+15 sad).");
 
             return (float)Variables.ActiveScene.Get("sad");
         }
@@ -83,7 +83,7 @@ public class NextDay : MonoBehaviour
 
             Variables.ActiveScene.Set("joy", joyTemp);
 
-            Debug.Log("Woooooooh we ballin!!!");
+            Debug.Log("Woooooooh we ballin!!! (+15 joy)");
 
             return (float)Variables.ActiveScene.Get("joy");
         }
@@ -95,7 +95,7 @@ public class NextDay : MonoBehaviour
 
             Variables.ActiveScene.Set("fear", fearTemp);
 
-            Debug.Log("I am going to die");
+            Debug.Log("I am going to die (+15 fear).");
 
             return (float)Variables.ActiveScene.Get("fear");
         }
