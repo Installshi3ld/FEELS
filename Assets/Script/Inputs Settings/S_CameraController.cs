@@ -44,6 +44,8 @@ public class S_CameraController : MonoBehaviour
     private Vector3 horizontalVelocity;
     private Vector3 lastPosition;
 
+    private Vector3 dragStartPosition;
+
     Vector3 startDrag;
 
     private void Awake()
@@ -86,6 +88,8 @@ public class S_CameraController : MonoBehaviour
         {
             CheckMouseAtScreenEdge();
         }
+
+        DragCamera();
 
         UpdateVelocity();
 
@@ -194,4 +198,30 @@ public class S_CameraController : MonoBehaviour
 
         targetPosition += moveDirection;
     }
+
+    private void DragCamera()
+    {
+        if(!Mouse.current.rightButton.isPressed)
+        {
+            return;
+        }
+
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if(plane.Raycast(ray, out float distance))
+        {
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                startDrag = ray.GetPoint(distance);
+            }
+            else
+            {
+                targetPosition += startDrag - ray.GetPoint(distance);
+            }
+        }
+    }
+
+
+
 }
