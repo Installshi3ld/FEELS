@@ -9,6 +9,7 @@ using static UnityEngine.InputManagerEntry;
 public class ConstructionSystem : MonoBehaviour
 {
     public GameObject objectToSpawn;
+    public GameObject objectToSpawn2;
     private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
@@ -41,20 +42,24 @@ public class ConstructionSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (objectSpawned == null) {
-                objectSpawned = SpawnGameObject(Vector3.zero);
+                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn);
             }
             else if (objectSpawned != null)
             {
                 Destroy(objectSpawned);
             }
         }
-        
-        //Move object
-        if (objectSpawned != null)
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-
-            //objectSpawned.transform.position = Grid.ClampPositionToGrid(hit.point);
-
+            if (objectSpawned == null)
+            {
+                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn2);
+            }
+            else if (objectSpawned != null)
+            {
+                Destroy(objectSpawned);
+            }
         }
 
         //Place Object
@@ -73,7 +78,11 @@ public class ConstructionSystem : MonoBehaviour
         float lerpAlpha = 0f;
         while(lerpAlpha < 1)
         {
-            curObject.transform.position = Vector3.Lerp(curObject.transform.position, destination, lerpAlpha);
+            if(objectSpawned != null)
+            {
+                curObject.transform.position = Vector3.Lerp(curObject.transform.position, destination, lerpAlpha);
+            }
+            else { break; }
             yield return new WaitForEndOfFrame();
             lerpAlpha += 0.0075f;
         }
@@ -182,11 +191,11 @@ public class ConstructionSystem : MonoBehaviour
     }
 
 
-    GameObject SpawnGameObject(Vector3 spawnPoint)
+    GameObject SpawnGameObject(Vector3 spawnPoint, GameObject gameObject = null)
     {
         if (objectToSpawn != null && spawnPoint != null)
         {
-            GameObject tmp = Instantiate(objectToSpawn, spawnPoint, Quaternion.identity);
+            GameObject tmp = Instantiate(gameObject, spawnPoint, Quaternion.identity);
             return tmp;
 
         }
