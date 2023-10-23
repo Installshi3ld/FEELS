@@ -58,6 +58,11 @@ public class Grid : MonoBehaviour
             IncreaseMapSphereArea(1);
         }
 
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            GetRandomTileAroundOtherOne(GetRandomTileInGrid(), 2);
+        }
+
     }
 
     private void OnDrawGizmos()
@@ -174,7 +179,7 @@ public class Grid : MonoBehaviour
     }
 
     
-    Vector2Int GetRandomTileInGrid()
+    static Vector2Int GetRandomTileInGrid()
     {
         List<Vector2Int> tmpIndex = new List<Vector2Int>();
 
@@ -191,7 +196,35 @@ public class Grid : MonoBehaviour
         return tmpIndex[index];
     }
 
-    Vector3Int GetPositionBasedOnIndex(int x, int y)
+    static Vector2Int GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius)
+    {
+        List<Vector2Int> tmpAllCoordinateAroundBase = new List<Vector2Int>();
+        List<Vector2Int> tmpCoordinateFree = new List<Vector2Int>();
+
+        for(int i = 0; i < radius * 2 + 1; i++)
+        {
+            for (int j = 0; j < radius * 2 + 1; j++)
+            {
+                tmpAllCoordinateAroundBase.Add(BaseCoordinate + new Vector2Int(i - radius, j - radius));
+            }
+        }
+
+        foreach(Vector2Int coordinate in tmpAllCoordinateAroundBase)
+        {
+            if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y)) 
+                && !gridsUsageStatement[coordinate.x][coordinate.y]
+                && !fogGridsUsageStatement[coordinate.x][coordinate.y])
+            {
+                tmpCoordinateFree.Add(coordinate);
+            }
+        }
+
+        int tmpRandomIndex = Random.Range(0, tmpCoordinateFree.Count - 1);
+        
+        return tmpCoordinateFree[tmpRandomIndex];
+    }
+
+    static private Vector3Int GetPositionBasedOnIndex(int x, int y)
     {
         int xCoord = -(gridsUsageStatement.Count / 2 * tileSize) + x * tileSize;
         int zCoord = -(gridsUsageStatement.Count / 2 * tileSize) + y * tileSize;
