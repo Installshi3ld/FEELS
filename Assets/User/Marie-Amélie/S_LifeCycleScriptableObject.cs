@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Scriptable Object", menuName = "Life Cycle Event")]
-public class S_LifeCycle : ScriptableObject
+public class S_LifeCycleScriptableObject : ScriptableObject
 {
     // Algo si j'ai besoin d'utiliser à ce moment là je check si il existe. Si non j'appelle la fonction qui le crée.
 
 
     public string description;
+
     [SerializeField]
     private List<S_EmotionScriptableObject> emotionsToIncrease = new List<S_EmotionScriptableObject>();
     private List<int> howMuchDecrease = new List<int>();
-    
-    
+
+    [SerializeField]
     private List<S_EmotionScriptableObject> emotionsToDecrease = new List<S_EmotionScriptableObject>();
     private List<int> howMuchIncrease = new List<int>();
 
@@ -40,7 +42,7 @@ public class S_LifeCycle : ScriptableObject
         }
     }
 
-    public Dictionary<S_EmotionScriptableObject, int> ToDictionnary(List<S_EmotionScriptableObject> keys, List<int> values)
+    public Dictionary<S_EmotionScriptableObject, int> ToDictionary(List<S_EmotionScriptableObject> keys, List<int> values)
     {
         Dictionary<S_EmotionScriptableObject, int> dictionary = new Dictionary<S_EmotionScriptableObject, int>();
 
@@ -54,5 +56,17 @@ public class S_LifeCycle : ScriptableObject
         }
 
         return dictionary;
+    }
+
+    public void applyLifeCycles()
+    {
+        if(dictEmotionsToDecrease != null && dictEmotionsToIncrease != null)
+        {
+            dictEmotionsToIncrease = ToDictionary(emotionsToIncrease, howMuchIncrease);
+            dictEmotionsToDecrease = ToDictionary(emotionsToDecrease, howMuchDecrease);
+        }
+
+        LifeCycleEffectIncrease(dictEmotionsToIncrease);
+        LifeCycleEffectDecrease(dictEmotionsToDecrease);
     }
 }
