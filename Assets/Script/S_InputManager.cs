@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class S_InputManager : MonoBehaviour
 {
+    public GameObject LifeExperience;
     public UnityEvent ChangeTimeScale;
 
     // Update is called once per frame
@@ -14,5 +15,11 @@ public class S_InputManager : MonoBehaviour
         {
             ChangeTimeScale.Invoke();
         }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            GameObject.Instantiate(LifeExperience, new Vector3(0,-500, 0), Quaternion.identity) ;
+        }
     }
+
+    
 }

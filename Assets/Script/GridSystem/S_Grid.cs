@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,11 +57,6 @@ public class Grid : MonoBehaviour
         {
             fog.transform.localScale = new Vector3 (fog.transform.localScale.x + 20, 45, fog.transform.localScale.z + 20);
             IncreaseMapSphereArea(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            GetRandomTileAroundOtherOne(GetRandomTileInGrid(), 2);
         }
 
     }
@@ -179,7 +175,7 @@ public class Grid : MonoBehaviour
     }
 
     
-    static Vector2Int GetRandomTileInGrid()
+    static public Vector3 GetRandomTileInGrid()
     {
         List<Vector2Int> tmpIndex = new List<Vector2Int>();
 
@@ -191,12 +187,13 @@ public class Grid : MonoBehaviour
                     tmpIndex.Add(new Vector2Int(i, j));
             }
         }
-        int index = Random.Range(0, tmpIndex.Count);
+        int index = UnityEngine.Random.Range(0, tmpIndex.Count);
+        Vector3Int tmpCoordinate = GetPositionBasedOnIndex(tmpIndex[index].x, tmpIndex[index].y);
 
-        return tmpIndex[index];
+        return tmpCoordinate;
     }
 
-    static Vector2Int GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius)
+    static public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius)
     {
         List<Vector2Int> tmpAllCoordinateAroundBase = new List<Vector2Int>();
         List<Vector2Int> tmpCoordinateFree = new List<Vector2Int>();
@@ -211,17 +208,20 @@ public class Grid : MonoBehaviour
 
         foreach(Vector2Int coordinate in tmpAllCoordinateAroundBase)
         {
-            if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y)) 
-                && !gridsUsageStatement[coordinate.x][coordinate.y]
-                && !fogGridsUsageStatement[coordinate.x][coordinate.y])
-            {
-                tmpCoordinateFree.Add(coordinate);
-            }
+            if (coordinate.x >= 0 && coordinate.x < gridsUsageStatement.Count && coordinate.y >= 0 && coordinate.y < gridsUsageStatement.Count)
+                if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y)) 
+                    && !gridsUsageStatement[coordinate.x][coordinate.y]
+                    && !fogGridsUsageStatement[coordinate.x][coordinate.y])
+                {
+                    tmpCoordinateFree.Add(coordinate);
+                }
         }
 
-        int tmpRandomIndex = Random.Range(0, tmpCoordinateFree.Count - 1);
-        
-        return tmpCoordinateFree[tmpRandomIndex];
+        int tmpRandomIndex = UnityEngine.Random.Range(0, tmpCoordinateFree.Count - 1);
+
+        Vector3 tmpCoordinate = GetPositionBasedOnIndex(tmpCoordinateFree[tmpRandomIndex].x, tmpCoordinateFree[tmpRandomIndex].y);
+
+        return tmpCoordinate;
     }
 
     static private Vector3Int GetPositionBasedOnIndex(int x, int y)
@@ -231,6 +231,17 @@ public class Grid : MonoBehaviour
 
         return new Vector3Int(xCoord, 0, zCoord);
     }
+
+    static public Vector2Int getIndexbasedOnPosition(Vector3 position)
+    {
+        int xCoord = gridsUsageStatement.Count / 2 + (int)position.x / tileSize;
+        int zCoord = gridsUsageStatement.Count / 2 + (int)position.z / tileSize; ;
+
+        return new Vector2Int(xCoord, zCoord);
+    }
+
+
+
     static float RoundToGrid(float valueToRound, float gridSize = 1)
     {
         return Mathf.Round(valueToRound / gridSize) * gridSize;

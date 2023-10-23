@@ -15,6 +15,10 @@ public class LifeExperience : MonoBehaviour
     public float spawnDelay;
 
 
+    private void Awake()
+    {
+        this.transform.position = Grid.GetRandomTileInGrid();
+    }
     public void Start()
     {
         PanelButton.enabled = false;
