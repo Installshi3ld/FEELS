@@ -139,6 +139,15 @@ public class Grid : MonoBehaviour
         SetFogGridUsageStatement();
     }
 
+    static public void SetTileUsed(int x, int y)
+    {
+        gridsUsageStatement[x][y] = true;
+    }
+    static public void RemoveTileUsed(int x, int y)
+    {
+        gridsUsageStatement[x][y] = false;
+    }
+
     List<List<bool>> Create2DimensionalBoolList(int size)
     {
         List<List<bool>> dimensionalList = new List<List<bool>>();
@@ -217,10 +226,13 @@ public class Grid : MonoBehaviour
                 }
         }
 
+        if (tmpCoordinateFree.Count <= 0)
+            return Vector3.zero;
+
         int tmpRandomIndex = UnityEngine.Random.Range(0, tmpCoordinateFree.Count - 1);
 
         Vector3 tmpCoordinate = GetPositionBasedOnIndex(tmpCoordinateFree[tmpRandomIndex].x, tmpCoordinateFree[tmpRandomIndex].y);
-
+        print("index random" + tmpRandomIndex);
         return tmpCoordinate;
     }
 
