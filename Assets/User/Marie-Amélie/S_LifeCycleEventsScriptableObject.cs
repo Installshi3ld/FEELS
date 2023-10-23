@@ -4,21 +4,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Scriptable Object", menuName = "Life Cycle Event")]
-public class S_LifeCycleScriptableObject : ScriptableObject
+public class S_LifeCycleEventsScriptableObject : ScriptableObject
 {
     // Algo si j'ai besoin d'utiliser à ce moment là je check si il existe. Si non j'appelle la fonction qui le crée.
 
 
     public string description;
 
-    [SerializeField]
+    [SerializeField] //INCREASE
     private List<S_EmotionScriptableObject> emotionsToIncrease = new List<S_EmotionScriptableObject>();
-    private List<int> howMuchDecrease = new List<int>();
-
     [SerializeField]
-    private List<S_EmotionScriptableObject> emotionsToDecrease = new List<S_EmotionScriptableObject>();
     private List<int> howMuchIncrease = new List<int>();
 
+    [SerializeField] //DECREASE
+    private List<S_EmotionScriptableObject> emotionsToDecrease = new List<S_EmotionScriptableObject>();
+    [SerializeField]
+    private List<int> howMuchDecrease = new List<int>();
+    
+    // DICTIONARIES
     public Dictionary<S_EmotionScriptableObject, int> dictEmotionsToIncrease = new Dictionary<S_EmotionScriptableObject, int>();
     public Dictionary<S_EmotionScriptableObject, int> dictEmotionsToDecrease = new Dictionary<S_EmotionScriptableObject, int>();
 
