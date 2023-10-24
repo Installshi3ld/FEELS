@@ -8,7 +8,6 @@ public class S_LifeCycleEventsScriptableObject : ScriptableObject
 {
     // Algo si j'ai besoin d'utiliser à ce moment là je check si il existe. Si non j'appelle la fonction qui le crée.
 
-
     public string description;
 
     [SerializeField] //INCREASE

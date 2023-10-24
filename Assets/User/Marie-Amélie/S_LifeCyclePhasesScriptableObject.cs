@@ -5,10 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Scriptable Object", menuName = "Life Cycle Phase")]
 public class S_LifeCyclePhasesScriptableObject : ScriptableObject
 {
-    [SerializeField]
-    private string nameOfCycle;
+    public string nameOfPhase;
 
-    public float cycleDuration;
+    public float phaseDuration;
 
     public List<S_LifeCycleEventsScriptableObject> events = new List<S_LifeCycleEventsScriptableObject>();
 }

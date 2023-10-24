@@ -510,9 +510,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c2ebccf050a8b4086508149423e45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cycles:
+  phases:
+  - {fileID: 11400000, guid: ed15caa0c7720c546be93f8e6f15f111, type: 2}
   - {fileID: 11400000, guid: ccb56fb47d6f6234786ed8e39a1a56ab, type: 2}
-  secondsBetweenLifeCycles: 10
+  - {fileID: 11400000, guid: 33813ceedaca3e44ab974880216eb97e, type: 2}
+  - {fileID: 11400000, guid: c410a1142019f54489968095696225d3, type: 2}
+  secondsBetweenLNewPhase: 0
+  secondsBetweenNewEvent: 0
 --- !u!4 &1036081283
 Transform:
   m_ObjectHideFlags: 0
