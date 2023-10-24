@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Scriptable Object", menuName = "Life Cycle Event")]
-public class S_LifeCycleEventsScriptableObject : ScriptableObject
+[CreateAssetMenu(fileName = "Scriptable Object", menuName = "Event")]
+public class S_EventScriptableObject : ScriptableObject
 {
     // Algo si j'ai besoin d'utiliser à ce moment là je check si il existe. Si non j'appelle la fonction qui le crée.
 
@@ -24,7 +24,7 @@ public class S_LifeCycleEventsScriptableObject : ScriptableObject
     public Dictionary<S_EmotionScriptableObject, int> dictEmotionsToIncrease = new Dictionary<S_EmotionScriptableObject, int>();
     public Dictionary<S_EmotionScriptableObject, int> dictEmotionsToDecrease = new Dictionary<S_EmotionScriptableObject, int>();
 
-    public void LifeCycleEffectIncrease(Dictionary<S_EmotionScriptableObject, int> emotionsToActOn)
+    public void EventEffectIncrease(Dictionary<S_EmotionScriptableObject, int> emotionsToActOn)
     {
         foreach (var emotion in emotionsToActOn)
         {
@@ -34,7 +34,7 @@ public class S_LifeCycleEventsScriptableObject : ScriptableObject
         }
     }
 
-    public void LifeCycleEffectDecrease(Dictionary<S_EmotionScriptableObject, int> emotionsToActOn)
+    public void EventEffectDecrease(Dictionary<S_EmotionScriptableObject, int> emotionsToActOn)
     {
         foreach (var emotion in emotionsToActOn)
         {
@@ -60,15 +60,17 @@ public class S_LifeCycleEventsScriptableObject : ScriptableObject
         return dictionary;
     }
 
-    public void applyLifeCycles()
+    public void applyEvent()
     {
+
+        Debug.Log("apllying + " + description);
         if(dictEmotionsToDecrease != null && dictEmotionsToIncrease != null)
         {
             dictEmotionsToIncrease = ToDictionary(emotionsToIncrease, howMuchIncrease);
             dictEmotionsToDecrease = ToDictionary(emotionsToDecrease, howMuchDecrease);
         }
 
-        LifeCycleEffectIncrease(dictEmotionsToIncrease);
-        LifeCycleEffectDecrease(dictEmotionsToDecrease);
+        EventEffectIncrease(dictEmotionsToIncrease);
+        EventEffectDecrease(dictEmotionsToDecrease);
     }
 }

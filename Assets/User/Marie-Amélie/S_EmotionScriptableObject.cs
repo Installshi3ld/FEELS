@@ -40,7 +40,7 @@ public class S_EmotionScriptableObject : ScriptableObject
     }
     private void OnEnable()
     {
-        EmotionAmount = 0;
+        EmotionAmount = 50;
 
         if (emotionAmountChangeEvent == null)
         {
