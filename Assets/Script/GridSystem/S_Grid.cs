@@ -184,20 +184,50 @@ public class Grid : MonoBehaviour
     }
 
     
-    static public Vector3 GetRandomTileInGrid()
+    static public Vector3 GetRandomTileInGrid(List<Vector2Int> sizeOfBuilding = null)
     {
+        if (sizeOfBuilding.Count == 0)
+            sizeOfBuilding.Add(Vector2Int.zero);
+
+
         List<Vector2Int> tmpIndex = new List<Vector2Int>();
 
         for(int i = 0; i < gridsUsageStatement.Count; i++)
         {
             for( int j = 0; j < gridsUsageStatement.Count; j++)
             {
-                if (!gridsUsageStatement[i][j] && !fogGridsUsageStatement[i][j])
+                bool isEnoughSpace = true;
+
+                //Check if enough space for building
+                for(int size = 0; size < sizeOfBuilding.Count; size++)
+                {
+                    if (i + sizeOfBuilding[size].x < 0 || i + sizeOfBuilding[size].x > gridsUsageStatement.Count - 1
+                        || j + sizeOfBuilding[size].y < 0 || j + sizeOfBuilding[size].y > gridsUsageStatement.Count - 1)
+                    {
+                        isEnoughSpace = false;
+                        break;
+                    }
+
+                    if (gridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y] || fogGridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y])
+                    {
+                        isEnoughSpace = false;
+                        break;
+                    }
+                        
+                }
+
+                if(isEnoughSpace)
                     tmpIndex.Add(new Vector2Int(i, j));
             }
         }
         int index = UnityEngine.Random.Range(0, tmpIndex.Count);
-        Vector3Int tmpCoordinate = GetPositionBasedOnIndex(tmpIndex[index].x, tmpIndex[index].y);
+
+        Vector3Int tmpCoordinate;
+        if (tmpIndex.Count == 0)
+            tmpCoordinate = new Vector3Int(0, -1000, 0);
+        else
+            tmpCoordinate = GetPositionBasedOnIndex(tmpIndex[index].x, tmpIndex[index].y);
+        
 
         return tmpCoordinate;
     }

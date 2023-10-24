@@ -26,16 +26,17 @@ public class S_Building : MonoBehaviour
     public IEnumerator SmoothObjectPositionBetweenVector(Vector3 destination)
     {
         float lerpAlpha = 0f;
-        while (lerpAlpha < 1)
+        while (lerpAlpha < 1 && this != null)
         {
             this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
-            yield return new WaitForEndOfFrame();
+            
             lerpAlpha += 0.0075f;
             if(Vector3.Distance(this.transform.position, destination) < 3)
             {
                 this.transform.position = destination;
                 break;
             }
+            yield return new WaitForEndOfFrame();
         }
 
     }

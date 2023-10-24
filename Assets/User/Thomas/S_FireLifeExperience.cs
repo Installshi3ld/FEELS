@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Principal;
+using Unity.Android.Gradle;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class S_FireLifeExperience : MonoBehaviour
@@ -8,19 +10,50 @@ public class S_FireLifeExperience : MonoBehaviour
 
     public GameObject smallFire;
 
+    public GameObject wonderBuilding;
+
     List<GameObject> allFire = new List<GameObject>();
     List<Vector2Int> gridUsage = new List<Vector2Int>();
 
     private void Start()
     {
-        this.transform.position = Grid.GetRandomTileInGrid();
-        StartCoroutine(FlamePropagation());
+        S_Building building = wonderBuilding.GetComponent<S_Building>();
+        this.transform.position = Grid.GetRandomTileInGrid(building.tilesCoordinate) + new Vector3(0, 50, 0);
+
+        if (this.transform.position.y <= -500)
+            Destroy(this);
+
         
         Vector2Int tmpIndex = Grid.getIndexbasedOnPosition(this.transform.position);
         gridUsage.Add(tmpIndex);
+
         Grid.SetTileUsed(tmpIndex.x, tmpIndex.y);
+        foreach (Vector2Int element in building.tilesCoordinate)
+        {
+            Grid.SetTileUsed(tmpIndex.x + element.x, tmpIndex.y + element.y);
+        }
+        
     }
-    
+
+    bool isFlamePropagation = false;
+    private void Update()
+    {
+        if(this.transform.position.y > 0)
+        {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 10f * Time.deltaTime, this.transform.position.z);
+        }
+        else if (!isFlamePropagation)
+        {
+            StartCoroutine(FlamePropagation());
+            isFlamePropagation =true;
+        }
+    }
+
+    IEnumerator SpawnWonder()
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+    }
 
     IEnumerator FlamePropagation()
     {
@@ -44,7 +77,9 @@ public class S_FireLifeExperience : MonoBehaviour
 
     private void OnDestroy()
     {
-        foreach(Vector2Int element in gridUsage)
+        SpawnWonder();
+        
+        foreach (Vector2Int element in gridUsage)
         {
             Grid.RemoveTileUsed(element.x, element.y);
         }
@@ -53,4 +88,6 @@ public class S_FireLifeExperience : MonoBehaviour
             Destroy(Object);
         }
     }
+
+
 }

@@ -7,6 +7,9 @@ public class S_InputManager : MonoBehaviour
 {
     public GameObject LifeExperienceToSpawn;
     public UnityEvent ChangeTimeScale;
+
+    public UnityEvent SpawnFireLifeExperience;
+    public UnityEvent DestroyFireLifeExperience;
     
     List<GameObject> LifeExperienceList = new List<GameObject>();
 
@@ -19,14 +22,11 @@ public class S_InputManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            LifeExperienceList.Add(GameObject.Instantiate(LifeExperienceToSpawn, new Vector3(0,-500, 0), Quaternion.identity));
+            SpawnFireLifeExperience.Invoke();
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            foreach (GameObject lifeExperience in LifeExperienceList)
-            {
-                Destroy(lifeExperience);
-            }
+            DestroyFireLifeExperience.Invoke();
         }
     }
 
