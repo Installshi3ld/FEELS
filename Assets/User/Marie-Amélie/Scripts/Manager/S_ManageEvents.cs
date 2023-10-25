@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,40 +9,41 @@ public class S_ManageEvents : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
+    private List<S_PhaseScriptableObject> phasesList = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
     private float secondsBetweenNewEvent;
 
+    [SerializeField]
+    private S_CurrentPhase currentPhase;
     private int currentPhaseIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentPhaseIndex = 0;
-        StartCoroutine(UpdateLifePhase());
+        currentPhaseIndex = currentPhase.PhaseIndex;
+        for (int i = 0; i < phases.Count; i++)
+        {
+            phasesList.Add(phases[i].MakeCopy());
+        }
+      
+        //phasesList.AddRange(phases); //Add all phases from phases to currentPoolEvents. So we can delete (removeAt) contained event without removing from editor
+
         StartCoroutine(UpdateEvents());
     }
 
-    private IEnumerator UpdateLifePhase() //sauvegarder déjà le temps écoulé
+    private void ChangeIndex()
     {
-
-        while (true)
+        if(phasesList[currentPhaseIndex].events.Count <= 0)
         {
-            yield return new WaitForSeconds(phases[currentPhaseIndex].phaseDuration);
-
-            if (currentPhaseIndex < phases.Count-1)
-            {
-                currentPhaseIndex++;// en faire un so pour la save
-                Debug.Log(phases[currentPhaseIndex].nameOfPhase);
-            }
-
+            currentPhase.PhaseIndex++;
         }
-        
     }
 
     private IEnumerator UpdateEvents()
     {
         S_EventScriptableObject currentEvent;
+
         while (true)
         {
             currentEvent = ChooseOneEventRandomly();
@@ -49,26 +51,26 @@ public class S_ManageEvents : MonoBehaviour
             if (currentEvent)
             {
                 currentEvent.applyEvent();
-
             }
-            
 
             yield return new WaitForSeconds(secondsBetweenNewEvent);
         }
     }
 
-    private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENTS CONTAINED IN THE CURRENT PHASE
+    private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENT CONTAINED IN THE CURRENT PHASE
     {
-        S_PhaseScriptableObject currentPhase = phases[currentPhaseIndex];
-        Debug.Log(currentPhase.events.Count);
+        Debug.Log("random");
+        S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
+        Debug.Log(currentPhaseObject.events.Count);
+
         S_EventScriptableObject EventToReturn;
 
-        if (currentPhase.events.Count > 0)
+        if (currentPhaseObject.events.Count > 0)
         {
-            int index = Random.Range(0, currentPhase.events.Count - 1);
-            EventToReturn = currentPhase.events[index];
-            currentPhase.events.RemoveAt(index); //The event of one pool can't occur multiple times
-            
+            int index = Random.Range(0, currentPhaseObject.events.Count - 1);
+            EventToReturn = currentPhaseObject.events[index];
+            currentPhaseObject.events.RemoveAt(index); //The event of one pool can't occur multiple times and should be deleted to check 
+            ChangeIndex();
 
             return EventToReturn;
         }

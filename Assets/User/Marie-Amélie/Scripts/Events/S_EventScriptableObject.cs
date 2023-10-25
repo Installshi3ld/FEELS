@@ -63,7 +63,7 @@ public class S_EventScriptableObject : ScriptableObject
     public void applyEvent()
     {
 
-        Debug.Log("apllying + " + description);
+        Debug.Log("applying + " + description);
         if(dictEmotionsToDecrease != null && dictEmotionsToIncrease != null)
         {
             dictEmotionsToIncrease = ToDictionary(emotionsToIncrease, howMuchIncrease);
