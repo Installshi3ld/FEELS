@@ -18,8 +18,9 @@ public class S_LifeExperience : MonoBehaviour
     {
         foreach (GameObject lifeExperience in firelifeExperienceList)
         {
-            Destroy(lifeExperience);
+            lifeExperience.SetActive(false);
         }
+        firelifeExperienceList.Clear();
     }
 
     

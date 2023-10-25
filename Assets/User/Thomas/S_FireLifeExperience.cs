@@ -25,7 +25,6 @@ public class S_FireLifeExperience : MonoBehaviour
 
         
         Vector2Int tmpIndex = Grid.getIndexbasedOnPosition(this.transform.position);
-        gridUsage.Add(tmpIndex);
 
         Grid.SetTileUsed(tmpIndex.x, tmpIndex.y);
         foreach (Vector2Int element in building.tilesCoordinate)
@@ -49,10 +48,10 @@ public class S_FireLifeExperience : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnWonder()
+    void SpawnWonder()
     {
-        yield return new WaitForEndOfFrame();
         GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 
     IEnumerator FlamePropagation()
@@ -74,20 +73,17 @@ public class S_FireLifeExperience : MonoBehaviour
         }
         
     }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
-        SpawnWonder();
-        
         foreach (Vector2Int element in gridUsage)
         {
             Grid.RemoveTileUsed(element.x, element.y);
         }
-        foreach(GameObject Object in allFire)
+        foreach (GameObject Object in allFire)
         {
             Destroy(Object);
         }
+
+        SpawnWonder();
     }
-
-
 }

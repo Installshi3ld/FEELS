@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 606532261}
   - component: {fileID: 606532260}
   - component: {fileID: 606532259}
+  - component: {fileID: 606532262}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -623,6 +624,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  SpawnFireLifeExperience:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 606532262}
+        m_TargetAssemblyTypeName: S_LifeExperience, Assembly-CSharp
+        m_MethodName: AddFireLifeExperience
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DestroyFireLifeExperience:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 606532262}
+        m_TargetAssemblyTypeName: S_LifeExperience, Assembly-CSharp
+        m_MethodName: RemoveFireLifeExperience
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &606532261
 Transform:
   m_ObjectHideFlags: 0
@@ -638,6 +669,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606532262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606532258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443124b3078ada64783629f8d3e6dc3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireLifeExperience: {fileID: 3528067613608458813, guid: 81be68ea40f001a4c8b8167633775ced, type: 3}
+  wonderFireLifeExperience: {fileID: 105918592634555662, guid: f6ed78e8853965e45b2abff59327bce5, type: 3}
 --- !u!1 &620241046 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3499468711291207467, guid: c644521834a75364e8c1576957ac24c7, type: 3}
