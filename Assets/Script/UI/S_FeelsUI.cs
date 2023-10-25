@@ -7,7 +7,6 @@ using Unity.VisualScripting;
 
 public class S_FeelsUI : MonoBehaviour
 {
-    
     public S_Currencies joyFeels, angerFeels, fearFeels, sadnessFeels;
 
     public TMP_Text jFeelsValue, aFeelsValue, fFeelsValue, sFeelsValue, t_Info;
@@ -27,7 +26,7 @@ public class S_FeelsUI : MonoBehaviour
         RefreshUI();
     }
 
-    public void RefreshUI()
+    public static void RefreshUI()
     {
         jFeelsValue.text = joyFeels.amount.ToString();
         aFeelsValue.text = angerFeels.amount.ToString();
