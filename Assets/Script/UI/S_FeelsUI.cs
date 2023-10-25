@@ -17,6 +17,11 @@ public class S_FeelsUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        joyFeels.OnRefreshUi += RefreshUI;
+        angerFeels.OnRefreshUi += RefreshUI;
+        fearFeels.OnRefreshUi += RefreshUI;
+        sadnessFeels.OnRefreshUi += RefreshUI;
+
         RefreshUI();
     }
 
@@ -25,8 +30,8 @@ public class S_FeelsUI : MonoBehaviour
         feels.amount += 1;
         RefreshUI();
     }
-
-    public static void RefreshUI()
+    
+    public void RefreshUI()
     {
         jFeelsValue.text = joyFeels.amount.ToString();
         aFeelsValue.text = angerFeels.amount.ToString();
