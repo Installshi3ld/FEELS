@@ -23,6 +23,32 @@ public class S_Building : MonoBehaviour
         public int cost;
     }
 
+    float lerpAlpha = 0f;
+    public bool isPlaced = false;
+    public Vector3 destination;
+    private void Update()
+    {
+        if (!isPlaced)
+        {
+            this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
+
+            lerpAlpha += 1f * Time.deltaTime * 3;
+            /*
+            if (Vector3.Distance(this.transform.position, destination) < 0.01f)
+            {
+                this.transform.position = destination;
+            }*/
+        }
+    }
+
+    public void SetDestination(Vector3 dest)
+    {
+        destination = dest;
+        if( lerpAlpha > 0.5f )
+            lerpAlpha = 0;
+    }
+
+    /*
     public IEnumerator SmoothObjectPositionBetweenVector(Vector3 destination)
     {
         float lerpAlpha = 0f;
@@ -30,7 +56,7 @@ public class S_Building : MonoBehaviour
         {
             this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
             
-            lerpAlpha += 0.0075f;
+            lerpAlpha += 1f * Time.deltaTime;
             if(Vector3.Distance(this.transform.position, destination) < 3)
             {
                 this.transform.position = destination;
@@ -39,7 +65,7 @@ public class S_Building : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-    }
+    }*/
 
     public List<FeelsCost> feelsCostList = new List<FeelsCost>();   
 

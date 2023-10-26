@@ -28,7 +28,9 @@ public class ConstructionSystem : MonoBehaviour
 
             if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
-                StartCoroutine(objectSpawned.GetComponent<S_Building>().SmoothObjectPositionBetweenVector(Grid.ClampPositionToGrid(hit.point)));
+                //StartCoroutine(objectSpawned.GetComponent<S_Building>().SmoothObjectPositionBetweenVector(Grid.ClampPositionToGrid(hit.point)));
+                objectSpawned.GetComponent<S_Building>().SetDestination(Grid.ClampPositionToGrid(hit.point));
+               
                 lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
             }
 
