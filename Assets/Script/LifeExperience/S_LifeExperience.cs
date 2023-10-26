@@ -5,7 +5,7 @@ using Unity.Android.Gradle;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class S_FireLifeExperience : MonoBehaviour
+public class S_LifeExperience : MonoBehaviour
 {
 
     public GameObject smallFire;
