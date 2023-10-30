@@ -44,6 +44,8 @@ public class S_CameraController : MonoBehaviour
     private Vector3 horizontalVelocity;
     private Vector3 lastPosition;
 
+    private Vector3 dragStartPosition;
+
     Vector3 startDrag;
 
     private void Awake()
@@ -79,9 +81,15 @@ public class S_CameraController : MonoBehaviour
 
     private void Update()
     {
+
         GetKeyboardMovement(); //Getting inputs
 
-        CheckMouseAtScreenEdge();
+        if (useScreenEdge)
+        {
+            CheckMouseAtScreenEdge();
+        }
+
+        DragCamera();
 
         UpdateVelocity();
 
@@ -151,6 +159,9 @@ public class S_CameraController : MonoBehaviour
                 zoomHeight = maxHeight;
             }
         }
+
+        // Adjust maxSpeed based on zoomHeight
+        maxSpeed = 10f + (zoomHeight - minHeight) / (maxHeight - minHeight) * (100f - 10f); //modify 100 and 10 to change the scales
     }
 
     private void UpdateCameraPosition()
@@ -187,4 +198,30 @@ public class S_CameraController : MonoBehaviour
 
         targetPosition += moveDirection;
     }
+
+    private void DragCamera() // DEPENDS ON MOUSE SENSITIVITY. CAN BE VERY AGRESSIVE IF DPI TOO HIGH
+    {
+        if(!Mouse.current.rightButton.isPressed)
+        {
+            return;
+        }
+
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if(plane.Raycast(ray, out float distance))
+        {
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                startDrag = ray.GetPoint(distance);
+            }
+            else
+            {
+                targetPosition += startDrag - ray.GetPoint(distance);
+            }
+        }
+    }
+
+
+
 }
