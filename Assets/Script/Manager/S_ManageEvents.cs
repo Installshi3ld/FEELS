@@ -9,6 +9,7 @@ public class S_ManageEvents : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
+    [SerializeField]
     private List<S_PhaseScriptableObject> phasesList = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
@@ -33,9 +34,14 @@ public class S_ManageEvents : MonoBehaviour
 
     private void ChangeIndex()
     {
+        Debug.Log("trying switch");
+
         if(phasesList[currentPhaseIndex].events.Count <= 0)
         {
             currentPhase.PhaseIndex++;
+            currentPhaseIndex++;
+            Debug.ClearDeveloperConsole();
+            Debug.Log("have switched, the current phase is " +currentPhase.PhaseIndex++);
         }
     }
 
@@ -58,11 +64,13 @@ public class S_ManageEvents : MonoBehaviour
 
     private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENT CONTAINED IN THE CURRENT PHASE
     {
+        phasesList.Add(phases[currentPhaseIndex].MakeCopy());
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
-
         S_EventScriptableObject EventToReturn;
 
-        if (currentPhaseObject.events.Count > 0)
+        Debug.Log("the number of event contained in the current phase is " + currentPhaseObject.events.Count);
+
+        if (currentPhaseObject.events.Count > 0) //ne rentre pas là 
         {
             int index = Random.Range(0, currentPhaseObject.events.Count - 1);
             EventToReturn = currentPhaseObject.events[index];
