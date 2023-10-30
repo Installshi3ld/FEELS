@@ -22,12 +22,11 @@ public class S_ManageEvents : MonoBehaviour
     void Start()
     {
         currentPhaseIndex = currentPhase.PhaseIndex;
+
         for (int i = 0; i < phases.Count; i++)
         {
             phasesList.Add(phases[i].MakeCopy());
         }
-      
-        //phasesList.AddRange(phases); //Add all phases from phases to currentPoolEvents. So we can delete (removeAt) contained event without removing from editor
 
         StartCoroutine(UpdateEvents());
     }
@@ -59,9 +58,7 @@ public class S_ManageEvents : MonoBehaviour
 
     private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENT CONTAINED IN THE CURRENT PHASE
     {
-        Debug.Log("random");
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
-        Debug.Log(currentPhaseObject.events.Count);
 
         S_EventScriptableObject EventToReturn;
 

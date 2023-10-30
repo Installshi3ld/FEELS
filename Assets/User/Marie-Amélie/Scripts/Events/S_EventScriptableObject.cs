@@ -53,7 +53,6 @@ public class S_EventScriptableObject : ScriptableObject
             for (int i = 0; i < keys.Count; i++)
             {
                 dictionary[keys[i]] = values[i];
-                Debug.Log(keys[i]);
             }
         }
 
@@ -62,8 +61,6 @@ public class S_EventScriptableObject : ScriptableObject
 
     public void applyEvent()
     {
-
-        Debug.Log("applying + " + description);
         if(dictEmotionsToDecrease != null && dictEmotionsToIncrease != null)
         {
             dictEmotionsToIncrease = ToDictionary(emotionsToIncrease, howMuchIncrease);
@@ -72,5 +69,32 @@ public class S_EventScriptableObject : ScriptableObject
 
         EventEffectIncrease(dictEmotionsToIncrease);
         EventEffectDecrease(dictEmotionsToDecrease);
+    }
+
+    public S_EventScriptableObject MakeCopy()
+    {
+        S_EventScriptableObject clone = CreateInstance<S_EventScriptableObject>();
+
+        for (int i = 0; i < this.emotionsToIncrease.Count; i++)
+        {
+            clone.emotionsToIncrease.Add(this.emotionsToIncrease[i]);
+        }
+
+        for (int i = 0; i < this.howMuchIncrease.Count; i++)
+        {
+            clone.howMuchIncrease.Add(this.howMuchIncrease[i]);
+        }
+
+        for (int i = 0; i < this.emotionsToDecrease.Count; i++)
+        {
+            clone.emotionsToDecrease.Add(this.emotionsToDecrease[i]);
+        }
+
+        for (int i = 0; i < this.howMuchDecrease.Count; i++)
+        {
+            clone.howMuchDecrease.Add(this.howMuchDecrease[i]);
+        }
+
+        return clone;
     }
 }

@@ -17,12 +17,10 @@ public class S_PhaseScriptableObject : ScriptableObject
 
         S_PhaseScriptableObject clone = CreateInstance<S_PhaseScriptableObject>();
 
-        /*for (int i = 0; i < this.events.Count-1; i++)
+        for (int i = 0; i < this.events.Count; i++)
         {
-            //clone.events[i] = this.events[i].MakeCopy();
-            clone.events[i] = this.events[i];
-        }*/
-
+            clone.events.Add(this.events[i].MakeCopy());
+        }
 
         return clone;
     }

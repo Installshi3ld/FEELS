@@ -57,4 +57,11 @@ public class S_EmotionScriptableObject : ScriptableObject
     {
         EmotionAmount -= amount;
     }
+
+    public S_EmotionScriptableObject MakeCopy()
+    {
+        S_EmotionScriptableObject clone = CreateInstance<S_EmotionScriptableObject>();
+
+        return clone;
+    }
 }
