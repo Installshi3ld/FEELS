@@ -13,7 +13,10 @@ public class S_LifeExperience : MonoBehaviour
 
     List<GameObject> allFire = new List<GameObject>();
     List<Vector2Int> gridUsage = new List<Vector2Int>();
-
+    private void Awake()
+    {
+        wonderBuilding.GetComponent<S_Building>().isPlaced = true;
+    }
     private void Start()
     {
         S_Building building = wonderBuilding.GetComponent<S_Building>();

@@ -7,8 +7,6 @@ public class S_PhaseScriptableObject : ScriptableObject
 {
     public string nameOfPhase;
 
-    public float phaseDuration;
-
     public List<S_EventScriptableObject> events = new List<S_EventScriptableObject>();
 
     public S_PhaseScriptableObject MakeCopy()
