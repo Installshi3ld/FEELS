@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEngine.InputManagerEntry;
 
 public class ConstructionSystem : MonoBehaviour
 {
     public GameObject objectToSpawn;
+    public GameObject objectToSpawn2;
     private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
     public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
     public S_FeelsUI feelsUI;
 
+    Vector3 lastCursorPosition;
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,8 +25,15 @@ public class ConstructionSystem : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
-            Vector3 positionDuHit = hit.point;
-            
+
+            if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
+            {
+                //StartCoroutine(objectSpawned.GetComponent<S_Building>().SmoothObjectPositionBetweenVector(Grid.ClampPositionToGrid(hit.point)));
+                objectSpawned.GetComponent<S_Building>().SetDestination(Grid.ClampPositionToGrid(hit.point));
+               
+                lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
+            }
+
             UnityEngine.Debug.DrawRay(hit.point, hit.normal, Color.blue);
 
         }
@@ -34,20 +43,24 @@ public class ConstructionSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (objectSpawned == null) {
-                objectSpawned = SpawnGameObject(Vector3.zero);
+                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn);
             }
             else if (objectSpawned != null)
             {
                 Destroy(objectSpawned);
             }
         }
-        
-        //Move object
-        if (objectSpawned != null)
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-
-            objectSpawned.transform.position = objectSpawned.GetComponent<S_Building>().ClampPositionToGrid(hit.point);
-
+            if (objectSpawned == null)
+            {
+                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn2);
+            }
+            else if (objectSpawned != null)
+            {
+                Destroy(objectSpawned);
+            }
         }
 
         //Place Object
@@ -143,9 +156,8 @@ public class ConstructionSystem : MonoBehaviour
         }
         else
             feelsUI.Info("Need more feels");
-
-
     }
+
 
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
     {
@@ -164,11 +176,11 @@ public class ConstructionSystem : MonoBehaviour
     }
 
 
-    GameObject SpawnGameObject(Vector3 spawnPoint)
+    GameObject SpawnGameObject(Vector3 spawnPoint, GameObject gameObject = null)
     {
         if (objectToSpawn != null && spawnPoint != null)
         {
-            GameObject tmp = Instantiate(objectToSpawn, spawnPoint, Quaternion.identity);
+            GameObject tmp = Instantiate(gameObject, spawnPoint, Quaternion.identity);
             return tmp;
 
         }

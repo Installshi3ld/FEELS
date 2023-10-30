@@ -11,6 +11,24 @@ public class S_GameFunction : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    private bool isPaused = false;
+    public GameObject PauseMenu;
+    public void SwitchTimeScalePauseResume()
+    {
+        if (Time.timeScale > 0.5)
+        {
+            PauseMenu.SetActive(true);
+            Time.timeScale = 0.0001f;
+        }
+
+        else
+        {
+            PauseMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
+            
+    }
+
     public void QuitGame()
     {
         #if UNITY_EDITOR

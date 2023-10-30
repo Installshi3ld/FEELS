@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using TMPro;
 using Unity.VisualScripting;
-using static UnityEditor.Rendering.ShadowCascadeGUI;
 
 public class S_FeelsUI : MonoBehaviour
 {
-    
     public S_Currencies joyFeels, angerFeels, fearFeels, sadnessFeels;
 
     public TMP_Text jFeelsValue, aFeelsValue, fFeelsValue, sFeelsValue, t_Info;
@@ -19,6 +17,11 @@ public class S_FeelsUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        joyFeels.OnRefreshUi += RefreshUI;
+        angerFeels.OnRefreshUi += RefreshUI;
+        fearFeels.OnRefreshUi += RefreshUI;
+        sadnessFeels.OnRefreshUi += RefreshUI;
+
         RefreshUI();
     }
 
@@ -27,7 +30,7 @@ public class S_FeelsUI : MonoBehaviour
         feels.amount += 1;
         RefreshUI();
     }
-
+    
     public void RefreshUI()
     {
         jFeelsValue.text = joyFeels.amount.ToString();
