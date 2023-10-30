@@ -28,6 +28,18 @@ public class S_GameFunction : MonoBehaviour
         }
             
     }
+    public static void Shuffle<T>(IList<T> ts)
+    {
+        var count = ts.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
+        {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = ts[i];
+            ts[i] = ts[r];
+            ts[r] = tmp;
+        }
+    }
 
     public void QuitGame()
     {
@@ -36,4 +48,5 @@ public class S_GameFunction : MonoBehaviour
         #endif
                 Application.Quit();
     }
+
 }

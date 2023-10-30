@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4125296976078946823}
   - component: {fileID: 7681298102272390696}
   m_Layer: 5
-  m_Name: UI_Panel_Building_01
+  m_Name: UI_Panel_Building_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 993baadde5af1c546829750b2b267bb3, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -119,7 +119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4125296976078946823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1966567443775752587
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +223,7 @@ GameObject:
   - component: {fileID: 7764341601677715266}
   - component: {fileID: 2443184923476052362}
   - component: {fileID: 2600063051243784166}
+  - component: {fileID: 7572987648726266350}
   m_Layer: 5
   m_Name: UI_BuildinPool_Canvas
   m_TagString: Untagged
@@ -259,7 +272,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &2443184923476052362
 MonoBehaviour:
@@ -301,6 +314,28 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7572987648726266350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2869192200963842479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f23ab308a73cee45951679a46bb438c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button:
+  - {fileID: 3521935903518738219}
+  - {fileID: 5365095699230090419}
+  - {fileID: 1906092380285330685}
+  - {fileID: 8962468528449957725}
+  - {fileID: 7681298102272390696}
+  - {fileID: 1974655168472686380}
+  - {fileID: 3949252547507490056}
+  - {fileID: 7487186493077535422}
+  constructionSystem: {fileID: 0}
 --- !u!1 &2978938799333529553
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +349,7 @@ GameObject:
   - component: {fileID: 1412964964243011207}
   - component: {fileID: 7487186493077535422}
   m_Layer: 5
-  m_Name: UI_Panel_Building_04
+  m_Name: UI_Panel_Building_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9964248, b: 0, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -420,7 +455,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1412964964243011207}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3700134039351149586
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +481,7 @@ GameObject:
   - component: {fileID: 2872113187030536255}
   - component: {fileID: 8962468528449957725}
   m_Layer: 5
-  m_Name: UI_Panel_Building_08
+  m_Name: UI_Panel_Building_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,7 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.12585497, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -540,7 +587,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2872113187030536255}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4277578568365655518
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +613,7 @@ GameObject:
   - component: {fileID: 6146651611284084722}
   - component: {fileID: 3949252547507490056}
   m_Layer: 5
-  m_Name: UI_Panel_Building_03
+  m_Name: UI_Panel_Building_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9964248, b: 0, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -660,7 +719,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6146651611284084722}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4949112576403209876
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +1044,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6698113, g: 0.15481488, b: 0.15481488, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -994,7 +1065,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2910518851465412787}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: RefreshPoolBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6702933113165489428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1105,7 @@ RectTransform:
   m_GameObject: {fileID: 6702933113165489428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5464768, y: 0.5464768, z: 0.5464768}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2739825696398030836}
@@ -1032,7 +1115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -125, y: 260}
+  m_AnchoredPosition: {x: -68.1, y: 141.4}
   m_SizeDelta: {x: 250, y: 520}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3429814429597917423
@@ -1086,7 +1169,7 @@ GameObject:
   - component: {fileID: 4423452490492605662}
   - component: {fileID: 3521935903518738219}
   m_Layer: 5
-  m_Name: UI_Panel_Building_05
+  m_Name: UI_Panel_Building_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1139,8 +1222,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 72dea623d3a23684e9bc0b82ad4c75b5, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1192,7 +1275,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4423452490492605662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8483981798864593939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,7 +1301,7 @@ GameObject:
   - component: {fileID: 5177861478535942846}
   - component: {fileID: 5365095699230090419}
   m_Layer: 5
-  m_Name: UI_Panel_Building_06
+  m_Name: UI_Panel_Building_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1252,7 +1347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.12585497, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1312,7 +1407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5177861478535942846}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8538362687249527411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1433,7 @@ GameObject:
   - component: {fileID: 2394294196746085167}
   - component: {fileID: 1906092380285330685}
   m_Layer: 5
-  m_Name: UI_Panel_Building_07
+  m_Name: UI_Panel_Building_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1372,7 +1479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.12585497, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1432,7 +1539,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2394294196746085167}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8779552397227779236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1565,7 @@ GameObject:
   - component: {fileID: 8922717155431167873}
   - component: {fileID: 1974655168472686380}
   m_Layer: 5
-  m_Name: UI_Panel_Building_02
+  m_Name: UI_Panel_Building_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1492,7 +1611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9964248, b: 0, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1552,4 +1671,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8922717155431167873}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7572987648726266350}
+        m_TargetAssemblyTypeName: S_BuildingPool, Assembly-CSharp
+        m_MethodName: SpawnBuilding
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

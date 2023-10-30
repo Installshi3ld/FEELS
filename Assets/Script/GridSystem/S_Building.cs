@@ -7,6 +7,9 @@ public class S_Building : MonoBehaviour
     [Tooltip("Consider X Y as X Z \n The root is always 0, 0 (Be sure to add it) \n Then add tile next to it, each one \n For example a T form will be :\n - X:0 Y:0\n - X:-1 Y:0\n - X:1 Y:0\n - X:0 Y:-1")]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
 
+    public int tier = 0;
+    public float probabilityToSpawnInPool = 100f;
+    public Sprite BuildingImage;
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
@@ -28,6 +31,7 @@ public class S_Building : MonoBehaviour
     }
 
     float lerpAlpha = 0f;
+    [System.NonSerialized]
     public bool isPlaced = false;
     public Vector3 destination;
     private void Update()
