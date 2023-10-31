@@ -159,8 +159,8 @@ MonoBehaviour:
   tier: 1
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: 993baadde5af1c546829750b2b267bb3, type: 3}
-  isPlaced: 0
-  destination: {x: 0, y: 0, z: 0}
+  FeelType: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+  price: 5
   feelsCostList:
   - feelsType: 2
     cost: 5
@@ -179,8 +179,6 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 20
-  feelCost: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-  price: 0
 --- !u!1 &8654142187429754817
 GameObject:
   m_ObjectHideFlags: 0

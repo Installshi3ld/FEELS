@@ -14,17 +14,12 @@ public class S_BuildingManager : MonoBehaviour
     [SerializeField]
     private int increaseOrDecreaseAmount;
 
-    [SerializeField]
-    public S_Currencies feelCost;
-
-    [SerializeField]
-    private int price;
-
     S_Building buildingScript;
     private void Start()
     {
         buildingScript = gameObject.GetComponent<S_Building>();
-        buildingScript.changingEquilibriumValue += ApplyBuildingEffect;
+        if (buildingScript)
+            buildingScript.changingEquilibriumValue += ApplyBuildingEffect;
     }
     private void ApplyBuildingEffect()
     {
@@ -37,6 +32,8 @@ public class S_BuildingManager : MonoBehaviour
             emotionType.DecreaseEmotion(increaseOrDecreaseAmount);
         }
     }
+
+    /*
     private void OnBeingPlaced()
     {
         if(feelCost.amount >= price)
@@ -48,6 +45,6 @@ public class S_BuildingManager : MonoBehaviour
         {
             Debug.Log("not enough money");
         }
-    }
+    }*/
 
 }

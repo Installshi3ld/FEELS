@@ -179,38 +179,9 @@ public class ConstructionSystem : MonoBehaviour
 
         }
 
-        List<int> tmpAmountToRemove = new List<int> { 0, 0, 0, 0 };
-        //Check if enough feel
-        for(int i = 0; i < objectSpawnedBuildingScript.feelsCostList.Count; i++)
-        {
-            switch (objectSpawnedBuildingScript.feelsCostList[i].feelsType)
-            {
-                case S_Building.FeelsType.Joy:
-                    if (!(joyCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
-                        canPlaceBuilding = false;
-
-                    tmpAmountToRemove[0] = objectSpawnedBuildingScript.feelsCostList[i].cost;
-                    break;
-
-                case S_Building.FeelsType.Anger:
-                    if (!(angerCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
-                        canPlaceBuilding = false;
-                    tmpAmountToRemove[1] = objectSpawnedBuildingScript.feelsCostList[i].cost;
-                    break;
-
-                case S_Building.FeelsType.Sad:
-                    if (!(sadCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
-                        canPlaceBuilding = false;
-                    tmpAmountToRemove[2] = objectSpawnedBuildingScript.feelsCostList[i].cost;
-                    break;
-
-                case S_Building.FeelsType.Fear:
-                    if (!(fearCurrency.amount - objectSpawnedBuildingScript.feelsCostList[i].cost >= 0))
-                        canPlaceBuilding = false;
-                    tmpAmountToRemove[3] = objectSpawnedBuildingScript.feelsCostList[i].cost;
-                    break;
-            }
-        }
+        //Check if enough Money
+        if(objectSpawnedBuildingScript.FeelType && objectSpawnedBuildingScript.FeelType.amount - objectSpawnedBuildingScript.price < 0)
+            canPlaceBuilding = false;
 
         if (canPlaceBuilding)
         {
@@ -219,11 +190,10 @@ public class ConstructionSystem : MonoBehaviour
                 Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
             }
 
-            joyCurrency.amount -= tmpAmountToRemove[0];
-            angerCurrency.amount -= tmpAmountToRemove[1];
-            sadCurrency.amount -= tmpAmountToRemove[2];
-            fearCurrency.amount -= tmpAmountToRemove[3];
+
             feelsUI.RefreshUI();
+            if(objectSpawnedBuildingScript.FeelType)
+                objectSpawnedBuildingScript.FeelType.RemoveAmount(objectSpawnedBuildingScript.price);
 
             consciousTreeToken.amount += 1;
 
