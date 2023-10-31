@@ -11,22 +11,34 @@ public class S_GameFunction : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private bool isPaused = false;
+    public static bool isPaused = false;
     public GameObject PauseMenu;
     public void SwitchTimeScalePauseResume()
     {
         if (Time.timeScale > 0.5)
         {
             PauseMenu.SetActive(true);
-            Time.timeScale = 0.0001f;
+            isPaused = true;
+            Time.timeScale = 0.000f;
         }
 
         else
         {
             PauseMenu.SetActive(false);
+            isPaused = false;
             Time.timeScale = 1;
         }
             
+    }
+
+    public void PauseTimeResume()
+    {
+        if (Time.timeScale <=0.001f)
+        {
+            PauseMenu.SetActive(false);
+            isPaused = false;
+            Time.timeScale = 1;
+        }
     }
     public static void Shuffle<T>(IList<T> ts)
     {

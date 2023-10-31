@@ -128,18 +128,21 @@ public class S_CameraController : MonoBehaviour
 
     private void UpdateBasePosition()
     {
-        if (targetPosition.sqrMagnitude > 0.1f)
+        if (Time.timeScale >= 0.01f)
         {
-            speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
-            transform.position += targetPosition * speed * Time.deltaTime;
-        }
-        else
-        {
-            horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
-            transform.position += horizontalVelocity * Time.deltaTime;
-        }
+            if (targetPosition.sqrMagnitude > 0.1f)
+            {
+                speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
+                transform.position += targetPosition * speed * Time.deltaTime;
+            }
+            else
+            {
+                horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
+                transform.position += horizontalVelocity * Time.deltaTime;
+            }
 
-        targetPosition = Vector3.zero;
+            targetPosition = Vector3.zero;
+        }
     }
 
 
