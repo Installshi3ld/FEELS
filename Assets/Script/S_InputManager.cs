@@ -11,6 +11,7 @@ public class S_InputManager : MonoBehaviour
     public UnityEvent SpawnFireLifeExperience;
     public UnityEvent DestroyFireLifeExperience;
     public UnityEvent ShowFps;
+    public UnityEvent BackMouseClickR;
     
     List<GameObject> LifeExperienceList = new List<GameObject>();
 
@@ -32,6 +33,10 @@ public class S_InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             DestroyFireLifeExperience.Invoke();
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            BackMouseClickR.Invoke();
         }
     }
 

@@ -1,21 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class ConstructionSystem : MonoBehaviour
 {
     public GameObject objectToSpawn;
     public GameObject objectToSpawn2;
-    private bool isObjectPlaced = false;
+    //private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
     public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
     public S_FeelsUI feelsUI;
 
+    public List<int> TierLimitInPool = new List<int>();
+    public List<GameObject> AllBuildings, BuildingInPool = new List<GameObject>();
+    public List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
+
+    public delegate void RefreshBuildingPoolDelegate();
+    public event RefreshBuildingPoolDelegate OnRefreshBuildingPool;
+
     Vector3 lastCursorPosition;
+
+    private void Start()
+    {
+        StoreBuildingPerTier();
+        RefreshBuildingPool();
+    }
+
+    
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -28,7 +45,6 @@ public class ConstructionSystem : MonoBehaviour
 
             if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
-                //StartCoroutine(objectSpawned.GetComponent<S_Building>().SmoothObjectPositionBetweenVector(Grid.ClampPositionToGrid(hit.point)));
                 objectSpawned.GetComponent<S_Building>().SetDestination(Grid.ClampPositionToGrid(hit.point));
                
                 lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
@@ -64,7 +80,7 @@ public class ConstructionSystem : MonoBehaviour
         }
 
         //Place Object
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
         {
             if(objectSpawned != null )
             {
@@ -72,6 +88,65 @@ public class ConstructionSystem : MonoBehaviour
             }
         }
     }
+
+    void StoreBuildingPerTier()
+    {
+        for(int i = 0; i < TierLimitInPool.Count; i++)
+        {
+            buildingPerTier.Add(new List<GameObject>());
+        }
+        //Sort
+        foreach (var build in AllBuildings)
+        {
+            buildingPerTier[build.GetComponent<S_Building>().tier].Add(build);
+        }
+    }
+    public void RefreshBuildingPool()
+    {
+        BuildingInPool.Clear();
+        List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
+
+        //Initiate list
+        for (int i = 0; i < TierLimitInPool.Count; i++)
+        {
+            tmpBuildingPerTier.Add(new List<GameObject>());
+        }
+
+        //Add element base on probability
+        for (int i = 1; i < buildingPerTier.Count; i++)
+        {
+            for(int j = 0; j < buildingPerTier[i].Count; j++)
+            {
+                if (Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
+                    tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
+            }
+        }
+        //Add element base on limitation
+        for (int i = 1; i < TierLimitInPool.Count; ++i)
+        {
+            S_GameFunction.Shuffle<GameObject>(tmpBuildingPerTier[i]);
+
+            for (int j = 0; j < TierLimitInPool[i]; j++)
+                if (tmpBuildingPerTier[i].Count > 0)
+                    BuildingInPool.Add(tmpBuildingPerTier[i][j]);
+        }
+
+        //Fill with tier 0
+        if(BuildingInPool.Count < 8)
+        {
+            int index = 0;
+            S_GameFunction.Shuffle<GameObject>(buildingPerTier[0]);
+            for (int i = BuildingInPool.Count; i < 8; i++)
+            {
+                BuildingInPool.Add(buildingPerTier[0][index]);
+                index++;
+            }
+        }
+        S_GameFunction.Shuffle<GameObject>(BuildingInPool);
+
+        OnRefreshBuildingPool.Invoke();
+    }
+
 
     void PlaceBuilding()
     {
@@ -175,12 +250,20 @@ public class ConstructionSystem : MonoBehaviour
         return true;
     }
 
+    public void SpawnObject(GameObject gameObject)
+    {
+        if(objectSpawned != null)
+            Destroy(objectSpawned);
+
+        objectSpawned = SpawnGameObject(Vector3.zero, gameObject);
+    }
 
     GameObject SpawnGameObject(Vector3 spawnPoint, GameObject gameObject = null)
     {
-        if (objectToSpawn != null && spawnPoint != null)
+        Vector3 spawnPoinTtmp = Vector3.zero;
+        if (objectToSpawn != null && spawnPoinTtmp != null)
         {
-            GameObject tmp = Instantiate(gameObject, spawnPoint, Quaternion.identity);
+            GameObject tmp = Instantiate(gameObject, spawnPoinTtmp, Quaternion.identity);
             return tmp;
 
         }
@@ -190,5 +273,10 @@ public class ConstructionSystem : MonoBehaviour
             return null;
         }
 
+    }
+
+    private bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }

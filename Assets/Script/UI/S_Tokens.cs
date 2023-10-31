@@ -25,7 +25,7 @@ public class S_Tokens : MonoBehaviour
     }
     public void UseToken()
     {
-        currency.amount -= 1 ;
+        currency.amount -= 1;
         tokenValue.text = currency.amount.ToString();
 
     }
@@ -33,5 +33,13 @@ public class S_Tokens : MonoBehaviour
     public void RefreshScreen()
     {
         tokenValue.text = currency.amount.ToString();
+    }
+
+    public void SetActiveMenu()
+    {
+        if (!S_GameFunction.isPaused)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
