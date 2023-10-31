@@ -15,7 +15,7 @@ public class S_LifeExperience : MonoBehaviour
     List<Vector2Int> gridUsage = new List<Vector2Int>();
     private void Awake()
     {
-        wonderBuilding.GetComponent<S_Building>().isPlaced = true;
+        wonderBuilding.GetComponent<S_Building>().isPlacedAnimation = true;
     }
     private void Start()
     {

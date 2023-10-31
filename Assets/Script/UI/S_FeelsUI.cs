@@ -25,12 +25,6 @@ public class S_FeelsUI : MonoBehaviour
         RefreshUI();
     }
 
-    public void AddJFeels(S_Currencies feels)
-    {
-        feels.amount += 1;
-        RefreshUI();
-    }
-    
     public void RefreshUI()
     {
         jFeelsValue.text = joyFeels.amount.ToString();

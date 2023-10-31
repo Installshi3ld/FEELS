@@ -227,6 +227,7 @@ public class ConstructionSystem : MonoBehaviour
 
             consciousTreeToken.amount += 1;
 
+            objectSpawned.GetComponent<S_Building>().PlacedBuilding();
             objectSpawned = null;
         }
         else

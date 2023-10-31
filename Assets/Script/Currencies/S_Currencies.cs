@@ -28,4 +28,19 @@ public class S_Currencies : ScriptableObject
             OnRefreshUi();
         }
     }
+    public void RemoveAmount(float removeAmount)
+    {
+        if (removeAmount - Mathf.Floor(removeAmount) >= .5f)
+        {
+            amount -= Mathf.CeilToInt(removeAmount);
+        }
+
+        else
+            amount -= Mathf.FloorToInt(removeAmount);
+
+        if (OnRefreshUi != null)
+        {
+            OnRefreshUi();
+        }
+    }
 }
