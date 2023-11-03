@@ -60,6 +60,12 @@ public class S_EmotionScriptableObject : ScriptableObject
         
     }
 
+    public void ChangeEmotionAmout(int amount)
+    {
+        EmotionAmount = amount;
+
+    }
+
     public S_EmotionScriptableObject MakeCopy()
     {
         S_EmotionScriptableObject clone = CreateInstance<S_EmotionScriptableObject>();

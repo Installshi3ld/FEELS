@@ -28,7 +28,7 @@ public class S_DisasterManager : MonoBehaviour
         if (emotions.Length >= 2)
         {
             S_EmotionScriptableObject farthestEmotion = FindFarthestEmotion();
-            farthestEmotion.emotionAmount = 50;
+            farthestEmotion.ChangeEmotionAmout(50);
             Debug.Log("Farthest Integer: " + farthestEmotion.name);
         }
 
