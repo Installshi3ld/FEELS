@@ -34,14 +34,10 @@ public class S_ManageEvents : MonoBehaviour
 
     private void ChangeIndex()
     {
-        Debug.Log("trying switch");
-
         if(phasesList[currentPhaseIndex].events.Count <= 0)
         {
             currentPhase.PhaseIndex++;
             currentPhaseIndex++;
-            Debug.ClearDeveloperConsole();
-            Debug.Log("have switched, the current phase is " +currentPhase.PhaseIndex++);
         }
     }
 
@@ -67,8 +63,6 @@ public class S_ManageEvents : MonoBehaviour
         phasesList.Add(phases[currentPhaseIndex].MakeCopy());
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
         S_EventScriptableObject EventToReturn;
-
-        Debug.Log("the number of event contained in the current phase is " + currentPhaseObject.events.Count);
 
         if (currentPhaseObject.events.Count > 0) //ne rentre pas là 
         {
