@@ -1,11 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+
 
 public class ConstructionSystem : MonoBehaviour
 {
@@ -18,7 +15,9 @@ public class ConstructionSystem : MonoBehaviour
     public S_FeelsUI feelsUI;
 
     public List<int> TierLimitInPool = new List<int>();
-    public List<GameObject> AllBuildings, BuildingInPool = new List<GameObject>();
+    public List<GameObject> AllBuildings = new List<GameObject>();
+    [NonSerialized]
+    public List<GameObject> BuildingInPool = new List<GameObject>();
     public List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
 
     public delegate void RefreshBuildingPoolDelegate();
@@ -117,7 +116,7 @@ public class ConstructionSystem : MonoBehaviour
         {
             for(int j = 0; j < buildingPerTier[i].Count; j++)
             {
-                if (Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
+                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
                     tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
             }
         }
@@ -195,7 +194,7 @@ public class ConstructionSystem : MonoBehaviour
             if(objectSpawnedBuildingScript.FeelType)
                 objectSpawnedBuildingScript.FeelType.RemoveAmount(objectSpawnedBuildingScript.price);
 
-            consciousTreeToken.amount += 1;
+            consciousTreeToken.AddAmount(1);
 
             objectSpawned.GetComponent<S_Building>().PlacedBuilding();
             objectSpawned = null;

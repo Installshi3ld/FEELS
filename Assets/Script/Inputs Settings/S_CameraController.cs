@@ -36,6 +36,8 @@ public class S_CameraController : MonoBehaviour
     private float edgeTolerance = 0.05f;
     [SerializeField]
     private bool useScreenEdge = true;
+    [SerializeField]
+    private float CameraClamp = 100f;
 
     private Vector3 targetPosition;
 
@@ -81,6 +83,9 @@ public class S_CameraController : MonoBehaviour
 
     private void Update()
     {
+        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -CameraClamp, CameraClamp),
+            this.transform.position.y,
+            Mathf.Clamp(this.transform.position.z, -CameraClamp, CameraClamp));
 
         GetKeyboardMovement(); //Getting inputs
 
