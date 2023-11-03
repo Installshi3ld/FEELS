@@ -19,7 +19,11 @@ public class S_DisasterManager : MonoBehaviour
     [SerializeField]
     private Image disasterImage;
 
-    public bool isDisasterOccurring;
+    [SerializeField]
+    private float secondsBeforeApplyingDisaster;
+
+    private bool isDisasterWillOccur;
+
 
     private void OnEnable()
     {
@@ -38,7 +42,7 @@ public class S_DisasterManager : MonoBehaviour
     }
 
     // Function to find the farthest integer and modify it
-    public void ModifyFarthestEmotion()
+    private void ModifyFarthestEmotion()
     {
         if (emotions.Length >= 2)
         {
@@ -82,36 +86,46 @@ public class S_DisasterManager : MonoBehaviour
     // Update is called once per frame
     private void checkForDisaster()
     {
-        isDisasterOccurring = false;
+        isDisasterWillOccur = false;
 
         // Iterate through all pairs of emotions
         for (int i = 0; i < emotions.Length; i++)
         {
-            Debug.Log(emotions[i].name + " amount = " + emotions[i].emotionAmount);
             for (int j = i + 1; j < emotions.Length; j++)
             {
                 if (Mathf.Abs(emotions[i].emotionAmount - emotions[j].emotionAmount) > differenceToProvokeDisaster)
                 {
-                    isDisasterOccurring = true;
+                    isDisasterWillOccur = true;
+                    disasterImage.gameObject.SetActive(true);
+                    StartCoroutine(checkEquilibriumAndApplyDisaster());
+                    Debug.Log("Disaster Will be provocked");
                 }
 
             }
         }
-        if (isDisasterOccurring)
-        {
-            Debug.Log("Disaster");
-            ProvokeDisaster();
-        }
-        else
+        if (!isDisasterWillOccur)
         {
             disasterImage.gameObject.SetActive(false);
         }
     }
 
+    private IEnumerator checkEquilibriumAndApplyDisaster() //After several seconds we check if the equilibrium stills desequilibrated and apply disaster if needed
+    {
+        yield return new WaitForSeconds(secondsBeforeApplyingDisaster);
+
+        checkForDisaster();
+
+        if (isDisasterWillOccur)
+        {
+            ProvokeDisaster();
+        }
+    }
+
     private void ProvokeDisaster()
     {
-        disasterImage.gameObject.SetActive(true);
         ModifyFarthestEmotion();
+        //Consume Feel of corresponding type
+        Debug.Log("provoked");
     }
 }
 
