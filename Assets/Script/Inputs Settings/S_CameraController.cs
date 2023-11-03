@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,7 +50,7 @@ public class S_CameraController : MonoBehaviour
     private Vector3 dragStartPosition;
 
     Vector3 startDrag;
-
+    bool RightClick = false;
     private void Awake()
     {
         cameraActions = new CameraControlActions();
@@ -83,10 +84,7 @@ public class S_CameraController : MonoBehaviour
 
     private void Update()
     {
-        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -CameraClamp, CameraClamp),
-            this.transform.position.y,
-            Mathf.Clamp(this.transform.position.z, -CameraClamp, CameraClamp));
-
+        
         GetKeyboardMovement(); //Getting inputs
 
         if (useScreenEdge)
@@ -109,7 +107,7 @@ public class S_CameraController : MonoBehaviour
 
         inputValue = inputValue.normalized;
 
-        if (inputValue.sqrMagnitude > 0.1f)
+        if (inputValue.sqrMagnitude > 0.1f && !RightClick)
         {
             targetPosition += inputValue;
         }
@@ -139,11 +137,13 @@ public class S_CameraController : MonoBehaviour
             {
                 speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
                 transform.position += targetPosition * speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
             }
             else
             {
                 horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
                 transform.position += horizontalVelocity * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
             }
 
             targetPosition = Vector3.zero;
@@ -211,9 +211,11 @@ public class S_CameraController : MonoBehaviour
     {
         if(!Mouse.current.rightButton.isPressed)
         {
+            RightClick = false;
             return;
         }
-
+        RightClick = true;
+        
         Plane plane = new Plane(Vector3.up, Vector3.zero);
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 

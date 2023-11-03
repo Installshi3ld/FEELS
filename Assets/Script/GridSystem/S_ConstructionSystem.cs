@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,10 +29,14 @@ public class ConstructionSystem : MonoBehaviour
     private void Start()
     {
         StoreBuildingPerTier();
+        StartCoroutine( LateStart());
+    }
+    IEnumerator LateStart()
+    {
+        yield return new WaitForEndOfFrame();
         RefreshBuildingPool();
     }
 
-    
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -100,6 +105,7 @@ public class ConstructionSystem : MonoBehaviour
             buildingPerTier[build.GetComponent<S_Building>().tier].Add(build);
         }
     }
+
     public void RefreshBuildingPool()
     {
         BuildingInPool.Clear();
