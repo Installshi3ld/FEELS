@@ -32,21 +32,38 @@ public class S_Building : MonoBehaviour
 
     float lerpAlpha = 0f;
     [System.NonSerialized]
-    public bool isPlaced = false;
+    public bool isPlacedAnimation, isPlaced = false;
+
+    [System.NonSerialized]
     public Vector3 destination;
+
+    public S_Currencies FeelType;
+    public int price = 0;
+
+    public delegate void ChangingEquilibriumValue();
+    public event ChangingEquilibriumValue changingEquilibriumValue;
+
     private void Update()
     {
-        if (!isPlaced)
+        if (!isPlacedAnimation)
         {
             this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
 
             lerpAlpha += 1f * Time.deltaTime * 3;
-            /*
-            if (Vector3.Distance(this.transform.position, destination) < 0.01f)
+            
+            if (isPlaced && Vector3.Distance(this.transform.position, destination) < 0.05f)
             {
                 this.transform.position = destination;
-            }*/
+                isPlacedAnimation = true;
+            }
         }
+    }
+
+    public void PlacedBuilding()
+    {
+        isPlaced = true;
+        if(FeelType)
+            changingEquilibriumValue();
     }
 
     public void SetDestination(Vector3 dest)

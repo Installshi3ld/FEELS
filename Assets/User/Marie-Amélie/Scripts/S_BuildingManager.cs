@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static S_Building;
 
 public class S_BuildingManager : MonoBehaviour
 {
@@ -13,12 +14,13 @@ public class S_BuildingManager : MonoBehaviour
     [SerializeField]
     private int increaseOrDecreaseAmount;
 
-    [SerializeField]
-    private S_Currencies feelType;
-
-    [SerializeField]
-    private int price;
-
+    S_Building buildingScript;
+    private void Start()
+    {
+        buildingScript = gameObject.GetComponent<S_Building>();
+        if (buildingScript)
+            buildingScript.changingEquilibriumValue += ApplyBuildingEffect;
+    }
     private void ApplyBuildingEffect()
     {
         if (isIncreasing)
@@ -30,17 +32,19 @@ public class S_BuildingManager : MonoBehaviour
             emotionType.DecreaseEmotion(increaseOrDecreaseAmount);
         }
     }
+
+    /*
     private void OnBeingPlaced()
     {
-        if(feelType.amount >= price)
+        if(feelCost.amount >= price)
         {
-            feelType.amount -= price;
+            feelCost.RemoveAmount(price);
             ApplyBuildingEffect();
         }
         else
         {
             Debug.Log("not enough money");
         }
-    }
+    }*/
 
 }

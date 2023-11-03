@@ -7,9 +7,9 @@ using Unity.VisualScripting;
 
 public class S_FeelsUI : MonoBehaviour
 {
-    public S_Currencies joyFeels, angerFeels, fearFeels, sadnessFeels;
+    public S_Currencies joyFeels, angerFeels, fearFeels, sadnessFeels, currency;
 
-    public TMP_Text jFeelsValue, aFeelsValue, fFeelsValue, sFeelsValue, t_Info;
+    public TMP_Text jFeelsValue, aFeelsValue, fFeelsValue, sFeelsValue, t_Info, tokenValue;
 
     public Color infoTextColor;
 
@@ -21,22 +21,18 @@ public class S_FeelsUI : MonoBehaviour
         angerFeels.OnRefreshUi += RefreshUI;
         fearFeels.OnRefreshUi += RefreshUI;
         sadnessFeels.OnRefreshUi += RefreshUI;
+        currency.OnRefreshUi += RefreshUI;
 
         RefreshUI();
     }
 
-    public void AddJFeels(S_Currencies feels)
-    {
-        feels.amount += 1;
-        RefreshUI();
-    }
-    
     public void RefreshUI()
     {
         jFeelsValue.text = joyFeels.amount.ToString();
         aFeelsValue.text = angerFeels.amount.ToString();
         fFeelsValue.text = fearFeels.amount.ToString();
         sFeelsValue.text = sadnessFeels.amount.ToString();
+        tokenValue.text = currency.amount.ToString();
     }
 
     public void Info(string msg)
