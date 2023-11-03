@@ -21,6 +21,21 @@ public class S_DisasterManager : MonoBehaviour
 
     public bool isDisasterOccurring;
 
+    private void OnEnable()
+    {
+        for (int i = 0; i < emotions.Length; i++)
+        {
+            emotions[i].emotionAmountChangeEvent.AddListener(checkForDisaster);
+        }
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < emotions.Length; i++)
+        {
+            emotions[i].emotionAmountChangeEvent.RemoveListener(checkForDisaster);
+        }
+    }
 
     // Function to find the farthest integer and modify it
     public void ModifyFarthestEmotion()
@@ -65,7 +80,7 @@ public class S_DisasterManager : MonoBehaviour
 
     
     // Update is called once per frame
-    void Update()
+    private void checkForDisaster()
     {
         isDisasterOccurring = false;
 
