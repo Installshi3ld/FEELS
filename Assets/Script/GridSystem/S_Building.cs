@@ -38,7 +38,7 @@ public class S_Building : MonoBehaviour
     public Vector3 destination;
 
     public S_Currencies FeelType;
-    public int price = 0;
+   // public int price = 0;
 
     public delegate void ChangingEquilibriumValue();
     public event ChangingEquilibriumValue changingEquilibriumValue;
