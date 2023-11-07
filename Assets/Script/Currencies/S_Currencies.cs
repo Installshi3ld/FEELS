@@ -18,11 +18,25 @@ public class S_Currencies : ScriptableObject
         if (addAmount - Mathf.Floor(addAmount) >= .5f)
         {
             amount += Mathf.CeilToInt(addAmount);
-            Debug.Log(Mathf.CeilToInt(addAmount));
         }
 
         else
             amount += Mathf.FloorToInt(addAmount);
+
+        if (OnRefreshUi != null)
+        {
+            OnRefreshUi();
+        }
+    }
+    public void RemoveAmount(float removeAmount)
+    {
+        if (removeAmount - Mathf.Floor(removeAmount) >= .5f)
+        {
+            amount -= Mathf.CeilToInt(removeAmount);
+        }
+
+        else
+            amount -= Mathf.FloorToInt(removeAmount);
 
         if (OnRefreshUi != null)
         {

@@ -19,6 +19,7 @@ public class S_LifeExperienceManager : MonoBehaviour
         foreach (GameObject lifeExperience in firelifeExperienceList)
         {
             lifeExperience.SetActive(false);
+            lifeExperience.GetComponent<S_Building>().PlacedBuilding();
         }
         firelifeExperienceList.Clear();
     }

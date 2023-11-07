@@ -862,6 +862,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d82ca899bf8d1124da383b27f8916b2b, type: 3}
+--- !u!1 &889888048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889888050}
+  - component: {fileID: 889888049}
+  m_Layer: 0
+  m_Name: BuildingTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &889888049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889888048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40204478d642df446998fd548433fcd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emotionType: {fileID: 0}
+  isIncreasing: 0
+  increaseOrDecreaseAmount: 0
+  feelType: {fileID: 0}
+  price: 0
+--- !u!4 &889888050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889888048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 430.60416, y: 231.86528, z: 231.58191}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1004209364 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4807162830580137475, guid: 23e7c8a9b35074b4da4e7e8f00b92986, type: 3}
@@ -1965,3 +2014,4 @@ SceneRoots:
   - {fileID: 1957571989}
   - {fileID: 1548805592}
   - {fileID: 2081944111}
+  - {fileID: 889888050}

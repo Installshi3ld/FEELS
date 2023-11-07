@@ -13,9 +13,11 @@ public class S_LifeExperience : MonoBehaviour
 
     List<GameObject> allFire = new List<GameObject>();
     List<Vector2Int> gridUsage = new List<Vector2Int>();
+
+    public float delayBeforeFlamePropagation = 5;
     private void Awake()
     {
-        wonderBuilding.GetComponent<S_Building>().isPlaced = true;
+        wonderBuilding.GetComponent<S_Building>().isPlacedAnimation = true;
     }
     private void Start()
     {
@@ -58,6 +60,7 @@ public class S_LifeExperience : MonoBehaviour
 
     IEnumerator FlamePropagation()
     {
+        yield return new WaitForSeconds(delayBeforeFlamePropagation);
         while (true)
         {
             yield return new WaitForSeconds(1f);
