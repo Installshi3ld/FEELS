@@ -14,21 +14,7 @@ public class S_Building : MonoBehaviour
     {
         tilesCoordinate.Add(Vector2Int.zero);
     }
-    public enum FeelsType
-    {
-        Joy,
-        Anger,
-        Sad,
-        Fear
-    };
 
-
-    [System.Serializable]
-    public struct FeelsCost
-    {
-        public FeelsType feelsType;
-        public int cost;
-    }
 
     float lerpAlpha = 0f;
     [System.NonSerialized]
@@ -38,7 +24,7 @@ public class S_Building : MonoBehaviour
     public Vector3 destination;
 
     public S_Currencies FeelType;
-   // public int price = 0;
+    public int price = 0;
 
     public delegate void ChangingEquilibriumValue();
     public event ChangingEquilibriumValue changingEquilibriumValue;
@@ -73,33 +59,7 @@ public class S_Building : MonoBehaviour
             lerpAlpha = 0;
     }
 
-    /*
-    public IEnumerator SmoothObjectPositionBetweenVector(Vector3 destination)
-    {
-        float lerpAlpha = 0f;
-        while (lerpAlpha < 1 && this != null)
-        {
-            this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
-            
-            lerpAlpha += 1f * Time.deltaTime;
-            if(Vector3.Distance(this.transform.position, destination) < 3)
-            {
-                this.transform.position = destination;
-                break;
-            }
-            yield return new WaitForEndOfFrame();
-        }
 
-    }*/
-
-    public List<FeelsCost> feelsCostList = new List<FeelsCost>();   
-
-
-    /// <summary>
-    /// This function return a Vector3, the closest one on grid based on Position input
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
     
 
 }
