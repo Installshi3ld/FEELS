@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,6 +37,8 @@ public class S_CameraController : MonoBehaviour
     private float edgeTolerance = 0.05f;
     [SerializeField]
     private bool useScreenEdge = true;
+    [SerializeField]
+    private float CameraClamp = 100f;
 
     private Vector3 targetPosition;
 
@@ -47,7 +50,7 @@ public class S_CameraController : MonoBehaviour
     private Vector3 dragStartPosition;
 
     Vector3 startDrag;
-
+    bool RightClick = false;
     private void Awake()
     {
         cameraActions = new CameraControlActions();
@@ -81,7 +84,7 @@ public class S_CameraController : MonoBehaviour
 
     private void Update()
     {
-
+        
         GetKeyboardMovement(); //Getting inputs
 
         if (useScreenEdge)
@@ -104,7 +107,7 @@ public class S_CameraController : MonoBehaviour
 
         inputValue = inputValue.normalized;
 
-        if (inputValue.sqrMagnitude > 0.1f)
+        if (inputValue.sqrMagnitude > 0.1f && !RightClick)
         {
             targetPosition += inputValue;
         }
@@ -128,18 +131,23 @@ public class S_CameraController : MonoBehaviour
 
     private void UpdateBasePosition()
     {
-        if (targetPosition.sqrMagnitude > 0.1f)
+        if (Time.timeScale >= 0.01f)
         {
-            speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
-            transform.position += targetPosition * speed * Time.deltaTime;
-        }
-        else
-        {
-            horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
-            transform.position += horizontalVelocity * Time.deltaTime;
-        }
+            if (targetPosition.sqrMagnitude > 0.1f)
+            {
+                speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
+                transform.position += targetPosition * speed * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
+            }
+            else
+            {
+                horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
+                transform.position += horizontalVelocity * Time.deltaTime;
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
+            }
 
-        targetPosition = Vector3.zero;
+            targetPosition = Vector3.zero;
+        }
     }
 
 
@@ -203,9 +211,11 @@ public class S_CameraController : MonoBehaviour
     {
         if(!Mouse.current.rightButton.isPressed)
         {
+            RightClick = false;
             return;
         }
-
+        RightClick = true;
+        
         Plane plane = new Plane(Vector3.up, Vector3.zero);
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
