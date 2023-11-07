@@ -14,6 +14,7 @@ public class Grid : MonoBehaviour
     public static int mapSphereArea;
 
     public GameObject fog;
+    public GameObject fogBatching;
 
     [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding). ")]
     public int padding_def = 1;
@@ -26,6 +27,8 @@ public class Grid : MonoBehaviour
     public static List<List<bool>> gridsUsageStatement = new List<List<bool>>();
 
     public static List<List<bool>> fogGridsUsageStatement = new List<List<bool>>();
+
+    public static List<List<GameObject>> fogGameObjects = new List<List<GameObject>>();
 
     //Set variable from editor as static
     private void Awake()
@@ -42,7 +45,14 @@ public class Grid : MonoBehaviour
         gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
         
         SetFogGridUsageStatement();
+        CreateFogGameObjects();
+
+        for(int i = 0; i < gridsUsageStatement.Count; ++i)
+        {
+            StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), fogBatching);
+        }
     }
+
 
     private void Update()
     {
@@ -53,11 +63,12 @@ public class Grid : MonoBehaviour
                 debugTileStatement = 0;
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.F3))
         {
             fog.transform.localScale = new Vector3 (fog.transform.localScale.x + 20, 45, fog.transform.localScale.z + 20);
             IncreaseMapSphereArea(1);
-        }
+        }*/
 
     }
 
@@ -109,36 +120,6 @@ public class Grid : MonoBehaviour
     }
 
 
-
-    /// <summary>
-    /// The number of tile to add
-    /// </summary>
-    /// <param name="tilesAmount">The number of tile to add</param>
-    void IncreaseMapSphereArea(int tilesAmount)
-    {
-        mapSphereArea += tilesAmount * tileSize;
-
-        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
-        List<List<bool>> newGridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
-
-
-        //Set old data in new list
-        for (int i = 0; i < newGridsUsageStatement.Count - tilesAmount * 2; i++)
-        {
-            for (int j = 0; j < newGridsUsageStatement[i].Count - tilesAmount * 2; j++)
-            {
-
-                if (gridsUsageStatement[i][j])
-                {
-                    newGridsUsageStatement[i + tilesAmount][j + tilesAmount] = true;
-                }
-            }
-        }
-
-        gridsUsageStatement = newGridsUsageStatement;
-        SetFogGridUsageStatement();
-    }
-
     static public void SetTileUsed(int x, int y)
     {
         gridsUsageStatement[x][y] = true;
@@ -180,6 +161,23 @@ public class Grid : MonoBehaviour
                     fogGridsUsageStatement[i][j] = true;
                 }
             }
+        }
+    }
+
+    void CreateFogGameObjects()
+    {
+        for(int i = 0; i < gridsUsageStatement.Count; i++)
+        {
+            List<GameObject> tmpList = new List<GameObject>();
+            for (int j = 0;j < gridsUsageStatement.Count; j++)
+            {
+                if (fogGridsUsageStatement[i][j] == true)
+                {
+                    GameObject tmpObject = Instantiate(fog, GetPositionBasedOnIndex(i, j), Quaternion.identity);
+                    tmpList.Add(tmpObject);
+                }
+            }
+            fogGameObjects.Add(tmpList);
         }
     }
 
@@ -232,7 +230,7 @@ public class Grid : MonoBehaviour
         return tmpCoordinate;
     }
 
-    static public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius)
+    static public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius, bool gridUsageStatement)
     {
         List<Vector2Int> tmpAllCoordinateAroundBase = new List<Vector2Int>();
         List<Vector2Int> tmpCoordinateFree = new List<Vector2Int>();
@@ -248,12 +246,22 @@ public class Grid : MonoBehaviour
         foreach(Vector2Int coordinate in tmpAllCoordinateAroundBase)
         {
             if (coordinate.x >= 0 && coordinate.x < gridsUsageStatement.Count && coordinate.y >= 0 && coordinate.y < gridsUsageStatement.Count)
-                if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y)) 
+                if (gridUsageStatement)
+                {
+                    if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y))
                     && !gridsUsageStatement[coordinate.x][coordinate.y]
                     && !fogGridsUsageStatement[coordinate.x][coordinate.y])
-                {
-                    tmpCoordinateFree.Add(coordinate);
+                    {
+                        tmpCoordinateFree.Add(coordinate);
+                    }
                 }
+                else{
+                    if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y))
+                    && fogGridsUsageStatement[coordinate.x][coordinate.y])
+                    {
+                        tmpCoordinateFree.Add(coordinate);
+                    }
+                } 
         }
 
         if (tmpCoordinateFree.Count <= 0)
@@ -262,7 +270,6 @@ public class Grid : MonoBehaviour
         int tmpRandomIndex = UnityEngine.Random.Range(0, tmpCoordinateFree.Count - 1);
 
         Vector3 tmpCoordinate = GetPositionBasedOnIndex(tmpCoordinateFree[tmpRandomIndex].x, tmpCoordinateFree[tmpRandomIndex].y);
-        print("index random" + tmpRandomIndex);
         return tmpCoordinate;
     }
 
@@ -303,5 +310,35 @@ public class Grid : MonoBehaviour
         return new Vector3(clampedX, position.y, clampedZ);
     }
 
+
+    /*
+    /// <summary>
+    /// The number of tile to add
+    /// </summary>
+    /// <param name="tilesAmount">The number of tile to add</param>
+    void IncreaseMapSphereArea(int tilesAmount)
+    {
+        mapSphereArea += tilesAmount * tileSize;
+
+        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
+        List<List<bool>> newGridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
+
+
+        //Set old data in new list
+        for (int i = 0; i < newGridsUsageStatement.Count - tilesAmount * 2; i++)
+        {
+            for (int j = 0; j < newGridsUsageStatement[i].Count - tilesAmount * 2; j++)
+            {
+
+                if (gridsUsageStatement[i][j])
+                {
+                    newGridsUsageStatement[i + tilesAmount][j + tilesAmount] = true;
+                }
+            }
+        }
+
+        gridsUsageStatement = newGridsUsageStatement;
+        SetFogGridUsageStatement();
+    }*/
 
 }

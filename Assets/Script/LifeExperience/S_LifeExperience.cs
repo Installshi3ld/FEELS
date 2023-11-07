@@ -65,14 +65,18 @@ public class S_LifeExperience : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            Vector3 tmpCoordinate = Grid.GetRandomTileAroundOtherOne(Grid.getIndexbasedOnPosition(this.transform.position), 3);
-            if (!Grid.gridsUsageStatement[Grid.getIndexbasedOnPosition(tmpCoordinate).x][Grid.getIndexbasedOnPosition(tmpCoordinate).y])
+            Vector3 tmpCoordinate = Grid.GetRandomTileAroundOtherOne(Grid.getIndexbasedOnPosition(this.transform.position), 3, false);
+            if(tmpCoordinate != Vector3.zero)
             {
-                allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
+                if (!Grid.gridsUsageStatement[Grid.getIndexbasedOnPosition(tmpCoordinate).x][Grid.getIndexbasedOnPosition(tmpCoordinate).y])
+                {
+                    allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
 
-                Vector2Int tmpIndex = Grid.getIndexbasedOnPosition(tmpCoordinate);
-                gridUsage.Add(tmpIndex);
-                Grid.SetTileUsed(tmpIndex.x, tmpIndex.y);
+                    Vector2Int tmpIndex = Grid.getIndexbasedOnPosition(tmpCoordinate);
+                    gridUsage.Add(tmpIndex);
+                    Grid.SetTileUsed(tmpIndex.x, tmpIndex.y);
+                }
+
             }
             
         }
