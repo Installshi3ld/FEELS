@@ -13,16 +13,14 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
+    RenderType: TransparentCutout
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -42,33 +40,35 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 1
-    - _AlphaToMask: 0
+    - _AlphaToMask: 1
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 2
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _Float: 3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SrcBlend: 5
-    - _Surface: 1
+    - _SmoothStepEdge1: 1265
+    - _SmoothStepEdge2: 80
+    - _SrcBlend: 1
+    - _Surface: 0
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     - _ZWriteControl: 0
     - _base_scale: 0.1
     - _base_speed: 1.5
     - _base_strengh: 2.5
     - _curvature_radius: 235
     - _emission_strenght: 1
-    - _fade_deph: 5
+    - _fade_deph: -2055.9
     - _fresnel_opacity: 1
     - _fresnel_power: 3
-    - _height_noise: 0.0004
+    - _height_noise: 0.01
     - _noise_edge_1: 0.65
     - _noise_edge_2: 0.1
     - _noise_power_strengh: -0.8
     - _noise_scale: 17.63
-    - _noise_scale_v2: 0.11
+    - _noise_scale_v2: 0.8
     - _noise_speed: 1
     m_Colors:
     - _color_peak: {r: 0, g: 0, b: 1, a: 0}
