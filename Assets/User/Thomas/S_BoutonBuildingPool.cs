@@ -8,15 +8,29 @@ using UnityEngine.EventSystems;
 public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
-    [NonSerialized]
-    public GameObject BuildingReference;
+    //[NonSerialized]
+    public GameObject BuildingReference
+    {
+        get {
+            return _BuildingReference;
+        }
+        set {
+            _BuildingReference = value; 
+            buildingScript = _BuildingReference.GetComponent<S_Building>();
+            s_BuildingManager = _BuildingReference.GetComponent<S_BuildingManager>();
+        }
+    }
+
+    private GameObject _BuildingReference;
+
     [NonSerialized]
     public S_BuildingPool _buildingPool;
 
+    S_Building buildingScript;
+    S_BuildingManager s_BuildingManager;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        S_Building buildingScript = BuildingReference.GetComponent<S_Building>();
-        S_BuildingManager s_BuildingManager = BuildingReference.GetComponent<S_BuildingManager>();
 
         int feelCost, increaseDecreseEquilibrium;
 
@@ -25,7 +39,16 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
 
         if (_buildingPool)
         {
-            _buildingPool.SetInfo(buildingScript.FeelType, buildingScript.GetComponent<S_BuildingManager>().emotionType,  feelCost, increaseDecreseEquilibrium);
+            if(buildingScript)
+                _buildingPool.SetInfoFeel(buildingScript.FeelType,  feelCost);
+            else
+                _buildingPool.SetInfoFeel(null, feelCost);
+
+            if (s_BuildingManager)
+                _buildingPool.SetInfoEquilibrium(buildingScript.GetComponent<S_BuildingManager>().emotionType, increaseDecreseEquilibrium);
+            else
+                _buildingPool.SetInfoEquilibrium(null, increaseDecreseEquilibrium);
+
             _buildingPool.ShowInformation(true);
         }
     }

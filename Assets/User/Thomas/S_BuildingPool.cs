@@ -40,12 +40,26 @@ public class S_BuildingPool : MonoBehaviour
         InfoScreen.SetActive(statement);
     }
 
-    public void SetInfo(S_Currencies FeelType, S_EmotionScriptableObject EquilibriumType, int FeelCost = 0, int EquilibriumCost = 0)
+    public void SetInfoFeel(S_Currencies FeelType, int FeelCost = 0)
     {
+        FeelTypeImage.enabled = true;
+
         T_FeelCost.text = FeelCost.ToString();
+
+        if(FeelType)
+            FeelTypeImage.sprite = FeelType.image;
+        else
+            FeelTypeImage.enabled = false;
+    }
+    public void SetInfoEquilibrium(S_EmotionScriptableObject EquilibriumType, int EquilibriumCost = 0)
+    {
+        EquilibriumTypeImage.enabled = true;
         T_EquilibriumCost.text = EquilibriumCost.ToString();
-        FeelTypeImage.sprite = FeelType.image;
-        EquilibriumTypeImage.sprite = EquilibriumType.image;
+
+        if (EquilibriumType)
+            EquilibriumTypeImage.sprite = EquilibriumType.image;
+        else
+            EquilibriumTypeImage.enabled = false;
     }
 
     void RefreshUI()
