@@ -29,12 +29,8 @@ public class ConstructionSystem : MonoBehaviour
     private void Start()
     {
         StoreBuildingPerTier();
-        StartCoroutine( LateStart());
-    }
-    IEnumerator LateStart()
-    {
-        yield return new WaitForEndOfFrame();
         RefreshBuildingPool();
+        
     }
 
     void Update()
@@ -108,6 +104,7 @@ public class ConstructionSystem : MonoBehaviour
 
     public void RefreshBuildingPool()
     {
+        
         BuildingInPool.Clear();
         List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
 
@@ -149,6 +146,7 @@ public class ConstructionSystem : MonoBehaviour
         }
         S_GameFunction.Shuffle<GameObject>(BuildingInPool);
 
+        print("RefreshPool");
         OnRefreshBuildingPool.Invoke();
     }
 

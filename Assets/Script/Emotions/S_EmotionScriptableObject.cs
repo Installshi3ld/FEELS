@@ -17,6 +17,7 @@ public class S_EmotionScriptableObject : ScriptableObject
     [System.NonSerialized]
     public UnityEvent emotionAmountChangeEvent;
 
+    public Sprite image;
     public int EmotionAmount
     {
         get { return emotionAmount; } //read
