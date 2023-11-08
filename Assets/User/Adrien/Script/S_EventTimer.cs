@@ -9,26 +9,24 @@ public class S_EventTimer : MonoBehaviour
 
     public float timerDuration;
     public float currentTimer = 0f;
+    
 
     public Slider slider;
 
-   // public TMP_Text eventName;
+    public TMP_Text eventName;
 
-   // private S_EventScriptableObject scriptMarie;
+    //public S_EventScriptableObject scriptMarie;
 
     // Start is called before the first frame update
     private void Start()
     {
-    //    scriptMarie = GetComponent<S_EventScriptableObject>();
-     //   string value = scriptMarie.description;
+      //  string value = scriptMarie.description;
     }
 
 
 
-    //public void UpdateTextFromSO(S_EventScriptableObject scriptableObject)
-    //{
-      //  eventName.text = scriptableObject.description;
-    //}
+
+  
     
     
         
@@ -37,7 +35,9 @@ public class S_EventTimer : MonoBehaviour
         // Update is called once per frame
     private void Update()
     {
-       
+        
+      // eventName.text = scriptMarie.description.ToString();
+   
 
         currentTimer += Time.deltaTime;
 
