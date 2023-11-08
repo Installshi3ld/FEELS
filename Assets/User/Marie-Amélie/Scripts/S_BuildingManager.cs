@@ -5,14 +5,13 @@ using static S_Building;
 
 public class S_BuildingManager : MonoBehaviour
 {
-    [SerializeField]
-    private S_EmotionScriptableObject emotionType;
+    public S_EmotionScriptableObject emotionType;
 
     [SerializeField]
     private bool isIncreasing;
 
     [SerializeField]
-    private int increaseOrDecreaseAmount;
+    public int increaseOrDecreaseAmount;
 
     S_Building buildingScript;
     private void Start()

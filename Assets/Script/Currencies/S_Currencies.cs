@@ -12,7 +12,9 @@ public class S_Currencies : ScriptableObject
     public delegate void RefreshUIDelegate();
     public event RefreshUIDelegate OnRefreshUi;
 
+
     public int amount = 0;
+    public Sprite image;
     public void AddAmount(float addAmount)
     {
         if (addAmount - Mathf.Floor(addAmount) >= .5f)
