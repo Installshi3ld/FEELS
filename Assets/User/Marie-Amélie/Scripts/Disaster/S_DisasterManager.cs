@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class S_DisasterManager : MonoBehaviour
 {
     [SerializeField]
+    private S_DisasterState[] disasterState;
+    [SerializeField]
     private S_EmotionScriptableObject[] emotions; // An array of all emotion scriptable objects
     [SerializeField]
     private S_Currencies[] feels; // An array of all feels scriptable objects
@@ -48,7 +50,7 @@ public class S_DisasterManager : MonoBehaviour
         {
             S_EmotionScriptableObject farthestEmotion = FindFarthestEmotion();
             farthestEmotion.ChangeEmotionAmout(50);
-            Debug.Log("Farthest Integer: " + farthestEmotion.name);
+            Debug.Log("Disaster applied for : " + farthestEmotion.name);
         }
 
     }
@@ -82,9 +84,42 @@ public class S_DisasterManager : MonoBehaviour
         return farthestEmotion;
     }
 
-    
+    private List<S_EmotionScriptableObject> FindEquilibratedEmotions() //Append in list all emotions except the one that is the most desequilibrated
+    {
+        List<S_EmotionScriptableObject> equilibratedEmotions = new List<S_EmotionScriptableObject>();
+        S_EmotionScriptableObject farthestEm = FindFarthestEmotion();
+
+        foreach (S_EmotionScriptableObject emotion in emotions)
+        {
+            if(emotion != farthestEm)
+            {
+                equilibratedEmotions.Add(emotion);
+            }
+        }
+
+        return equilibratedEmotions;
+    }
+
+
+    private void ReequilibrateEmotionAfterDisaster()
+    {
+        //(A+B+C)/3 = D (New value of the modified emotion) 
+        //On additionne les valeurs des trois autre qu'on divise par trois et c'est la nouvelle valeur de la barre affectée par le désastre
+
+        List<S_EmotionScriptableObject> equilibratedEmotions = FindEquilibratedEmotions();
+        int newEmotionValue = 0;
+
+        foreach(S_EmotionScriptableObject emotion in equilibratedEmotions)
+        {
+            newEmotionValue += emotion.emotionAmount;
+        }
+
+        FindFarthestEmotion().ChangeEmotionAmout(newEmotionValue);
+    }
+
+
     // Update is called once per frame
-    private void checkForDisaster()
+    private void checkForDisaster() //called for every emotion and just checking if one is desequilibrated and not if its this current and its desequilibrated
     {
         isDisasterWillOccur = false;
 
@@ -93,12 +128,12 @@ public class S_DisasterManager : MonoBehaviour
         {
             for (int j = i + 1; j < emotions.Length; j++)
             {
-                if (Mathf.Abs(emotions[i].emotionAmount - emotions[j].emotionAmount) > differenceToProvokeDisaster)
+                if (Mathf.Abs(emotions[i].emotionAmount - emotions[j].emotionAmount) > differenceToProvokeDisaster && !isDisasterWillOccur)
                 {
                     isDisasterWillOccur = true;
                     disasterImage.gameObject.SetActive(true);
                     StartCoroutine(checkEquilibriumAndApplyDisaster());
-                    Debug.Log("Disaster Will be provocked");
+                    Debug.Log("Disaster Will be provoked for " + FindFarthestEmotion().name);
                 }
 
             }
@@ -123,7 +158,8 @@ public class S_DisasterManager : MonoBehaviour
 
     private void ProvokeDisaster()
     {
-        ModifyFarthestEmotion();
+        //ModifyFarthestEmotion();
+        ReequilibrateEmotionAfterDisaster(); //Reequilibrate emotion after disaster with the new formula
         //Consume Feel of corresponding type
         Debug.Log("provoked");
     }

@@ -17,7 +17,10 @@ public class S_PhaseScriptableObject : ScriptableObject
 
         for (int i = 0; i < this.events.Count; i++)
         {
-            clone.events.Add(this.events[i].MakeCopy());
+            if (this.events[i])
+            {
+                clone.events.Add(this.events[i].MakeCopy());
+            }
         }
 
         return clone;

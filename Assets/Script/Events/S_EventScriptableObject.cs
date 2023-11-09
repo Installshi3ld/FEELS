@@ -61,9 +61,12 @@ public class S_EventScriptableObject : ScriptableObject
 
     public void applyEvent()
     {
-        if(dictEmotionsToDecrease != null && dictEmotionsToIncrease != null)
+        if(dictEmotionsToIncrease != null)
         {
             dictEmotionsToIncrease = ToDictionary(emotionsToIncrease, howMuchIncrease);
+        }
+        if(emotionsToDecrease != null)
+        {
             dictEmotionsToDecrease = ToDictionary(emotionsToDecrease, howMuchDecrease);
         }
 

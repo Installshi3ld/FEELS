@@ -26,7 +26,10 @@ public class S_ManageEvents : MonoBehaviour
 
         for (int i = 0; i < phases.Count; i++)
         {
-            phasesList.Add(phases[i].MakeCopy());
+            if (phases[i])
+            {
+                phasesList.Add(phases[i].MakeCopy());
+            }
         }
 
         StartCoroutine(UpdateEvents());
@@ -47,30 +50,35 @@ public class S_ManageEvents : MonoBehaviour
 
         while (true)
         {
-            currentEvent = ChooseOneEventRandomly();
+            yield return new WaitForSeconds(secondsBetweenNewEvent);
 
-            if (currentEvent)
+            if (phases[currentPhaseIndex] != null)
             {
-                currentEvent.applyEvent();
+                currentEvent = ChooseOneEventRandomly();
+                if (currentEvent)
+                {
+                    currentEvent.applyEvent();
+                }
             }
 
-            yield return new WaitForSeconds(secondsBetweenNewEvent);
         }
     }
 
     private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENT CONTAINED IN THE CURRENT PHASE
     {
         phasesList.Add(phases[currentPhaseIndex].MakeCopy());
+
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
         S_EventScriptableObject EventToReturn;
 
-        if (currentPhaseObject.events.Count > 0) //ne rentre pas là 
+        if (currentPhaseObject.events.Count > 0)
         {
             int index = Random.Range(0, currentPhaseObject.events.Count - 1);
             EventToReturn = currentPhaseObject.events[index];
             currentPhaseObject.events.RemoveAt(index); //The event of one pool can't occur multiple times and should be deleted to check 
             ChangeIndex();
 
+            Debug.Log(EventToReturn.name);
             return EventToReturn;
         }
         return null;

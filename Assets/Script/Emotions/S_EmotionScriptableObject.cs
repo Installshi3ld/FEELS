@@ -16,7 +16,6 @@ public class S_EmotionScriptableObject : ScriptableObject
 
     [System.NonSerialized]
     public UnityEvent emotionAmountChangeEvent;
-
     public int EmotionAmount
     {
         get { return emotionAmount; } //read
@@ -34,6 +33,7 @@ public class S_EmotionScriptableObject : ScriptableObject
             if( emotionAmountChangeEvent != null )
             {
                 emotionAmountChangeEvent.Invoke();
+                Debug.Log("invoking change event emotion " + emotionType);
             }
             
         }
@@ -57,19 +57,10 @@ public class S_EmotionScriptableObject : ScriptableObject
     public void DecreaseEmotion(int amount)
     {
         EmotionAmount -= amount;
-        
     }
 
     public void ChangeEmotionAmout(int amount)
     {
         EmotionAmount = amount;
-
-    }
-
-    public S_EmotionScriptableObject MakeCopy()
-    {
-        S_EmotionScriptableObject clone = CreateInstance<S_EmotionScriptableObject>();
-
-        return clone;
     }
 }
