@@ -953,7 +953,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 8.0,
+    "m_Value": 1.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -1142,7 +1142,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "2235d706c4974ae4a02a3c266aeea44d",
     "m_Id": 0,
-    "m_DisplayName": "Float",
+    "m_DisplayName": "ScrollSpeed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1599,7 +1599,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "33008c957c3848b4b3dc70e29b018cc0",
     "m_Id": 0,
-    "m_DisplayName": "Float",
+    "m_DisplayName": "TwirlStrength",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1702,10 +1702,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -832.0000610351563,
-            "y": 1353.0,
-            "width": 126.0,
-            "height": 77.0
+            "x": -888.0,
+            "y": 1376.0,
+            "width": 171.0,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -1839,7 +1839,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "4b1c4829a0a24924944da6d0cd1a5a19",
     "m_Id": 0,
-    "m_DisplayName": "Float",
+    "m_DisplayName": "DistortionStrength",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3709,10 +3709,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1266.0,
-            "y": 1789.0,
-            "width": 207.9998779296875,
-            "height": 301.999755859375
+            "x": 1274.0,
+            "y": 1847.0,
+            "width": 208.0,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -4065,7 +4065,7 @@
     "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
-    "m_SupportsLODCrossFade": false,
+    "m_SupportsLODCrossFade": true,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": true
 }
@@ -4549,9 +4549,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1611.0001220703125,
-            "y": 1704.9998779296875,
-            "width": 207.999755859375,
+            "x": 1594.9998779296875,
+            "y": 1702.9998779296875,
+            "width": 208.0,
             "height": 302.0
         }
     },
@@ -4828,7 +4828,7 @@
     "m_ShaderOutputName": "B",
     "m_StageCapability": 3,
     "m_Value": {
-        "e00": 2.009999990463257,
+        "e00": 1.8700000047683716,
         "e01": 2.0,
         "e02": 2.0,
         "e03": 2.0,
