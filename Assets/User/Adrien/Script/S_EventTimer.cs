@@ -49,7 +49,5 @@ public class S_EventTimer : MonoBehaviour
         float sliderValue = currentTimer / timerDuration;
 
         slider.value = sliderValue;    
-
-        Debug.Log("Valeur actuelle :" + sliderValue);
      }
 }

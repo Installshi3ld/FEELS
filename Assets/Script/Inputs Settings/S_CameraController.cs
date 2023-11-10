@@ -137,13 +137,13 @@ public class S_CameraController : MonoBehaviour
             {
                 speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
                 transform.position += targetPosition * speed * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
+                //transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
             }
             else
             {
                 horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
                 transform.position += horizontalVelocity * Time.deltaTime;
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
+                //transform.position = new Vector3(Mathf.Clamp(transform.position.x, -CameraClamp, CameraClamp), 0, Mathf.Clamp(transform.position.z, -CameraClamp, CameraClamp));
             }
 
             targetPosition = Vector3.zero;
@@ -180,7 +180,8 @@ public class S_CameraController : MonoBehaviour
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDampening);
         cameraTransform.LookAt(this.transform);
     }
-
+    
+    
     private void CheckMouseAtScreenEdge()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
@@ -206,6 +207,7 @@ public class S_CameraController : MonoBehaviour
 
         targetPosition += moveDirection;
     }
+    
 
     private void DragCamera() // DEPENDS ON MOUSE SENSITIVITY. CAN BE VERY AGRESSIVE IF DPI TOO HIGH
     {
@@ -219,6 +221,7 @@ public class S_CameraController : MonoBehaviour
         Plane plane = new Plane(Vector3.up, Vector3.zero);
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
+        
         if(plane.Raycast(ray, out float distance))
         {
             if (Mouse.current.rightButton.wasPressedThisFrame)
