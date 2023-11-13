@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 2061357171863665176}
   - component: {fileID: 8825634868270155094}
   - component: {fileID: -8296961094700234852}
-  m_Layer: 0
+  - component: {fileID: 8625617033403013418}
+  - component: {fileID: 5606379182806600169}
+  m_Layer: 6
   m_Name: P_Sad_Piano_Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,6 +71,40 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 10
+--- !u!114 &8625617033403013418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532694534459519036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 10
+--- !u!65 &5606379182806600169
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532694534459519036}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.914632, y: 9.427427, z: 2.22}
+  m_Center: {x: -2.53, y: 4.71, z: 1.1}
 --- !u!1001 &517192248211803861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,6 +160,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 303bb33c9de2b424bb33e91a1930beaf, type: 3}
       propertyPath: m_Name
       value: Sad_Piano
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 303bb33c9de2b424bb33e91a1930beaf, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 303bb33c9de2b424bb33e91a1930beaf, type: 3}
       propertyPath: m_IsActive
@@ -190,6 +230,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
       propertyPath: m_Name
       value: Sad_Piano
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

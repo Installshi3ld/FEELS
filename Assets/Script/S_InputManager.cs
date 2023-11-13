@@ -11,8 +11,9 @@ public class S_InputManager : MonoBehaviour
     public UnityEvent SpawnFireLifeExperience;
     public UnityEvent DestroyFireLifeExperience;
     public UnityEvent ShowFps;
-    public UnityEvent BackMouseClickR;
-    
+    public UnityEvent RightClick;
+    public UnityEvent LeftClick;
+
     List<GameObject> LifeExperienceList = new List<GameObject>();
 
     // Update is called once per frame
@@ -36,8 +37,13 @@ public class S_InputManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            BackMouseClickR.Invoke();
+            RightClick.Invoke();
         }
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            LeftClick.Invoke();
+        }
+
     }
 
     
