@@ -33,9 +33,8 @@ public class S_AIManager : MonoBehaviour
             FeelPool.Add(tmpList);
         }
 
-        ShowFeel(FeelType.Anger ,400);
-        ShowFeel(FeelType.Joy ,20);
-        ShowFeel(FeelType.Sad, 20);
+        ShowFeel(FeelType.Anger ,1);
+
     }
 
     GameObject tmp;

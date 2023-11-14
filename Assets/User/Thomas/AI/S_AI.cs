@@ -18,6 +18,7 @@ public class S_AI : MonoBehaviour
     {
         if(!haveTask && m_Agent.velocity == Vector3.zero)
         {
+            print("greger");
             StartCoroutine(WaitForNextMovement());
         }
     }

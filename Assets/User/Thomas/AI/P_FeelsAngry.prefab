@@ -44,8 +44,6 @@ GameObject:
   - component: {fileID: 2671732669680106513}
   - component: {fileID: 6334738074119273494}
   - component: {fileID: 1664380561939878283}
-  - component: {fileID: 2169054593382165936}
-  - component: {fileID: 8365956206235078949}
   - component: {fileID: 7239746315061066402}
   m_Layer: 0
   m_Name: OgreAgent (1)
@@ -141,33 +139,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
---- !u!114 &2169054593382165936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2741755323915809231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9472e73a59274b9b8da79d72004bd8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8365956206235078949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2741755323915809231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b32a60ffa26d2f4e81a94efedcd327f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lerpSpeed: 5
-  rotationZStart: -5
-  rotationZEnd: 5
 --- !u!114 &7239746315061066402
 MonoBehaviour:
   m_ObjectHideFlags: 0
