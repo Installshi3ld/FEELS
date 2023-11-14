@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using static S_Building;
 
 public class Grid : MonoBehaviour
@@ -14,11 +15,16 @@ public class Grid : MonoBehaviour
     public static int mapSphereArea;
 
     public GameObject fog;
-    public GameObject fogBatching;
+    public GameObject floorNavMesh;
 
     [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding). ")]
     public int padding_def = 1;
     public static int padding;
+
+    /// <summary>
+    /// For graphic optimisation, can gain 20/30 fps (But will break NavMeshSurface)
+    /// </summary>
+    public bool EnableFogBatching = false;
 
     int debugTileStatement = 0;
     bool debugTiles = false;
@@ -47,9 +53,13 @@ public class Grid : MonoBehaviour
         SetFogGridUsageStatement();
         CreateFogGameObjects();
 
-        for(int i = 0; i < gridsUsageStatement.Count; ++i)
+        floorNavMesh.GetComponent<NavMeshSurface>().BuildNavMesh();
+        if (EnableFogBatching)
         {
-            StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), fogBatching);
+            for(int i = 0; i < gridsUsageStatement.Count; ++i)
+            {
+                StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), null);
+            }
         }
     }
 
