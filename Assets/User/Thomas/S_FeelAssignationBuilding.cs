@@ -11,6 +11,16 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public bool StorageFull;
     public int MaxFeel;
 
+    public float delayBetweenEachProduction = 2.0f;
+    public float productionAmount = 2.0f;
+
+    [NonSerialized]
+    public float delayBetweenEachProductionForUI = 0;
+    [NonSerialized]
+    public float productionAmountForUI = 0;
+
+    S_Currencies feelProductionType;
+    bool bProductionFeels;
     /// <summary>
     /// Return true if successfuly assign feels
     /// </summary>
@@ -18,10 +28,15 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     /// <returns></returns>
     public bool AssignFeels(S_Currencies feelType)
     {
-        if(!StorageFull) { 
+        if(!StorageFull) {
+            delayBetweenEachProductionForUI = delayBetweenEachProduction;
+            productionAmountForUI = productionAmount;
+
+            feelProductionType = feelType;
             CurrentStoredFeel = MaxFeel;
             feelType.RemoveAmount(MaxFeel);
             StorageFull = true;
+            StartCoroutine(FeelProduction());
             return true;
         }
         return false;
@@ -35,11 +50,24 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     {
         if (StorageFull)
         {
+            delayBetweenEachProductionForUI = 0;
+            productionAmountForUI = 0;
+
             CurrentStoredFeel = 0;
             feelType.AddAmount(MaxFeel);
             StorageFull = false;
+            StopCoroutine(FeelProduction());
             return true;
         }
         return false;
+    }
+
+    IEnumerator FeelProduction()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(delayBetweenEachProduction);
+            feelProductionType.AddAmount(productionAmount);
+        }
     }
 }

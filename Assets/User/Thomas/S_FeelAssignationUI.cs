@@ -10,6 +10,9 @@ public class S_FeelAssignationUI : MonoBehaviour
     public TextMeshProUGUI TCurrentStoredFeel;
     public TextMeshProUGUI TMaxFeel;
 
+    public TextMeshProUGUI TAmountProduction;
+    public TextMeshProUGUI TDelayBetweenProduction;
+
     public Button B_Assign;
     public Button B_Unassign;
 
@@ -30,6 +33,10 @@ public class S_FeelAssignationUI : MonoBehaviour
             TCurrentStoredFeel.text = assignManager.s_FeelAssignationBuilding.CurrentStoredFeel.ToString();
         if (TMaxFeel)
             TMaxFeel.text = assignManager.s_FeelAssignationBuilding.MaxFeel.ToString();
+        if(TAmountProduction)
+            TAmountProduction.text = assignManager.s_FeelAssignationBuilding.productionAmountForUI.ToString();
+        if(TDelayBetweenProduction)
+            TDelayBetweenProduction.text = assignManager.s_FeelAssignationBuilding.delayBetweenEachProductionForUI.ToString();
     }
 
     void ChangeButtonStatement()
