@@ -26,7 +26,6 @@ public static class HierarchyWindowGameObjectIcon
         if (content.image != null && !IgnoreIcons.Contains(content.image.name))
         {
             GUI.DrawTexture(new Rect(selectionRect.xMax - 16, selectionRect.yMin, 16, 16), content.image);
-            Debug.Log(content.image.name);
         }
         else if (content.image != null && content.image.name == "sv_label_0")
         {
