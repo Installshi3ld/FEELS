@@ -15,7 +15,6 @@ public class S_GravityCommand : S_ConsoleCommand
         if (!float.TryParse(args[0], out float value)) { Debug.Log(value); return false; }
 
         Physics.gravity = new Vector3(Physics.gravity.x, value, Physics.gravity.z);
-        Debug.Log("The value is " + value);
 
         return true;
     }
