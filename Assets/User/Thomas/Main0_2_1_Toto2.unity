@@ -715,6 +715,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6554357629165241309, guid: 16043bdca71dc1045988691ed791e5bc, type: 3}
+      propertyPath: ZoomSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554357629165241309, guid: 16043bdca71dc1045988691ed791e5bc, type: 3}
       propertyPath: CameraSpeed
       value: 20
       objectReference: {fileID: 0}
@@ -732,7 +736,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6554357629165241309, guid: 16043bdca71dc1045988691ed791e5bc, type: 3}
       propertyPath: keyboardDeceleration
-      value: 40
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554357629165241309, guid: 16043bdca71dc1045988691ed791e5bc, type: 3}
+      propertyPath: MouvementSpeedMaxHeight
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6799893656555053373, guid: 16043bdca71dc1045988691ed791e5bc, type: 3}
       propertyPath: m_Name
