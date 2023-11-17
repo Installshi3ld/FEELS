@@ -5,28 +5,25 @@ using UnityEngine.InputSystem;
 
 public class S_CamV2 : MonoBehaviour
 {
+    #region parameters
+    [Header("General")]
     public GameObject cam;
     public float MouvementSpeedMinHeight = 15;
     public float MouvementSpeedMaxHeight = 40;
-    [Space]
+    public float BorderLimit = 100;
+    public float AnimationSpeed = 5f;
+    public LayerMask Floorlayer;
+
+    [Header("Zoom")]
     public float MinimumHeight = 5;
     public float MaximumHeight = 50;
     public float Step = 1.2f;
     public float ZoomSpeed = 5f;
 
-    [Space]
-    public float keyboardAcceleration = 20f;
-    public float keyboardDeceleration = 20f;
-    [Space]
-    public float dragSpeed = 5f;
-
-
-    private float _currentSpeed = 0;
-
     private CameraControlActions cameraActions;
     private InputAction movement;
 
-    
+    #endregion
 
     private void Awake()
     {
@@ -43,28 +40,32 @@ public class S_CamV2 : MonoBehaviour
 
     Vector2 smoothMovementKeyboard;
     bool bCameraDrag = false;
+
+    Vector3 CameraDestination = Vector3.zero;
+
+    Vector3 tmpDestination;
     void Update()
     {
+        // Keyboard movement
         if (!bCameraDrag)
         {
-            //Keyboard
-            if (movement.ReadValue<Vector2>() != Vector2.zero) // Accelerate
-            {
-                smoothMovementKeyboard = movement.ReadValue<Vector2>();
-                _currentSpeed = Mathf.Clamp(_currentSpeed + keyboardAcceleration * Time.deltaTime, 0, GetCurrentMaxSpeed());
-            }
-            else //Decelerate
-            {
-                _currentSpeed = Mathf.Clamp(_currentSpeed - keyboardDeceleration * Time.deltaTime, 0, GetCurrentMaxSpeed());
-            }
-            this.gameObject.transform.position += new Vector3(smoothMovementKeyboard.x, 0f, smoothMovementKeyboard.y).normalized * _currentSpeed * Time.deltaTime;
+            smoothMovementKeyboard = movement.ReadValue<Vector2>();
+            CameraDestination += new Vector3(smoothMovementKeyboard.x, 0f, smoothMovementKeyboard.y).normalized * Time.deltaTime * GetCurrentMaxSpeed();
         }
-        
-        //Drag
-        if(DragDestination.magnitude > 0.2f)
+
+        tmpDestination = this.gameObject.transform.position + CameraDestination * AnimationSpeed * Time.deltaTime;
+
+        //Set camera position
+        if (CameraDestination.magnitude > 0.05f 
+            && -BorderLimit < tmpDestination.x && tmpDestination.x < BorderLimit
+            && -BorderLimit < tmpDestination.z && tmpDestination.z < BorderLimit)
         {
-            this.gameObject.transform.position += DragDestination * dragSpeed * Time.deltaTime;
-            DragDestination -= DragDestination * dragSpeed * Time.deltaTime ;
+            this.gameObject.transform.position += CameraDestination * AnimationSpeed * Time.deltaTime;
+            CameraDestination -= CameraDestination * AnimationSpeed * Time.deltaTime ;
+        }
+        else if(CameraDestination != Vector3.zero)
+        {
+            CameraDestination = Vector3.zero;
         }
 
         //Zoom
@@ -81,9 +82,8 @@ public class S_CamV2 : MonoBehaviour
             zoomDestination = Vector3.zero;
         }
 
-        DragMouvementStart();
+        DragMouvement();
     }
-
 
     Vector3 zoomDestination = Vector3.zero;
     void ZoomCamera(InputAction.CallbackContext inputValue)
@@ -91,9 +91,22 @@ public class S_CamV2 : MonoBehaviour
         float value = Mathf.Clamp(inputValue.ReadValue<Vector2>().y, -1, 1) * Step;
 
         if (MinimumHeight < cam.transform.position.y - value && cam.transform.position.y - value < MaximumHeight)
+        {
             zoomDestination = zoomDestination + new Vector3(0, -value, value);
+
+            //Localized Zoom
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~Floorlayer))
+            {
+                if (inputValue.ReadValue<Vector2>().y > 0)
+                    CameraDestination += hit.point / 50;
+            }
+        }
     }
 
+    //___
     float cameraSpeedAlpha;
     float GetCurrentMaxSpeed()
     {
@@ -101,14 +114,13 @@ public class S_CamV2 : MonoBehaviour
         return Mathf.Lerp(MouvementSpeedMinHeight, MouvementSpeedMaxHeight, cameraSpeedAlpha);
     }
 
-    Vector3 DragDestination = Vector3.zero;
+    //___
     Vector2 LastMousePosition = Vector2.zero;
-    void DragMouvementStart()
+    void DragMouvement()
     {
         if (Input.GetMouseButtonDown(1))
         {
             bCameraDrag = true;
-            _currentSpeed = 0;
             LastMousePosition = Mouse.current.position.ReadValue();
         }
         else if (Input.GetMouseButtonUp(1))
@@ -118,7 +130,7 @@ public class S_CamV2 : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            DragDestination -= new Vector3(
+            CameraDestination -= new Vector3(
                 Mouse.current.position.ReadValue().x - LastMousePosition.x,
                 0,
                 Mouse.current.position.ReadValue().y - LastMousePosition.y) / 5;
