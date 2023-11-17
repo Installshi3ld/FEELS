@@ -19,6 +19,7 @@ public class S_CamV2 : MonoBehaviour
     public float MaximumHeight = 50;
     public float Step = 1.2f;
     public float ZoomSpeed = 5f;
+    public float LocalizedZoomStrenght = 1.2f;
 
     private CameraControlActions cameraActions;
     private InputAction movement;
@@ -98,9 +99,12 @@ public class S_CamV2 : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~Floorlayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, Floorlayer))
             {
                 if (inputValue.ReadValue<Vector2>().y > 0)
+                {
+                    CameraDestination += (hit.point - this.transform.position).normalized * LocalizedZoomStrenght;
+                }
                     CameraDestination += hit.point / 50;
             }
         }
