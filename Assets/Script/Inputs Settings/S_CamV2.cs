@@ -57,11 +57,14 @@ public class S_CamV2 : MonoBehaviour
         tmpDestination = this.gameObject.transform.position + CameraDestination * AnimationSpeed * Time.deltaTime;
 
         //Set camera position
-        if (CameraDestination.magnitude > 0.05f 
-            && -BorderLimit < tmpDestination.x && tmpDestination.x < BorderLimit
-            && -BorderLimit < tmpDestination.z && tmpDestination.z < BorderLimit)
+        if (CameraDestination.magnitude > 0.05f)
         {
-            this.gameObject.transform.position += CameraDestination * AnimationSpeed * Time.deltaTime;
+            if(-BorderLimit < tmpDestination.x && tmpDestination.x < BorderLimit)
+                this.gameObject.transform.position += new Vector3(CameraDestination.x * AnimationSpeed * Time.deltaTime, 0, 0);
+
+            if (-BorderLimit < tmpDestination.z && tmpDestination.z < BorderLimit)
+                this.gameObject.transform.position += new Vector3(0, 0, CameraDestination.z * AnimationSpeed * Time.deltaTime);
+
             CameraDestination -= CameraDestination * AnimationSpeed * Time.deltaTime ;
         }
         else if(CameraDestination != Vector3.zero)
@@ -105,7 +108,6 @@ public class S_CamV2 : MonoBehaviour
                 {
                     CameraDestination += (hit.point - this.transform.position).normalized * LocalizedZoomStrenght;
                 }
-                    CameraDestination += hit.point / 50;
             }
         }
     }
