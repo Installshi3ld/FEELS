@@ -70,6 +70,4 @@ public class S_DeveloperConsoleBehavior : MonoBehaviour
 
         inputField.text = string.Empty;
     }
-
-
 }

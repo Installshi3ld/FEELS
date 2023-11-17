@@ -1,17 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class S_GivePosition : MonoBehaviour
+public class S_GivePosition : MonoBehaviour, IConsoleCommand
 {
-    private void OnEnable()
+    [SerializeField] private string commandWord = string.Empty;
+
+    string IConsoleCommand.CommandWord => commandWord;
+
+    /*
+    [SerializeField]
+    private S_PositionCommand positionCommand;
+
+    [SerializeField]
+    private List<GameObject> gameObjectsToFollow = new List<GameObject>();
+
+    [SerializeField]
+    private List<string> gameObjectsToFollowName = new List<string>();*/
+
+    public bool Processed(string[] args)
     {
-        //AddListener Unity Eveent 
+        //StartCoroutine(givePositionEveryXSecond());
+        return true;
     }
-    private void giveObjectPosition(GameObject go, float howLon)
+
+    /*private void giveObjectPosition(string commandName)
     {
-        StartCoroutine(givePositionEveryXSecond(go, howLon));
-    }
+        bool isThereAMatch = false;
+
+        foreach(string gameObjectCommandName in gameObjectsToFollowName)
+        {
+            if (gameObject.name == commandName)
+            {
+                isThereAMatch = true;
+                StartCoroutine(givePositionEveryXSecond(go, howLon));
+            }
+        }
+
+        if(!isThereAMatch)
+        {
+            Debug.Log("Invalid name: none object found");
+        }
+        
+    }*/
     private IEnumerator givePositionEveryXSecond(GameObject go, float howLong)
     {
         while(howLong >= 0)
@@ -23,5 +56,7 @@ public class S_GivePosition : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-    } 
+    }
+
+
 }
