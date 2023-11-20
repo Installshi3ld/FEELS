@@ -173,7 +173,7 @@ public class ConstructionSystem : MonoBehaviour
             }
 
             //1 -> Tile used 2 -> If outside mapSphereArea 
-            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] 
+            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y].statement 
                 ||
                 Grid.fogGridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
             {
@@ -190,7 +190,12 @@ public class ConstructionSystem : MonoBehaviour
         {
             for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
             {
-                Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
+                int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
+                int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
+
+                Grid.gridsUsageStatement[x][y].statement = true;
+                Grid.gridsUsageStatement[x][y].building = objectSpawned;
+                
             }
 
 

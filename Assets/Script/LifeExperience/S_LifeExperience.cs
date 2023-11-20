@@ -69,7 +69,7 @@ public class S_LifeExperience : MonoBehaviour
             Vector3 tmpCoordinate = Grid.GetRandomTileAroundOtherOne(Grid.getIndexbasedOnPosition(this.transform.position), 3, false);
             if(tmpCoordinate != Vector3.zero)
             {
-                if (!Grid.gridsUsageStatement[Grid.getIndexbasedOnPosition(tmpCoordinate).x][Grid.getIndexbasedOnPosition(tmpCoordinate).y])
+                if (!Grid.gridsUsageStatement[Grid.getIndexbasedOnPosition(tmpCoordinate).x][Grid.getIndexbasedOnPosition(tmpCoordinate).y].statement)
                 {
                     allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
 
