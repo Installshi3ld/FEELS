@@ -13,6 +13,21 @@ public class S_Currencies : ScriptableObject
     public event RefreshUIDelegate OnRefreshUi;
 
 
+    public enum FeelType
+    {
+        None = 0,
+        Joy,
+        Anger,
+        Sad,
+        Fear,
+    }
+
+    /// <summary>
+    /// This type is for building, to know which case activate bonus
+    /// </summary>
+    [SerializeField]
+    public FeelType feelType;
+
     public int amount = 0;
     public Sprite image;
     public void AddAmount(float addAmount)

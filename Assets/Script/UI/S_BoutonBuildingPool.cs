@@ -40,7 +40,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
         if (_buildingPool)
         {
             if(buildingScript)
-                _buildingPool.SetInfoFeel(buildingScript.FeelType,  feelCost);
+                _buildingPool.SetInfoFeel(buildingScript.FeelCurrency,  feelCost);
             else
                 _buildingPool.SetInfoFeel(null, feelCost);
 

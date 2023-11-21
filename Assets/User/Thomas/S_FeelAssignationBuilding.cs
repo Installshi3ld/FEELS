@@ -8,7 +8,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     [NonSerialized]
     public int CurrentStoredFeel;
     [NonSerialized]
-    public bool StorageFull;
+    public bool isProducing, isBoosted = false;
     public int MaxFeel;
 
     public float delayBetweenEachProduction = 2.0f;
@@ -20,6 +20,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public float productionAmountForUI = 0;
 
     S_Currencies feelProductionType;
+
     bool bProductionFeels;
     /// <summary>
     /// Return true if successfuly assign feels
@@ -28,14 +29,14 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     /// <returns></returns>
     public bool AssignFeels(S_Currencies feelType)
     {
-        if(!StorageFull) {
+        if(!isProducing) {
             delayBetweenEachProductionForUI = delayBetweenEachProduction;
             productionAmountForUI = productionAmount;
 
             feelProductionType = feelType;
             CurrentStoredFeel = MaxFeel;
             feelType.RemoveAmount(MaxFeel);
-            StorageFull = true;
+            isProducing = true;
             StartCoroutine(FeelProduction());
             return true;
         }
@@ -48,14 +49,14 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     /// <returns></returns>
     public bool UnassignFeels(S_Currencies feelType)
     {
-        if (StorageFull)
+        if (isProducing)
         {
             delayBetweenEachProductionForUI = 0;
             productionAmountForUI = 0;
 
             CurrentStoredFeel = 0;
             feelType.AddAmount(MaxFeel);
-            StorageFull = false;
+            isProducing = false;
             StopCoroutine(FeelProduction());
             return true;
         }
@@ -69,5 +70,11 @@ public class S_FeelAssignationBuilding : MonoBehaviour
             yield return new WaitForSeconds(delayBetweenEachProduction);
             feelProductionType.AddAmount(productionAmount);
         }
+    }
+
+    public void BoostBuilding()
+    {
+        isBoosted = true;
+        productionAmount = 4.0f;
     }
 }

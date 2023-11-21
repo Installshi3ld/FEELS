@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,7 +9,6 @@ using UnityEngine.EventSystems;
 public class ConstructionSystem : MonoBehaviour
 {
     public GameObject objectToSpawn;
-    public GameObject objectToSpawn2;
     //private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
@@ -30,7 +30,6 @@ public class ConstructionSystem : MonoBehaviour
     {
         StoreBuildingPerTier();
         RefreshBuildingPool();
-        
     }
 
     void Update()
@@ -60,18 +59,6 @@ public class ConstructionSystem : MonoBehaviour
         {
             if (objectSpawned == null) {
                 objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn);
-            }
-            else if (objectSpawned != null)
-            {
-                Destroy(objectSpawned);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (objectSpawned == null)
-            {
-                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn2);
             }
             else if (objectSpawned != null)
             {
@@ -183,7 +170,7 @@ public class ConstructionSystem : MonoBehaviour
         }
 
         //Check if enough Money
-        if(objectSpawnedBuildingScript.FeelType && objectSpawnedBuildingScript.FeelType.amount - objectSpawnedBuildingScript.price < 0)
+        if(objectSpawnedBuildingScript.FeelCurrency && objectSpawnedBuildingScript.FeelCurrency.amount - objectSpawnedBuildingScript.price < 0)
             canPlaceBuilding = false;
 
         if (canPlaceBuilding)
@@ -200,12 +187,14 @@ public class ConstructionSystem : MonoBehaviour
 
 
             feelsUI.RefreshUI();
-            if(objectSpawnedBuildingScript.FeelType)
-                objectSpawnedBuildingScript.FeelType.RemoveAmount(objectSpawnedBuildingScript.price);
+            if(objectSpawnedBuildingScript.FeelCurrency)
+                objectSpawnedBuildingScript.FeelCurrency.RemoveAmount(objectSpawnedBuildingScript.price);
 
             consciousTreeToken.AddAmount(1);
 
             objectSpawned.GetComponent<S_Building>().PlacedBuilding();
+            CheckBoostBuilding();
+
             objectSpawned = null;
         }
         else
@@ -258,4 +247,29 @@ public class ConstructionSystem : MonoBehaviour
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
+    void CheckBoostBuilding()
+    {
+        List<Vector2Int> tmpIndex = new List<Vector2Int>();
+        S_Building building = objectSpawned.GetComponent<S_Building>();
+        tmpIndex = building.GetTileToBoost();
+
+        S_Currencies.FeelType _feelType = S_Currencies.FeelType.None;
+        if (building.FeelCurrency)
+            _feelType = building.FeelCurrency.feelType;
+
+        GameObject tmpCurrentBuildingCheck = null;
+        Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned);
+
+        for (int i = 0; i < tmpIndex.Count; i++)
+        {
+            tmpCurrentBuildingCheck = Grid.gridsUsageStatement[buildingCoordinate.x + tmpIndex[i].x][buildingCoordinate.y + tmpIndex[i].y].building;
+            if (tmpCurrentBuildingCheck && tmpCurrentBuildingCheck.GetComponent<S_Building>().FeelCurrency.feelType == _feelType)
+            {
+                tmpCurrentBuildingCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+            }
+        }
+
+    }
+
 }

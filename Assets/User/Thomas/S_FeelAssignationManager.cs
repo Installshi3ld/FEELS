@@ -15,7 +15,7 @@ public class S_FeelAssignationManager : MonoBehaviour
     public S_FeelAssignationBuilding s_FeelAssignationBuilding;
 
     public delegate void DelegateAssign();
-    public event DelegateAssign RefreshUi, ChangeButtonStatement;
+    public event DelegateAssign RefreshUi;
 
     bool _valueAssigned;
 
@@ -43,11 +43,11 @@ public class S_FeelAssignationManager : MonoBehaviour
             //Set data
             if (BuildingClickedOn)
             {
-                UIPanelContainer.transform.position = clickPosition;
-                UIPanelContainer.SetActive(true);
-
                 s_FeelAssignationBuilding = BuildingClickedOn.GetComponent<S_FeelAssignationBuilding>();
                 RefreshUi.Invoke();
+
+                UIPanelContainer.transform.position = clickPosition;
+                UIPanelContainer.SetActive(true);
             }
         }
     }
@@ -62,10 +62,9 @@ public class S_FeelAssignationManager : MonoBehaviour
     {
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
 
-        _valueAssigned = s_FeelAssignationBuilding.AssignFeels(s_Building.FeelType);
+        _valueAssigned = s_FeelAssignationBuilding.AssignFeels(s_Building.FeelCurrency);
         if (_valueAssigned)
         {
-            ChangeButtonStatement.Invoke();
             RefreshUi.Invoke();
         }
         _valueAssigned = false;
@@ -75,10 +74,9 @@ public class S_FeelAssignationManager : MonoBehaviour
     {
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
 
-        _valueAssigned = s_FeelAssignationBuilding.UnassignFeels(s_Building.FeelType);
+        _valueAssigned = s_FeelAssignationBuilding.UnassignFeels(s_Building.FeelCurrency);
         if (_valueAssigned)
         {
-            ChangeButtonStatement.Invoke();
             RefreshUi.Invoke();
         }
         _valueAssigned = false;

@@ -176,7 +176,6 @@ public class Grid : MonoBehaviour
                 if (Vector3Int.Distance(Vector3Int.zero, GetPositionBasedOnIndex(i, j)) > mapSphereArea)
                 {
                     fogGridsUsageStatement[i][j] = true;
-                    print("feez");
                 }
             }
         }
