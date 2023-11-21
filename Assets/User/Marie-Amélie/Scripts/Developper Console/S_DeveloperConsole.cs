@@ -30,6 +30,7 @@ public class S_DeveloperConsole
 
         ProcessCommand(commandInput, args);
     }
+
     public void ProcessCommand(string commandInput, string[] args) 
     {
         foreach (var command in commands)
