@@ -48,6 +48,7 @@ public class S_Building : MonoBehaviour
     public void PlacedBuilding()
     {
         isPlaced = true;
+        isPlacedAnimation = true;
         if (FeelType)
             changingEquilibriumValue();
     }

@@ -39,7 +39,7 @@ public class ConstructionSystem : MonoBehaviour
         RaycastHit hit;
 
         //Mouse raycast
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 7))
         {
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
 

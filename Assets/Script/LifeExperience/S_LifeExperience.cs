@@ -54,7 +54,8 @@ public class S_LifeExperience : MonoBehaviour
 
     void SpawnWonder()
     {
-        GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        wonder.GetComponent<S_Building>().PlacedBuilding();
         Destroy(this.gameObject);
     }
 
