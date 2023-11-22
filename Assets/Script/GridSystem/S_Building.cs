@@ -15,7 +15,6 @@ public class S_Building : MonoBehaviour
         tilesCoordinate.Add(Vector2Int.zero);
     }
 
-
     float lerpAlpha = 0f;
     [System.NonSerialized]
     public bool isPlacedAnimation, isPlaced = false;
@@ -59,8 +58,5 @@ public class S_Building : MonoBehaviour
         if( lerpAlpha > 0.5f )
             lerpAlpha = 0;
     }
-
-
-    
 
 }
