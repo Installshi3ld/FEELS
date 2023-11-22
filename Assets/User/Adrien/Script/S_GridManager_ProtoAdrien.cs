@@ -5,55 +5,79 @@ using UnityEngine;
 
 public class S_GridManager_ProtoAdrien: MonoBehaviour
 {
-
-    public int gridSizeX = 30;
-    public int gridSizeY = 30;
-    public float cellSize = 1.0f;
-    public float spacingCell = 0.1f;
+    public int rows = 5;
+    public int columns = 5;
     public Camera mainCamera;
+    public GameObject cellPrefab;
+    public Color objectColor;
+    private S_GridCell[,] gridCells;
+    public float cellSize = 1.2f;
 
 
-  
     // 0 = null | 1 = Joy | 2 = Sad | 3 = Fear | 4 = Anger
     public int buildingSelection;
 
     private S_ColorChangeWithMouse_ProtoAdrien activeColorChangeScript;
+    private S_CheckPositionBuildings_ProtoAdrien activeCheckScript;
 
 
     void Start()
     {
         CreateGrid();
         AdjustCamera();
+       
     }
 
     void CreateGrid()
     {
-        for (int x = 0; x < gridSizeX; x++)
-            for (int y = 0; y < gridSizeY; y++)
+        gridCells = new S_GridCell[rows, columns];
+        for (int row = 0; row < rows; row++)
+            for (int col = 0; col < columns; col++)
             {
-                //Calculate position based on grid size and cell size
-                float posX = x * (cellSize + spacingCell);
-                float posY = y * (cellSize + spacingCell);
+                float xOffset = col * cellSize;
+                float yOffset = row * cellSize;
 
-                //Create a GameObject at the calculated position
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                cube.transform.position = new Vector3(posX, posY, 0);
+                Vector3 position = new Vector3(xOffset, yOffset, 0);
+                GameObject cube = Instantiate(cellPrefab, position, Quaternion.identity, transform) ;
+
+            
+                cube.GetComponent<MeshRenderer>().material.color = objectColor;
+
+
+                S_GridCell cell = new S_GridCell(objectColor)
+                {
+                    row = row,
+                    col = col,
+                    cubeObject = cube,
+                    additionnalInfo = "Additional Info " + row + "-" + col,
+                };
+
+                gridCells[row, col] = cell;
+                
 
                 S_ColorChangeWithMouse_ProtoAdrien 
 
                 colorChangeScript = cube.AddComponent<S_ColorChangeWithMouse_ProtoAdrien>();
 
                 colorChangeScript.Initialize(this);
+
+                S_CheckPositionBuildings_ProtoAdrien
+
+                checkPositionScript = cube.AddComponent<S_CheckPositionBuildings_ProtoAdrien>();
+                checkPositionScript.Initialize(this);
             }
+        int rowIndex = 2;
+        int columnIndex = 3;
+        Color cellColor = gridCells[rowIndex, columnIndex].cubeColor;
+        Debug.Log("Additional Info " + "for cell (" + rowIndex + "," + columnIndex +"):" + gridCells[rowIndex, columnIndex].additionnalInfo);
     }
 
     void AdjustCamera()
     {
-        float gridWidth = gridSizeX * (cellSize + spacingCell);
-        float gridHeight = gridSizeY * (cellSize + spacingCell);
-        mainCamera.orthographicSize = Mathf.Max(gridWidth, gridHeight) * 0.5f;
-        mainCamera.transform.position = new Vector3((gridWidth-1) * 0.5f, (gridHeight-1) * 0.5f, -15f);
+       
+        mainCamera.orthographicSize = Mathf.Max(rows + cellSize * rows, columns + cellSize * columns);
+        mainCamera.transform.position = new Vector3((rows-1) * 0.5f, (columns-1) * 0.5f, -5f);
     }
 
  
@@ -61,6 +85,11 @@ public class S_GridManager_ProtoAdrien: MonoBehaviour
     public void SetActiveColorChangeScript(S_ColorChangeWithMouse_ProtoAdrien colorChangeScript)
     {
         activeColorChangeScript = colorChangeScript;
+    }
+
+    public void SetActiveCheckScript(S_CheckPositionBuildings_ProtoAdrien checkPositionScript)
+    {
+        activeCheckScript =  checkPositionScript;
     }
 
     public Color GetTargetColor()
@@ -90,6 +119,11 @@ public class S_GridManager_ProtoAdrien: MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            HandleRightClick();
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             buildingSelection = 1;
@@ -106,6 +140,34 @@ public class S_GridManager_ProtoAdrien: MonoBehaviour
         {
             buildingSelection = 4;
         }
-     
+ 
     }
-}
+
+  //  void ChangeColor()
+  // {
+        // Color gridCells.cubeColor = GetTargetColor();
+  // }
+
+    void HandleRightClick()
+    {
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+
+        {
+            GameObject clickedObject = hit.collider.gameObject;
+
+            foreach (S_GridCell cell in gridCells) 
+                {
+                    if ( cell.cubeObject == clickedObject)
+                    {
+                        // Access the color of the clicked cube
+                        Color clickedColor = cell.cubeColor;
+                        Debug.Log("Color of the clicked cube: " + clickedColor);
+                        return; // Stop searching once the cube is found
+                    }
+                }
+            }
+        }
+    }
