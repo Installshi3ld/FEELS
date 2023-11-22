@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class S_Building : MonoBehaviour
@@ -81,41 +82,45 @@ public class S_Building : MonoBehaviour
                 maximumY = tilesCoordinate[i].y;
 
         }
-        print("minX " + minimumX + "minY " + minimumY);
-        print("maxX " + maximumX + "maxY " + maximumY);
-        
     }
 
-    public List<Vector2Int> GetTileToBoost()
+    public List<Vector2Int> GetCornerTiles()
     {
-        List<Vector2Int> tileToBoost = new List<Vector2Int>();
-        if (FeelCurrency)
+        List<Vector2Int> surroundingTiles = new List<Vector2Int>();
+        for (int i = 0; i < tilesCoordinate.Count; i++)
         {
-            switch (FeelCurrency.feelType)
-            {
-                case S_Currencies.FeelType.Joy:
-                    for (int i = 0; i < tilesCoordinate.Count; i++)
-                    {
-                        if (tilesCoordinate[i].x == minimumX)
-                            tileToBoost.Add(new Vector2Int(tilesCoordinate[i].x - 1, tilesCoordinate[i].y));
+            if (tilesCoordinate[i].x == minimumX && tilesCoordinate[i].y == minimumY)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x - 1, tilesCoordinate[i].y - 1));
 
-                        if (tilesCoordinate[i].y == minimumY)
-                            tileToBoost.Add(new Vector2Int(tilesCoordinate[i].x, tilesCoordinate[i].y - 1));
+            if (tilesCoordinate[i].x == minimumX && tilesCoordinate[i].y == maximumY)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x - 1, tilesCoordinate[i].y + 1));
 
-                        if (tilesCoordinate[i].x == maximumX)
-                            tileToBoost.Add(new Vector2Int(tilesCoordinate[i].x + 1, tilesCoordinate[i].y));
+            if (tilesCoordinate[i].x == maximumX && tilesCoordinate[i].y == minimumY)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x + 1, tilesCoordinate[i].y - 1));
 
-                        if (tilesCoordinate[i].y == maximumY)
-                            tileToBoost.Add(new Vector2Int(tilesCoordinate[i].x, tilesCoordinate[i].y + 1));
-                    }
-                    break;
-            }
+            if (tilesCoordinate[i].x == maximumY && tilesCoordinate[i].y == maximumY)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x + 1, tilesCoordinate[i].y + 1));
         }
-        for (int i = 0; i < tileToBoost.Count; i++)
-        {
-            print(tileToBoost[i]);
-        }
-        return tileToBoost;
+        return surroundingTiles;
     }
+    public List<Vector2Int> GetSurroundingTiles()
+    {
+        List<Vector2Int> surroundingTiles = new List<Vector2Int>();
+        for (int i = 0; i < tilesCoordinate.Count; i++)
+        {
+            if (tilesCoordinate[i].x == minimumX)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x - 1, tilesCoordinate[i].y));
 
+            if (tilesCoordinate[i].y == minimumY)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x, tilesCoordinate[i].y - 1));
+
+            if (tilesCoordinate[i].x == maximumX)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x + 1, tilesCoordinate[i].y));
+
+            if (tilesCoordinate[i].y == maximumY)
+                surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x, tilesCoordinate[i].y + 1));
+        }
+
+        return surroundingTiles;
+    }
 }

@@ -11,8 +11,15 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public bool isProducing, isBoosted = false;
     public int MaxFeel;
 
-    public float delayBetweenEachProduction = 2.0f;
+    [Header("Normal")]
     public float productionAmount = 2.0f;
+    public float delayBetweenEachProduction = 2.0f;
+
+    [Header("Boosted")]
+    public float productionAmountBoosted = 4.0f;
+    public float delayBetweenEachProductionBoosted = 2.0f;
+
+    float currentProduction, currenteDelayBetweenEachProduction;
 
     [NonSerialized]
     public float delayBetweenEachProductionForUI = 0;
@@ -22,6 +29,21 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     S_Currencies feelProductionType;
 
     bool bProductionFeels;
+    private void Awake()
+    {
+        currentProduction = productionAmount;
+        currenteDelayBetweenEachProduction = delayBetweenEachProduction;
+    }
+    private void Start()
+    {
+        S_Building _building;
+        if (gameObject.TryGetComponent<S_Building>(out _building))
+        {
+            if (_building.FeelCurrency && _building.FeelCurrency.feelType == S_Currencies.FeelType.Anger)
+                BoostBuilding();
+        }
+
+    }
     /// <summary>
     /// Return true if successfuly assign feels
     /// </summary>
@@ -67,14 +89,23 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(delayBetweenEachProduction);
+            yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
             feelProductionType.AddAmount(productionAmount);
         }
     }
 
     public void BoostBuilding()
     {
+        S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0));
         isBoosted = true;
-        productionAmount = 4.0f;
+        currentProduction = productionAmountBoosted;
+        currenteDelayBetweenEachProduction = delayBetweenEachProductionBoosted;
+    }
+
+    public void UnBoostBuilding()
+    {
+        isBoosted = false;
+        currentProduction = productionAmount;
+        currenteDelayBetweenEachProduction = delayBetweenEachProduction;
     }
 }

@@ -26,6 +26,7 @@ public class Grid : MonoBehaviour
     public static List<List<S_GridUsage>> gridsUsageStatement = new List<List<S_GridUsage>>();
 
     public static List<List<bool>> fogGridsUsageStatement = new List<List<bool>>();
+    public static List<List<bool>> gridDebugHighlight = new List<List<bool>>();
 
     public static List<List<GameObject>> fogGameObjects = new List<List<GameObject>>();
 
@@ -41,8 +42,9 @@ public class Grid : MonoBehaviour
     {
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
-        gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
-        
+        gridsUsageStatement = Create2DimensionalGridUsageList(tileAmountToCreate);
+        gridDebugHighlight = Create2DimensionalBoolList(tileAmountToCreate);
+
         SetFogGridUsageStatement();
         CreateFogGameObjects();
 
@@ -84,14 +86,16 @@ public class Grid : MonoBehaviour
                     if (gridsUsageStatement[x][y].statement && (debugTileStatement == 1 || debugTileStatement == 3))
                         Gizmos.color = Color.green;
 
-                    else if (fogGridsUsageStatement[x][y] && (debugTileStatement == 2 || debugTileStatement == 3)) 
+                    else if (fogGridsUsageStatement[x][y] && (debugTileStatement == 2 || debugTileStatement == 3))
                         Gizmos.color = Color.blue;
 
                     else if (!fogGridsUsageStatement[x][y] && (debugTileStatement == 1 || debugTileStatement == 3))
                         Gizmos.color = Color.red;
-
                     else
                         Gizmos.color = Color.clear;
+
+                    if (gridDebugHighlight[x][y])
+                        Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
 
                     Gizmos.DrawWireCube(new Vector3(gridsUsageStatement[x].Count / 2 * -tileSize + x * tileSize,
                         0,
@@ -101,7 +105,10 @@ public class Grid : MonoBehaviour
             }
         }
     }
-
+    public static void DebugHighLightTile(Vector2Int coordinate)
+    {
+        gridDebugHighlight[coordinate.x][coordinate.y] = true;
+    }
     public static void DrawGizmoDisk(float radius)
     {
         float corners = 72; 
@@ -128,7 +135,7 @@ public class Grid : MonoBehaviour
         gridsUsageStatement[x][y].statement = false;
     }
 
-    List<List<S_GridUsage>> Create2DimensionalBoolList(int size)
+    List<List<S_GridUsage>> Create2DimensionalGridUsageList(int size)
     {
         List<List<S_GridUsage>> dimensionalList = new List<List<S_GridUsage>>();
 
@@ -146,7 +153,7 @@ public class Grid : MonoBehaviour
         return dimensionalList;
     }
 
-    List<List<bool>> Create2DimensionalBoolListFog(int size)
+    List<List<bool>> Create2DimensionalBoolList(int size)
     {
         List<List<bool>> dimensionalList = new List<List<bool>>();
 
@@ -167,7 +174,7 @@ public class Grid : MonoBehaviour
     void SetFogGridUsageStatement()
     {
         fogGridsUsageStatement.Clear();
-        fogGridsUsageStatement = Create2DimensionalBoolListFog(mapSphereArea * 2 / tileSize + 1 + (padding * 2));
+        fogGridsUsageStatement = Create2DimensionalBoolList(mapSphereArea * 2 / tileSize + 1 + (padding * 2));
 
         for (int i = 0; i < gridsUsageStatement.Count; i++)
         {

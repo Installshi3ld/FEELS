@@ -19,8 +19,13 @@ public class S_FeelAssignationManager : MonoBehaviour
 
     bool _valueAssigned;
 
+    public GameObject VFXBoostVar;
+    [SerializeField]
+    public static GameObject VFXBoost;
+
     private void Start()
     {
+        VFXBoost = VFXBoostVar;
         s_panelFeelAssignation = UIPanelContainer.GetComponent<S_PanelFeelAssignation>();
         if (s_panelFeelAssignation)
             s_panelFeelAssignation.mouseExitPanel += HideContainer;
@@ -44,17 +49,32 @@ public class S_FeelAssignationManager : MonoBehaviour
             if (BuildingClickedOn)
             {
                 s_FeelAssignationBuilding = BuildingClickedOn.GetComponent<S_FeelAssignationBuilding>();
-                RefreshUi.Invoke();
+                S_Building _Building = BuildingClickedOn.GetComponent<S_Building>();
 
-                UIPanelContainer.transform.position = clickPosition;
-                UIPanelContainer.SetActive(true);
+                if (_Building.isPlaced)
+                {
+                    RefreshUi.Invoke();
+
+                    UIPanelContainer.transform.position = clickPosition;
+                    UIPanelContainer.SetActive(true);
+                }
             }
+        }
+    }
+    public static void SpawnVFXBoost(Transform building)
+    {
+        if (VFXBoost)
+        {
+            GameObject particleSystemInstance = Instantiate(VFXBoost, building.transform.position, Quaternion.Euler(new Vector3(-90,0,0)));
+
+            Destroy(particleSystemInstance.gameObject, 3f);
         }
     }
 
     void HideContainer()
     {
         UIPanelContainer.SetActive(false);
+        UIPanelContainer.transform.position = new Vector3 (-100, -100, 0);
         BuildingClickedOn = null;
     }
 
