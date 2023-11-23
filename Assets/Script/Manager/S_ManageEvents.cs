@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// sqdjkghez
+/// UWU
 /// </summary>
 public class S_ManageEvents : MonoBehaviour
 {
@@ -23,9 +23,6 @@ public class S_ManageEvents : MonoBehaviour
     private S_CurrentPhase currentPhase;
     private int currentPhaseIndex;
 
-    public UnityEvent setMax = new UnityEvent();
-    public UnityEvent<int> updateSlider = new UnityEvent<int>();
-
     public S_EventTimer eventTimer;
 
     // Start is called before the first frame update
@@ -38,18 +35,13 @@ public class S_ManageEvents : MonoBehaviour
             phasesList.Add(phases[i].MakeCopy());
         }
 
-        if(setMax != null)
-        {
-            //setMax.Invoke(secondsBetweenNewConstraint);
-        }
-
         eventTimer.MaxTime = secondsBetweenNewConstraint;
         StartCoroutine(UpdateEvents());
     }
 
     private void Update()
     {
-        eventTimer.eventTimerState += Time.deltaTime; //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
+        eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
     }
 
     private void ChangeIndex()

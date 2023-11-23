@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,17 +36,34 @@ public class S_EventTimer : ScriptableObject
         {
             maxTime = value;
 
-            if(MaxChangedEvent != null)
+            if (MaxChangedEvent != null)
             {
-                MaxChangedEvent.Invoke();   
+                MaxChangedEvent.Invoke();
             }
         }
 
     }
 
+    private void OnEnable()
+    {
+        if(TimerChangedEvent == null)
+        {
+            TimerChangedEvent = new UnityEvent();
+        }
+        if (MaxChangedEvent == null)
+        {
+            MaxChangedEvent = new UnityEvent();
+        }
+    }
+
     public void StartTimerOver()
     {
         eventTimerState = 0;
+    }
+
+    public void IncreaseTimer(float amount)
+    {
+        EventTimerState += amount;
     }
 
 
