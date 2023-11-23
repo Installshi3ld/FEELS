@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class S_GridUsage : Class
 {
-    public bool statement;
+    public bool statement = false;
     public GameObject building;
 
     public S_GridUsage(bool statement_ = false, GameObject building_ = null)

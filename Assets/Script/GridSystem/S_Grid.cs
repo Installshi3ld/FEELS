@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    
-    public int tileSize_def = 5;
-    public static int tileSize;
+    [SerializeField] private S_GridTileSize gridTileSize = default;
+    [SerializeField] private S_GridSpheraArea gridSpheraArea = default;
 
-    public int mapSphereArea_def = 60;
+    public static int tileSize;
     public static int mapSphereArea;
 
     public GameObject fog;
@@ -19,9 +19,6 @@ public class Grid : MonoBehaviour
     public int padding_def = 1;
     public static int padding;
 
-    int debugTileStatement = 0;
-    bool debugTiles = false;
-    bool debugFog = false;
 
     public static List<List<S_GridUsage>> gridsUsageStatement = new List<List<S_GridUsage>>();
 
@@ -33,8 +30,8 @@ public class Grid : MonoBehaviour
     //Set variable from editor as static
     private void Awake()
     {
-        tileSize = tileSize_def;
-        mapSphereArea = mapSphereArea_def;
+        tileSize = gridTileSize.GetValue();
+        mapSphereArea = gridSpheraArea.GetValue();
         padding = padding_def;
     }
 
@@ -42,8 +39,8 @@ public class Grid : MonoBehaviour
     {
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
-        gridsUsageStatement = Create2DimensionalGridUsageList(tileAmountToCreate);
-        gridDebugHighlight = Create2DimensionalBoolList(tileAmountToCreate);
+        gridsUsageStatement = Create2DimensionalList(tileAmountToCreate, new S_GridUsage());
+        gridDebugHighlight = Create2DimensionalList(tileAmountToCreate, false);
 
         SetFogGridUsageStatement();
         CreateFogGameObjects();
@@ -52,79 +49,13 @@ public class Grid : MonoBehaviour
         {
             StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), fogBatching);
         }
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            debugTileStatement++;
-            if (debugTileStatement >= 4)
-                debugTileStatement = 0;
-        }
-
-        /*
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            fog.transform.localScale = new Vector3 (fog.transform.localScale.x + 20, 45, fog.transform.localScale.z + 20);
-            IncreaseMapSphereArea(1);
-        }*/
 
     }
 
-    private void OnDrawGizmos()
-    {
-        DrawGizmoDisk(mapSphereArea);
-
-        if (debugTileStatement > 0)
-        {
-            for (int x = 0; x < gridsUsageStatement.Count; x++)
-            {
-                for (int y = 0; y < gridsUsageStatement[x].Count; y++)
-                {
-                    if (gridsUsageStatement[x][y].statement && (debugTileStatement == 1 || debugTileStatement == 3))
-                        Gizmos.color = Color.green;
-
-                    else if (fogGridsUsageStatement[x][y] && (debugTileStatement == 2 || debugTileStatement == 3))
-                        Gizmos.color = Color.blue;
-
-                    else if (!fogGridsUsageStatement[x][y] && (debugTileStatement == 1 || debugTileStatement == 3))
-                        Gizmos.color = Color.red;
-                    else
-                        Gizmos.color = Color.clear;
-
-                    if (gridDebugHighlight[x][y])
-                        Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
-
-                    Gizmos.DrawWireCube(new Vector3(gridsUsageStatement[x].Count / 2 * -tileSize + x * tileSize,
-                        0,
-                        gridsUsageStatement[y].Count / 2 * -tileSize + y * tileSize), new Vector3(tileSize - 0.6f, tileSize - 0.6f, tileSize - 0.6f));
-
-                }
-            }
-        }
-    }
     public static void DebugHighLightTile(Vector2Int coordinate)
     {
         gridDebugHighlight[coordinate.x][coordinate.y] = true;
     }
-    public static void DrawGizmoDisk(float radius)
-    {
-        float corners = 72; 
-        Vector3 origin = Vector3.zero; 
-        Vector3 startRotation = Vector3.right * radius; 
-        Vector3 lastPosition = origin + startRotation;
-        float angle = 0;
-        while (angle <= 360)
-        {
-            angle += 360 / corners;
-            Vector3 nextPosition = origin + (Quaternion.Euler(90, 0, angle) * startRotation);
-            Gizmos.DrawLine(lastPosition, nextPosition);
-            lastPosition = nextPosition;
-        }
-    }
-
 
     static public void SetTileUsed(int x, int y)
     {
@@ -135,46 +66,27 @@ public class Grid : MonoBehaviour
         gridsUsageStatement[x][y].statement = false;
     }
 
-    List<List<S_GridUsage>> Create2DimensionalGridUsageList(int size)
+    public static List<List<T>> Create2DimensionalList<T>(int size, T defaultValue )
     {
-        List<List<S_GridUsage>> dimensionalList = new List<List<S_GridUsage>>();
+        List<List<T>> dimensionalList = new List<List<T>>();
 
-        //Create new 2 dimension list
+        // Create new 2D list
         for (int x = 0; x < size; x++)
         {
-            List<S_GridUsage> tmpGrid = new List<S_GridUsage>();
-            
-            for (int y = 0; y < size; y++)
-                tmpGrid.Add(new S_GridUsage());
-
-            dimensionalList.Add(tmpGrid);
-        }
-
-        return dimensionalList;
-    }
-
-    List<List<bool>> Create2DimensionalBoolList(int size)
-    {
-        List<List<bool>> dimensionalList = new List<List<bool>>();
-
-        //Create new 2 dimension list
-        for (int x = 0; x < size; x++)
-        {
-            List<bool> tmpGrid = new List<bool>();
+            List<T> tmpGrid = new List<T>();
 
             for (int y = 0; y < size; y++)
-                tmpGrid.Add(false);
+                tmpGrid.Add(defaultValue);
 
             dimensionalList.Add(tmpGrid);
         }
         return dimensionalList;
     }
-
 
     void SetFogGridUsageStatement()
     {
         fogGridsUsageStatement.Clear();
-        fogGridsUsageStatement = Create2DimensionalBoolList(mapSphereArea * 2 / tileSize + 1 + (padding * 2));
+        fogGridsUsageStatement = Create2DimensionalList(mapSphereArea * 2 / tileSize + 1 + (padding * 2), false);
 
         for (int i = 0; i < gridsUsageStatement.Count; i++)
         {

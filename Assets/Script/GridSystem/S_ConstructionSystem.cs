@@ -179,6 +179,7 @@ public class ConstructionSystem : MonoBehaviour
                 int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
                 int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
 
+                print(x + " " + y);
                 Grid.gridsUsageStatement[x][y].statement = true;
                 Grid.gridsUsageStatement[x][y].building = objectSpawned;
                 
