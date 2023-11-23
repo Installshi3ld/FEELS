@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c985dc66a06644788faa67854ccb1c, type: 3}
   m_Name: RSadFEEL_Crying
   m_EditorClassIdentifier: 
+  linkedDisaster:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
   eventDescription: You cried all night. You are very sad
   constraintRequirement: Have at least 300 sad feels bro
   targetedNumberOfFeels: 300
   soFeelType: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+  disasterConsequences:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}

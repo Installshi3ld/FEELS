@@ -70,9 +70,14 @@ public class S_ManageEvents : MonoBehaviour
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
-            if (!currentRequirement.HasBeenFulfilled)
+           
+            if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
-                //provoke disaster
+                foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
+                {
+                    Debug.Log(" uzueu : " + consequence.Description);
+                    consequence.ProvoqueDisaster();
+                }
             }
         }
     }

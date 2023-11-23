@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c985dc66a06644788faa67854ccb1c, type: 3}
   m_Name: RAngerFEEL_LostItem
   m_EditorClassIdentifier: 
+  linkedDisaster:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
   eventDescription: You lost your frog tonight. You are very angry
   constraintRequirement: Have at least 300 angry feels bro
   targetedNumberOfFeels: 300
   soFeelType: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
+  disasterConsequences:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
