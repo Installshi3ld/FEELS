@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static S_Building;
 
 public class Grid : MonoBehaviour
 {
@@ -24,9 +23,10 @@ public class Grid : MonoBehaviour
     bool debugTiles = false;
     bool debugFog = false;
 
-    public static List<List<bool>> gridsUsageStatement = new List<List<bool>>();
+    public static List<List<S_GridUsage>> gridsUsageStatement = new List<List<S_GridUsage>>();
 
     public static List<List<bool>> fogGridsUsageStatement = new List<List<bool>>();
+    public static List<List<bool>> gridDebugHighlight = new List<List<bool>>();
 
     public static List<List<GameObject>> fogGameObjects = new List<List<GameObject>>();
 
@@ -42,8 +42,9 @@ public class Grid : MonoBehaviour
     {
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
-        gridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
-        
+        gridsUsageStatement = Create2DimensionalGridUsageList(tileAmountToCreate);
+        gridDebugHighlight = Create2DimensionalBoolList(tileAmountToCreate);
+
         SetFogGridUsageStatement();
         CreateFogGameObjects();
 
@@ -82,17 +83,19 @@ public class Grid : MonoBehaviour
             {
                 for (int y = 0; y < gridsUsageStatement[x].Count; y++)
                 {
-                    if (gridsUsageStatement[x][y] && (debugTileStatement == 1 || debugTileStatement == 3))
+                    if (gridsUsageStatement[x][y].statement && (debugTileStatement == 1 || debugTileStatement == 3))
                         Gizmos.color = Color.green;
 
-                    else if (fogGridsUsageStatement[x][y] && (debugTileStatement == 2 || debugTileStatement == 3)) 
+                    else if (fogGridsUsageStatement[x][y] && (debugTileStatement == 2 || debugTileStatement == 3))
                         Gizmos.color = Color.blue;
 
                     else if (!fogGridsUsageStatement[x][y] && (debugTileStatement == 1 || debugTileStatement == 3))
                         Gizmos.color = Color.red;
-
                     else
                         Gizmos.color = Color.clear;
+
+                    if (gridDebugHighlight[x][y])
+                        Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
 
                     Gizmos.DrawWireCube(new Vector3(gridsUsageStatement[x].Count / 2 * -tileSize + x * tileSize,
                         0,
@@ -102,7 +105,10 @@ public class Grid : MonoBehaviour
             }
         }
     }
-
+    public static void DebugHighLightTile(Vector2Int coordinate)
+    {
+        gridDebugHighlight[coordinate.x][coordinate.y] = true;
+    }
     public static void DrawGizmoDisk(float radius)
     {
         float corners = 72; 
@@ -122,11 +128,29 @@ public class Grid : MonoBehaviour
 
     static public void SetTileUsed(int x, int y)
     {
-        gridsUsageStatement[x][y] = true;
+        gridsUsageStatement[x][y].statement = true;
     }
     static public void RemoveTileUsed(int x, int y)
     {
-        gridsUsageStatement[x][y] = false;
+        gridsUsageStatement[x][y].statement = false;
+    }
+
+    List<List<S_GridUsage>> Create2DimensionalGridUsageList(int size)
+    {
+        List<List<S_GridUsage>> dimensionalList = new List<List<S_GridUsage>>();
+
+        //Create new 2 dimension list
+        for (int x = 0; x < size; x++)
+        {
+            List<S_GridUsage> tmpGrid = new List<S_GridUsage>();
+            
+            for (int y = 0; y < size; y++)
+                tmpGrid.Add(new S_GridUsage());
+
+            dimensionalList.Add(tmpGrid);
+        }
+
+        return dimensionalList;
     }
 
     List<List<bool>> Create2DimensionalBoolList(int size)
@@ -137,15 +161,15 @@ public class Grid : MonoBehaviour
         for (int x = 0; x < size; x++)
         {
             List<bool> tmpGrid = new List<bool>();
-            
+
             for (int y = 0; y < size; y++)
                 tmpGrid.Add(false);
 
             dimensionalList.Add(tmpGrid);
         }
-
         return dimensionalList;
     }
+
 
     void SetFogGridUsageStatement()
     {
@@ -206,7 +230,8 @@ public class Grid : MonoBehaviour
                         break;
                     }
 
-                    if (gridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y] || fogGridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y])
+                    if (gridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y].statement 
+                        || fogGridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y])
                     {
                         isEnoughSpace = false;
                         break;
@@ -249,7 +274,7 @@ public class Grid : MonoBehaviour
                 if (gridUsageStatement)
                 {
                     if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y))
-                    && !gridsUsageStatement[coordinate.x][coordinate.y]
+                    && !gridsUsageStatement[coordinate.x][coordinate.y].statement
                     && !fogGridsUsageStatement[coordinate.x][coordinate.y])
                     {
                         tmpCoordinateFree.Add(coordinate);

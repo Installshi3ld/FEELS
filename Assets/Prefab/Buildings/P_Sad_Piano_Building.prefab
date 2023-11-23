@@ -54,7 +54,7 @@ MonoBehaviour:
   tier: 0
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: 72dea623d3a23684e9bc0b82ad4c75b5, type: 3}
-  FeelType: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+  FeelCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
   price: 10
 --- !u!114 &-8296961094700234852
 MonoBehaviour:
@@ -84,8 +84,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxFeel: 10
-  delayBetweenEachProduction: 2
   productionAmount: 2
+  delayBetweenEachProduction: 2
+  productionAmountBoosted: 4
+  delayBetweenEachProductionBoosted: 2
 --- !u!65 &5606379182806600169
 BoxCollider:
   m_ObjectHideFlags: 0

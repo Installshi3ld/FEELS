@@ -8,11 +8,18 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     [NonSerialized]
     public int CurrentStoredFeel;
     [NonSerialized]
-    public bool StorageFull;
+    public bool isProducing, isBoosted = false;
     public int MaxFeel;
 
-    public float delayBetweenEachProduction = 2.0f;
+    [Header("Normal")]
     public float productionAmount = 2.0f;
+    public float delayBetweenEachProduction = 2.0f;
+
+    [Header("Boosted")]
+    public float productionAmountBoosted = 4.0f;
+    public float delayBetweenEachProductionBoosted = 2.0f;
+
+    float currentProduction, currenteDelayBetweenEachProduction;
 
     [NonSerialized]
     public float delayBetweenEachProductionForUI = 0;
@@ -20,7 +27,23 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public float productionAmountForUI = 0;
 
     S_Currencies feelProductionType;
+
     bool bProductionFeels;
+    private void Awake()
+    {
+        currentProduction = productionAmount;
+        currenteDelayBetweenEachProduction = delayBetweenEachProduction;
+    }
+    private void Start()
+    {
+        S_Building _building;
+        if (gameObject.TryGetComponent<S_Building>(out _building))
+        {
+            if (_building.FeelCurrency && _building.FeelCurrency.feelType == S_Currencies.FeelType.Anger)
+                BoostBuilding();
+        }
+
+    }
     /// <summary>
     /// Return true if successfuly assign feels
     /// </summary>
@@ -28,14 +51,14 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     /// <returns></returns>
     public bool AssignFeels(S_Currencies feelType)
     {
-        if(!StorageFull) {
+        if(!isProducing) {
             delayBetweenEachProductionForUI = delayBetweenEachProduction;
             productionAmountForUI = productionAmount;
 
             feelProductionType = feelType;
             CurrentStoredFeel = MaxFeel;
             feelType.RemoveAmount(MaxFeel);
-            StorageFull = true;
+            isProducing = true;
             StartCoroutine(FeelProduction());
             return true;
         }
@@ -48,14 +71,14 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     /// <returns></returns>
     public bool UnassignFeels(S_Currencies feelType)
     {
-        if (StorageFull)
+        if (isProducing)
         {
             delayBetweenEachProductionForUI = 0;
             productionAmountForUI = 0;
 
             CurrentStoredFeel = 0;
             feelType.AddAmount(MaxFeel);
-            StorageFull = false;
+            isProducing = false;
             StopCoroutine(FeelProduction());
             return true;
         }
@@ -66,8 +89,23 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(delayBetweenEachProduction);
+            yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
             feelProductionType.AddAmount(productionAmount);
         }
+    }
+
+    public void BoostBuilding()
+    {
+        S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0));
+        isBoosted = true;
+        currentProduction = productionAmountBoosted;
+        currenteDelayBetweenEachProduction = delayBetweenEachProductionBoosted;
+    }
+
+    public void UnBoostBuilding()
+    {
+        isBoosted = false;
+        currentProduction = productionAmount;
+        currenteDelayBetweenEachProduction = delayBetweenEachProduction;
     }
 }
