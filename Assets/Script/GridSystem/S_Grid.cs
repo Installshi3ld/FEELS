@@ -39,8 +39,8 @@ public class Grid : MonoBehaviour
     {
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
-        gridsUsageStatement = Create2DimensionalList(tileAmountToCreate, new S_GridUsage());
-        gridDebugHighlight = Create2DimensionalList(tileAmountToCreate, false);
+        gridsUsageStatement = Create2DimensionalList(tileAmountToCreate, () => new S_GridUsage());
+        gridDebugHighlight = Create2DimensionalList(tileAmountToCreate, () => false);
 
         SetFogGridUsageStatement();
         CreateFogGameObjects();
@@ -49,7 +49,6 @@ public class Grid : MonoBehaviour
         {
             StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), fogBatching);
         }
-
     }
 
     public static void DebugHighLightTile(Vector2Int coordinate)
@@ -66,7 +65,7 @@ public class Grid : MonoBehaviour
         gridsUsageStatement[x][y].statement = false;
     }
 
-    public static List<List<T>> Create2DimensionalList<T>(int size, T defaultValue )
+    public static List<List<T>> Create2DimensionalList<T>(int size, Func<T> createInstance)
     {
         List<List<T>> dimensionalList = new List<List<T>>();
 
@@ -76,7 +75,7 @@ public class Grid : MonoBehaviour
             List<T> tmpGrid = new List<T>();
 
             for (int y = 0; y < size; y++)
-                tmpGrid.Add(defaultValue);
+                tmpGrid.Add(createInstance());
 
             dimensionalList.Add(tmpGrid);
         }
@@ -86,7 +85,7 @@ public class Grid : MonoBehaviour
     void SetFogGridUsageStatement()
     {
         fogGridsUsageStatement.Clear();
-        fogGridsUsageStatement = Create2DimensionalList(mapSphereArea * 2 / tileSize + 1 + (padding * 2), false);
+        fogGridsUsageStatement = Create2DimensionalList(mapSphereArea * 2 / tileSize + 1 + (padding * 2), () => false);
 
         for (int i = 0; i < gridsUsageStatement.Count; i++)
         {

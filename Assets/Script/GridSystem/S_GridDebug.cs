@@ -20,7 +20,6 @@ public class S_GridDebug : MonoBehaviour
     private void OnDrawGizmos()
     {
         DrawGizmoDisk(SphereArea.GetValue());
-
         _debugTileInt = debugTileInt.GetValue();
         _mapTileSize = TileSize.GetValue();
         if (_debugTileInt > 0)
