@@ -20,10 +20,18 @@ public class S_ManageEvents : MonoBehaviour
     private float secondsBetweenNewConstraint;
 
     [SerializeField]
+    private int chanceForLifeExperienceToSpawn;
+
+    [SerializeField]
     private S_CurrentPhase currentPhase;
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
+
+    private bool hasLifeEventBeenPicked;
+
+    [SerializeField]
+    private int chanceForLifeExpToOccur;
 
     // Start is called before the first frame update
     void Start()
@@ -75,10 +83,20 @@ public class S_ManageEvents : MonoBehaviour
             {
                 foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
                 {
-                    Debug.Log(" uzueu : " + consequence.Description);
+                    Debug.Log("provoke disaster : " + consequence.Description);
                     consequence.ProvoqueDisaster();
                 }
             }
+        }
+    }
+
+    private void chooseOrNotLifeEvent()
+    {
+        int randomInt = Random.Range(0, 99);
+
+        if(randomInt <= chanceForLifeExpToOccur)
+        {
+            Debug.Log("ture");
         }
     }
 

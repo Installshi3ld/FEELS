@@ -6,10 +6,9 @@ using UnityEngine;
 public class S_PhaseScriptableObject : ScriptableObject
 {
     public string nameOfPhase;
-    
-    //public List<S_EventScriptableObject> events = new List<S_EventScriptableObject>();
 
     public List<S_Requirement> requirements = new List<S_Requirement>();
+    public List<S_LifeExperienceScriptableObject> lifeExperiences = new List<S_LifeExperienceScriptableObject>();
 
     public S_PhaseScriptableObject MakeCopy()
     {
@@ -21,7 +20,12 @@ public class S_PhaseScriptableObject : ScriptableObject
         {
             clone.requirements.Add(this.requirements[i].MakeCopy());
         }
+        for (int i = 0; i < this.lifeExperiences.Count; i++)
+        {
+            clone.lifeExperiences.Add(this.lifeExperiences[i].MakeCopy());
+        }
 
         return clone;
     }
+
 }
