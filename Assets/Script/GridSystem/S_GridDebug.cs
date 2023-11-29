@@ -1,40 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class S_GridDebug : MonoBehaviour
 {
-    public S_GridDebugTileInt debugTileInt = default(S_GridDebugTileInt);
-    public S_GridSpheraArea SphereArea = default(S_GridSpheraArea);
-    public S_GridTileSize TileSize = default(S_GridTileSize);
-    public S_GridDebugHighlightList debugHighlightList = default(S_GridDebugHighlightList);
+    [SerializeField] private S_GridDebugTileInt _debugTile;
+    [SerializeField] private S_GridData _gridData;
 
     private int _debugTileInt, _mapTileSize;
 
-    private void Start()
-    {
-
-    }
+    //Debug.LogWarning($"Missing reference in S_GridDebug : DebugTileInt = {_debugTileInt} | GridData = {((_gridData == null) ? "NULL" : _gridData)}{Environment.StackTrace}");
+    //Debug.LogWarning("Missing reference in S_GridDebug : DebugTileInt = " + _debugTileInt + "| GridData = " + _gridData);
+    //Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+    //Application.persistentDataPath
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            debugTileInt.IncrementValue();
+            if(_debugTile == null || _gridData == null)
+            {
+                throw new NotImplementedException($"Missing reference in S_GridDebug : DebugTileInt = {_debugTileInt} | GridData = {((_gridData == null) ? "NULL" : _gridData)}");
+                //return;
+            }
+            _debugTile.IncrementValue();
         }
     }
     private void OnDrawGizmos()
     {
-        DrawGizmoDisk(SphereArea.GetValue());
-        _debugTileInt = debugTileInt.GetValue();
-        _mapTileSize = TileSize.GetValue();
+        if(_gridData == null  || _gridData.gridsUsageStatement == null)
+        {
+            //Debug.LogWarning("GridData is missing in S_GridDebug. Grid debug disabled.");
+            return;
+        }
+        if(_debugTile == null)
+        {
+            //Debug.LogWarning("debugTileInt is missing in S_GridDebug. Grid debug disabled.");
+            return;
+        }
+
+        DrawGizmoDisk(_gridData.mapSphereArea);
+        _debugTileInt = _debugTile.GetValue();
+        _mapTileSize = _gridData.tileSize;
         if (_debugTileInt > 0)
         {
-            for (int x = 0; x < Grid.gridsUsageStatement.Count; x++)
+            for (int x = 0; x < _gridData.gridsUsageStatement.Count; x++)
             {
-                for (int y = 0; y < Grid.gridsUsageStatement[x].Count; y++)
+                for (int y = 0; y < _gridData.gridsUsageStatement[x].Count; y++)
                 {
-                    if (Grid.gridsUsageStatement[x][y].statement && (_debugTileInt == 1 || _debugTileInt == 3))
+                    if (_gridData.gridsUsageStatement[x][y].statement && (_debugTileInt == 1 || _debugTileInt == 3))
                         Gizmos.color = Color.green;
 
                     else if (Grid.fogGridsUsageStatement[x][y] && (_debugTileInt == 2 || _debugTileInt == 3))
@@ -48,9 +63,9 @@ public class S_GridDebug : MonoBehaviour
                     if (Grid.gridDebugHighlight[x][y])
                         Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
 
-                    Gizmos.DrawWireCube(new Vector3(Grid.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
+                    Gizmos.DrawWireCube(new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
                         0,
-                        Grid.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize), new Vector3(_mapTileSize - 0.6f, _mapTileSize - 0.6f, _mapTileSize - 0.6f));
+                        _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize), new Vector3(_mapTileSize - 0.6f, _mapTileSize - 0.6f, _mapTileSize - 0.6f));
 
                 }
             }

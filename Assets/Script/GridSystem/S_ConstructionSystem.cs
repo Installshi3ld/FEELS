@@ -8,8 +8,9 @@ using UnityEngine.EventSystems;
 
 public class ConstructionSystem : MonoBehaviour
 {
+    [SerializeField]private S_GridData _gridData;
+
     public GameObject objectToSpawn;
-    //private bool isObjectPlaced = false;
     GameObject objectSpawned = null;
 
     public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
@@ -42,11 +43,11 @@ public class ConstructionSystem : MonoBehaviour
         {
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
 
-            if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
+            if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
-                objectSpawned.GetComponent<S_Building>().SetDestination(Grid.ClampPositionToGrid(hit.point));
+                objectSpawned.GetComponent<S_Building>().SetDestination(_gridData.ClampPositionToGrid(hit.point));
                
-                lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
+                lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
             }
 
             UnityEngine.Debug.DrawRay(hit.point, hit.normal, Color.blue);
@@ -149,8 +150,8 @@ public class ConstructionSystem : MonoBehaviour
         for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
         {
             //If building is outside 2 dimension list
-            if (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x >= Grid.gridsUsageStatement.Count ||
-                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y >= Grid.gridsUsageStatement.Count ||
+            if (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x >= _gridData.gridsUsageStatement.Count ||
+                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y >= _gridData.gridsUsageStatement.Count ||
                 tmpIndexInGrid.y + objectSpawnTilesUsage[i].y < 0 ||
                 tmpIndexInGrid.x + objectSpawnTilesUsage[i].x < 0)
             {
@@ -159,7 +160,7 @@ public class ConstructionSystem : MonoBehaviour
             }
 
             //1 -> Tile used 2 -> If outside mapSphereArea 
-            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y].statement 
+            if (_gridData.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y].statement 
                 ||
                 Grid.fogGridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
             {
@@ -178,10 +179,8 @@ public class ConstructionSystem : MonoBehaviour
             {
                 int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
                 int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
-
-                print(x + " " + y);
-                Grid.gridsUsageStatement[x][y].statement = true;
-                Grid.gridsUsageStatement[x][y].building = objectSpawned;
+                _gridData.gridsUsageStatement[x][y].statement = true;
+                _gridData.gridsUsageStatement[x][y].building = objectSpawned;
                 
             }
 
@@ -205,15 +204,15 @@ public class ConstructionSystem : MonoBehaviour
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
     {
         //Get index base in gridUsageStatement based on position
-        int indexX = (int)objectSpawned.transform.position.x / Grid.tileSize + Grid.gridsUsageStatement.Count / 2;
-        int indexZ = (int)objectSpawned.transform.position.z / Grid.tileSize + Grid.gridsUsageStatement.Count / 2;
+        int indexX = (int)objectSpawned.transform.position.x / _gridData.tileSize + _gridData.gridsUsageStatement.Count / 2;
+        int indexZ = (int)objectSpawned.transform.position.z / _gridData.tileSize + _gridData.gridsUsageStatement.Count / 2;
 
         return new Vector2Int(indexX, indexZ);
     }
 
     bool GetTileStatementWithIndex(Vector2Int positionOnGrid)
     {
-        float positionX = (float)positionOnGrid.x * Grid.tileSize - Grid.gridsUsageStatement.Count * 2;
+        float positionX = (float)positionOnGrid.x * _gridData.tileSize - _gridData.gridsUsageStatement.Count * 2;
 
         return true;
     }
@@ -264,7 +263,7 @@ public class ConstructionSystem : MonoBehaviour
         for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
         {
 
-            _currentBuildingToCheck = Grid.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
+            _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
 
             // Apply behavior of case to boost bellow
             S_Currencies.FeelType _currentBuildingToCheckFeelType;
@@ -315,7 +314,7 @@ public class ConstructionSystem : MonoBehaviour
 
             for (int i = 0; i < corners.Count; i++)
             {
-                _currentBuildingToCheck = Grid.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
+                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
                     S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().FeelCurrency.feelType;
@@ -329,7 +328,7 @@ public class ConstructionSystem : MonoBehaviour
         
             for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
             {
-                _currentBuildingToCheck = Grid.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
+                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
                     S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().FeelCurrency.feelType;
