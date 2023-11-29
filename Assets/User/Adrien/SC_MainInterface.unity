@@ -745,8 +745,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d7f75cb9c51a243ba58ff584daf0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMeshPro: {fileID: 996871159}
-  feelsRequirement: {fileID: 11400000, guid: 44ddc5276dcc00a43972518677ffdcb6, type: 2}
+  titre: {fileID: 996871159}
+  requirement: {fileID: 1381141389}
+  feelsRequirement: {fileID: 0}
+  manageEvent: {fileID: 2104451214}
 --- !u!114 &1088937692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,6 +1573,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7840d67682ff8c24e91d060481b80312, type: 3}
+--- !u!114 &2104451214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+  m_PrefabInstance: {fileID: 984248135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c2ebccf050a8b4086508149423e45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

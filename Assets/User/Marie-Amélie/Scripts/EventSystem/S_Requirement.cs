@@ -67,6 +67,10 @@ public abstract class S_RequirementAbstract : ScriptableObject, IRequirement
     {
         return NarrativeDescription;
     }
+    public string GetMyPrivateStringDesc()
+    {
+        return ConstraintDescription;
+    }
     // Adrien Modification Pensement
 
     public abstract bool CheckIsRequirementFulfilled();
