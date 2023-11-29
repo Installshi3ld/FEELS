@@ -104,8 +104,9 @@ public class S_ManageEvents : MonoBehaviour
     {
         phasesList.Add(phases[currentPhaseIndex].MakeCopy());
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
-        S_Requirement RequirementToReturn;
-
+       // Le Cirque Medrano d'Adrien c'est par ici
+       //S_Requirement RequirementToReturn;
+       //
         Debug.Log("the number of requirements contained in the current phase is " + currentPhaseObject.requirements.Count);
 
         if (currentPhaseObject.requirements.Count > 0) //ne rentre pas là 
@@ -119,4 +120,7 @@ public class S_ManageEvents : MonoBehaviour
         }
         return null;
     }
+    // A Partir de la Adrien fais son numéro de Cirque : TPC !
+
+    public S_Requirement RequirementToReturn;
 }

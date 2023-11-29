@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.Collections;
 using UnityEngine;
 
@@ -60,6 +61,13 @@ public abstract class S_RequirementAbstract : ScriptableObject, IRequirement
             this.linkedDisaster = value;
         }
     }
+
+    // Adrien Modification Pensement
+    public string GetMyPrivateString()
+    {
+        return NarrativeDescription;
+    }
+    // Adrien Modification Pensement
 
     public abstract bool CheckIsRequirementFulfilled();
 
