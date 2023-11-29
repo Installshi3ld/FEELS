@@ -13,7 +13,6 @@ public class Grid : MonoBehaviour
     public static int mapSphereArea;
 
     public GameObject fog;
-    public GameObject fogBatching;
 
     [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding). ")]
     public int padding_def = 1;
@@ -47,7 +46,7 @@ public class Grid : MonoBehaviour
 
         for(int i = 0; i < gridsUsageStatement.Count; ++i)
         {
-            StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), fogBatching);
+            StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), null);
         }
     }
 
@@ -245,36 +244,4 @@ public class Grid : MonoBehaviour
 
         return new Vector3(clampedX, position.y, clampedZ);
     }
-
-
-    /*
-    /// <summary>
-    /// The number of tile to add
-    /// </summary>
-    /// <param name="tilesAmount">The number of tile to add</param>
-    void IncreaseMapSphereArea(int tilesAmount)
-    {
-        mapSphereArea += tilesAmount * tileSize;
-
-        int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
-        List<List<bool>> newGridsUsageStatement = Create2DimensionalBoolList(tileAmountToCreate);
-
-
-        //Set old data in new list
-        for (int i = 0; i < newGridsUsageStatement.Count - tilesAmount * 2; i++)
-        {
-            for (int j = 0; j < newGridsUsageStatement[i].Count - tilesAmount * 2; j++)
-            {
-
-                if (gridsUsageStatement[i][j])
-                {
-                    newGridsUsageStatement[i + tilesAmount][j + tilesAmount] = true;
-                }
-            }
-        }
-
-        gridsUsageStatement = newGridsUsageStatement;
-        SetFogGridUsageStatement();
-    }*/
-
 }
