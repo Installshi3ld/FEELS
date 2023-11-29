@@ -7,8 +7,14 @@ public class S_GridDebug : MonoBehaviour
     public S_GridDebugTileInt debugTileInt = default(S_GridDebugTileInt);
     public S_GridSpheraArea SphereArea = default(S_GridSpheraArea);
     public S_GridTileSize TileSize = default(S_GridTileSize);
+    public S_GridDebugHighlightList debugHighlightList = default(S_GridDebugHighlightList);
 
     private int _debugTileInt, _mapTileSize;
+
+    private void Start()
+    {
+
+    }
 
     void Update()
     {

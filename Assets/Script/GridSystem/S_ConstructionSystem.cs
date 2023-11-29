@@ -113,7 +113,7 @@ public class ConstructionSystem : MonoBehaviour
         //Add element base on limitation
         for (int i = 1; i < TierLimitInPool.Count; ++i)
         {
-            S_GameFunction.Shuffle<GameObject>(tmpBuildingPerTier[i]);
+            S_StaticFunc.Shuffle<GameObject>(tmpBuildingPerTier[i]);
 
             for (int j = 0; j < TierLimitInPool[i]; j++)
                 if (tmpBuildingPerTier[i].Count > 0)
@@ -124,14 +124,14 @@ public class ConstructionSystem : MonoBehaviour
         if(BuildingInPool.Count < 8)
         {
             int index = 0;
-            S_GameFunction.Shuffle<GameObject>(buildingPerTier[0]);
+            S_StaticFunc.Shuffle<GameObject>(buildingPerTier[0]);
             for (int i = BuildingInPool.Count; i < 8; i++)
             {
                 BuildingInPool.Add(buildingPerTier[0][index]);
                 index++;
             }
         }
-        S_GameFunction.Shuffle<GameObject>(BuildingInPool);
+        S_StaticFunc.Shuffle<GameObject>(BuildingInPool);
 
         OnRefreshBuildingPool.Invoke();
     }

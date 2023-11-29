@@ -38,8 +38,8 @@ public class Grid : MonoBehaviour
     {
         //Create 2 dimension table
         int tileAmountToCreate = mapSphereArea * 2 / tileSize + 1 + (padding * 2) ;
-        gridsUsageStatement = Create2DimensionalList(tileAmountToCreate, () => new S_GridUsage());
-        gridDebugHighlight = Create2DimensionalList(tileAmountToCreate, () => false);
+        gridsUsageStatement = S_StaticFunc.Create2DimensionalList(tileAmountToCreate, () => new S_GridUsage());
+        gridDebugHighlight = S_StaticFunc.Create2DimensionalList(tileAmountToCreate, () => false);
 
         SetFogGridUsageStatement();
         CreateFogGameObjects();
@@ -64,27 +64,11 @@ public class Grid : MonoBehaviour
         gridsUsageStatement[x][y].statement = false;
     }
 
-    public static List<List<T>> Create2DimensionalList<T>(int size, Func<T> createInstance)
-    {
-        List<List<T>> dimensionalList = new List<List<T>>();
-
-        // Create new 2D list
-        for (int x = 0; x < size; x++)
-        {
-            List<T> tmpGrid = new List<T>();
-
-            for (int y = 0; y < size; y++)
-                tmpGrid.Add(createInstance());
-
-            dimensionalList.Add(tmpGrid);
-        }
-        return dimensionalList;
-    }
 
     void SetFogGridUsageStatement()
     {
         fogGridsUsageStatement.Clear();
-        fogGridsUsageStatement = Create2DimensionalList(mapSphereArea * 2 / tileSize + 1 + (padding * 2), () => false);
+        fogGridsUsageStatement = S_StaticFunc.Create2DimensionalList(mapSphereArea * 2 / tileSize + 1 + (padding * 2), () => false);
 
         for (int i = 0; i < gridsUsageStatement.Count; i++)
         {
@@ -231,11 +215,6 @@ public class Grid : MonoBehaviour
         return Mathf.Round(valueToRound / gridSize) * gridSize;
     }
 
-    /// <summary>
-    /// This function return a Vector3, the closest one on grid based on Position input
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
     static public Vector3 ClampPositionToGrid(Vector3 position)
     {
         float clampedX = RoundToGrid(position.x, Grid.tileSize);
