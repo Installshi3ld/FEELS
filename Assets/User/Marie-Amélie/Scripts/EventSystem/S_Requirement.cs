@@ -47,6 +47,20 @@ public abstract class S_RequirementAbstract : ScriptableObject, IRequirement
         }
     }
 
+    public List<S_Disaster> linkedDisaster = new List<S_Disaster>();
+
+    public List<S_Disaster> LinkedDisaster
+    {
+        get
+        {
+            return this.linkedDisaster;
+        }
+        set
+        {
+            this.linkedDisaster = value;
+        }
+    }
+
     public abstract bool CheckIsRequirementFulfilled();
 
 }
@@ -65,6 +79,7 @@ public class S_Requirement : S_RequirementAbstract
         clone.NarrativeDescription = NarrativeDescription;
         clone.ConstraintDescription = ConstraintDescription;
         clone.HasBeenFulfilled = HasBeenFulfilled;
+        clone.LinkedDisaster = LinkedDisaster;
 
         return clone;
     }
