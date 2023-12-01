@@ -8,12 +8,20 @@ public class S_GridDebug : MonoBehaviour
     [SerializeField] private S_GridDebugTileInt _debugTile;
     [SerializeField] private S_GridData _gridData;
 
+    List<List<bool>> gridDebugHighlight = new List<List<bool>>();
+
     private int _debugTileInt, _mapTileSize;
 
     //Debug.LogWarning($"Missing reference in S_GridDebug : DebugTileInt = {_debugTileInt} | GridData = {((_gridData == null) ? "NULL" : _gridData)}{Environment.StackTrace}");
     //Debug.LogWarning("Missing reference in S_GridDebug : DebugTileInt = " + _debugTileInt + "| GridData = " + _gridData);
     //Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
     //Application.persistentDataPath
+    private void Start()
+    {
+        _gridData.Init();
+        gridDebugHighlight = S_StaticFunc.Create2DimensionalList(_gridData.tileAmount, () => false);
+    }
+
 
     void Update()
     {
@@ -27,18 +35,19 @@ public class S_GridDebug : MonoBehaviour
             _debugTile.IncrementValue();
         }
     }
+
+    public void DebugHighLightTile(Vector2Int coordinate)
+    {
+        gridDebugHighlight[coordinate.x][coordinate.y] = true;
+    }
+
     private void OnDrawGizmos()
     {
         if(_gridData == null  || _gridData.gridsUsageStatement == null)
-        {
-            //Debug.LogWarning("GridData is missing in S_GridDebug. Grid debug disabled.");
             return;
-        }
+
         if(_debugTile == null)
-        {
-            //Debug.LogWarning("debugTileInt is missing in S_GridDebug. Grid debug disabled.");
             return;
-        }
 
         DrawGizmoDisk(_gridData.mapSphereArea);
         _debugTileInt = _debugTile.GetValue();
@@ -60,7 +69,7 @@ public class S_GridDebug : MonoBehaviour
                     else
                         Gizmos.color = Color.clear;
 
-                    if (Grid.gridDebugHighlight[x][y])
+                    if (gridDebugHighlight[x][y])
                         Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
 
                     Gizmos.DrawWireCube(new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,

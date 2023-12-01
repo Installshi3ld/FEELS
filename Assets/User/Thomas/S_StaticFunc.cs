@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class S_StaticFunc
 {
@@ -33,5 +34,9 @@ public class S_StaticFunc
             dimensionalList.Add(tmpGrid);
         }
         return dimensionalList;
+    }
+    public static bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }

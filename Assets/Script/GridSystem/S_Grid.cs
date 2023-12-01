@@ -13,7 +13,6 @@ public class Grid : MonoBehaviour
     [Tooltip("The padding is for each side.\nIt's in tile size (1 will create 1 tile padding). ")]
 
     public static List<List<bool>> fogGridsUsageStatement = new List<List<bool>>();
-    public static List<List<bool>> gridDebugHighlight = new List<List<bool>>();
 
     public static List<List<GameObject>> fogGameObjects = new List<List<GameObject>>();
 
@@ -22,8 +21,6 @@ public class Grid : MonoBehaviour
     private int _padding;
     int _tileAmount;
 
-    private List<List<S_GridUsage>> _gridUsage;
-
     //Set variable from editor as static
     private void Awake()
     {
@@ -31,17 +28,12 @@ public class Grid : MonoBehaviour
         _mapSphereArea = gridData.mapSphereArea;
         _padding = gridData.padding;
 
-        _tileAmount = _mapSphereArea * 2 / _tileSize + 1 + (_padding * 2);
-
-        gridData.InitializeGridUsage(_tileAmount);
-        _gridUsage = gridData.gridsUsageStatement;
+        gridData.Init();
+        _tileAmount = gridData.tileAmount;
     }
 
     private void Start()
     {
-        //Create 2 dimension table
-        gridDebugHighlight = S_StaticFunc.Create2DimensionalList(_tileAmount, () => false);
-
         SetFogGridUsageStatement();
         CreateFogGameObjects();
 
@@ -49,11 +41,6 @@ public class Grid : MonoBehaviour
         {
             StaticBatchingUtility.Combine(fogGameObjects[i].ToArray(), null);
         }
-    }
-
-    public static void DebugHighLightTile(Vector2Int coordinate)
-    {
-        gridDebugHighlight[coordinate.x][coordinate.y] = true;
     }
 
     void SetFogGridUsageStatement()

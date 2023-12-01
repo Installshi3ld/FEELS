@@ -1,17 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SO_GridData", menuName = "Data/SO_Grid Data")]
-public class S_GridData : ScriptableObject
+public class S_GridData : ScriptableObject, InitializeSO
 {
     public int tileSize;
     public int mapSphereArea;
     public int padding;
 
-    [SerializeField]public List<List<S_GridUsage>> gridsUsageStatement;
+    [NonSerialized] public int tileAmount;
+    [SerializeField] public List<List<S_GridUsage>> gridsUsageStatement;
 
     [SerializeField]private S_FogData _fogData;
+
+    public void Init()
+    {
+        tileAmount = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
+        gridsUsageStatement = S_StaticFunc.Create2DimensionalList(tileAmount, () => new S_GridUsage());
+    }
 
     public Vector2Int GetIndexbasedOnPosition(Vector3 position)
     {
@@ -29,10 +37,6 @@ public class S_GridData : ScriptableObject
         return new Vector3Int(xCoord, 0, zCoord);
     }
 
-    public void InitializeGridUsage(int tileAmount)
-    {
-        gridsUsageStatement = S_StaticFunc.Create2DimensionalList(tileAmount, () => new S_GridUsage());
-    }
     public void SetTileUsed(int x, int y)
     {
         gridsUsageStatement[x][y].statement = true;
@@ -100,32 +104,33 @@ public class S_GridData : ScriptableObject
     }
 
 
-    public Vector3 GetRandomTileInGrid(List<Vector2Int> sizeOfBuilding = null)
+    public Vector3 GetRandomTileInGrid(List<Vector2Int> tilesUsed = null)
     {
-        if (sizeOfBuilding.Count == 0)
-            sizeOfBuilding.Add(Vector2Int.zero);
+        if (tilesUsed.Count == 0)  tilesUsed.Add(Vector2Int.zero);
 
 
+        int gridUsageCount = gridsUsageStatement.Count;
         List<Vector2Int> tmpIndex = new List<Vector2Int>();
 
-        for (int i = 0; i < gridsUsageStatement.Count; i++)
+        for (int i = 0; i < gridUsageCount; i++)
         {
-            for (int j = 0; j < gridsUsageStatement.Count; j++)
+            for (int j = 0; j < gridUsageCount; j++)
             {
                 bool isEnoughSpace = true;
 
                 //Check if enough space for building
-                for (int size = 0; size < sizeOfBuilding.Count; size++)
+                for (int sizeIndex = 0; sizeIndex < tilesUsed.Count; sizeIndex++)
                 {
-                    if (i + sizeOfBuilding[size].x < 0 || i + sizeOfBuilding[size].x > gridsUsageStatement.Count - 1
-                        || j + sizeOfBuilding[size].y < 0 || j + sizeOfBuilding[size].y > gridsUsageStatement.Count - 1)
+                    Vector2Int tileUsedCoord = tilesUsed[sizeIndex];
+                    if (i + tileUsedCoord.x < 0 || i + tileUsedCoord.x > gridUsageCount - 1
+                        || j + tileUsedCoord.y < 0 || j + tileUsedCoord.y > gridUsageCount - 1)
                     {
                         isEnoughSpace = false;
                         break;
                     }
 
-                    if (gridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y].statement
-                        || _fogData.fogGridsUsageStatement[i + sizeOfBuilding[size].x][j + sizeOfBuilding[size].y])
+                    if (gridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y].statement
+                        || _fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y])
                     {
                         isEnoughSpace = false;
                         break;
@@ -139,13 +144,8 @@ public class S_GridData : ScriptableObject
         }
         int index = UnityEngine.Random.Range(0, tmpIndex.Count);
 
-        Vector3Int tmpCoordinate;
-        if (tmpIndex.Count == 0)
-            tmpCoordinate = new Vector3Int(0, -1000, 0);
-        else
-            tmpCoordinate = GetPositionBasedOnIndex(tmpIndex[index].x, tmpIndex[index].y);
-
-
-        return tmpCoordinate;
+        //Return insane Y if no tile available
+        return tmpIndex.Count == 0 ? new Vector3Int(0, -1000, 0) : GetPositionBasedOnIndex(tmpIndex[index].x, tmpIndex[index].y);
     }
+
 }

@@ -68,7 +68,7 @@ public class ConstructionSystem : MonoBehaviour
         }
 
         //Place Object
-        if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
+        if (Input.GetMouseButtonDown(0) && !S_StaticFunc.IsMouseOverUI())
         {
             if(objectSpawned != null )
             {
@@ -210,13 +210,6 @@ public class ConstructionSystem : MonoBehaviour
         return new Vector2Int(indexX, indexZ);
     }
 
-    bool GetTileStatementWithIndex(Vector2Int positionOnGrid)
-    {
-        float positionX = (float)positionOnGrid.x * _gridData.tileSize - _gridData.gridsUsageStatement.Count * 2;
-
-        return true;
-    }
-
     public void SpawnObject(GameObject gameObject)
     {
         if(objectSpawned != null)
@@ -240,11 +233,6 @@ public class ConstructionSystem : MonoBehaviour
             return null;
         }
 
-    }
-
-    private bool IsMouseOverUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
     }
     void CheckBoostBuilding()
     {
