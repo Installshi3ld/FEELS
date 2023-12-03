@@ -21,17 +21,28 @@ public class S_FeelsRequirement : S_Requirement
         ConstraintDescription = constraintRequirement;
         HasBeenFulfilled = false;
         LinkedDisaster = disasterConsequences;
+      ;
     }
+
+    // Adrien Modification Pensement
+    public string GetMyPrivateStringRequirNmb()
+    {
+        
+        return "/"+ targetedNumberOfFeels.ToString();
+    }
+    // Adrien Modification Pensement
 
     public override bool CheckIsRequirementFulfilled()
     {
         if(soFeelType.amount >= targetedNumberOfFeels)
         {
+            Debug.Log ("Oui je suis fullfilled!");
             HasBeenFulfilled = true;
             return true;
         }
         else
         {
+            Debug.Log("NOOOON je suis fullfilled!");
             HasBeenFulfilled = false;
             return false;
         }

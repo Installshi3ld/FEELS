@@ -71,7 +71,7 @@ public abstract class S_RequirementAbstract : ScriptableObject, IRequirement
     {
         return ConstraintDescription;
     }
-    // Adrien Modification Pensement
+     // Adrien Modification Pensement
 
     public abstract bool CheckIsRequirementFulfilled();
 
