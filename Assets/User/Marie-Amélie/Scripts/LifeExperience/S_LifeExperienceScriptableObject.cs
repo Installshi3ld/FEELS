@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class S_LifeExperienceScriptableObject : ScriptableObject
 {
     [SerializeField]
-    private string description;
+    public string description;
     [SerializeField]
     private int priceToPayToResolve;
     [SerializeField]
@@ -14,7 +15,8 @@ public class S_LifeExperienceScriptableObject : ScriptableObject
     [SerializeField]
     private int firePropagationTimer;
 
-    private bool hasBeenPaid;
+    [NonSerialized]
+    public bool hasBeenPaid;
 
     private void OnEnable()
     {
@@ -32,7 +34,6 @@ public class S_LifeExperienceScriptableObject : ScriptableObject
 
         return clone;
     }
-
 
     IEnumerator SetWorldOnFire()
     {
