@@ -77,128 +77,80 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
-    void StoreBuildingPerTier()
-    {
-        for(int i = 0; i < TierLimitInPool.Count; i++)
-        {
-            buildingPerTier.Add(new List<GameObject>());
-        }
-        //Sort
-        foreach (var build in AllBuildings)
-        {
-            buildingPerTier[build.GetComponent<S_Building>().tier].Add(build);
-        }
-    }
-
-    public void RefreshBuildingPool()
-    {
-        
-        BuildingInPool.Clear();
-        List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
-
-        //Initiate list
-        for (int i = 0; i < TierLimitInPool.Count; i++)
-        {
-            tmpBuildingPerTier.Add(new List<GameObject>());
-        }
-
-        //Add element base on probability
-        for (int i = 1; i < buildingPerTier.Count; i++)
-        {
-            for(int j = 0; j < buildingPerTier[i].Count; j++)
-            {
-                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
-                    tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
-            }
-        }
-        //Add element base on limitation
-        for (int i = 1; i < TierLimitInPool.Count; ++i)
-        {
-            S_StaticFunc.Shuffle<GameObject>(tmpBuildingPerTier[i]);
-
-            for (int j = 0; j < TierLimitInPool[i]; j++)
-                if (tmpBuildingPerTier[i].Count > 0)
-                    BuildingInPool.Add(tmpBuildingPerTier[i][j]);
-        }
-
-        //Fill with tier 0
-        if(BuildingInPool.Count < 8)
-        {
-            int index = 0;
-            S_StaticFunc.Shuffle<GameObject>(buildingPerTier[0]);
-            for (int i = BuildingInPool.Count; i < 8; i++)
-            {
-                BuildingInPool.Add(buildingPerTier[0][index]);
-                index++;
-            }
-        }
-        S_StaticFunc.Shuffle<GameObject>(BuildingInPool);
-
-        OnRefreshBuildingPool.Invoke();
-    }
 
 
     void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
         List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.tilesCoordinate;
-       
-        Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
-        bool canPlaceBuilding = true;
 
-        //Check if Index are on non used tile
+        Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
+
+        if (!IsValidPlacement(tmpIndexInGrid, objectSpawnTilesUsage) || !HasEnoughMoney(objectSpawnedBuildingScript))
+        {
+            feelsUI.Info("Need more feels");
+            return;
+        }
+
+        UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
+
+        feelsUI.RefreshUI();
+
+        if (objectSpawnedBuildingScript.FeelCurrency)
+            objectSpawnedBuildingScript.FeelCurrency.RemoveAmount(objectSpawnedBuildingScript.price);
+
+        consciousTreeToken.AddAmount(1);
+
+        CheckBoostBuilding();
+        objectSpawnedBuildingScript.PlacedBuilding();
+
+        objectSpawned = null;
+    }
+
+    bool IsValidPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage)
+    {
         for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
         {
-            //If building is outside 2 dimension list
-            if (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x >= _gridData.gridsUsageStatement.Count ||
-                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y >= _gridData.gridsUsageStatement.Count ||
-                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y < 0 ||
-                tmpIndexInGrid.x + objectSpawnTilesUsage[i].x < 0)
-            {
-                canPlaceBuilding = false;
-                break;
-            }
+            int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
+            int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
 
-            //1 -> Tile used 2 -> If outside mapSphereArea 
-            if (_gridData.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y].statement 
-                ||
-                Grid.fogGridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
+            if (!IsWithinGridBounds(x, y) || IsTileOccupied(x, y))
             {
-                canPlaceBuilding = false;
+                return false;
             }
-
         }
 
-        //Check if enough Money
-        if(objectSpawnedBuildingScript.FeelCurrency && objectSpawnedBuildingScript.FeelCurrency.amount - objectSpawnedBuildingScript.price < 0)
-            canPlaceBuilding = false;
-
-        if (canPlaceBuilding)
-        {
-            for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
-            {
-                int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
-                int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
-                _gridData.gridsUsageStatement[x][y].statement = true;
-                _gridData.gridsUsageStatement[x][y].building = objectSpawned;
-                
-            }
-
-
-            feelsUI.RefreshUI();
-            if(objectSpawnedBuildingScript.FeelCurrency)
-                objectSpawnedBuildingScript.FeelCurrency.RemoveAmount(objectSpawnedBuildingScript.price);
-
-            consciousTreeToken.AddAmount(1);
-
-            CheckBoostBuilding();
-            objectSpawned.GetComponent<S_Building>().PlacedBuilding();
-
-            objectSpawned = null;
-        }
-        else
-            feelsUI.Info("Need more feels");
+        return true;
     }
+
+    bool IsWithinGridBounds(int x, int y)
+    {
+        int gridSize = _gridData.gridsUsageStatement.Count;
+        return x >= 0 && x < gridSize && y >= 0 && y < gridSize;
+    }
+
+    bool IsTileOccupied(int x, int y)
+    {
+        return _gridData.gridsUsageStatement[x][y].statement || Grid.fogGridsUsageStatement[x][y];
+    }
+
+    bool HasEnoughMoney(S_Building buildingScript)
+    {
+        return !buildingScript.FeelCurrency || (buildingScript.FeelCurrency.amount - buildingScript.price >= 0);
+    }
+
+    void UpdateGridOnPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage, S_Building buildingScript)
+    {
+        for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+        {
+            int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
+            int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
+
+            _gridData.gridsUsageStatement[x][y].statement = true;
+            _gridData.gridsUsageStatement[x][y].building = objectSpawned;
+        }
+    }
+
 
 
     Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
@@ -342,6 +294,67 @@ public class ConstructionSystem : MonoBehaviour
             }
         }
 
+    }
+
+    //Building pool
+    void StoreBuildingPerTier()
+    {
+        for(int i = 0; i < TierLimitInPool.Count; i++)
+        {
+            buildingPerTier.Add(new List<GameObject>());
+        }
+        //Sort
+        foreach (var build in AllBuildings)
+        {
+            buildingPerTier[build.GetComponent<S_Building>().tier].Add(build);
+        }
+    }
+
+    public void RefreshBuildingPool()
+    {
+        
+        BuildingInPool.Clear();
+        List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
+
+        //Initiate list
+        for (int i = 0; i < TierLimitInPool.Count; i++)
+        {
+            tmpBuildingPerTier.Add(new List<GameObject>());
+        }
+
+        //Add element base on probability
+        for (int i = 1; i < buildingPerTier.Count; i++)
+        {
+            for(int j = 0; j < buildingPerTier[i].Count; j++)
+            {
+                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
+                    tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
+            }
+        }
+        //Add element base on limitation
+        for (int i = 1; i < TierLimitInPool.Count; ++i)
+        {
+            S_StaticFunc.Shuffle<GameObject>(tmpBuildingPerTier[i]);
+
+            for (int j = 0; j < TierLimitInPool[i]; j++)
+                if (tmpBuildingPerTier[i].Count > 0)
+                    BuildingInPool.Add(tmpBuildingPerTier[i][j]);
+        }
+
+        //Fill with tier 0
+        if(BuildingInPool.Count < 8)
+        {
+            int index = 0;
+            S_StaticFunc.Shuffle<GameObject>(buildingPerTier[0]);
+            for (int i = BuildingInPool.Count; i < 8; i++)
+            {
+                BuildingInPool.Add(buildingPerTier[0][index]);
+                index++;
+            }
+        }
+        S_StaticFunc.Shuffle<GameObject>(BuildingInPool);
+
+        OnRefreshBuildingPool.Invoke();
     }
 
 }
