@@ -10,4 +10,10 @@ public class SO_Mood : ScriptableObject
     public bool isUnlocked;
 
     public Sprite moodImage;
+    
+    public List<float> GetMoodValueAsList()
+    {
+        return new List<float> {Joy, Angry, Sad, Fear };
+    }
+
 }

@@ -13,6 +13,7 @@ public class S_FeelsUI : MonoBehaviour
 
     public Color infoTextColor;
 
+    public S_MoodManager moodManager;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,7 @@ public class S_FeelsUI : MonoBehaviour
         fearFeels.OnRefreshUi += RefreshUI;
         sadnessFeels.OnRefreshUi += RefreshUI;
         currency.OnRefreshUi += RefreshUI;
-
+        moodManager.OnChangeUIFeelsColor += ChangeColor;
         RefreshUI();
     }
 
@@ -64,5 +65,16 @@ public class S_FeelsUI : MonoBehaviour
         }  
     }
 
+    public void ChangeColor()
+    {
+        List<float> moodHighestValue = moodManager.GetMoodHighestValue();
+
+        jFeelsValue.color = (Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Joy) != 0 && Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Joy) == Mathf.FloorToInt(moodHighestValue[0]) || Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Joy) == Mathf.FloorToInt(moodHighestValue[1])) ? Color.green : Color.white;
+        sFeelsValue.color = (Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Sad) != 0 && Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Sad) == Mathf.FloorToInt(moodHighestValue[0]) || Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Sad) == Mathf.FloorToInt(moodHighestValue[1])) ? Color.green : Color.white;
+        aFeelsValue.color = (Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Angry) != 0 && Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Angry) == Mathf.FloorToInt(moodHighestValue[0]) || Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Angry) == Mathf.FloorToInt(moodHighestValue[1])) ? Color.green : Color.white;
+        fFeelsValue.color = (Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Fear) != 0 && Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Fear) == Mathf.FloorToInt(moodHighestValue[0]) || Mathf.FloorToInt(moodManager.moodList[moodManager.currentSelectedMood].Fear) == Mathf.FloorToInt(moodHighestValue[1])) ? Color.green : Color.white;
+
+
+    }
 
 }

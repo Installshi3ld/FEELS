@@ -3,21 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// UWU
+/// </summary>
 public class S_ManageEvents : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
-    [SerializeField]
+    [SerializeField]//copy
     private List<S_PhaseScriptableObject> phasesList = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    private float secondsBetweenNewEvent;
+    private float secondsBetweenNewConstraint;
 
     [SerializeField]
     private S_CurrentPhase currentPhase;
     private int currentPhaseIndex;
+
+    public S_EventTimer eventTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -29,73 +35,65 @@ public class S_ManageEvents : MonoBehaviour
             phasesList.Add(phases[i].MakeCopy());
         }
 
+        eventTimer.MaxTime = secondsBetweenNewConstraint;
         StartCoroutine(UpdateEvents());
+    }
+
+    private void Update()
+    {
+        eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
     }
 
     private void ChangeIndex()
     {
         Debug.Log("trying switch");
 
-        if(phasesList[currentPhaseIndex].events.Count <= 0)
+        if(phasesList[currentPhaseIndex].requirements.Count <= 0)
         {
             currentPhase.PhaseIndex++;
             currentPhaseIndex++;
-            Debug.ClearDeveloperConsole();
-            Debug.Log("have switched, the current phase is " +currentPhase.PhaseIndex++);
+
+            Debug.Log("have switched, the current phase is " + currentPhase.PhaseIndex++);
         }
     }
 
     private IEnumerator UpdateEvents()
     {
-        S_EventScriptableObject currentEvent;
+        S_Requirement currentRequirement;
 
         while (true)
         {
-            currentEvent = ChooseOneEventRandomly();
+            eventTimer.StartTimerOver();
 
-            if (currentEvent)
+            currentRequirement = chooseOneRequirementRandomly();
+            Debug.Log(currentRequirement.NarrativeDescription);
+
+            yield return new WaitForSeconds(secondsBetweenNewConstraint);
+
+            if (!currentRequirement.HasBeenFulfilled)
             {
-                currentEvent.applyEvent();
+                //provoke disaster
             }
-
-            yield return new WaitForSeconds(secondsBetweenNewEvent);
         }
     }
 
-    private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENT CONTAINED IN THE CURRENT PHASE
+    private S_Requirement chooseOneRequirementRandomly()
     {
         phasesList.Add(phases[currentPhaseIndex].MakeCopy());
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
-        S_EventScriptableObject EventToReturn;
+        S_Requirement RequirementToReturn;
 
-        Debug.Log("the number of event contained in the current phase is " + currentPhaseObject.events.Count);
+        Debug.Log("the number of requirements contained in the current phase is " + currentPhaseObject.requirements.Count);
 
-        if (currentPhaseObject.events.Count > 0) //ne rentre pas là 
+        if (currentPhaseObject.requirements.Count > 0) //ne rentre pas là 
         {
-            int index = Random.Range(0, currentPhaseObject.events.Count - 1);
-            EventToReturn = currentPhaseObject.events[index];
-            currentPhaseObject.events.RemoveAt(index); //The event of one pool can't occur multiple times and should be deleted to check 
+            int index = Random.Range(0, currentPhaseObject.requirements.Count - 1);
+            RequirementToReturn = currentPhaseObject.requirements[index];
+            currentPhaseObject.requirements.RemoveAt(index); //The event of one pool can't occur multiple times and should be deleted to check 
             ChangeIndex();
 
-            return EventToReturn;
+            return RequirementToReturn;
         }
         return null;
-    }
-
-    private IEnumerator callLifeCycleEveryXSeconds(float seconds)
-    {
-        ManageLifeCyclesEvents();
-        yield return new WaitForSeconds(seconds);
-        callLifeCycleEveryXSeconds(seconds);
-    }
-
-    private IEnumerator ManageLifeCyclesEvents()
-    {
-        S_EventScriptableObject chosenEvent = ChooseOneEventRandomly();
-        chosenEvent.applyEvent();
-        
-        Debug.Log(chosenEvent.description);
-
-        yield return null;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Windows;
@@ -9,10 +10,13 @@ public class S_MoodManager : MonoBehaviour
     public List<SO_Mood> moodList;
     
     public SO_MoodPercent JoyPercent, AngryPercent, SadPercent, FearPercent; 
-    int currentSelectedMood = 0;
+    public int currentSelectedMood = 0;
 
     public delegate void ChangeMoodImage(SO_Mood mood);
     public ChangeMoodImage changeMoodImage;
+ 
+    public delegate void ChangeUIFeelsColor();
+    public event ChangeUIFeelsColor OnChangeUIFeelsColor;   
     public void SelectedNextMood()
     {
         do
@@ -53,6 +57,22 @@ public class S_MoodManager : MonoBehaviour
             "<color=red> Angry Percent = " + moodList[currentSelectedMood].Angry.ToString() +
             "<color=#4DA1FF> Sad Percent = " + moodList[currentSelectedMood].Sad.ToString() +
             "<color=#FF6AFD> Fear Percent = " + moodList[currentSelectedMood].Fear.ToString() + "</color>");
-    }
 
+        GetMoodHighestValue();
+
+        OnChangeUIFeelsColor.Invoke();
+
+
+    }
+    float firstValue=-1, secondValue =-1;
+    public List<float> GetMoodHighestValue()
+    {
+        
+        List<float> moodsPercentValue = moodList[currentSelectedMood].GetMoodValueAsList();
+        firstValue = moodsPercentValue.Max();
+        moodsPercentValue.RemoveAt(moodsPercentValue.IndexOf(firstValue));
+        secondValue = moodsPercentValue.Max();    
+        
+        return new List<float> { firstValue, secondValue };
+    }
 }

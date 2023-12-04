@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 6875688724058799417}
   - component: {fileID: 3536713814077364786}
   - component: {fileID: 5003807797082481164}
-  - component: {fileID: 801395536826496613}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &801395536826496613
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2193264596787567586}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7248736645522736285
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +94,9 @@ GameObject:
   - component: {fileID: 2771709413548991937}
   - component: {fileID: 8951720685163395314}
   - component: {fileID: 5404127727897771836}
-  m_Layer: 0
+  - component: {fileID: -6129549663309600517}
+  - component: {fileID: 8711676751392839174}
+  m_Layer: 6
   m_Name: P_Fear_Tier1_Add_Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +135,7 @@ MonoBehaviour:
   tier: 0
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: 2f56146919b2b4e45830e72cf451c7c9, type: 3}
-  FeelType: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+  FeelCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
   price: 100
 --- !u!114 &5404127727897771836
 MonoBehaviour:
@@ -172,3 +152,41 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: 900e455844bacb4468a78bba5ef5f542, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 5
+--- !u!114 &-6129549663309600517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248736645522736285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 5
+  productionAmount: 2
+  delayBetweenEachProduction: 2
+  productionAmountBoosted: 4
+  delayBetweenEachProductionBoosted: 2
+--- !u!65 &8711676751392839174
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248736645522736285}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 2.5, z: 0}
