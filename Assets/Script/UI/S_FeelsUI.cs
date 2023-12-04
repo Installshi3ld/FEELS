@@ -23,7 +23,7 @@ public class S_FeelsUI : MonoBehaviour
         fearFeels.OnRefreshUi += RefreshUI;
         sadnessFeels.OnRefreshUi += RefreshUI;
         currency.OnRefreshUi += RefreshUI;
-        moodManager.OnChangeUIFeelsColor += ChangeColor;
+        //moodManager.OnChangeUIFeelsColor += ChangeColor;
         RefreshUI();
     }
 

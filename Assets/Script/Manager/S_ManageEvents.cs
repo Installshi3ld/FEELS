@@ -20,10 +20,18 @@ public class S_ManageEvents : MonoBehaviour
     private float secondsBetweenNewConstraint;
 
     [SerializeField]
+    private int chanceForLifeExperienceToSpawn;
+
+    [SerializeField]
     private S_CurrentPhase currentPhase;
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
+
+    private bool hasLifeEventBeenPicked;
+
+    [SerializeField]
+    private int chanceForLifeExpToOccur;
 
     // Start is called before the first frame update
     void Start()
@@ -70,10 +78,25 @@ public class S_ManageEvents : MonoBehaviour
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
-            if (!currentRequirement.HasBeenFulfilled)
+           
+            if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
-                //provoke disaster
+                foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
+                {
+                    Debug.Log("provoke disaster : " + consequence.Description);
+                    consequence.ProvoqueDisaster();
+                }
             }
+        }
+    }
+
+    private void chooseOrNotLifeEvent()
+    {
+        int randomInt = Random.Range(0, 99);
+
+        if(randomInt <= chanceForLifeExpToOccur)
+        {
+            Debug.Log("ture");
         }
     }
 
@@ -81,8 +104,9 @@ public class S_ManageEvents : MonoBehaviour
     {
         phasesList.Add(phases[currentPhaseIndex].MakeCopy());
         S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
-        S_Requirement RequirementToReturn;
-
+       // Le Cirque Medrano d'Adrien c'est par ici
+       //S_Requirement RequirementToReturn;
+       //
         Debug.Log("the number of requirements contained in the current phase is " + currentPhaseObject.requirements.Count);
 
         if (currentPhaseObject.requirements.Count > 0) //ne rentre pas là 
@@ -96,4 +120,8 @@ public class S_ManageEvents : MonoBehaviour
         }
         return null;
     }
+    // A Partir de la Adrien fais son numéro de Cirque : TPC !
+
+    public S_Requirement RequirementToReturn;
+    
 }
