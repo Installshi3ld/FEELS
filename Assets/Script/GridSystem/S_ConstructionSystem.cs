@@ -194,11 +194,11 @@ public class ConstructionSystem : MonoBehaviour
     {
         List<Vector2Int> _tilesToCheckForBoost = new List<Vector2Int>();
         S_Building s_building = objectSpawned.GetComponent<S_Building>();
-        _tilesToCheckForBoost = s_building.GetSurroundingTiles();
+        _tilesToCheckForBoost = s_building.buildingDataSO.GetSurroundingTiles();
 
         S_Currencies.FeelType _feelType = S_Currencies.FeelType.None;
-        if (s_building.FeelCurrency)
-            _feelType = s_building.FeelCurrency.feelType;
+        if (s_building.buildingDataSO.feelType[0])
+            _feelType = s_building.buildingDataSO.feelType[0].feelType;
 
         GameObject _currentBuildingToCheck = null;
         Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned);
@@ -213,7 +213,7 @@ public class ConstructionSystem : MonoBehaviour
             S_Currencies.FeelType _currentBuildingToCheckFeelType;
             if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
             {
-                _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().FeelCurrency.feelType;
+                _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType[0].feelType;
 
                 switch (_feelType)
                 {
@@ -254,14 +254,14 @@ public class ConstructionSystem : MonoBehaviour
         {
             List<GameObject> buildingSadToBoost = new List<GameObject>();
 
-            List<Vector2Int> corners = s_building.GetCornerTiles();
+            List<Vector2Int> corners = s_building.buildingDataSO.GetCornerTiles();
 
             for (int i = 0; i < corners.Count; i++)
             {
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
-                    S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().FeelCurrency.feelType;
+                    S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType[0].feelType;
 
                     if (_feelType == _currentBuildingToCheckFeelType && !buildingSadToBoost.Contains(_currentBuildingToCheck))
                     {
@@ -275,7 +275,7 @@ public class ConstructionSystem : MonoBehaviour
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
-                    S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().FeelCurrency.feelType;
+                    S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType[0].feelType;
 
                     if (_feelType == _currentBuildingToCheckFeelType && buildingSadToBoost.Contains(_currentBuildingToCheck))
                     {
@@ -310,7 +310,7 @@ public class ConstructionSystem : MonoBehaviour
         //Sort
         foreach (var build in AllBuildings)
         {
-            buildingPerTier[build.GetComponent<S_Building>().tier].Add(build);
+            buildingPerTier[build.GetComponent<S_Building>().buildingDataSO.tier].Add(build);
         }
     }
 

@@ -3,34 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct FeelTypeData
+{
+    public S_Currencies feelTypeCurrency;
+    public int feelPrice;
+}
+#region Enumeration FeelType and Theme
+public enum FeelType
+{
+    None = 0,
+    Joy,
+    Anger,
+    Sad,
+    Fear,
+}
+public enum BuildingTheme
+{
+    None = 0,
+    Music,
+    Food,
+    Animals,
+}
+#endregion
+
 [CreateAssetMenu(fileName = "SO_BuildingData", menuName = "Data/BuildingData")]
 public class S_BuildingData : ScriptableObject
 {
+    [Header("General Data")]
+    public string buildingName;
+    public FeelType feelType;
+    public BuildingTheme BuildingTheme;
+
+    public List<FeelTypeData> feelTypeCostList = new List<FeelTypeData>();  
+
     //tool grid
-    [Header("Tool grid")]
+    [Header("Tile Data")]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
 
     public int tier = 0;
     public float probabilityToSpawnInPool = 100f;
     public Sprite BuildingImage;
 
-    float lerpAlpha = 0f;
+    [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
+    [NonSerialized] public Vector3 destination;
 
-    [System.NonSerialized]
-    public bool isPlacedAnimation, isPlaced = false;
-
-    [System.NonSerialized]
-    public Vector3 destination;
-
-    // Building data
-    public List<S_Currencies> feelType = new List<S_Currencies>(); //possible to create struct
-    public List<int> feelPrice = new List<int>();
-
-    public string buildingName;
-    public int cost, typeIndex, themeIndex;
-
-    [NonSerialized]
-    public Vector3 location;
+    [NonSerialized] public Vector3 location;
 
     private void Awake()
     {
@@ -43,6 +60,12 @@ public class S_BuildingData : ScriptableObject
 
     public bool HasEnoughMoney()
     {
+        foreach(FeelTypeData _feelTypeData in feelTypeCostList)
+        {
+            if(_feelTypeData.)
+        }
+
+
         if(feelPrice.Count == feelType.Count)
         {
             int index = 0;
@@ -69,8 +92,9 @@ public class S_BuildingData : ScriptableObject
     public void SetDestination(Vector3 dest)
     {
         destination = dest;
+        /*
         if (lerpAlpha > 0.5f)
-            lerpAlpha = 0;
+            lerpAlpha = 0;*/
     }
 
     void GetMinMaxCoordinate()
