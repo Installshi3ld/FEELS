@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865c4390da7b5c44aaf5015f5ea838ba, type: 3}
-  m_Name: SO_FearFeels
+  m_Script: {fileID: 11500000, guid: ccee5a3c12d43da4e964d4faef5ae57d, type: 3}
+  m_Name: SO_TimerEndCommand
   m_EditorClassIdentifier: 
-  feelType: 4
-  amount: 20
-  image: {fileID: 21300000, guid: 6c051d9306e7cf841affabb343b7ec1d, type: 3}
+  commandWord: GoToEndEvent
+  eventTimer: {fileID: 11400000, guid: c9a9327b56661214ebd802d248e82449, type: 2}

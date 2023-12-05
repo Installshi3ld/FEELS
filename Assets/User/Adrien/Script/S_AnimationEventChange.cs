@@ -35,7 +35,7 @@ public class S_AnimationEventChange : MonoBehaviour
         // Callback when the sequence is complete
         fadeSequence.OnComplete(() =>
         {
-            Debug.Log("Fade In and Out complete!");
+          //  Debug.Log("Fade In and Out complete!");
         });
 
         // Play the sequence
@@ -67,7 +67,7 @@ public class S_AnimationEventChange : MonoBehaviour
         // Callback when the sequence is complete
         fadeSequence.OnComplete(() =>
         {
-            Debug.Log("Fade In and Out complete!");
+          //  Debug.Log("Fade In and Out complete!");
         });
 
         // Play the sequence

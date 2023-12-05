@@ -31,7 +31,7 @@ public class S_ImageAnimation : MonoBehaviour
                                 .OnComplete(() =>
                                 {
                                     // Animation completed, do something if needed
-                                    Debug.Log("Animation completed!");
+                                   
                                 });
                     });
             });
@@ -59,7 +59,7 @@ public class S_ImageAnimation : MonoBehaviour
                                 .OnComplete(() =>
                                  {
                                         // Animation completed, do something if needed
-                                         Debug.Log("Animation completed!");
+                                        
                                  });        
                      });
             });

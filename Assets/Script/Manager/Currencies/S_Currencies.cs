@@ -47,6 +47,7 @@ public class S_Currencies : ScriptableObject
     }
     public void RemoveAmount(float removeAmount)
     {
+        Debug.Log("CURRENCY DICREASED");
         if (removeAmount - Mathf.Floor(removeAmount) >= .5f)
         {
             amount -= Mathf.CeilToInt(removeAmount);

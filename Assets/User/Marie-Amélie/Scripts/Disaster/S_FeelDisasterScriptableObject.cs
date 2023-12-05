@@ -16,11 +16,12 @@ public class S_FeelDisasterScriptableObject : S_Disaster
     }
     public override void ProvoqueDisaster()
     {
+        Debug.Log("feel disaster provocked");
         if(feelsToKill.Count > 0 && howMany.Count > 0 && feelsToKill.Count == howMany.Count)
         {
             for(int i = 0; i < feelsToKill.Count - 1; i++)
             {
-                feelsToKill[i].amount -= howMany[i];
+                feelsToKill[i].RemoveAmount(howMany[i]);
             }
         }
     }
