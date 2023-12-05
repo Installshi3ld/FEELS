@@ -45,6 +45,7 @@ public class S_CamV2 : MonoBehaviour
     Vector3 CameraDestination = Vector3.zero;
 
     Vector3 tmpDestination;
+    float tmpCoordZ;
     void Update()
     {
         // Keyboard movement
@@ -71,7 +72,6 @@ public class S_CamV2 : MonoBehaviour
         {
             CameraDestination = Vector3.zero;
         }
-
         //Zoom
         if (zoomDestination.magnitude >= 0.1f && 
             MinimumHeight < cam.transform.position.y + zoomDestination.y * ZoomSpeed * Time.deltaTime && //Not too low
@@ -80,6 +80,9 @@ public class S_CamV2 : MonoBehaviour
             cam.transform.position += zoomDestination * ZoomSpeed * Time.deltaTime;
             zoomDestination -= zoomDestination * ZoomSpeed * Time.deltaTime;
             cam.transform.LookAt(this.transform);
+
+            if (!Camera.main.orthographic)
+                tmpCoordZ = cam.transform.position.z;
         }
         else if (zoomDestination != Vector3.zero)
         {
@@ -96,6 +99,10 @@ public class S_CamV2 : MonoBehaviour
 
         if (MinimumHeight < cam.transform.position.y - value && cam.transform.position.y - value < MaximumHeight)
         {
+            if (Camera.main.orthographic)
+                cam.transform.localPosition = new Vector3(0,MaximumHeight - 0.01f, tmpCoordZ);
+
+            Camera.main.orthographic = false;
             zoomDestination = zoomDestination + new Vector3(0, -value, value);
 
             //Localized Zoom
@@ -109,6 +116,13 @@ public class S_CamV2 : MonoBehaviour
                     CameraDestination += (hit.point - this.transform.position).normalized * LocalizedZoomStrenght;
                 }
             }
+        }
+        else if (MinimumHeight < cam.transform.position.y - value)
+        {
+            Camera.main.orthographic = true;
+            Camera.main.orthographicSize = 45;
+            cam.transform.rotation = Quaternion.Euler(90, 0, 0);
+            cam.transform.localPosition = new Vector3(0, cam.transform.position.y, 0);
         }
     }
 

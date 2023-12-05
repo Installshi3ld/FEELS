@@ -1,9 +1,9 @@
-using OpenCover.Framework.Model;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_GridUsage : Class
+public class S_GridUsage
 {
     public bool statement;
     public GameObject building;
