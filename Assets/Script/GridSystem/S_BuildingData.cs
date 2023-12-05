@@ -1,77 +1,78 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class S_Building : MonoBehaviour
+[CreateAssetMenu(fileName = "SO_BuildingData", menuName = "Data/BuildingData")]
+public class S_BuildingData : ScriptableObject
 {
-
-    public S_BuildingData buildingDataSO;
-    //public S_BuildingData buildingData;
-    
-    /*#region variable
-    [Tooltip("Consider X Y as X Z \n The root is always 0, 0 (Be sure to add it) \n Then add tile next to it, each one \n For example a T form will be :\n - X:0 Y:0\n - X:-1 Y:0\n - X:1 Y:0\n - X:0 Y:-1")]*/
-    /*public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
+    //tool grid
+    [Header("Tool grid")]
+    public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
 
     public int tier = 0;
     public float probabilityToSpawnInPool = 100f;
     public Sprite BuildingImage;
 
     float lerpAlpha = 0f;
+
     [System.NonSerialized]
     public bool isPlacedAnimation, isPlaced = false;
 
     [System.NonSerialized]
     public Vector3 destination;
 
-    public S_Currencies FeelCurrency;
-    public int price = 0;
+    // Building data
+    public List<S_Currencies> feelType = new List<S_Currencies>(); //possible to create struct
+    public List<int> feelPrice = new List<int>();
 
-    public delegate void ChangingEquilibriumValue();
-    public event ChangingEquilibriumValue changingEquilibriumValue;
+    public string buildingName;
+    public int cost, typeIndex, themeIndex;
 
-    //#endregion
+    [NonSerialized]
+    public Vector3 location;
 
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
-    }
-    int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
-    private void Start()
-    {
         GetMinMaxCoordinate();
     }
-    private void Update()//TO PUT INTO THE MANAGER
-    {
-        if (!isPlacedAnimation)
-        {
-            this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
 
-            lerpAlpha += 1f * Time.deltaTime * 3;
-            
-            if (isPlaced && Vector3.Distance(this.transform.position, destination) < 0.05f)
+    int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
+
+
+    public bool HasEnoughMoney()
+    {
+        if(feelPrice.Count == feelType.Count)
+        {
+            int index = 0;
+
+            foreach(S_Currencies feel in feelType)
             {
-                this.transform.position = destination;
-                isPlacedAnimation = true;
+                if (feel.amount < feelPrice[index])
+                {
+                    return false;
+                }
+
+                index++;
             }
         }
+        return true;
     }
 
     public void PlacedBuilding()
     {
         isPlaced = true;
         isPlacedAnimation = true;
-        if (FeelCurrency)
-            changingEquilibriumValue();
     }
 
     public void SetDestination(Vector3 dest)
     {
         destination = dest;
-        if( lerpAlpha > 0.5f )
+        if (lerpAlpha > 0.5f)
             lerpAlpha = 0;
     }
-    
+
     void GetMinMaxCoordinate()
     {
         for (int i = 0; i < tilesCoordinate.Count; i++)
@@ -126,5 +127,5 @@ public class S_Building : MonoBehaviour
         }
 
         return surroundingTiles;
-    }*/
+    }
 }

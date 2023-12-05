@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class S_LifeExperience : MonoBehaviour
 {
-
     public GameObject smallFire;
     public GameObject wonderBuilding;
 

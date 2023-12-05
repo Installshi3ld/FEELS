@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class ConstructionSystem : MonoBehaviour
 {
+    [SerializeField] private S_BuildingList buildingListContainer;
+
     [SerializeField]private S_GridData _gridData;
 
     public GameObject objectToSpawn;
@@ -45,6 +47,7 @@ public class ConstructionSystem : MonoBehaviour
 
             if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
+                
                 objectSpawned.GetComponent<S_Building>().SetDestination(_gridData.ClampPositionToGrid(hit.point));
                
                 lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
@@ -77,8 +80,6 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
-
-
     void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
@@ -103,6 +104,9 @@ public class ConstructionSystem : MonoBehaviour
 
         CheckBoostBuilding();
         objectSpawnedBuildingScript.PlacedBuilding();
+
+        S_Building objectSpawnedBuildinghScript = objectSpawned.GetComponent<S_Building>();
+        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.buildingDataSO);
 
         objectSpawned = null;
     }
