@@ -41,18 +41,13 @@ public class S_FeelsRequirement : S_Requirement
                 {
                     hasAllFeelsBeenAcquired = false;
                 }
+
+                index++;
             }
         }
 
-        if(hasAllFeelsBeenAcquired)
-        {
-            HasBeenFulfilled = true;
-            return true;
-        }
-        else
-        {
-            HasBeenFulfilled = false;
-            return false;
-        }
+        HasBeenFulfilled = hasAllFeelsBeenAcquired;
+        return hasAllFeelsBeenAcquired;
+
     }
 }
