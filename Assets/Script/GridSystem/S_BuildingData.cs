@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
+[Serializable]
 public struct FeelTypeData
 {
     public S_Currencies feelTypeCurrency;
@@ -34,19 +36,18 @@ public class S_BuildingData : ScriptableObject
     public FeelType feelType;
     public BuildingTheme BuildingTheme;
 
-    public List<FeelTypeData> feelTypeCostList = new List<FeelTypeData>();  
+    public List<FeelTypeData> feelTypeCostList = new List<FeelTypeData>();
 
-    //tool grid
-    [Header("Tile Data")]
-    public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
-
+    [Header("Building pool")]
     public int tier = 0;
     public float probabilityToSpawnInPool = 100f;
     public Sprite BuildingImage;
 
+    [Space]
+    public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
+
     [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
     [NonSerialized] public Vector3 destination;
-
     [NonSerialized] public Vector3 location;
 
     private void Awake()
@@ -62,25 +63,20 @@ public class S_BuildingData : ScriptableObject
     {
         foreach(FeelTypeData _feelTypeData in feelTypeCostList)
         {
-            if(_feelTypeData.)
-        }
-
-
-        if(feelPrice.Count == feelType.Count)
-        {
-            int index = 0;
-
-            foreach(S_Currencies feel in feelType)
-            {
-                if (feel.amount < feelPrice[index])
-                {
-                    return false;
-                }
-
-                index++;
-            }
+            if(!_feelTypeData.feelTypeCurrency.HasEnoughFeels(_feelTypeData.feelPrice))
+                return false;
         }
         return true;
+    }
+    /// <summary>
+    /// This function don't check if enough money, use HasEnoughMoney() to check.
+    /// </summary>
+    public void RemoveFeelCost()
+    {
+        foreach (FeelTypeData _feelTypeData in feelTypeCostList)
+        {
+            _feelTypeData.feelTypeCurrency.RemoveAmount(_feelTypeData.feelPrice);
+        }
     }
 
     public void PlacedBuilding()

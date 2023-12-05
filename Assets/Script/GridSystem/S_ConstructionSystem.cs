@@ -20,6 +20,10 @@ public class ConstructionSystem : MonoBehaviour
 
     public List<int> TierLimitInPool = new List<int>();
     public List<GameObject> AllBuildings = new List<GameObject>();
+
+    [Tooltip("")]
+    public List<S_BuildingTierPool> BuildingPool= new List<S_BuildingTierPool>();
+
     [NonSerialized]
     public List<GameObject> BuildingInPool = new List<GameObject>();
     public List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
@@ -48,7 +52,7 @@ public class ConstructionSystem : MonoBehaviour
             if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
                 
-                objectSpawned.GetComponent<S_Building>().SetDestination(_gridData.ClampPositionToGrid(hit.point));
+                objectSpawned.GetComponent<S_Building>().buildingDataSO.SetDestination(_gridData.ClampPositionToGrid(hit.point));
                
                 lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
             }
@@ -83,7 +87,7 @@ public class ConstructionSystem : MonoBehaviour
     void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
-        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.tilesCoordinate;
+        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.buildingDataSO.tilesCoordinate;
 
         Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
 
@@ -97,13 +101,13 @@ public class ConstructionSystem : MonoBehaviour
 
         feelsUI.RefreshUI();
 
-        if (objectSpawnedBuildingScript.FeelCurrency)
-            objectSpawnedBuildingScript.FeelCurrency.RemoveAmount(objectSpawnedBuildingScript.price);
+        if (objectSpawnedBuildingScript.buildingDataSO.feelTypeCostList[0].feelTypeCurrency)
+            objectSpawnedBuildingScript.buildingDataSO.RemoveFeelCost();
 
         consciousTreeToken.AddAmount(1);
 
         CheckBoostBuilding();
-        objectSpawnedBuildingScript.PlacedBuilding();
+        objectSpawnedBuildingScript.buildingDataSO.PlacedBuilding();
 
         S_Building objectSpawnedBuildinghScript = objectSpawned.GetComponent<S_Building>();
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.buildingDataSO);
@@ -140,7 +144,7 @@ public class ConstructionSystem : MonoBehaviour
 
     bool HasEnoughMoney(S_Building buildingScript)
     {
-        return !buildingScript.FeelCurrency || (buildingScript.FeelCurrency.amount - buildingScript.price >= 0);
+        return buildingScript.buildingDataSO.HasEnoughMoney();
     }
 
     void UpdateGridOnPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage, S_Building buildingScript)
@@ -196,9 +200,9 @@ public class ConstructionSystem : MonoBehaviour
         S_Building s_building = objectSpawned.GetComponent<S_Building>();
         _tilesToCheckForBoost = s_building.buildingDataSO.GetSurroundingTiles();
 
-        S_Currencies.FeelType _feelType = S_Currencies.FeelType.None;
-        if (s_building.buildingDataSO.feelType[0])
-            _feelType = s_building.buildingDataSO.feelType[0].feelType;
+        FeelType _feelType = FeelType.None;
+        if (s_building.buildingDataSO)
+            _feelType = s_building.buildingDataSO.feelType;
 
         GameObject _currentBuildingToCheck = null;
         Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned);
@@ -210,14 +214,14 @@ public class ConstructionSystem : MonoBehaviour
             _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
 
             // Apply behavior of case to boost bellow
-            S_Currencies.FeelType _currentBuildingToCheckFeelType;
+            FeelType _currentBuildingToCheckFeelType;
             if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
             {
-                _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType[0].feelType;
+                _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType;
 
                 switch (_feelType)
                 {
-                    case S_Currencies.FeelType.Joy:
+                    case FeelType.Joy:
                         if (_feelType == _currentBuildingToCheckFeelType)
                         {
                             _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
@@ -225,7 +229,7 @@ public class ConstructionSystem : MonoBehaviour
                         }
                         break;
 
-                    case S_Currencies.FeelType.Anger:
+                    case FeelType.Anger:
                         if (_feelType == _currentBuildingToCheckFeelType)
                         {
                             _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
@@ -233,7 +237,7 @@ public class ConstructionSystem : MonoBehaviour
                         }
                         break;
 
-                    case S_Currencies.FeelType.Fear:
+                    case FeelType.Fear:
 
                         if (_feelType != _currentBuildingToCheckFeelType)
                         {
@@ -250,7 +254,7 @@ public class ConstructionSystem : MonoBehaviour
             }
         }
 
-        if(_feelType == S_Currencies.FeelType.Sad)
+        if(_feelType == FeelType.Sad)
         {
             List<GameObject> buildingSadToBoost = new List<GameObject>();
 
@@ -261,7 +265,7 @@ public class ConstructionSystem : MonoBehaviour
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
-                    S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType[0].feelType;
+                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType;
 
                     if (_feelType == _currentBuildingToCheckFeelType && !buildingSadToBoost.Contains(_currentBuildingToCheck))
                     {
@@ -275,7 +279,7 @@ public class ConstructionSystem : MonoBehaviour
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
-                    S_Currencies.FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType[0].feelType;
+                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType;
 
                     if (_feelType == _currentBuildingToCheckFeelType && buildingSadToBoost.Contains(_currentBuildingToCheck))
                     {
@@ -331,7 +335,7 @@ public class ConstructionSystem : MonoBehaviour
         {
             for(int j = 0; j < buildingPerTier[i].Count; j++)
             {
-                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
+                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().buildingDataSO.probabilityToSpawnInPool)
                     tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
             }
         }

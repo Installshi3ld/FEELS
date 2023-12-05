@@ -39,7 +39,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         S_Building _building;
         if (gameObject.TryGetComponent<S_Building>(out _building))
         {
-            if (_building.FeelCurrency && _building.FeelCurrency.feelType == S_Currencies.FeelType.Anger)
+            if (_building.buildingDataSO.feelTypeCostList[0].feelTypeCurrency && _building.buildingDataSO.feelTypeCostList[0].feelTypeCurrency.feelType == S_Currencies.FeelType.Anger)
                 BoostBuilding();
         }
 

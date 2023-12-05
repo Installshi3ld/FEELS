@@ -34,13 +34,13 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
 
         int feelCost, increaseDecreseEquilibrium;
 
-        feelCost = buildingScript ? buildingScript.price : 0;
+        feelCost = buildingScript ? buildingScript.buildingDataSO.feelTypeCostList[0].feelPrice : 0;
         increaseDecreseEquilibrium = s_BuildingManager ? s_BuildingManager.increaseOrDecreaseAmount : 0;
 
         if (_buildingPool)
         {
             if(buildingScript)
-                _buildingPool.SetInfoFeel(buildingScript.FeelCurrency,  feelCost);
+                _buildingPool.SetInfoFeel(buildingScript.buildingDataSO.feelTypeCostList[0].feelTypeCurrency,  feelCost);
             else
                 _buildingPool.SetInfoFeel(null, feelCost);
 

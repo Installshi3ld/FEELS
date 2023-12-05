@@ -1,13 +1,10 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
-using static UnityEngine.GraphicsBuffer;
 
-[CustomEditor(typeof(S_Building))]
+
+[CustomEditor(typeof(S_BuildingData))]
 public class S_CustomInspector : Editor
 {
     // https://learn.unity.com/tutorial/editor-scripting#5c7f8528edbc2a002053b5f9
@@ -16,11 +13,11 @@ public class S_CustomInspector : Editor
     int gridSize = 5;
 
     List<List<bool>> gridBoolean = new List<List<bool>>();
-    S_Building myTarget;
+    S_BuildingData myTarget;
 
     private void OnEnable()
     {
-        myTarget = (S_Building)target;
+        myTarget = (S_BuildingData)target;
 
         // Create grid Boolean
         for (int x = 0; x < gridSize; x++)

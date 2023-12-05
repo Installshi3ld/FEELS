@@ -60,4 +60,9 @@ public class S_Currencies : ScriptableObject
             OnRefreshUi();
         }
     }
+
+    public bool HasEnoughFeels(int _amount)
+    {
+        return _amount <= amount;
+    }
 }

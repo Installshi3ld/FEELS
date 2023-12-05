@@ -17,12 +17,12 @@ public class S_LifeExperience : MonoBehaviour
     [SerializeField] private S_GridData _gridData = default(S_GridData);
     private void Awake()
     {
-        wonderBuilding.GetComponent<S_Building>().isPlacedAnimation = true;
+        wonderBuilding.GetComponent<S_Building>().buildingDataSO.isPlacedAnimation = true;
     }
     private void Start()
     {
         S_Building building = wonderBuilding.GetComponent<S_Building>();
-        this.transform.position = _gridData.GetRandomTileInGrid(building.tilesCoordinate) + new Vector3(0, 50, 0);
+        this.transform.position = _gridData.GetRandomTileInGrid(building.buildingDataSO.tilesCoordinate) + new Vector3(0, 50, 0);
 
         if (this.transform.position.y <= -500)
             Destroy(this);
@@ -31,7 +31,7 @@ public class S_LifeExperience : MonoBehaviour
         Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(this.transform.position);
 
         _gridData.SetTileUsed(tmpIndex.x, tmpIndex.y);
-        foreach (Vector2Int element in building.tilesCoordinate)
+        foreach (Vector2Int element in building.buildingDataSO.tilesCoordinate)
         {
             _gridData.SetTileUsed(tmpIndex.x + element.x, tmpIndex.y + element.y);
         }
@@ -55,7 +55,7 @@ public class S_LifeExperience : MonoBehaviour
     void SpawnWonder()
     {
         GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
-        wonder.GetComponent<S_Building>().PlacedBuilding();
+        wonder.GetComponent<S_Building>().buildingDataSO.PlacedBuilding();
         Destroy(this.gameObject);
     }
 

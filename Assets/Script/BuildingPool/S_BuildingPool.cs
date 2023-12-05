@@ -65,7 +65,7 @@ public class S_BuildingPool : MonoBehaviour
     {
         for (int i = 0; i < button.Count; i++)
         {
-            button[i].image.sprite = constructionSystem.BuildingInPool[i].GetComponent<S_Building>().BuildingImage;
+            button[i].image.sprite = constructionSystem.BuildingInPool[i].GetComponent<S_Building>().buildingDataSO.BuildingImage;
 
             button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = constructionSystem.BuildingInPool[i];
         }
