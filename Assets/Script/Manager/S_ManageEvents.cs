@@ -1,101 +1,215 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Linq;
+using UnityEngine.Assertions;
+using Unity.VisualScripting;
 
 public class S_ManageEvents : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
-    [SerializeField]
-    private List<S_PhaseScriptableObject> phasesList = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    private float secondsBetweenNewEvent;
+    private float secondsBetweenNewConstraint;
 
     [SerializeField]
-    private S_CurrentPhase currentPhase;
+    private int chanceForLifeExperienceToSpawn;
+
     private int currentPhaseIndex;
+
+    public S_EventTimer eventTimer;
+
+    private bool hasLifeEventBeenPicked;
+    private S_LifeExperienceScriptableObject pickedLifeExperience;
+
+    [SerializeField]
+    private int chanceForLifeExpToOccur;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentPhaseIndex = currentPhase.PhaseIndex;
+        currentPhaseIndex = 0;
 
-        for (int i = 0; i < phases.Count; i++)
-        {
-            phasesList.Add(phases[i].MakeCopy());
-        }
+        eventTimer.MaxTime = secondsBetweenNewConstraint;
 
         StartCoroutine(UpdateEvents());
     }
-
-    private void ChangeIndex()
+    private void Update()
     {
-        Debug.Log("trying switch");
+        eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
+    }
 
-        if(phasesList[currentPhaseIndex].events.Count <= 0)
+    private void ChangePhaseIndex()//LOGIC HERE NOT CORRECT
+    {
+        if (phases.Count == currentPhaseIndex + 1)
         {
-            currentPhase.PhaseIndex++;
+            Debug.Log("all phases ended");
+        }
+        else
+        {
             currentPhaseIndex++;
-            Debug.ClearDeveloperConsole();
-            Debug.Log("have switched, the current phase is " +currentPhase.PhaseIndex++);
+            already_done_requirement.Clear(); // clear actual requirement list
+            already_done_lifeExperience.Clear();
         }
     }
 
     private IEnumerator UpdateEvents()
     {
-        S_EventScriptableObject currentEvent;
+        S_Requirement currentRequirement;
 
-        while (true)
+        while (!IsAvailableRequirementListEmpty()) //I never remove the phase from the list
         {
-            currentEvent = ChooseOneEventRandomly();
+            /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
+            Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            if (currentEvent)
+            eventTimer.StartTimerOver();
+
+            currentRequirement = chooseOneRequirementRandomly();
+
+            ChooseOrNotLifeExperience();
+
+            if(currentRequirement != null)
             {
-                currentEvent.applyEvent();
+                Debug.Log(currentRequirement.NarrativeDescription);
             }
 
-            yield return new WaitForSeconds(secondsBetweenNewEvent);
+            yield return new WaitForSeconds(secondsBetweenNewConstraint);
+
+           
+            if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
+            {
+                foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
+                {
+                    Debug.Log("provoke disaster : " + consequence.Description);
+                    consequence.ProvoqueDisaster();
+                }
+            }
+            if(hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
+            {
+                //SET FIRE
+            }
         }
     }
 
-    private S_EventScriptableObject ChooseOneEventRandomly() //RETURN A RANDOM EVENT CONTAINED IN THE CURRENT PHASE
+    private bool IsAvailableRequirementListEmpty()
     {
-        phasesList.Add(phases[currentPhaseIndex].MakeCopy());
-        S_PhaseScriptableObject currentPhaseObject = phasesList[currentPhaseIndex];
-        S_EventScriptableObject EventToReturn;
-
-        Debug.Log("the number of event contained in the current phase is " + currentPhaseObject.events.Count);
-
-        if (currentPhaseObject.events.Count > 0) //ne rentre pas là 
+        if(GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)
         {
-            int index = Random.Range(0, currentPhaseObject.events.Count - 1);
-            EventToReturn = currentPhaseObject.events[index];
-            currentPhaseObject.events.RemoveAt(index); //The event of one pool can't occur multiple times and should be deleted to check 
-            ChangeIndex();
-
-            return EventToReturn;
+            return false;
         }
+        return true;
+    }
+
+    //LIFE EXPERIENCE
+
+    List<S_LifeExperienceScriptableObject> already_done_lifeExperience = new List<S_LifeExperienceScriptableObject>();
+
+    private IEnumerable<S_LifeExperienceScriptableObject> GetAvailableLifeExperienceInCurrentPhase()
+    {
+        var current = phases[currentPhaseIndex];
+
+        foreach (S_LifeExperienceScriptableObject item in current.lifeExperiences)
+        {
+            if (already_done_lifeExperience.Contains(item)) continue;
+
+            yield return item;
+        }
+
+        yield break;
+    }
+
+    private S_LifeExperienceScriptableObject PickRandomLifeExperience()
+    {
+        S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
+
+        if (currentPhaseObject.requirements.Count > 0)
+        {
+            List<S_LifeExperienceScriptableObject> available = GetAvailableLifeExperienceInCurrentPhase().ToList();
+
+            int index = Random.Range(0, available.Count - 1);
+
+            if(available.Count > 0)
+            {
+                S_LifeExperienceScriptableObject picked = available[index];
+
+                already_done_lifeExperience.Add(picked);
+
+                return picked;
+            }
+
+            return null;
+        }
+
         return null;
     }
 
-    private IEnumerator callLifeCycleEveryXSeconds(float seconds)
+    private void ChooseOrNotLifeExperience()
     {
-        ManageLifeCyclesEvents();
-        yield return new WaitForSeconds(seconds);
-        callLifeCycleEveryXSeconds(seconds);
+        int randomInt = Random.Range(0, 99);
+
+        if(randomInt <= chanceForLifeExpToOccur)
+        {
+            hasLifeEventBeenPicked = true;
+            pickedLifeExperience = PickRandomLifeExperience();
+
+            if(pickedLifeExperience != null)
+            {
+                Debug.Log("Random Life experience have been picked : " + pickedLifeExperience.description);
+            }
+            else
+            {
+                Debug.Log("No Life Experience left in the current phase");
+            }
+        }
+        else
+        {
+            hasLifeEventBeenPicked = false;
+            Debug.Log("No life experience picked (random chance failed)");
+        }
     }
 
-    private IEnumerator ManageLifeCyclesEvents()
-    {
-        S_EventScriptableObject chosenEvent = ChooseOneEventRandomly();
-        chosenEvent.applyEvent();
-        
-        Debug.Log(chosenEvent.description);
 
-        yield return null;
+    // REQUIREMENTS
+
+    List<S_Requirement> already_done_requirement = new List<S_Requirement>();
+
+    private IEnumerable<S_Requirement> GetAvailableRequirementsInCurrentPhase()
+    {
+        var current = phases[currentPhaseIndex];
+        foreach(S_Requirement item in current.requirements)
+        {
+            if (already_done_requirement.Contains(item)) continue;
+
+            yield return item;
+        }
+
+        yield break;
+    }
+
+    private S_Requirement chooseOneRequirementRandomly()
+    {
+        S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
+
+        List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
+
+        if(available.Count > 0)
+        {
+            int index = Random.Range(0, available.Count - 1);
+            S_Requirement picked = available[index];
+
+            already_done_requirement.Add(picked);
+
+            if (available.Count == 1)
+            {
+                ChangePhaseIndex();
+            }
+
+            return picked;
+        }
+
+        return null;
     }
 }
