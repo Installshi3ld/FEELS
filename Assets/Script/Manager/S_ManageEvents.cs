@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -196,10 +196,10 @@ public class S_ManageEvents : MonoBehaviour
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
 
         if(available.Count > 0)
-        {
+        { 
             int index = Random.Range(0, available.Count - 1);
             S_Requirement picked = available[index];
-
+            RequirementToReturn = available[index];
             already_done_requirement.Add(picked);
 
             if (available.Count == 1)
@@ -212,4 +212,8 @@ public class S_ManageEvents : MonoBehaviour
 
         return null;
     }
+    // A Partir de la Adrien fais son num�ro de Cirque : TPC !
+    public S_Requirement RequirementToReturn;
 }
+
+

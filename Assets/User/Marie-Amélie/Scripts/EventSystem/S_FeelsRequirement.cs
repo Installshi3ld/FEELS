@@ -61,7 +61,7 @@ public class S_FeelsRequirement : S_Requirement
         }
         else
         {
-            Debug.Log("NOOOON je suis fullfilled!");
+            Debug.Log("NOOOON je suis pas fullfilled!");
             HasBeenFulfilled = false;
             return false;
         }
