@@ -23,18 +23,6 @@ public class S_LifeExperienceScriptableObject : ScriptableObject
         hasBeenPaid = false;
     }
 
-    public S_LifeExperienceScriptableObject MakeCopy()
-    {
-        S_LifeExperienceScriptableObject clone = CreateInstance<S_LifeExperienceScriptableObject>();
-
-        clone.description = description;
-        clone.priceToPayToResolve = priceToPayToResolve;
-        clone.feelTypeToPay = feelTypeToPay;
-        clone.hasBeenPaid = hasBeenPaid;
-
-        return clone;
-    }
-
     IEnumerator SetWorldOnFire()
     {
         while(hasBeenPaid == false)

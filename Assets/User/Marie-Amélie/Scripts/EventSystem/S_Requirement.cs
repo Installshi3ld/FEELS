@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public abstract class S_RequirementAbstract : ScriptableObject, IRequirement
+public abstract class S_Requirement : ScriptableObject, IRequirement
 {
     private string narrativeDescription = string.Empty;
 
@@ -62,26 +62,5 @@ public abstract class S_RequirementAbstract : ScriptableObject, IRequirement
     }
 
     public abstract bool CheckIsRequirementFulfilled();
-
-}
-
-public class S_Requirement : S_RequirementAbstract
-{
-    public override bool CheckIsRequirementFulfilled()
-    {
-        return false;
-    }
-
-    public S_Requirement MakeCopy()
-    {
-        S_Requirement clone = CreateInstance<S_Requirement>();
-
-        clone.NarrativeDescription = NarrativeDescription;
-        clone.ConstraintDescription = ConstraintDescription;
-        clone.HasBeenFulfilled = HasBeenFulfilled;
-        clone.LinkedDisaster = LinkedDisaster;
-
-        return clone;
-    }
 
 }

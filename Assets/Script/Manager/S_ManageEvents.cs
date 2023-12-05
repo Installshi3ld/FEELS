@@ -11,8 +11,6 @@ public class S_ManageEvents : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
-    /*[SerializeField]//copy
-    private List<S_PhaseScriptableObject> phasesList = new List<S_PhaseScriptableObject>();*/
 
     [SerializeField]
     private float secondsBetweenNewConstraint;
@@ -33,11 +31,6 @@ public class S_ManageEvents : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*for (int i = 0; i < phases.Count; i++)
-        {
-            phasesList.Add(phases[i].MakeCopy());
-        }*/
-
         currentPhaseIndex = 0;
 
         eventTimer.MaxTime = secondsBetweenNewConstraint;
@@ -58,7 +51,8 @@ public class S_ManageEvents : MonoBehaviour
         else
         {
             currentPhaseIndex++;
-            already_done.Clear(); // clear actual requirement list
+            already_done_requirement.Clear(); // clear actual requirement list
+            already_done_lifeExperience.Clear();
         }
     }
 
@@ -68,12 +62,14 @@ public class S_ManageEvents : MonoBehaviour
 
         while (!IsAvailableRequirementListEmpty()) //I never remove the phase from the list
         {
-            Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
-            Debug.Log("current Phase index : " + currentPhaseIndex);
+            /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
+            Debug.Log("current Phase index : " + currentPhaseIndex);*/
+
             eventTimer.StartTimerOver();
 
             currentRequirement = chooseOneRequirementRandomly();
-            //ChooseOrNotLifeExperience();
+
+            ChooseOrNotLifeExperience();
 
             if(currentRequirement != null)
             {
@@ -107,6 +103,49 @@ public class S_ManageEvents : MonoBehaviour
         return true;
     }
 
+    //LIFE EXPERIENCE
+
+    List<S_LifeExperienceScriptableObject> already_done_lifeExperience = new List<S_LifeExperienceScriptableObject>();
+
+    private IEnumerable<S_LifeExperienceScriptableObject> GetAvailableLifeExperienceInCurrentPhase()
+    {
+        var current = phases[currentPhaseIndex];
+
+        foreach (S_LifeExperienceScriptableObject item in current.lifeExperiences)
+        {
+            if (already_done_lifeExperience.Contains(item)) continue;
+
+            yield return item;
+        }
+
+        yield break;
+    }
+
+    private S_LifeExperienceScriptableObject PickRandomLifeExperience()
+    {
+        S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
+
+        if (currentPhaseObject.requirements.Count > 0)
+        {
+            List<S_LifeExperienceScriptableObject> available = GetAvailableLifeExperienceInCurrentPhase().ToList();
+
+            int index = Random.Range(0, available.Count - 1);
+
+            if(available.Count > 0)
+            {
+                S_LifeExperienceScriptableObject picked = available[index];
+
+                already_done_lifeExperience.Add(picked);
+
+                return picked;
+            }
+
+            return null;
+        }
+
+        return null;
+    }
+
     private void ChooseOrNotLifeExperience()
     {
         int randomInt = Random.Range(0, 99);
@@ -115,9 +154,14 @@ public class S_ManageEvents : MonoBehaviour
         {
             hasLifeEventBeenPicked = true;
             pickedLifeExperience = PickRandomLifeExperience();
+
             if(pickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + pickedLifeExperience.description);
+            }
+            else
+            {
+                Debug.Log("No Life Experience left in the current phase");
             }
         }
         else
@@ -127,34 +171,17 @@ public class S_ManageEvents : MonoBehaviour
         }
     }
 
-    private S_LifeExperienceScriptableObject PickRandomLifeExperience()
-    {
-        Debug.Log("PhasesList count " + GetAvailableRequirementsInCurrentPhase().ToList().Count);
-        Debug.Log("Current Phase Index " + currentPhaseIndex);
 
-        S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
+    // REQUIREMENTS
 
-        if(currentPhaseObject.lifeExperiences.Count > 0)
-        {
-            int index = Random.Range(0, currentPhaseObject.lifeExperiences.Count - 1);
-			S_LifeExperienceScriptableObject LifeExperienceToReturn = currentPhaseObject.lifeExperiences[index];
-            currentPhaseObject.lifeExperiences.RemoveAt(index);
-            ChangePhaseIndex();
-
-            return LifeExperienceToReturn;
-        }
-
-        return null;
-    }
-
-    List<S_Requirement> already_done = new List<S_Requirement>();
+    List<S_Requirement> already_done_requirement = new List<S_Requirement>();
 
     private IEnumerable<S_Requirement> GetAvailableRequirementsInCurrentPhase()
     {
         var current = phases[currentPhaseIndex];
         foreach(S_Requirement item in current.requirements)
         {
-            if (already_done.Contains(item)) continue;
+            if (already_done_requirement.Contains(item)) continue;
 
             yield return item;
         }
@@ -164,31 +191,25 @@ public class S_ManageEvents : MonoBehaviour
 
     private S_Requirement chooseOneRequirementRandomly()
     {
-        //IF THERE ARE NO PHASES LEFT SHOULDN T BE CALLED
-        //phasesList.Add(phases[currentPhaseIndex].MakeCopy()); // INDEX OUT OF RANGE. DO I EVEN NEED THIS LINE ? CAN T REMEMBER
         S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
 
-        Debug.Log("the number of requirements contained in the current phase is " + currentPhaseObject.requirements.Count);
+        List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
 
-        if (currentPhaseObject.requirements.Count > 0)
+        if(available.Count > 0)
         {
-            List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
+            int index = Random.Range(0, available.Count - 1);
+            S_Requirement picked = available[index];
 
-			int index = Random.Range(0, available.Count - 1);
-			S_Requirement picked = available[index];
-            // currentPhaseObject.requirements.RemoveAt(index); //The event of one pool can't occur multiple times and should be deleted to check 
-            already_done.Add(picked);
+            already_done_requirement.Add(picked);
 
-            //Debug.Log("the number of requirements contained in the current phase is " + currentPhaseObject.requirements.Count + phasesList[currentPhaseIndex].requirements.Count);
+            if (available.Count == 1)
+            {
+                ChangePhaseIndex();
+            }
 
-            // check condition pour changer de phase
-			if (available.Count == 1)
-			{
-			    ChangePhaseIndex();
-			}
-
-			return picked;
+            return picked;
         }
+
         return null;
     }
 }

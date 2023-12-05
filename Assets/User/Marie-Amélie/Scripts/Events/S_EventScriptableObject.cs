@@ -71,30 +71,4 @@ public class S_EventScriptableObject : ScriptableObject
         EventEffectDecrease(dictEmotionsToDecrease);
     }
 
-    public S_EventScriptableObject MakeCopy()
-    {
-        S_EventScriptableObject clone = CreateInstance<S_EventScriptableObject>();
-
-        for (int i = 0; i < this.emotionsToIncrease.Count; i++)
-        {
-            clone.emotionsToIncrease.Add(this.emotionsToIncrease[i]);
-        }
-
-        for (int i = 0; i < this.howMuchIncrease.Count; i++)
-        {
-            clone.howMuchIncrease.Add(this.howMuchIncrease[i]);
-        }
-
-        for (int i = 0; i < this.emotionsToDecrease.Count; i++)
-        {
-            clone.emotionsToDecrease.Add(this.emotionsToDecrease[i]);
-        }
-
-        for (int i = 0; i < this.howMuchDecrease.Count; i++)
-        {
-            clone.howMuchDecrease.Add(this.howMuchDecrease[i]);
-        }
-
-        return clone;
-    }
 }

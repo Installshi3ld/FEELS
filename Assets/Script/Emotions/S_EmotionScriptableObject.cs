@@ -61,10 +61,4 @@ public class S_EmotionScriptableObject : ScriptableObject
         
     }
 
-    public S_EmotionScriptableObject MakeCopy()
-    {
-        S_EmotionScriptableObject clone = CreateInstance<S_EmotionScriptableObject>();
-
-        return clone;
-    }
 }
