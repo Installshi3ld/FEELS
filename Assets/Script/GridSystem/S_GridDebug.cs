@@ -69,7 +69,7 @@ public class S_GridDebug : MonoBehaviour
                     else
                         Gizmos.color = Color.clear;
 
-                    if (gridDebugHighlight[x][y])
+                    if (gridDebugHighlight.Count > x && gridDebugHighlight[x][y])
                         Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
 
                     Gizmos.DrawWireCube(new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,

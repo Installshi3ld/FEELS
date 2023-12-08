@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(S_BuildingData))]
+[CustomEditor(typeof(S_Building))]
 public class S_CustomInspector : Editor
 {
     // https://learn.unity.com/tutorial/editor-scripting#5c7f8528edbc2a002053b5f9
@@ -13,11 +13,11 @@ public class S_CustomInspector : Editor
     int gridSize = 5;
 
     List<List<bool>> gridBoolean = new List<List<bool>>();
-    S_BuildingData myTarget;
+    S_Building myTarget;
 
     private void OnEnable()
     {
-        myTarget = (S_BuildingData)target;
+        myTarget = (S_Building)target;
 
         // Create grid Boolean
         for (int x = 0; x < gridSize; x++)

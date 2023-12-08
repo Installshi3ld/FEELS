@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static S_Currencies;
 
 
 public class ConstructionSystem : MonoBehaviour
@@ -18,25 +19,10 @@ public class ConstructionSystem : MonoBehaviour
     public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
     public S_FeelsUI feelsUI;
 
-    public List<int> TierLimitInPool = new List<int>();
-    public List<GameObject> AllBuildings = new List<GameObject>();
-
-    [Tooltip("")]
-    public List<S_BuildingTierPool> BuildingPool= new List<S_BuildingTierPool>();
-
-    [NonSerialized]
-    public List<GameObject> BuildingInPool = new List<GameObject>();
-    public List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
-
-    public delegate void RefreshBuildingPoolDelegate();
-    public event RefreshBuildingPoolDelegate OnRefreshBuildingPool;
-
     Vector3 lastCursorPosition;
-
-    private void Start()
+    private void OnDestroy()
     {
-        StoreBuildingPerTier();
-        RefreshBuildingPool();
+        buildingListContainer.ResetOnDestroy();
     }
 
     void Update()
@@ -52,7 +38,7 @@ public class ConstructionSystem : MonoBehaviour
             if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
                 
-                objectSpawned.GetComponent<S_Building>().buildingDataSO.SetDestination(_gridData.ClampPositionToGrid(hit.point));
+                objectSpawned.GetComponent<S_Building>().SetDestination(_gridData.ClampPositionToGrid(hit.point));
                
                 lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
             }
@@ -87,7 +73,7 @@ public class ConstructionSystem : MonoBehaviour
     void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
-        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.buildingDataSO.tilesCoordinate;
+        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.tilesCoordinate;
 
         Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
 
@@ -101,16 +87,15 @@ public class ConstructionSystem : MonoBehaviour
 
         feelsUI.RefreshUI();
 
-        if (objectSpawnedBuildingScript.buildingDataSO.feelTypeCostList[0].feelTypeCurrency)
-            objectSpawnedBuildingScript.buildingDataSO.RemoveFeelCost();
+        if (objectSpawnedBuildingScript.BuildingData.feelTypeCostList[0].feelTypeCurrency)
+            objectSpawnedBuildingScript.RemoveFeelCost();
 
         consciousTreeToken.AddAmount(1);
 
         CheckBoostBuilding();
-        objectSpawnedBuildingScript.buildingDataSO.PlacedBuilding();
+        objectSpawnedBuildingScript.PlacedBuilding();
 
-        S_Building objectSpawnedBuildinghScript = objectSpawned.GetComponent<S_Building>();
-        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.buildingDataSO);
+        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
         objectSpawned = null;
     }
@@ -127,7 +112,6 @@ public class ConstructionSystem : MonoBehaviour
                 return false;
             }
         }
-
         return true;
     }
 
@@ -144,7 +128,7 @@ public class ConstructionSystem : MonoBehaviour
 
     bool HasEnoughMoney(S_Building buildingScript)
     {
-        return buildingScript.buildingDataSO.HasEnoughMoney();
+        return buildingScript.HasEnoughMoney();
     }
 
     void UpdateGridOnPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage, S_Building buildingScript)
@@ -198,11 +182,11 @@ public class ConstructionSystem : MonoBehaviour
     {
         List<Vector2Int> _tilesToCheckForBoost = new List<Vector2Int>();
         S_Building s_building = objectSpawned.GetComponent<S_Building>();
-        _tilesToCheckForBoost = s_building.buildingDataSO.GetSurroundingTiles();
+        _tilesToCheckForBoost = s_building.GetSurroundingTiles();
 
         FeelType _feelType = FeelType.None;
-        if (s_building.buildingDataSO)
-            _feelType = s_building.buildingDataSO.feelType;
+        if (s_building)
+            _feelType = s_building.BuildingData.feelType;
 
         GameObject _currentBuildingToCheck = null;
         Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned);
@@ -214,58 +198,23 @@ public class ConstructionSystem : MonoBehaviour
             _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
 
             // Apply behavior of case to boost bellow
-            FeelType _currentBuildingToCheckFeelType;
-            if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
-            {
-                _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType;
 
-                switch (_feelType)
-                {
-                    case FeelType.Joy:
-                        if (_feelType == _currentBuildingToCheckFeelType)
-                        {
-                            _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                            objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                        }
-                        break;
 
-                    case FeelType.Anger:
-                        if (_feelType == _currentBuildingToCheckFeelType)
-                        {
-                            _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                            objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                        }
-                        break;
-
-                    case FeelType.Fear:
-
-                        if (_feelType != _currentBuildingToCheckFeelType)
-                        {
-                            objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                        }
-                        if (_feelType == _currentBuildingToCheckFeelType)
-                        {
-                            _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                            objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                        }
-
-                        break;
-                }
-            }
+            CheckTileAndBoost(_currentBuildingToCheck, _feelType);
         }
 
-        if(_feelType == FeelType.Sad)
+        if (_feelType == FeelType.Sad)
         {
             List<GameObject> buildingSadToBoost = new List<GameObject>();
 
-            List<Vector2Int> corners = s_building.buildingDataSO.GetCornerTiles();
+            List<Vector2Int> corners = s_building.GetCornerTiles();
 
             for (int i = 0; i < corners.Count; i++)
             {
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
-                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType;
+                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
 
                     if (_feelType == _currentBuildingToCheckFeelType && !buildingSadToBoost.Contains(_currentBuildingToCheck))
                     {
@@ -279,7 +228,7 @@ public class ConstructionSystem : MonoBehaviour
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
                 if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
                 {
-                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().buildingDataSO.feelType;
+                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
 
                     if (_feelType == _currentBuildingToCheckFeelType && buildingSadToBoost.Contains(_currentBuildingToCheck))
                     {
@@ -304,65 +253,46 @@ public class ConstructionSystem : MonoBehaviour
 
     }
 
-    //Building pool
-    void StoreBuildingPerTier()
+    private void CheckTileAndBoost(GameObject _currentBuildingToCheck, FeelType _feelType)
     {
-        for(int i = 0; i < TierLimitInPool.Count; i++)
-        {
-            buildingPerTier.Add(new List<GameObject>());
-        }
-        //Sort
-        foreach (var build in AllBuildings)
-        {
-            buildingPerTier[build.GetComponent<S_Building>().buildingDataSO.tier].Add(build);
-        }
-    }
+        FeelType _currentBuildingToCheckFeelType;
 
-    public void RefreshBuildingPool()
-    {
-        
-        BuildingInPool.Clear();
-        List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
-
-        //Initiate list
-        for (int i = 0; i < TierLimitInPool.Count; i++)
+        if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
         {
-            tmpBuildingPerTier.Add(new List<GameObject>());
-        }
+            _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
 
-        //Add element base on probability
-        for (int i = 1; i < buildingPerTier.Count; i++)
-        {
-            for(int j = 0; j < buildingPerTier[i].Count; j++)
+            switch (_feelType)
             {
-                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().buildingDataSO.probabilityToSpawnInPool)
-                    tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
+                case FeelType.Joy:
+                    if (_feelType == _currentBuildingToCheckFeelType)
+                    {
+                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                    }
+                    break;
+
+                case FeelType.Anger:
+                    if (_feelType == _currentBuildingToCheckFeelType)
+                    {
+                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                    }
+                    break;
+                case FeelType.Fear:
+
+                    if (_feelType != _currentBuildingToCheckFeelType)
+                    {
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                    }
+                    if (_feelType == _currentBuildingToCheckFeelType)
+                    {
+                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                    }
+
+                    break;
             }
         }
-        //Add element base on limitation
-        for (int i = 1; i < TierLimitInPool.Count; ++i)
-        {
-            S_StaticFunc.Shuffle<GameObject>(tmpBuildingPerTier[i]);
-
-            for (int j = 0; j < TierLimitInPool[i]; j++)
-                if (tmpBuildingPerTier[i].Count > 0)
-                    BuildingInPool.Add(tmpBuildingPerTier[i][j]);
-        }
-
-        //Fill with tier 0
-        if(BuildingInPool.Count < 8)
-        {
-            int index = 0;
-            S_StaticFunc.Shuffle<GameObject>(buildingPerTier[0]);
-            for (int i = BuildingInPool.Count; i < 8; i++)
-            {
-                BuildingInPool.Add(buildingPerTier[0][index]);
-                index++;
-            }
-        }
-        S_StaticFunc.Shuffle<GameObject>(BuildingInPool);
-
-        OnRefreshBuildingPool.Invoke();
     }
 
 }

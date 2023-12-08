@@ -499,6 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab6d21fd82030a4bb05686c28f1bb1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingListContainer: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
   objectToSpawn: {fileID: 7425674230459827353, guid: f8dcaa58bf58a184788ba2215c10478d, type: 3}
   joyCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
@@ -507,28 +508,6 @@ MonoBehaviour:
   fearCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
   consciousTreeToken: {fileID: 11400000, guid: ec27a57e59128f34c82609cb1c96206c, type: 2}
   feelsUI: {fileID: 1759462640}
-  TierLimitInPool: e8030000030000000200000001000000
-  AllBuildings:
-  - {fileID: 7873085785543044208, guid: 56988e714f4f5b047befec7fd67a8a2e, type: 3}
-  - {fileID: 7423666083300003376, guid: 4295b19f0e03f894a98159be3bb57534, type: 3}
-  - {fileID: 5451800748546783612, guid: 62f363ed7706f0a4eb913960395cdd51, type: 3}
-  - {fileID: 287636147083573772, guid: 6c39d0da3eb8d1e44866af47acd0645b, type: 3}
-  - {fileID: 3092836939223164919, guid: fe7d06cbdfb93ae48a25d769806272ca, type: 3}
-  - {fileID: 7248736645522736285, guid: 278d787a82d38d144b4cd43b1cb159bc, type: 3}
-  - {fileID: 7418667232674008933, guid: be1347e83b3fdcb4b96549bfd53e5732, type: 3}
-  - {fileID: 4347088766160347532, guid: 99260c1cf807cae42b2a28460ed5291e, type: 3}
-  - {fileID: 5178277646630828524, guid: cf7a1e52f14f8814eb36fcf182032a7b, type: 3}
-  - {fileID: 4073875388709867208, guid: 7a00c5f69de79604c8fa9e67a7f7478e, type: 3}
-  - {fileID: 4358802898342307799, guid: b7bdf3c681d8b394ea0b8633264e3622, type: 3}
-  - {fileID: 5628785778176273564, guid: f036af3ff4753844c81c63c0bad0b517, type: 3}
-  - {fileID: 8434639853273992493, guid: 265dfb4ec29367545b29edcf7dce597b, type: 3}
-  - {fileID: 8982322069608947216, guid: 1bdffb387d6cd964f9054e6cf9c335af, type: 3}
-  - {fileID: 8066165918371068252, guid: be60b7c9bcf84d544ac7b27770c54faa, type: 3}
-  - {fileID: 2588321170191220697, guid: d61cd652d7c49e447b9046b772893d74, type: 3}
-  - {fileID: 8066165918371068252, guid: be60b7c9bcf84d544ac7b27770c54faa, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 8532694534459519036, guid: f1d4db80f601c544a97ef0cd7b0715fa, type: 3}
-  - {fileID: 105918592634555662, guid: f6ed78e8853965e45b2abff59327bce5, type: 3}
 --- !u!1 &209482719
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,17 +626,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!114 &263793588 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3093903603269525366, guid: 9a332d0b571a97e4497bf2c55a249f90, type: 3}
-  m_PrefabInstance: {fileID: 1631772018}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &317501060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,6 +1881,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20a39c41a69562d41a4edf140f5a914d, type: 3}
+--- !u!1 &1213486925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1213486927}
+  - component: {fileID: 1213486926}
+  m_Layer: 0
+  m_Name: BuildingPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1213486926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213486925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42cf15e9abed6a24e89cfa7a7b622bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constructionSystem: {fileID: 187110596}
+  AmountOfBuildingPerTier: e8030000
+  InitialBuildingList:
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
+--- !u!4 &1213486927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213486925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 134.38797, y: -157.18053, z: 160.31587}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1247805654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2135,6 +2158,10 @@ PrefabInstance:
       propertyPath: constructionSystem
       value: 
       objectReference: {fileID: 187110596}
+    - target: {fileID: 7572987648726266350, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: _buildingPoolManager
+      value: 
+      objectReference: {fileID: 1213486926}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2346,9 +2373,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ccb56fb47d6f6234786ed8e39a1a56ab, type: 2}
   - {fileID: 11400000, guid: 33813ceedaca3e44ab974880216eb97e, type: 2}
   - {fileID: 11400000, guid: c410a1142019f54489968095696225d3, type: 2}
-  phasesList: []
-  secondsBetweenNewEvent: 10
-  currentPhase: {fileID: 11400000, guid: 6b6090b8f6bfc5144be16d1d1d2de5ef, type: 2}
+  secondsBetweenNewConstraint: 0
+  chanceForLifeExperienceToSpawn: 0
+  eventTimer: {fileID: 0}
+  chanceForLifeExpToOccur: 0
 --- !u!4 &1499576580
 Transform:
   m_ObjectHideFlags: 0
@@ -2526,17 +2554,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8045353814688208238, guid: 9a332d0b571a97e4497bf2c55a249f90, type: 3}
   m_PrefabInstance: {fileID: 1631772018}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1755488088 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 343544185493489501, guid: 9a332d0b571a97e4497bf2c55a249f90, type: 3}
-  m_PrefabInstance: {fileID: 1631772018}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755488086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1755488089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2549,10 +2566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56382097e786164b9dd2478a26da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 10
-  currentTimer: 0
-  slider: {fileID: 1755488088}
-  eventName: {fileID: 263793588}
 --- !u!114 &1759462640 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8722856028040474169, guid: 44e4de11444ce6d4b8c843e76bc5e427, type: 3}
@@ -3044,6 +3057,7 @@ SceneRoots:
   - {fileID: 1048768608}
   - {fileID: 1499576580}
   - {fileID: 317501062}
+  - {fileID: 1213486927}
   - {fileID: 1721796737}
   - {fileID: 88315131}
   - {fileID: 1343538569}

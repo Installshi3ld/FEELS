@@ -1,94 +1,126 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
+public class S_BuildingData
+{
+    [Header("General Data")]
+    public string buildingName;
+    public FeelType feelType;
+    public BuildingTheme BuildingTheme;
+
+    public List<FeelTypeData> feelTypeCostList = new List<FeelTypeData>();
+
+    [Header("Building pool")]
+    public int tier = 0;
+    public Sprite BuildingImage;
+}
+
+[Serializable]
+public struct FeelTypeData
+{
+    public S_Currencies feelTypeCurrency;
+    public int feelPrice;
+}
+#region Enumeration FeelType and Theme
+public enum FeelType
+{
+    None = 0,
+    Joy,
+    Anger,
+    Sad,
+    Fear,
+}
+public enum BuildingTheme
+{
+    None = 0,
+    Music,
+    Food,
+    Animals,
+}
+#endregion
+
 public class S_Building : MonoBehaviour
 {
+    public S_BuildingData BuildingData;
+    public float probabilityToSpawnInPool = 100f;
 
-    public S_BuildingData buildingDataSO;
-    float lerpAlpha = 0f;
-
-    private void Update()//TO PUT INTO THE MANAGER
-    {
-        if (!buildingDataSO.isPlacedAnimation)
-        {
-            this.transform.position = Vector3.Lerp(this.transform.position, buildingDataSO.destination, lerpAlpha);
-
-            lerpAlpha += 1f * Time.deltaTime * 3;
-
-            if (buildingDataSO.isPlaced && Vector3.Distance(this.transform.position, buildingDataSO.destination) < 0.05f)
-            {
-                this.transform.position = buildingDataSO.destination;
-                buildingDataSO.isPlacedAnimation = true;
-            }
-        }
-    }
-
-
-    //public S_BuildingData buildingData;
-
-    /*#region variable
-    [Tooltip("Consider X Y as X Z \n The root is always 0, 0 (Be sure to add it) \n Then add tile next to it, each one \n For example a T form will be :\n - X:0 Y:0\n - X:-1 Y:0\n - X:1 Y:0\n - X:0 Y:-1")]
+    [Space]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
 
-    public int tier = 0;
-    public float probabilityToSpawnInPool = 100f;
-    public Sprite BuildingImage;
-
+    [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
+    [NonSerialized] public Vector3 destination;
+    [NonSerialized] public Vector3 location;
     float lerpAlpha = 0f;
-    [System.NonSerialized]
-    public bool isPlacedAnimation, isPlaced = false;
 
-    [System.NonSerialized]
-    public Vector3 destination;
-
-    public S_Currencies FeelCurrency;
-    public int price = 0;
-
-    public delegate void ChangingEquilibriumValue();
-    public event ChangingEquilibriumValue changingEquilibriumValue;
-
-    //#endregion
 
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
-    }
-    int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
-    private void Start()
-    {
         GetMinMaxCoordinate();
+    }
+
+    int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
+
+    private void Update()
+    {
+        if (!isPlacedAnimation)
+        {
+            this.transform.position = Vector3.Lerp(this.transform.position, destination, lerpAlpha);
+
+            lerpAlpha += 1f * Time.deltaTime * 3;
+
+            if (isPlaced && Vector3.Distance(this.transform.position, destination) < 0.05f)
+            {
+                this.transform.position = destination;
+                isPlacedAnimation = true;
+            }
+        }
+    }
+
+    public bool HasEnoughMoney()
+    {
+        foreach (FeelTypeData _feelTypeData in BuildingData.feelTypeCostList)
+        {
+            if (!_feelTypeData.feelTypeCurrency.HasEnoughFeels(_feelTypeData.feelPrice))
+                return false;
+        }
+        return true;
+    }
+    /// <summary> This function don't check if enough money, use HasEnoughMoney() to check.
+    /// </summary>
+    public void RemoveFeelCost()
+    {
+        foreach (FeelTypeData _feelTypeData in BuildingData.feelTypeCostList)
+        {
+            _feelTypeData.feelTypeCurrency.RemoveAmount(_feelTypeData.feelPrice);
+        }
     }
 
     public void PlacedBuilding()
     {
-        isPlaced = true;
         isPlacedAnimation = true;
-        if (FeelCurrency)
-            changingEquilibriumValue();
+        isPlaced = true;
     }
 
     public void SetDestination(Vector3 dest)
     {
         destination = dest;
-        if( lerpAlpha > 0.5f )
+        if (lerpAlpha > 0.5f)
             lerpAlpha = 0;
     }
-    
+
     void GetMinMaxCoordinate()
     {
         for (int i = 0; i < tilesCoordinate.Count; i++)
         {
-            if (tilesCoordinate[i].x < minimumX)
-                minimumX = tilesCoordinate[i].x;
-            if (tilesCoordinate[i].y < minimumY)
-                minimumY = tilesCoordinate[i].y;
-            if (tilesCoordinate[i].x > maximumX)
-                maximumX = tilesCoordinate[i].x;
-            if (tilesCoordinate[i].y > maximumY)
-                maximumY = tilesCoordinate[i].y;
-
+            minimumX = tilesCoordinate.Min(coord => coord.x);
+            minimumY = tilesCoordinate.Min(coord => coord.y);
+            maximumX = tilesCoordinate.Max(coord => coord.x);
+            maximumY = tilesCoordinate.Max(coord => coord.y);
         }
     }
 
@@ -130,5 +162,5 @@ public class S_Building : MonoBehaviour
         }
 
         return surroundingTiles;
-    }*/
+    }
 }

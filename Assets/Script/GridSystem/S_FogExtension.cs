@@ -25,7 +25,7 @@ public class S_FogExtension : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (buildingScript.buildingDataSO.isPlaced)
+            if (buildingScript.isPlaced)
             {
 
                 if (tmpCoordinate != Vector3.zero)

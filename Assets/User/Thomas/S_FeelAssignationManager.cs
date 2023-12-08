@@ -51,7 +51,7 @@ public class S_FeelAssignationManager : MonoBehaviour
                 s_FeelAssignationBuilding = BuildingClickedOn.GetComponent<S_FeelAssignationBuilding>();
                 S_Building _Building = BuildingClickedOn.GetComponent<S_Building>();
 
-                if (_Building.buildingDataSO.isPlaced)
+                if (_Building.isPlaced)
                 {
                     RefreshUi.Invoke();
 
@@ -82,7 +82,7 @@ public class S_FeelAssignationManager : MonoBehaviour
     {
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
 
-        _valueAssigned = s_FeelAssignationBuilding.AssignFeels(s_Building.buildingDataSO.feelTypeCostList[0].feelTypeCurrency);
+        _valueAssigned = s_FeelAssignationBuilding.AssignFeels(s_Building.BuildingData.feelTypeCostList[0].feelTypeCurrency);
         if (_valueAssigned)
         {
             RefreshUi.Invoke();
@@ -94,7 +94,7 @@ public class S_FeelAssignationManager : MonoBehaviour
     {
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
 
-        _valueAssigned = s_FeelAssignationBuilding.UnassignFeels(s_Building.buildingDataSO.feelTypeCostList[0].feelTypeCurrency);
+        _valueAssigned = s_FeelAssignationBuilding.UnassignFeels(s_Building.BuildingData.feelTypeCostList[0].feelTypeCurrency);
         if (_valueAssigned)
         {
             RefreshUi.Invoke();
