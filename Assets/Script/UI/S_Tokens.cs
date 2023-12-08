@@ -13,26 +13,26 @@ public class S_Tokens : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tokenValue.text = currency.amount.ToString();
+        tokenValue.text = currency.Amount.ToString();
     }
 
     public void AddToken()
     {
 
-        currency.amount += 1;
-        tokenValue.text = currency.amount.ToString();
+        currency.AddAmount(1);
+        tokenValue.text = currency.Amount.ToString();
 
     }
     public void UseToken()
     {
-        currency.amount -= 1;
-        tokenValue.text = currency.amount.ToString();
+        currency.RemoveAmount(1);
+        tokenValue.text = currency.Amount.ToString();
 
     }
 
     public void RefreshScreen()
     {
-        tokenValue.text = currency.amount.ToString();
+        tokenValue.text = currency.Amount.ToString();
     }
 
     public void SetActiveMenu()

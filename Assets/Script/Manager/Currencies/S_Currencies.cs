@@ -68,4 +68,9 @@ public class S_Currencies : ScriptableObject
         else
             Amount -= Mathf.FloorToInt(removeAmount);
     }
+
+    public bool HasEnoughFeels(int _amount)
+    {
+        return _amount <= amount;
+    }
 }

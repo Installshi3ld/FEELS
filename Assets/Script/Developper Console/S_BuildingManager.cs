@@ -17,8 +17,6 @@ public class S_BuildingManager : MonoBehaviour
     private void Start()
     {
         buildingScript = gameObject.GetComponent<S_Building>();
-        if (buildingScript)
-            buildingScript.changingEquilibriumValue += ApplyBuildingEffect;
     }
     private void ApplyBuildingEffect()
     {
