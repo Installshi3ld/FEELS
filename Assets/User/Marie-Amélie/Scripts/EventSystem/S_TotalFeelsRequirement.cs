@@ -30,7 +30,7 @@ public class S_TotalFeelsRequirement : S_Requirement
 
         foreach (S_Currencies cur in allFeels)
         {
-            totalAmount += cur.amount;
+            totalAmount += cur.Amount;
         }
 
         if(totalAmount >= targetedNumberOfFeels)

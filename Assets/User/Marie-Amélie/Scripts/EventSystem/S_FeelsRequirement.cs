@@ -37,7 +37,7 @@ public class S_FeelsRequirement : S_Requirement
 
             foreach (S_Currencies cur in soFeelType)
             {
-                if (cur.amount < targetedNumberOfFeels[index])
+                if (cur.Amount < targetedNumberOfFeels[index])
                 {
                     hasAllFeelsBeenAcquired = false;
                 }
