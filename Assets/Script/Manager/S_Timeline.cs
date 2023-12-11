@@ -32,6 +32,8 @@ public class S_Timeline : MonoBehaviour
 
     public delegate void RefreshFromEvent(S_Requirement currentEvent);
     public static event RefreshFromEvent OnNewEventPicked;
+    public static event RefreshFromEvent OnRequirementChecked;
+    public static event RefreshFromEvent OnDisasterOccuring;
 
 // Start is called before the first frame update
 void Start()
@@ -89,12 +91,13 @@ void Start()
                 foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
                 {
                     Debug.Log("provoke disaster : " + consequence.Description);
+                    OnDisasterOccuring.Invoke(currentRequirement);
                     consequence.ProvoqueDisaster();
                 }
             }
             else
             {
-                OnNewEventPicked.Invoke(currentRequirement); //Update CheckBox
+                OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
             }
             if(hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
             {

@@ -10,7 +10,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
 
     private void Awake()
     {
-        S_Timeline.OnNewEventPicked += UpdateCheckBox;
+        S_Timeline.OnRequirementChecked += UpdateCheckBox;
     }
     private void UpdateCheckBox(S_Requirement currentR)
     {
