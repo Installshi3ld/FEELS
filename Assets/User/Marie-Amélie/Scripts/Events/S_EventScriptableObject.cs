@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,8 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Scriptable Object", menuName = "Event")]
 public class S_EventScriptableObject : ScriptableObject
 {
-    // Algo si j'ai besoin d'utiliser à ce moment là je check si il existe. Si non j'appelle la fonction qui le crée.
-
+    //algo that check if exist at the moment I need it. If not create it
     public string description;
 
     [SerializeField] //INCREASE
@@ -71,4 +71,11 @@ public class S_EventScriptableObject : ScriptableObject
         EventEffectDecrease(dictEmotionsToDecrease);
     }
 
+}
+
+[Serializable]
+public struct EmotionsModifyer
+{
+    public S_Currencies currency;
+    public int amount;
 }

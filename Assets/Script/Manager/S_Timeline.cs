@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine.Assertions;
 using Unity.VisualScripting;
 
-public class S_ManageEvents : MonoBehaviour
+public class S_Timeline : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
