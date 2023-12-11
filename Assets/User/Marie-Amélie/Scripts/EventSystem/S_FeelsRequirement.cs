@@ -24,16 +24,7 @@ public class S_FeelsRequirement : S_Requirement
         ConstraintDescription = constraintRequirement;
         HasBeenFulfilled = false;
         LinkedDisaster = disasterConsequences;
-      ;
     }
-
-    // Adrien Modification Pensement
-    public string GetMyPrivateStringRequirNmb()
-    {
-        
-        return "/"+ targetedNumberOfFeels.ToString();
-    }
-    // Adrien Modification Pensement
 
     public override bool CheckIsRequirementFulfilled()
     {
@@ -50,20 +41,13 @@ public class S_FeelsRequirement : S_Requirement
                 {
                     hasAllFeelsBeenAcquired = false;
                 }
+
+                index++;
             }
         }
 
-        if(hasAllFeelsBeenAcquired)
-        {
-            Debug.Log ("Oui je suis fullfilled!");
-            HasBeenFulfilled = true;
-            return true;
-        }
-        else
-        {
-            Debug.Log("NOOOON je suis pas fullfilled!");
-            HasBeenFulfilled = false;
-            return false;
-        }
+        HasBeenFulfilled = hasAllFeelsBeenAcquired;
+        return hasAllFeelsBeenAcquired;
+
     }
 }

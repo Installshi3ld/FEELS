@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Disaster_Sadness
   m_EditorClassIdentifier: 
   description: BOOOOOOOOOOM
-  feelsToKill:
-  - {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-  howMany: 64000000
+  costs:
+  - currency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+    amount: 5
+  - currency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+    amount: 10

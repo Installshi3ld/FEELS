@@ -1,11 +1,8 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
-using static UnityEngine.GraphicsBuffer;
+
 
 [CustomEditor(typeof(S_Building))]
 public class S_CustomInspector : Editor
