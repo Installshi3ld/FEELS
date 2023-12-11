@@ -502,8 +502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab6d21fd82030a4bb05686c28f1bb1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingListContainer: {fileID: 0}
-  _gridData: {fileID: 0}
+  buildingListContainer: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
+  _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
   objectToSpawn: {fileID: 7425674230459827353, guid: f8dcaa58bf58a184788ba2215c10478d, type: 3}
   joyCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
   angerCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
@@ -1424,20 +1424,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructionSystem: {fileID: 187110596}
-  AmountOfBuildingPerTier: 040000000400000004000000
+  AmountOfBuildingPerTier: 0400000004000000
   InitialBuildingList:
   - {fileID: 7873085785543044208, guid: 56988e714f4f5b047befec7fd67a8a2e, type: 3}
-  - {fileID: 7423666083300003376, guid: 4295b19f0e03f894a98159be3bb57534, type: 3}
-  - {fileID: 287636147083573772, guid: 6c39d0da3eb8d1e44866af47acd0645b, type: 3}
   - {fileID: 7248736645522736285, guid: 278d787a82d38d144b4cd43b1cb159bc, type: 3}
-  - {fileID: 7418667232674008933, guid: be1347e83b3fdcb4b96549bfd53e5732, type: 3}
-  - {fileID: 5178277646630828524, guid: cf7a1e52f14f8814eb36fcf182032a7b, type: 3}
   - {fileID: 4358802898342307799, guid: b7bdf3c681d8b394ea0b8633264e3622, type: 3}
-  - {fileID: 5628785778176273564, guid: f036af3ff4753844c81c63c0bad0b517, type: 3}
-  - {fileID: 8982322069608947216, guid: 1bdffb387d6cd964f9054e6cf9c335af, type: 3}
   - {fileID: 2588321170191220697, guid: d61cd652d7c49e447b9046b772893d74, type: 3}
+  - {fileID: 7423666083300003376, guid: 4295b19f0e03f894a98159be3bb57534, type: 3}
+  - {fileID: 7418667232674008933, guid: be1347e83b3fdcb4b96549bfd53e5732, type: 3}
+  - {fileID: 5628785778176273564, guid: f036af3ff4753844c81c63c0bad0b517, type: 3}
   - {fileID: 8629024917022469479, guid: 669e4e3064564104bb59541eb85c1437, type: 3}
-  - {fileID: 7507347723392141773, guid: e1ebb721f96fa0a49b967ebe47d9141d, type: 3}
 --- !u!4 &1260906614
 Transform:
   m_ObjectHideFlags: 0
