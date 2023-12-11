@@ -6,6 +6,9 @@ using UnityEngine;
 public class S_BuildingPoolManager : MonoBehaviour
 {
     public ConstructionSystem constructionSystem;
+    public Action RefreshUI;
+
+    #region Variable building pool random
 
     public List<int> AmountOfBuildingPerTier = new List<int>();
     public List<GameObject> InitialBuildingList = new List<GameObject>();
@@ -14,7 +17,16 @@ public class S_BuildingPoolManager : MonoBehaviour
 
     private List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
 
-    public Action RefreshUI;
+    #endregion
+    
+    #region Variable legacy building pool
+
+
+
+    #endregion
+
+
+
 
     private void Start()
     {
