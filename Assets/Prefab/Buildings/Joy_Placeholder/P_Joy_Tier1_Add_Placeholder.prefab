@@ -116,6 +116,8 @@ GameObject:
   - component: {fileID: 8863515601869540757}
   - component: {fileID: -5837796329654851847}
   - component: {fileID: -7819921148222984770}
+  - component: {fileID: 7549420965668022821}
+  - component: {fileID: 3647208124888469761}
   m_Layer: 0
   m_Name: P_Joy_Tier1_Add_Placeholder
   m_TagString: Untagged
@@ -155,8 +157,8 @@ MonoBehaviour:
   tier: 0
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: 14b6d1d5fdd4687418b0549130180b3a, type: 3}
-  FeelType: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-  price: 100
+  FeelCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
+  price: 25
 --- !u!114 &-7819921148222984770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,3 +174,41 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: f2907559fa7433b4593706a58329e3fc, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 5
+--- !u!114 &7549420965668022821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4358802898342307799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 25
+  productionAmount: 2
+  delayBetweenEachProduction: 1
+  productionAmountBoosted: 3
+  delayBetweenEachProductionBoosted: 1
+--- !u!65 &3647208124888469761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4358802898342307799}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 2.5, y: 2.5, z: 2.5}

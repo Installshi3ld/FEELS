@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 191891806927965396}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: -5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 5, z: -5}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478244492475874289}
@@ -116,6 +116,8 @@ GameObject:
   - component: {fileID: 478244492475874289}
   - component: {fileID: 6975533124486329249}
   - component: {fileID: 9175630760029494731}
+  - component: {fileID: -4915798763902982631}
+  - component: {fileID: -7055671801780420443}
   m_Layer: 0
   m_Name: P_Anger_Tier3_Add_Placeholder
   m_TagString: Untagged
@@ -136,10 +138,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5050154121268468029}
-  - {fileID: 1260202994640084349}
   - {fileID: 6682365851652470751}
   - {fileID: 284304501200330979}
+  - {fileID: 5050154121268468029}
+  - {fileID: 1260202994640084349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6975533124486329249
@@ -161,8 +163,8 @@ MonoBehaviour:
   tier: 2
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: ebc839ce373285b4ba461ac71a497fe6, type: 3}
-  FeelType: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
-  price: 350
+  FeelCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
+  price: 500
 --- !u!114 &9175630760029494731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +180,44 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: b4fb49cacf3c7b6438110dc87b6f9310, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 25
+--- !u!114 &-4915798763902982631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287636147083573772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 100
+  productionAmount: 25
+  delayBetweenEachProduction: 1
+  productionAmountBoosted: 37
+  delayBetweenEachProductionBoosted: 1
+--- !u!65 &-7055671801780420443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287636147083573772}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 5, z: 10}
+  m_Center: {x: 5, y: 2.5, z: 5}
 --- !u!1 &2622951876763731233
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,8 +246,8 @@ Transform:
   m_GameObject: {fileID: 2622951876763731233}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478244492475874289}
@@ -311,8 +351,8 @@ Transform:
   m_GameObject: {fileID: 5735247852736760048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478244492475874289}
@@ -416,8 +456,8 @@ Transform:
   m_GameObject: {fileID: 7271861235064395480}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: -5}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478244492475874289}

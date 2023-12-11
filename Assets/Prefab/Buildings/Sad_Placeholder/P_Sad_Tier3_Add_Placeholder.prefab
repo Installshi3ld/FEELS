@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 483417598789835733}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 222663505683384493}
@@ -133,8 +133,8 @@ Transform:
   m_GameObject: {fileID: 1693205814974467478}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 222663505683384493}
@@ -238,8 +238,8 @@ Transform:
   m_GameObject: {fileID: 5884524160266449506}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: -5}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 222663505683384493}
@@ -343,8 +343,8 @@ Transform:
   m_GameObject: {fileID: 6094075900370897059}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: -5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 5, z: -5}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 222663505683384493}
@@ -431,6 +431,8 @@ GameObject:
   - component: {fileID: 222663505683384493}
   - component: {fileID: -3539753219521378282}
   - component: {fileID: 5954048296078983181}
+  - component: {fileID: 728349474892835494}
+  - component: {fileID: 8233696067823130851}
   m_Layer: 0
   m_Name: P_Sad_Tier3_Add_Placeholder
   m_TagString: Untagged
@@ -476,8 +478,8 @@ MonoBehaviour:
   tier: 2
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: c25c21c143048a94d9f48f3fd3d34b4d, type: 3}
-  FeelType: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-  price: 350
+  FeelCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+  price: 500
 --- !u!114 &5954048296078983181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,3 +495,41 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 25
+--- !u!114 &728349474892835494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507347723392141773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 100
+  productionAmount: 25
+  delayBetweenEachProduction: 1
+  productionAmountBoosted: 37
+  delayBetweenEachProductionBoosted: 1
+--- !u!65 &8233696067823130851
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507347723392141773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 5, z: 10}
+  m_Center: {x: 5, y: 2.5, z: 5}

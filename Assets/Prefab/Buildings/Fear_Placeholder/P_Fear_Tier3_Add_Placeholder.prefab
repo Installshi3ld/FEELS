@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 913061787626774396}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6200211896326414827}
@@ -133,8 +133,8 @@ Transform:
   m_GameObject: {fileID: 2348025036666061667}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: -5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 5, z: -5}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6200211896326414827}
@@ -221,6 +221,8 @@ GameObject:
   - component: {fileID: 6200211896326414827}
   - component: {fileID: 3715359145436219623}
   - component: {fileID: 7601297790152263244}
+  - component: {fileID: -3790995426943319417}
+  - component: {fileID: 5982396008594923415}
   m_Layer: 0
   m_Name: P_Fear_Tier3_Add_Placeholder
   m_TagString: Untagged
@@ -266,8 +268,8 @@ MonoBehaviour:
   tier: 2
   probabilityToSpawnInPool: 100
   BuildingImage: {fileID: 21300000, guid: 45a89840a42821e41b6a92571cd7ee15, type: 3}
-  FeelType: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
-  price: 350
+  FeelCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+  price: 500
 --- !u!114 &7601297790152263244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +285,44 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: 900e455844bacb4468a78bba5ef5f542, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 25
+--- !u!114 &-3790995426943319417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178277646630828524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 100
+  productionAmount: 25
+  delayBetweenEachProduction: 1
+  productionAmountBoosted: 37
+  delayBetweenEachProductionBoosted: 1
+--- !u!65 &5982396008594923415
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178277646630828524}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 5, z: 10}
+  m_Center: {x: 5, y: 2.5, z: 5}
 --- !u!1 &5206651918517440078
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,8 +351,8 @@ Transform:
   m_GameObject: {fileID: 5206651918517440078}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6200211896326414827}
@@ -416,8 +456,8 @@ Transform:
   m_GameObject: {fileID: 8844698374640039870}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 5, z: -5}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6200211896326414827}
