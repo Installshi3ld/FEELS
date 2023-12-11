@@ -15,7 +15,7 @@ public class S_FourToutAdrien : MonoBehaviour
 
     private string title;
     public S_Requirement feelsRequirement;
-    public S_ManageEvents manageEvent;
+    public S_Timeline manageEvent;
     public S_FeelsRequirement feelsRequirementNmb;
 
     public TextMeshProUGUI eventTitleAnim;
@@ -70,7 +70,7 @@ public class S_FourToutAdrien : MonoBehaviour
     private void Update()
     {
       
-
+        /*
         if (feelsRequirement.HasBeenFulfilled == true)
         {
             Debug.Log("ConditionRemplie");
@@ -89,7 +89,7 @@ public class S_FourToutAdrien : MonoBehaviour
                 Debug.Log("Validé l'info ?" + validé);
             }
 
-        }
+        }*/
     }
 
     public void ChangeText(string newText)

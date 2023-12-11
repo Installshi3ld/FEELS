@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32c985dc66a06644788faa67854ccb1c, type: 3}
-  m_Name: SO_RequirementBase 3
+  m_Name: SO_E_FirstInjury
   m_EditorClassIdentifier: 
   linkedDisaster:
-  - {fileID: 11400000, guid: eb575cbc6cfdc84408bf1d0c5f779fd9, type: 2}
-  eventDescription: FIRST RIDE
-  constraintRequirement: You need 30 Fear Feels
-  targetedNumberOfFeels: 30
-  soFeelType: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
+  eventDescription: FIRST INJURY
+  constraintRequirement: You need 20 Sad Feels
+  soFeelType:
+  - {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+  targetedNumberOfFeels: 14000000
   disasterConsequences:
-  - {fileID: 11400000, guid: eb575cbc6cfdc84408bf1d0c5f779fd9, type: 2}
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}

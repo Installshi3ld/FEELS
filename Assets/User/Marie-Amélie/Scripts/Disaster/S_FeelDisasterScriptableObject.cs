@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,7 @@ public class S_FeelDisasterScriptableObject : S_Disaster
 {
     [SerializeField] private string description;
 
-    [SerializeField] private List<S_Currencies> feelsToKill = new List<S_Currencies>();
-    [SerializeField] private List<int> howMany = new List<int>();
+    [SerializeField] public List<Cost> costs = new List<Cost>();
 
     private void OnEnable()
     {
@@ -16,12 +16,16 @@ public class S_FeelDisasterScriptableObject : S_Disaster
     }
     public override void ProvoqueDisaster()
     {
-        if(feelsToKill.Count > 0 && howMany.Count > 0 && feelsToKill.Count == howMany.Count)
+        foreach(Cost cost in costs)
         {
-            for(int i = 0; i < feelsToKill.Count - 1; i++)
-            {
-                feelsToKill[i].amount -= howMany[i];
-            }
+            cost.currency.RemoveAmount(cost.amount);
         }
     }
+}
+
+[Serializable]
+public struct Cost
+{
+    public S_Currencies currency;
+    public int amount;
 }
