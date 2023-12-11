@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ public class S_BuildingPoolManager : MonoBehaviour
 {
     public ConstructionSystem constructionSystem;
     public Action RefreshUI;
+    [SerializeField, LabelText("Pool Data")] private S_BuildingPoolData _poolData;
 
     #region Variable building pool random
 
@@ -22,16 +24,13 @@ public class S_BuildingPoolManager : MonoBehaviour
     #region Variable legacy building pool
 
 
-
     #endregion
-
-
-
 
     private void Start()
     {
         StoreBuildingPerTier();
         RefreshBuildingPool();
+        _poolData.InitBuildingPoolData();
         RefreshUI();
     }
 
