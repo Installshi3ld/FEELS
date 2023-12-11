@@ -15,7 +15,7 @@ public class S_FourToutAdrien : MonoBehaviour
 
     private string title;
     public S_Requirement feelsRequirement;
-    public S_ManageEvents manageEvent;
+    public S_Timeline manageEvent;
     public S_FeelsRequirement feelsRequirementNmb;
 
     public TextMeshProUGUI eventTitleAnim;
