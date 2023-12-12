@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Feel Requirement", menuName = "Event/Feel")]
+[CreateAssetMenu(fileName = "SO_FeelRequirement", menuName = "Requirements/Feel")]
 public class S_FeelsRequirement : S_Requirement
 {
     [SerializeField] private string eventDescription;
