@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.Assertions;
 using Unity.VisualScripting;
+using static S_Currencies;
 
 public class S_Timeline : MonoBehaviour
 {
@@ -28,8 +30,16 @@ public class S_Timeline : MonoBehaviour
     [SerializeField]
     private int chanceForLifeExpToOccur;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private S_CurrentEventScriptableObject currentEvent;
+
+    public delegate void RefreshFromEvent(S_Requirement currentEvent);
+
+    public static event RefreshFromEvent OnRequirementChecked;
+    public static event RefreshFromEvent OnDisasterOccuring;
+
+// Start is called before the first frame update
+void Start()
     {
         currentPhaseIndex = 0;
 
@@ -74,18 +84,24 @@ public class S_Timeline : MonoBehaviour
             if(currentRequirement != null)
             {
                 Debug.Log(currentRequirement.NarrativeDescription);
+                currentEvent.SetNewRequirement(currentRequirement);
+                //OnNewEventPicked.Invoke(currentRequirement);
             }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
-           
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
                 foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
                 {
                     Debug.Log("provoke disaster : " + consequence.Description);
+                    OnDisasterOccuring.Invoke(currentRequirement);
                     consequence.ProvoqueDisaster();
                 }
+            }
+            else
+            {
+                OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
             }
             if(hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
             {

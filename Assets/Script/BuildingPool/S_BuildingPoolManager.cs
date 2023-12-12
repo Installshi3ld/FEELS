@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,10 @@ using UnityEngine;
 public class S_BuildingPoolManager : MonoBehaviour
 {
     public ConstructionSystem constructionSystem;
+    public Action RefreshUI;
+    [SerializeField, LabelText("Pool Data")] private S_BuildingPoolData _poolData;
+
+    #region Variable building pool random
 
     public List<int> AmountOfBuildingPerTier = new List<int>();
     public List<GameObject> InitialBuildingList = new List<GameObject>();
@@ -14,12 +19,25 @@ public class S_BuildingPoolManager : MonoBehaviour
 
     private List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
 
-    public Action RefreshUI;
+    #endregion
+
+    #region Variable legacy building pool
+
+    [SerializeField] private int buildingPoolSizePerTier = 8;
+    [NonSerialized] public int currentTierSelected = 0;
+    #endregion
 
     private void Start()
     {
-        StoreBuildingPerTier();
-        RefreshBuildingPool();
+        //StoreBuildingPerTier();
+        //RefreshBuildingPool();
+        _poolData.InitBuildingPoolData(buildingPoolSizePerTier);
+        RefreshUI();
+    }
+
+    public void ChangeCurrentTier(int _newTier)
+    {
+        currentTierSelected = _newTier;
         RefreshUI();
     }
 

@@ -5,9 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class S_BuildingPool : MonoBehaviour
+public class S_BuildingPoolUI : MonoBehaviour
 {
     [SerializeField] private S_BuildingPoolManager _buildingPoolManager;
+    [SerializeField] private S_BuildingPoolData _buildingPoolData;
 
     public List<Button> button = new List<Button>();
 
@@ -26,13 +27,16 @@ public class S_BuildingPool : MonoBehaviour
     {
         for (int i = 0; i < button.Count; i++)
         {
-            button[i].GetComponentInParent<S_BoutonBuildingPool>()._buildingPool = this;
+            button[i].GetComponentInParent<S_BoutonBuildingPool>()._buildingPoolUI = this;
         }
     }
 
     public void SpawnBuilding(int Index)
     {
-        _buildingPoolManager.constructionSystem.SpawnObject(_buildingPoolManager.BuildingPool[Index]);
+        GameObject _currentBuildingToSpawn = _buildingPoolData.BuildingPoolData[_buildingPoolManager.currentTierSelected][Index];
+
+        if (_currentBuildingToSpawn)
+            _buildingPoolManager.constructionSystem.SpawnObject(_currentBuildingToSpawn);
     }
 
     private void Update()
@@ -72,9 +76,13 @@ public class S_BuildingPool : MonoBehaviour
     {
         for (int i = 0; i < button.Count; i++)
         {
-            button[i].image.sprite = _buildingPoolManager.BuildingPool[i].GetComponent<S_Building>().BuildingData.BuildingImage;
+            GameObject _currentBuilding = _buildingPoolData.BuildingPoolData[_buildingPoolManager.currentTierSelected][i];
 
-            button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _buildingPoolManager.BuildingPool[i];
+            if (_currentBuilding)
+            {
+                button[i].image.sprite = _currentBuilding.GetComponent<S_Building>().BuildingData.BuildingImage;
+                button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
+            }
         }
     }
 

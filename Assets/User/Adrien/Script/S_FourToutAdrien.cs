@@ -158,7 +158,7 @@ public class S_FourToutAdrien : MonoBehaviour
       
         if (animationImageDisaster != null)
         {
-            animationImageDisaster.ImageScaleAndMove();
+            //animationImageDisaster.ImageScaleAndMove();
         }
 
         
