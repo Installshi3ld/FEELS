@@ -1405,7 +1405,7 @@ GameObject:
   - component: {fileID: 1260906614}
   - component: {fileID: 1260906613}
   m_Layer: 0
-  m_Name: BigBootyBitches
+  m_Name: BuildingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1424,6 +1424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructionSystem: {fileID: 187110596}
+  _poolData: {fileID: 11400000, guid: e4581568f8eb4c04da54636b6c05288b, type: 2}
   AmountOfBuildingPerTier: 0400000004000000
   InitialBuildingList:
   - {fileID: 7873085785543044208, guid: 56988e714f4f5b047befec7fd67a8a2e, type: 3}
@@ -1434,6 +1435,7 @@ MonoBehaviour:
   - {fileID: 7418667232674008933, guid: be1347e83b3fdcb4b96549bfd53e5732, type: 3}
   - {fileID: 5628785778176273564, guid: f036af3ff4753844c81c63c0bad0b517, type: 3}
   - {fileID: 8629024917022469479, guid: 669e4e3064564104bb59541eb85c1437, type: 3}
+  buildingPoolSizePerTier: 8
 --- !u!4 &1260906614
 Transform:
   m_ObjectHideFlags: 0
@@ -1537,10 +1539,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2600063051243784166, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 247
+      objectReference: {fileID: 0}
     - target: {fileID: 2869192200963842479, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: m_Name
       value: UI_BuildinPool_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7572987648726266350, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: _buildingPoolData
+      value: 
+      objectReference: {fileID: 11400000, guid: e4581568f8eb4c04da54636b6c05288b, type: 2}
     - target: {fileID: 7572987648726266350, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: constructionSystem
       value: 
