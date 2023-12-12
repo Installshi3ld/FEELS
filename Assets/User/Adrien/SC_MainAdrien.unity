@@ -1332,6 +1332,62 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1177643885770451188, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177643885770451188, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 906901443}
+    - target: {fileID: 1177643885770451188, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCurrentTier
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177643885770451188, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: S_BuildingPoolManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177643885770451188, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177643885770451188, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 906901443}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCurrentTier
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: S_BuildingPoolManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233995594648252893, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1703364366292046289, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1419,6 +1475,58 @@ PrefabInstance:
     - target: {fileID: 2869192200963842479, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: m_Name
       value: UI_BuildinPool_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 906901443}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCurrentTier
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: S_BuildingPoolManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679946395352867987, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679946395352867987, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 906901443}
+    - target: {fileID: 6679946395352867987, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCurrentTier
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679946395352867987, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: S_BuildingPoolManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679946395352867987, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7572987648726266350, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: _buildingPoolData
@@ -2500,7 +2608,7 @@ PrefabInstance:
     - target: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: RequirementToReturn
       value: 
-      objectReference: {fileID: 11400000, guid: 44ddc5276dcc00a43972518677ffdcb6, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: 'phases.Array.data[0]'
       value: 
@@ -2510,8 +2618,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2e2149821c0639d4aaaa6c7ce939764a, type: 2}
     - target: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: chanceForLifeExpToOccur
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: secondsBetweenNewConstraint
-      value: 15
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: chanceForLifeExperienceToSpawn
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
