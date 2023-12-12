@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2519286726193917268}
-  - component: {fileID: 6110601713418193746}
+  - component: {fileID: 7041625572707175066}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6110601713418193746
+--- !u!114 &7041625572707175066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,13 +41,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1339984536382600309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c2ebccf050a8b4086508149423e45a, type: 3}
+  m_Script: {fileID: 11500000, guid: edb123152b9a28c4f81fc71fc73c4c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   phases:
   - {fileID: 11400000, guid: 2e2149821c0639d4aaaa6c7ce939764a, type: 2}
-  - {fileID: 11400000, guid: 3ae7207f1bf4c53419900eb08f96009c, type: 2}
-  phasesList: []
-  secondsBetweenNewConstraint: 10
-  currentPhase: {fileID: 11400000, guid: 717c59daadb657948b09e835754b75e4, type: 2}
+  secondsBetweenNewConstraint: 5
   eventTimer: {fileID: 11400000, guid: c9a9327b56661214ebd802d248e82449, type: 2}
+  chanceForLifeExpToOccur: 10
+  currentEvent: {fileID: 11400000, guid: a78d36e1e8049c140bf55ede45565a24, type: 2}
+  RequirementToReturn: {fileID: 0}
