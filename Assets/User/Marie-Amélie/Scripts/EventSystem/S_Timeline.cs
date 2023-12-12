@@ -37,8 +37,8 @@ public class S_Timeline : MonoBehaviour
     public static event RefreshFromEvent OnRequirementChecked;
     public static event RefreshFromEvent OnDisasterOccuring;
 
-// Start is called before the first frame update
-void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         currentPhaseIndex = 0;
 
@@ -80,7 +80,7 @@ void Start()
 
             ChooseOrNotLifeExperience();
 
-            if(currentRequirement != null)
+            if (currentRequirement != null)
             {
                 Debug.Log(currentRequirement.NarrativeDescription);
 
@@ -105,12 +105,12 @@ void Start()
             }
             else
             {
-                if(OnRequirementChecked != null)
+                if (OnRequirementChecked != null)
                 {
                     OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
                 }
             }
-            if(hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
+            if (hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
             {
                 //SET FIRE
             }
@@ -119,7 +119,7 @@ void Start()
 
     private bool IsAvailableRequirementListEmpty()
     {
-        if(GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)
+        if (GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)
         {
             return false;
         }
@@ -154,7 +154,7 @@ void Start()
 
             int index = Random.Range(0, available.Count - 1);
 
-            if(available.Count > 0)
+            if (available.Count > 0)
             {
                 S_LifeExperienceScriptableObject picked = available[index];
 
@@ -173,12 +173,12 @@ void Start()
     {
         int randomInt = Random.Range(0, 99);
 
-        if(randomInt <= chanceForLifeExpToOccur)
+        if (randomInt <= chanceForLifeExpToOccur)
         {
             hasLifeEventBeenPicked = true;
             pickedLifeExperience = PickRandomLifeExperience();
 
-            if(pickedLifeExperience != null)
+            if (pickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + pickedLifeExperience.description);
             }
@@ -202,7 +202,7 @@ void Start()
     private IEnumerable<S_Requirement> GetAvailableRequirementsInCurrentPhase()
     {
         var current = phases[currentPhaseIndex];
-        foreach(S_Requirement item in current.requirements)
+        foreach (S_Requirement item in current.requirements)
         {
             if (already_done_requirement.Contains(item)) continue;
 
@@ -218,8 +218,8 @@ void Start()
 
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
 
-        if(available.Count > 0)
-        { 
+        if (available.Count > 0)
+        {
             int index = Random.Range(0, available.Count - 1);
             S_Requirement picked = available[index];
             RequirementToReturn = available[index];
