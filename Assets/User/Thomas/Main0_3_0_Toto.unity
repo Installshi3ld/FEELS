@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: S_Currencies, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 1743874347164284722, guid: 44e4de11444ce6d4b8c843e76bc5e427, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 247
+      objectReference: {fileID: 0}
     - target: {fileID: 2009488444638866667, guid: 44e4de11444ce6d4b8c843e76bc5e427, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: S_Currencies, Assembly-CSharp
@@ -854,6 +858,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugTile: {fileID: 11400000, guid: eac73ebf415d86143b92aeb0fc518968, type: 2}
   _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
+  _wireframePlane: {fileID: 319090188900270873, guid: ffd40af9bc2660242b6a65e95ce2a4e0, type: 3}
+  _nonUsedTileMat: {fileID: 2100000, guid: 6e12f969f4ee52d488f6e359a135ba89, type: 2}
+  _usedTileMat: {fileID: 2100000, guid: 74f4e29c0c6dc174f82cb0bf9e8df21c, type: 2}
+  _fogTileMat: {fileID: 2100000, guid: 0f5efbd4922ae1a49a4e8ed770cc6f8b, type: 2}
 --- !u!1 &504972931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,16 +2514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c2ebccf050a8b4086508149423e45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phases:
-  - {fileID: 11400000, guid: ed15caa0c7720c546be93f8e6f15f111, type: 2}
-  - {fileID: 11400000, guid: ccb56fb47d6f6234786ed8e39a1a56ab, type: 2}
-  - {fileID: 11400000, guid: 33813ceedaca3e44ab974880216eb97e, type: 2}
-  - {fileID: 11400000, guid: c410a1142019f54489968095696225d3, type: 2}
-  secondsBetweenNewConstraint: 0
-  chanceForLifeExperienceToSpawn: 0
-  eventTimer: {fileID: 0}
-  chanceForLifeExpToOccur: 0
-  RequirementToReturn: {fileID: 0}
 --- !u!4 &1499576580
 Transform:
   m_ObjectHideFlags: 0
