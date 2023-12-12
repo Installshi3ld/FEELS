@@ -8,9 +8,17 @@ public class S_UIEventPlaceholder : MonoBehaviour
     public TextMeshProUGUI textEventDescription;
     public TextMeshProUGUI textEventRequirement;
 
-    private void Awake()
+    [SerializeField]
+    private S_CurrentEventScriptableObject currentEvent;
+
+    private void OnEnable()
     {
-        S_Timeline.OnNewEventPicked += UpdateMenu;
+        currentEvent.OnChangingRequirement += UpdateMenu;
+    }
+
+    private void OnDisable()
+    {
+        currentEvent.OnChangingRequirement -= UpdateMenu;
     }
 
     private void UpdateMenu(S_Requirement currentR)

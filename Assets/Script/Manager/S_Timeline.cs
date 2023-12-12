@@ -30,8 +30,11 @@ public class S_Timeline : MonoBehaviour
     [SerializeField]
     private int chanceForLifeExpToOccur;
 
+    [SerializeField]
+    private S_CurrentEventScriptableObject currentEvent;
+
     public delegate void RefreshFromEvent(S_Requirement currentEvent);
-    public static event RefreshFromEvent OnNewEventPicked;
+
     public static event RefreshFromEvent OnRequirementChecked;
     public static event RefreshFromEvent OnDisasterOccuring;
 
@@ -81,7 +84,8 @@ void Start()
             if(currentRequirement != null)
             {
                 Debug.Log(currentRequirement.NarrativeDescription);
-                OnNewEventPicked.Invoke(currentRequirement);
+                currentEvent.SetNewRequirement(currentRequirement);
+                //OnNewEventPicked.Invoke(currentRequirement);
             }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);

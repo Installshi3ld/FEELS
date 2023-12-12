@@ -10,9 +10,17 @@ public class S_UIFadingEvent : MonoBehaviour
     public TextMeshProUGUI textToFade;
     public Image imageToFade;
 
-    private void Awake()
+    [SerializeField]
+    private S_CurrentEventScriptableObject currentEvent;
+
+    private void OnEnable()
     {
-        S_Timeline.OnNewEventPicked += FadeMenu;
+        currentEvent.OnChangingRequirement += FadeMenu;
+    }
+
+    private void OnDisable()
+    {
+        currentEvent.OnChangingRequirement -= FadeMenu;
     }
 
     private void FadeMenu(S_Requirement newEvent)
