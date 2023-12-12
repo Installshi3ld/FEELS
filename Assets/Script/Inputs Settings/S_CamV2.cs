@@ -1,3 +1,5 @@
+using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +12,7 @@ public class S_CamV2 : MonoBehaviour
     public GameObject cam;
     public float MouvementSpeedMinHeight = 15;
     public float MouvementSpeedMaxHeight = 40;
+    [MinMaxSlider(0, 100)] public float dragSpeed;
     public float BorderLimit = 100;
     public float AnimationSpeed = 5f;
     public LayerMask Floorlayer;
@@ -105,7 +108,7 @@ public class S_CamV2 : MonoBehaviour
             Camera.main.orthographic = false;
             zoomDestination = zoomDestination + new Vector3(0, -value, value);
 
-            //Localized Zoom
+            /*Localized Zoom
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -115,7 +118,7 @@ public class S_CamV2 : MonoBehaviour
                 {
                     CameraDestination += (hit.point - this.transform.position).normalized * LocalizedZoomStrenght;
                 }
-            }
+            }*/
         }
         else if (MinimumHeight < cam.transform.position.y - value)
         {
@@ -153,7 +156,7 @@ public class S_CamV2 : MonoBehaviour
             CameraDestination -= new Vector3(
                 Mouse.current.position.ReadValue().x - LastMousePosition.x,
                 0,
-                Mouse.current.position.ReadValue().y - LastMousePosition.y) / 5;
+                Mouse.current.position.ReadValue().y - LastMousePosition.y) / dragSpeed;
 
             LastMousePosition = Mouse.current.position.ReadValue();
         }
