@@ -2,12 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 using System.Linq;
-using UnityEngine.Assertions;
-using Unity.VisualScripting;
-using static S_Currencies;
 
 public class S_Timeline : MonoBehaviour
 {
