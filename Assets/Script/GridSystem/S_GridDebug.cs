@@ -2,24 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class S_GridDebug : MonoBehaviour
 {
     [SerializeField] private S_GridDebugTileInt _debugTile;
     [SerializeField] private S_GridData _gridData;
+    [SerializeField] private GameObject _wireframeCube;
+    [BoxGroup]
+    [SerializeField] private Material _redMat, _greenMat, _blueMat;
 
     List<List<bool>> gridDebugHighlight = new List<List<bool>>();
+    List<List<GameObject>> _wireframeCubes = new List<List<GameObject>>();
 
     private int _debugTileInt, _mapTileSize;
 
-    //Debug.LogWarning($"Missing reference in S_GridDebug : DebugTileInt = {_debugTileInt} | GridData = {((_gridData == null) ? "NULL" : _gridData)}{Environment.StackTrace}");
-    //Debug.LogWarning("Missing reference in S_GridDebug : DebugTileInt = " + _debugTileInt + "| GridData = " + _gridData);
-    //Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-    //Application.persistentDataPath
     private void Start()
     {
         _gridData.Init();
         gridDebugHighlight = S_StaticFunc.Create2DimensionalList(_gridData.tileAmount, () => false);
+        //_debugTile.SetValue(0);
+        SpawnDebugTile();
+        _gridData.RefreshDebugTile += RefreshDebugTile;
     }
 
 
@@ -33,6 +37,7 @@ public class S_GridDebug : MonoBehaviour
                 //return;
             }
             _debugTile.IncrementValue();
+            RefreshAllDebugTile();
         }
     }
 
@@ -41,6 +46,73 @@ public class S_GridDebug : MonoBehaviour
         gridDebugHighlight[coordinate.x][coordinate.y] = true;
     }
 
+    void SpawnDebugTile()
+    {
+        _debugTileInt = _debugTile.GetValue();
+        _mapTileSize = _gridData.tileSize;
+
+
+        for (int x = 0; x < _gridData.gridsUsageStatement.Count; x++)
+        {
+            List<GameObject> list = new List<GameObject>(); 
+
+            for (int y = 0; y < _gridData.gridsUsageStatement[x].Count; y++)
+            {
+                GameObject tmp = Instantiate(_wireframeCube,
+                    new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
+                    0,
+                    _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize),
+                    Quaternion.identity);
+
+                list.Add(tmp);
+                tmp.SetActive(false);  
+            }
+            _wireframeCubes.Add(list);
+        }
+    }
+
+    public void RefreshDebugTile(int x, int y)
+    {
+        MeshRenderer _meshRenderer = _wireframeCubes[x][y].GetComponent<MeshRenderer>();
+        if (_gridData.gridsUsageStatement[x][y].statement)
+        {
+            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _greenMat;
+            _wireframeCubes[x][y].SetActive(true);
+        }
+
+        else if (Grid.fogGridsUsageStatement[x][y])
+        {
+            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _blueMat;
+            _wireframeCubes[x][y].SetActive(true);
+        }
+
+        else if (!Grid.fogGridsUsageStatement[x][y])
+        {
+            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _redMat;
+            _wireframeCubes[x][y].SetActive(true);
+        }
+    }
+
+    void RefreshAllDebugTile()
+    {
+        if (_debugTile.GetValue() == 0)
+        {
+            for (int x = 0; x < _wireframeCubes.Count; x++)
+                for (int y = 0; y < _wireframeCubes[x].Count; y++)
+                    _wireframeCubes[x][y].SetActive(false);
+            return;
+        }
+        
+        for (int x = 0; x < _wireframeCubes.Count; x++)
+        {
+            for (int y = 0; y < _wireframeCubes[x].Count; y++)
+            {
+                RefreshDebugTile(x, y);
+            }
+        }
+    }
+
+    /*
     private void OnDrawGizmos()
     {
         if(_gridData == null  || _gridData.gridsUsageStatement == null)
@@ -94,7 +166,7 @@ public class S_GridDebug : MonoBehaviour
             Gizmos.DrawLine(lastPosition, nextPosition);
             lastPosition = nextPosition;
         }
-    }
+    }*/
 }
 
 

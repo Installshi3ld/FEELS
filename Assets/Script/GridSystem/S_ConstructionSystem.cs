@@ -138,7 +138,7 @@ public class ConstructionSystem : MonoBehaviour
             int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
             int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
 
-            _gridData.gridsUsageStatement[x][y].statement = true;
+            _gridData.SetTileUsed(x, y);
             _gridData.gridsUsageStatement[x][y].building = objectSpawned;
         }
     }
