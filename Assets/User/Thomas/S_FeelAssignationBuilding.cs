@@ -79,7 +79,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
             CurrentStoredFeel = 0;
             feelType.AddAmount(MaxFeel);
             isProducing = false;
-            StopCoroutine(FeelProduction());
+            StopAllCoroutines();
             return true;
         }
         return false;
