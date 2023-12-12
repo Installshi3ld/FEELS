@@ -11,6 +11,12 @@ public class S_BuildingRequirement : S_Requirement
     [SerializeField] private string constraintRequirement;
     public string constraintDescription => constraintRequirement;
 
+    [SerializeField] 
+    private int numberOfBuildingOfTypeRequired;
+
+    [SerializeField]
+    private S_BuildingList buildingsOnMap;
+
 
     private bool isFulfilled = false;
     public bool hasBeenFulfilled => isFulfilled;

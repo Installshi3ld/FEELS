@@ -34,7 +34,6 @@ public class S_Timeline : MonoBehaviour
     private S_CurrentEventScriptableObject currentEvent;
 
     public delegate void RefreshFromEvent(S_Requirement currentEvent);
-
     public static event RefreshFromEvent OnRequirementChecked;
     public static event RefreshFromEvent OnDisasterOccuring;
 
@@ -84,8 +83,8 @@ void Start()
             if(currentRequirement != null)
             {
                 Debug.Log(currentRequirement.NarrativeDescription);
+
                 currentEvent.SetNewRequirement(currentRequirement);
-                //OnNewEventPicked.Invoke(currentRequirement);
             }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
@@ -95,13 +94,21 @@ void Start()
                 foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
                 {
                     Debug.Log("provoke disaster : " + consequence.Description);
-                    OnDisasterOccuring.Invoke(currentRequirement);
+
+                    if (OnDisasterOccuring != null)
+                    {
+                        OnDisasterOccuring.Invoke(currentRequirement);
+                    }
+
                     consequence.ProvoqueDisaster();
                 }
             }
             else
             {
-                OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                if(OnRequirementChecked != null)
+                {
+                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                }
             }
             if(hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
             {

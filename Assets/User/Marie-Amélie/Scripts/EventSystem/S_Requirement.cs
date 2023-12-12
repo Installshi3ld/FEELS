@@ -8,9 +8,6 @@ public abstract class S_Requirement : ScriptableObject, IRequirement
 {
     private string narrativeDescription = string.Empty;
 
-    public delegate void RefreshRequirementCondition(bool value);
-    public event RefreshRequirementCondition OnChangingCheckbox;
-
     public string NarrativeDescription
     {
         get
