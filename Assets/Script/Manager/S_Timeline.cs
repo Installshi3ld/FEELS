@@ -13,7 +13,7 @@ public class S_Timeline : MonoBehaviour
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    private float secondsBetweenNewConstraint;
+    public float secondsBetweenNewConstraint;
 
     [SerializeField]
     private int chanceForLifeExperienceToSpawn;

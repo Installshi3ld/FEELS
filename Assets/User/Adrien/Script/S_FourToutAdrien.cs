@@ -45,7 +45,7 @@ public class S_FourToutAdrien : MonoBehaviour
         {
             Debug.LogError("Veuillez assigner un objet TextMeshPro dans l'inspecteur Unity.");
         }
-        ChangeText("Objectif 10 Feels de Joy");
+        ChangeText("Objective 10 Feels of Joy");
         ToggleBoolean();
 
 
@@ -56,7 +56,7 @@ public class S_FourToutAdrien : MonoBehaviour
             S_FeelsRequirement feelsRequirementNmb = (S_FeelsRequirement)feelsRequirement;
 
             bool validé = feelsRequirementNmb.HasBeenFulfilled;
-            Debug.Log("Validé l'info ?" + validé);
+           // Debug.Log("Validé l'info ?" + validé);
         }
 
     }
@@ -98,11 +98,11 @@ public class S_FourToutAdrien : MonoBehaviour
         {
             titre.text = newText;
             eventTitleAnim.text = newText;
-            Debug.Log("Texte changé : " + newText);
+            Debug.Log("Text modified : " + newText);
         }
         else
         {
-            Debug.LogError("Objet TextMeshPro non assigné. Assurez-vous de l'assigner dans l'inspecteur Unity.");
+            Debug.LogError("Objet TextMeshPro non assigné. ");
         }
     }
 
@@ -111,11 +111,11 @@ public class S_FourToutAdrien : MonoBehaviour
         if (requirement != null)
         {
             requirement.text = newText1;
-            Debug.Log("Texte changé : " + newText1);
+            Debug.Log("Text modified : " + newText1);
         }
         else
         {
-            Debug.LogError("Objet TextMeshPro non assigné. Assurez-vous de l'assigner dans l'inspecteur Unity.");
+            Debug.LogError("Objet TextMeshPro non assigné. ");
         }
     }
 
@@ -178,7 +178,7 @@ public class S_FourToutAdrien : MonoBehaviour
         //ChangeTextFeelsNmb(feelsRequirementNmb.GetMyPrivateStringRequirNmb());
 
         ChangeText(feelsRequirement.GetMyPrivateString());
-        Debug.Log("Texte actualisé !");
+        //Debug.Log("Texte actualisé !");
         ChangeTextDesc(feelsRequirement.GetMyPrivateStringDesc());
     }
 }

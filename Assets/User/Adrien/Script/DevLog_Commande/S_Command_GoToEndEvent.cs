@@ -6,13 +6,13 @@ using UnityEngine;
 "DeveloperCommand/TimerEndCommand")]
 public class S_TimerEndCommand : S_ConsoleCommand
 {
-    public S_EventTimer eventTimer;
+    public S_Timeline eventTimer;
     public override bool Processed(string[] args)
     {
         string logText = string.Join(" ", args);
 
         Debug.Log("working");
-        eventTimer.EventTimerState = eventTimer.MaxTime - 1;
+        eventTimer.secondsBetweenNewConstraint = 5;
 
         return true;
     }
