@@ -13,9 +13,6 @@ public class S_Timeline : MonoBehaviour
     [SerializeField]
     private float secondsBetweenNewConstraint;
 
-    [SerializeField]
-    private int chanceForLifeExperienceToSpawn;
-
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
