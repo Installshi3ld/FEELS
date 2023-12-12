@@ -858,10 +858,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugTile: {fileID: 11400000, guid: eac73ebf415d86143b92aeb0fc518968, type: 2}
   _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
-  _wireframeCube: {fileID: 319090188900270873, guid: ffd40af9bc2660242b6a65e95ce2a4e0, type: 3}
-  _redMat: {fileID: 2100000, guid: 68dff73fb3044da4d820054c7f4f310a, type: 2}
-  _greenMat: {fileID: 2100000, guid: dbcce367711014e4daeeffc15eb89441, type: 2}
-  _blueMat: {fileID: 2100000, guid: 75ad885e0a5c7704bb54eeaebbd92d74, type: 2}
+  _wireframePlane: {fileID: 319090188900270873, guid: ffd40af9bc2660242b6a65e95ce2a4e0, type: 3}
+  _nonUsedTileMat: {fileID: 2100000, guid: 6e12f969f4ee52d488f6e359a135ba89, type: 2}
+  _usedTileMat: {fileID: 2100000, guid: 74f4e29c0c6dc174f82cb0bf9e8df21c, type: 2}
+  _fogTileMat: {fileID: 2100000, guid: 0f5efbd4922ae1a49a4e8ed770cc6f8b, type: 2}
 --- !u!1 &504972931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,16 +2514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c2ebccf050a8b4086508149423e45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phases:
-  - {fileID: 11400000, guid: ed15caa0c7720c546be93f8e6f15f111, type: 2}
-  - {fileID: 11400000, guid: ccb56fb47d6f6234786ed8e39a1a56ab, type: 2}
-  - {fileID: 11400000, guid: 33813ceedaca3e44ab974880216eb97e, type: 2}
-  - {fileID: 11400000, guid: c410a1142019f54489968095696225d3, type: 2}
-  secondsBetweenNewConstraint: 0
-  chanceForLifeExperienceToSpawn: 0
-  eventTimer: {fileID: 0}
-  chanceForLifeExpToOccur: 0
-  RequirementToReturn: {fileID: 0}
 --- !u!4 &1499576580
 Transform:
   m_ObjectHideFlags: 0

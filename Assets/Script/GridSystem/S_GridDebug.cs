@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Rendering;
 
 public class S_GridDebug : MonoBehaviour
 {
+    [Header("Data")]
     [SerializeField] private S_GridDebugTileInt _debugTile;
     [SerializeField] private S_GridData _gridData;
-    [SerializeField] private GameObject _wireframeCube;
-    [BoxGroup]
-    [SerializeField] private Material _redMat, _greenMat, _blueMat;
+
+    [Header("Gizmos display")]
+    [SerializeField, InfoBox("Use 'WireFramePlane'")] private GameObject _wireframePlane;
+    [SerializeField, BoxGroup] private Material _nonUsedTileMat, _usedTileMat, _fogTileMat;
+
 
     List<List<bool>> gridDebugHighlight = new List<List<bool>>();
     List<List<GameObject>> _wireframeCubes = new List<List<GameObject>>();
@@ -58,7 +62,7 @@ public class S_GridDebug : MonoBehaviour
 
             for (int y = 0; y < _gridData.gridsUsageStatement[x].Count; y++)
             {
-                GameObject tmp = Instantiate(_wireframeCube,
+                GameObject tmp = Instantiate(_wireframePlane,
                     new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
                     0,
                     _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize),
@@ -76,19 +80,19 @@ public class S_GridDebug : MonoBehaviour
         MeshRenderer _meshRenderer = _wireframeCubes[x][y].GetComponent<MeshRenderer>();
         if (_gridData.gridsUsageStatement[x][y].statement)
         {
-            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _greenMat;
+            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _usedTileMat;
             _wireframeCubes[x][y].SetActive(true);
         }
 
         else if (Grid.fogGridsUsageStatement[x][y])
         {
-            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _blueMat;
+            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _fogTileMat;
             _wireframeCubes[x][y].SetActive(true);
         }
 
         else if (!Grid.fogGridsUsageStatement[x][y])
         {
-            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _redMat;
+            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _nonUsedTileMat;
             _wireframeCubes[x][y].SetActive(true);
         }
     }
