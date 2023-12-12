@@ -15,6 +15,9 @@ public class S_GridData : ScriptableObject, InitializeSO
 
     [SerializeField]private S_FogData _fogData;
 
+    public delegate void RefreshDebugTileDelegate(int x, int y);
+    public RefreshDebugTileDelegate RefreshDebugTile;
+
     public void Init()
     {
         tileAmount = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
@@ -40,6 +43,7 @@ public class S_GridData : ScriptableObject, InitializeSO
     public void SetTileUsed(int x, int y)
     {
         gridsUsageStatement[x][y].statement = true;
+        RefreshDebugTile(x, y);
     }
     public void RemoveTileUsed(int x, int y)
     {

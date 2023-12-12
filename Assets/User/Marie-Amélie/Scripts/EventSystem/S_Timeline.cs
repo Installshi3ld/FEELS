@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
-using UnityEngine.Assertions;
-using Unity.VisualScripting;
 
 public class S_Timeline : MonoBehaviour
 {
@@ -27,6 +25,13 @@ public class S_Timeline : MonoBehaviour
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
+
+    [SerializeField]
+    private S_CurrentEventScriptableObject currentEvent;
+
+    public delegate void RefreshFromEvent(S_Requirement currentEvent);
+    public static event RefreshFromEvent OnRequirementChecked;
+    public static event RefreshFromEvent OnDisasterOccuring;
 
     // Start is called before the first frame update
     void Start()
@@ -71,23 +76,37 @@ public class S_Timeline : MonoBehaviour
 
             ChooseOrNotLifeExperience();
 
-            if(currentRequirement != null)
+            if (currentRequirement != null)
             {
                 Debug.Log(currentRequirement.NarrativeDescription);
+
+                currentEvent.SetNewRequirement(currentRequirement);
             }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
-           
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
                 foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
                 {
                     Debug.Log("provoke disaster : " + consequence.Description);
+
+                    if (OnDisasterOccuring != null)
+                    {
+                        OnDisasterOccuring.Invoke(currentRequirement);
+                    }
+
                     consequence.ProvoqueDisaster();
                 }
             }
-            if(hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
+            else
+            {
+                if (OnRequirementChecked != null)
+                {
+                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                }
+            }
+            if (hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
             {
                 //SET FIRE
             }
@@ -96,7 +115,7 @@ public class S_Timeline : MonoBehaviour
 
     private bool IsAvailableRequirementListEmpty()
     {
-        if(GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)
+        if (GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)
         {
             return false;
         }
@@ -131,7 +150,7 @@ public class S_Timeline : MonoBehaviour
 
             int index = Random.Range(0, available.Count - 1);
 
-            if(available.Count > 0)
+            if (available.Count > 0)
             {
                 S_LifeExperienceScriptableObject picked = available[index];
 
@@ -150,12 +169,12 @@ public class S_Timeline : MonoBehaviour
     {
         int randomInt = Random.Range(0, 99);
 
-        if(randomInt <= chanceForLifeExpToOccur)
+        if (randomInt <= chanceForLifeExpToOccur)
         {
             hasLifeEventBeenPicked = true;
             pickedLifeExperience = PickRandomLifeExperience();
 
-            if(pickedLifeExperience != null)
+            if (pickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + pickedLifeExperience.description);
             }
@@ -179,7 +198,7 @@ public class S_Timeline : MonoBehaviour
     private IEnumerable<S_Requirement> GetAvailableRequirementsInCurrentPhase()
     {
         var current = phases[currentPhaseIndex];
-        foreach(S_Requirement item in current.requirements)
+        foreach (S_Requirement item in current.requirements)
         {
             if (already_done_requirement.Contains(item)) continue;
 
@@ -195,8 +214,8 @@ public class S_Timeline : MonoBehaviour
 
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
 
-        if(available.Count > 0)
-        { 
+        if (available.Count > 0)
+        {
             int index = Random.Range(0, available.Count - 1);
             S_Requirement picked = available[index];
             RequirementToReturn = available[index];
