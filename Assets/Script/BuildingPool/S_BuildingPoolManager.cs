@@ -20,17 +20,24 @@ public class S_BuildingPoolManager : MonoBehaviour
     private List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
 
     #endregion
-    
+
     #region Variable legacy building pool
 
-
+    [SerializeField] private int buildingPoolSizePerTier = 8;
+    [NonSerialized] public int currentTierSelected = 0;
     #endregion
 
     private void Start()
     {
-        StoreBuildingPerTier();
-        RefreshBuildingPool();
-        _poolData.InitBuildingPoolData();
+        //StoreBuildingPerTier();
+        //RefreshBuildingPool();
+        _poolData.InitBuildingPoolData(buildingPoolSizePerTier);
+        RefreshUI();
+    }
+
+    public void ChangeCurrentTier(int _newTier)
+    {
+        currentTierSelected = _newTier;
         RefreshUI();
     }
 

@@ -10,29 +10,39 @@ using UnityEngine;
 public class S_BuildingPoolData : SerializedScriptableObject
 {
     [OdinSerialize, InfoBox("Each list in Building pool is consider as Tier, based on index")]
-    public List<List<GameObject>> BuildingPool;
+    private List<List<GameObject>> BuildingPool;
 
     [ReadOnly]
-    public List<List<S_BuildingData>> BuildingPoolData;
+    public List<List<GameObject>> BuildingPoolData;
 
-    public void InitBuildingPoolData()
+    public void InitBuildingPoolData(int buildingPoolSizePerTier)
     {
-        BuildingPoolData = new List<List<S_BuildingData>>();
+        BuildingPoolData = new List<List<GameObject>>();
 
         BuildingPoolData.Clear();
-        StoreBuildingPoolData();
-        Debug.Log(BuildingPoolData.Count);
+        StoreBuildingPoolData(buildingPoolSizePerTier);
     }
 
-    void StoreBuildingPoolData()
+    /// <summary>
+    /// Create an instance of building pool, fill it with null based on Building Pool Size, defined in S_BuildingPoolManager
+    /// </summary>
+    /// <param name="_buildingPoolSize"></param>
+    void StoreBuildingPoolData(int _buildingPoolSize)
     {
         for (int i = 0; i < BuildingPool.Count; i++)
         {
-            List<S_BuildingData> tmpList = new List<S_BuildingData>();
+            List<GameObject> tmpList = new List<GameObject>();
 
-            for(int j = 0; j < BuildingPool[i].Count; j++)
+            for(int j = 0; j < _buildingPoolSize; j++)
             {
-                tmpList.Add(BuildingPool[i][j].GetComponent<S_Building>().BuildingData);
+                if(j < BuildingPool[i].Count)
+                {
+                    tmpList.Add(BuildingPool[i][j]);
+                }
+                else
+                {
+                    tmpList.Add(null);
+                }
             }
             BuildingPoolData.Add(tmpList);
         }
