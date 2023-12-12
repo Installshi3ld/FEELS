@@ -12,7 +12,7 @@ public class S_CamV2 : MonoBehaviour
     public GameObject cam;
     public float MouvementSpeedMinHeight = 15;
     public float MouvementSpeedMaxHeight = 40;
-    [MinMaxSlider(0, 100)] public float dragSpeed;
+    public float dragSpeed;
     public float BorderLimit = 100;
     public float AnimationSpeed = 5f;
     public LayerMask Floorlayer;
