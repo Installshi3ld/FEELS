@@ -45,7 +45,7 @@ public class S_FeelAssignationManager : MonoBehaviour
                 BuildingClickedOn = hit.collider.gameObject;
             }
 
-            print(BuildingClickedOn);
+            //print(BuildingClickedOn);
             //Set data
             if (BuildingClickedOn)
             {
