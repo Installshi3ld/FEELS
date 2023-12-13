@@ -84,7 +84,7 @@ public class S_Timeline : MonoBehaviour
 
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
-                foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
+                foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
                     Debug.Log("provoke disaster : " + consequence.Description);
 

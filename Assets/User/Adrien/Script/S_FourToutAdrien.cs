@@ -166,21 +166,9 @@ public class S_FourToutAdrien : MonoBehaviour
         {
             disasterIsHere1.DisasterIsHere();
         }
-
-
-        RefreshText();
         
       }
     
-   
-    public void RefreshText()
-    {
-        //ChangeTextFeelsNmb(feelsRequirementNmb.GetMyPrivateStringRequirNmb());
-
-        ChangeText(feelsRequirement.GetMyPrivateString());
-        //Debug.Log("Texte actualisé !");
-        ChangeTextDesc(feelsRequirement.GetMyPrivateStringDesc());
-    }
 }
 
 
