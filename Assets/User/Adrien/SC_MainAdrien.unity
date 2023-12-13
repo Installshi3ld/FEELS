@@ -686,6 +686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464625814}
   - component: {fileID: 464625813}
+  - component: {fileID: 464625815}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -722,6 +723,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &464625815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464625812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5eda94b583264d4192dceba088541f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugTile: {fileID: 11400000, guid: eac73ebf415d86143b92aeb0fc518968, type: 2}
+  _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
+  _wireframePlane: {fileID: 319090188900270873, guid: ffd40af9bc2660242b6a65e95ce2a4e0, type: 3}
+  _nonUsedTileMat: {fileID: -3033667219593020291, guid: 8bafff51ee3c0194987e4600f33382cb, type: 3}
+  _usedTileMat: {fileID: 2100000, guid: 68dff73fb3044da4d820054c7f4f310a, type: 2}
+  _fogTileMat: {fileID: 2100000, guid: 68dff73fb3044da4d820054c7f4f310a, type: 2}
 --- !u!1 &504972931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,6 +2648,18 @@ PrefabInstance:
       propertyPath: chanceForLifeExperienceToSpawn
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: phases.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: 'phases.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cb34f5c1593d8b845a2a7a71435069e4, type: 2}
+    - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: 'phases.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e2149821c0639d4aaaa6c7ce939764a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
