@@ -56,14 +56,18 @@ public class S_Building : MonoBehaviour
     [NonSerialized] public Vector3 location;
     float lerpAlpha = 0f;
 
+    public MeshRenderer _meshRenderer;
+    private Material _originalMaterial;
 
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
         GetMinMaxCoordinate();
+        _meshRenderer = GetComponentInChildren<MeshRenderer>();
+        _originalMaterial = _meshRenderer.material;
     }
 
-    int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
+    public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
 
     private void Update()
     {
@@ -99,11 +103,16 @@ public class S_Building : MonoBehaviour
             _feelTypeData.feelTypeCurrency.RemoveAmount(_feelTypeData.feelPrice);
         }
     }
+    public void SetMeshRendererMaterial(Material _material)
+    {
+        _meshRenderer.material = _material;
+    }
 
     public void PlacedBuilding()
     {
-        isPlacedAnimation = true;
         isPlaced = true;
+
+        _meshRenderer.material = _originalMaterial;
     }
 
     public void SetDestination(Vector3 dest)
