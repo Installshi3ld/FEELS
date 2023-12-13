@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6864600133891121875}
   - component: {fileID: 8246379030928492928}
   - component: {fileID: 6129854467352053026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 2069658697126892668}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 3.75, z: 0}
+  m_LocalScale: {x: 5, y: 7.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2969862530802448624}
@@ -116,7 +116,9 @@ GameObject:
   - component: {fileID: 2969862530802448624}
   - component: {fileID: 5853767543280431350}
   - component: {fileID: 1732712283405046729}
-  m_Layer: 0
+  - component: {fileID: -6660166358853024574}
+  - component: {fileID: 5818998183630076751}
+  m_Layer: 6
   m_Name: P_Sad_Tier2_Add_Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,13 +154,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d587346fcffc942bdad0e457f34011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingData:
+    buildingName: Sad T2
+    feelType: 3
+    BuildingTheme: 0
+    feelTypeCostList:
+    - feelTypeCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+      feelPrice: 200
+    - feelTypeCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
+      feelPrice: 200
+    - feelTypeCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+      feelPrice: 200
+    - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
+      feelPrice: 200
+    tier: 1
+    BuildingImage: {fileID: 21300000, guid: 53eb47055ec08df44a3429c2ab6bca8c, type: 3}
+  probabilityToSpawnInPool: 100
   tilesCoordinate:
   - {x: 1, y: 0}
-  tier: 1
-  probabilityToSpawnInPool: 100
-  BuildingImage: {fileID: 21300000, guid: 53eb47055ec08df44a3429c2ab6bca8c, type: 3}
-  FeelType: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-  price: 200
 --- !u!114 &1732712283405046729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +187,44 @@ MonoBehaviour:
   emotionType: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
   isIncreasing: 1
   increaseOrDecreaseAmount: 12
+--- !u!114 &-6660166358853024574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629024917022469479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 50
+  productionAmount: 10
+  delayBetweenEachProduction: 1
+  productionAmountBoosted: 15
+  delayBetweenEachProductionBoosted: 1
+--- !u!65 &5818998183630076751
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629024917022469479}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 7.5, z: 5}
+  m_Center: {x: 2.5, y: 3.75, z: 0}
 --- !u!1 &8925902062520981708
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +237,7 @@ GameObject:
   - component: {fileID: 4516364874633502157}
   - component: {fileID: 6253273387545139186}
   - component: {fileID: 1170466027425663449}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,8 +253,8 @@ Transform:
   m_GameObject: {fileID: 8925902062520981708}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 3.75, z: 0}
+  m_LocalScale: {x: 5, y: 7.5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2969862530802448624}
