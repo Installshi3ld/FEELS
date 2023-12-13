@@ -183,6 +183,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 4670150719325767696}
-  MaxCameraSpeed: 5
-  keyboardAcceleration: 20
-  keyboardDeceleration: 20
+  MouvementSpeedMinHeight: 15
+  MouvementSpeedMaxHeight: 40
+  dragSpeed: 50
+  BorderLimit: 100
+  AnimationSpeed: 5
+  Floorlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  MinimumHeight: 5
+  MaximumHeight: 50
+  Step: 1.2
+  ZoomSpeed: 5
+  LocalizedZoomStrenght: 1.2
