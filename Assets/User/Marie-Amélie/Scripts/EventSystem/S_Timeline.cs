@@ -78,7 +78,13 @@ public class S_Timeline : MonoBehaviour
                 Debug.Log(currentRequirement.NarrativeDescription);
 
                 currentEvent.SetNewRequirement(currentRequirement);
-            }
+
+                if (OnRequirementChecked != null)
+                {
+                    currentRequirement.CheckIsRequirementFulfilled();
+                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                }
+                }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
@@ -98,9 +104,9 @@ public class S_Timeline : MonoBehaviour
             }
             else
             {
-                if (OnRequirementChecked != null)
+                foreach(S_Reward reward in currentRequirement.LinkedRewards)
                 {
-                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                    reward.GetReward();
                 }
             }
             if (hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
