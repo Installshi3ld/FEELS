@@ -80,7 +80,7 @@ public class ConstructionSystem : MonoBehaviour
         {
             if (objectSpawned != null)
             {
-                PlaceBuilding();
+                PlaceBuilding(objectSpawned);
             }
         }
     }
@@ -90,8 +90,15 @@ public class ConstructionSystem : MonoBehaviour
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
     }
 
-    void PlaceBuilding()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="building"></param>
+    /// <param name="doPlayerPlaceIt"> If player place it (put it to False if it spawn by Computer)</param>
+    void PlaceBuilding(GameObject building, bool isPlayerBuilding = true)
     {
+        objectSpawned = building;
+
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
         List<Vector2Int> objectSpawnTilesUsage = GetObjectSpawnTileUsage();
 
@@ -105,17 +112,19 @@ public class ConstructionSystem : MonoBehaviour
 
         UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
-        feelsUI.RefreshUI();
-
         if (objectSpawnedBuildingScript.BuildingData.feelTypeCostList[0].feelTypeCurrency)
             objectSpawnedBuildingScript.RemoveFeelCost();
 
-        consciousTreeToken.AddAmount(1);
+        feelsUI.RefreshUI();
 
         CheckBoostBuilding();
         objectSpawnedBuildingScript.PlacedBuilding();
 
-        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
+        if (isPlayerBuilding)
+        {
+            consciousTreeToken.AddAmount(1);
+            buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
+        }
 
         objectSpawned = null;
     }
