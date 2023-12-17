@@ -140,10 +140,6 @@ public class S_FourToutAdrien : MonoBehaviour
 
     public void UpdateInfo()
     {
-            feelsRequirement = manageEvent.RequirementToReturn;
-
-            
-
 
         if (isRequirementComplete= myToggle.isOn)
         {

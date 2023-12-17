@@ -36,13 +36,13 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     }
     private void Start()
     {
-        S_Building _building;
-        if (gameObject.TryGetComponent<S_Building>(out _building))
+        if (gameObject.TryGetComponent(out S_Building _building))
         {
-            if (_building.BuildingData.feelTypeCostList[0].feelTypeCurrency && _building.BuildingData.feelTypeCostList[0].feelTypeCurrency.feelType == S_Currencies.FeelType.Anger)
+            var prices = _building.GetCosts();
+
+            if (prices[0].feelTypeCurrency && prices[0].feelTypeCurrency.feelType == S_Currencies.FeelType.Anger)
                 BoostBuilding();
         }
-
     }
     /// <summary>
     /// Return true if successfuly assign feels

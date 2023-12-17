@@ -62,7 +62,7 @@ public class S_Timeline : MonoBehaviour
     {
         S_Requirement currentRequirement;
 
-        while (!IsAvailableRequirementListEmpty()) //I never remove the phase from the list
+        while (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
@@ -221,7 +221,6 @@ public class S_Timeline : MonoBehaviour
         {
             int index = Random.Range(0, available.Count - 1);
             S_Requirement picked = available[index];
-            RequirementToReturn = available[index];
             already_done_requirement.Add(picked);
 
             if (available.Count == 1)
@@ -234,8 +233,6 @@ public class S_Timeline : MonoBehaviour
 
         return null;
     }
-    // A Partir de la Adrien fais son num�ro de Cirque : TPC !
-    public S_Requirement RequirementToReturn;
 }
 
 
