@@ -75,7 +75,7 @@ public class S_Timeline : MonoBehaviour
 
             if (currentRequirement != null)
             {
-                Debug.Log(currentRequirement.NarrativeDescription);
+                //Debug.Log(currentRequirement.NarrativeDescription);
 
                 currentEvent.SetNewRequirement(currentRequirement);
 

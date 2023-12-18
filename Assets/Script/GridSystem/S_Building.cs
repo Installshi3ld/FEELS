@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class S_BuildingData
+public class S_BuildingData : IEquatable<S_BuildingData> 
 {
     [Header("General Data")]
     public string buildingName;
@@ -17,6 +17,20 @@ public class S_BuildingData
     [Header("Building pool")]
     public int tier = 0;
     public Sprite BuildingImage;
+
+    public bool Equals(S_BuildingData other)
+    {
+        return other != null &&
+            other.buildingName == this.buildingName &&
+            other.feelType == this.feelType &&
+            other.tier == this.tier &&
+            other.BuildingTheme == this.BuildingTheme;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(buildingName, feelType, tier, BuildingTheme);
+    }
 }
 
 [Serializable]

@@ -88,8 +88,9 @@ public class ConstructionSystem : MonoBehaviour
         feelsUI.RefreshUI();
 
         if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+        {
             objectSpawnedBuildingScript.RemoveFeelCost();
-
+        }
         consciousTreeToken.AddAmount(1);
 
         CheckBoostBuilding();
