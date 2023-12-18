@@ -54,8 +54,9 @@ public class S_LifeExperience : MonoBehaviour
 
     void SpawnWonder()
     {
-        GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        GameObject wonder = Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
         wonder.GetComponent<S_Building>().PlacedBuilding();
+        wonder.GetComponent<S_Building>().destination = gameObject.transform.position;
         Destroy(this.gameObject);
     }
 
@@ -65,13 +66,12 @@ public class S_LifeExperience : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
-
-            Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, false);
+            Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, true);
             if(tmpCoordinate != Vector3.zero)
             {
                 if (!_gridData.gridsUsageStatement[_gridData.GetIndexbasedOnPosition(tmpCoordinate).x][_gridData.GetIndexbasedOnPosition(tmpCoordinate).y].statement)
                 {
-                    allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
+                    allFire.Add(Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
 
                     Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(tmpCoordinate);
                     gridUsage.Add(tmpIndex);
