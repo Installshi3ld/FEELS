@@ -26,6 +26,8 @@ public class S_Timeline : MonoBehaviour
     [SerializeField]
     private S_CurrentEventScriptableObject currentEvent;
 
+    S_Requirement currentRequirement;
+
     public delegate void RefreshFromEvent(S_Requirement currentEvent);
     public static event RefreshFromEvent OnRequirementChecked;
     public static event RefreshFromEvent OnDisasterOccuring;
@@ -42,6 +44,12 @@ public class S_Timeline : MonoBehaviour
     private void Update()
     {
         eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
+        
+        if (OnRequirementChecked != null && currentRequirement != null)
+        {
+            currentRequirement.CheckIsRequirementFulfilled();
+            OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+        }
     }
 
     private void ChangePhaseIndex()//LOGIC HERE NOT CORRECT
@@ -60,7 +68,6 @@ public class S_Timeline : MonoBehaviour
 
     private IEnumerator UpdateEvents()
     {
-        S_Requirement currentRequirement;
 
         while (!IsAvailableRequirementListEmpty())
         {
@@ -79,11 +86,6 @@ public class S_Timeline : MonoBehaviour
 
                 currentEvent.SetNewRequirement(currentRequirement);
 
-                if (OnRequirementChecked != null)
-                {
-                    currentRequirement.CheckIsRequirementFulfilled();
-                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
-                }
                 }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
