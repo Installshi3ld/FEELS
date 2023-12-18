@@ -81,6 +81,7 @@ public class S_FeelAssignationManager : MonoBehaviour
 
     public void AssignFeel()
     {
+        print("Je fonctionne");
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
         var prices = s_Building.GetCosts();
 
