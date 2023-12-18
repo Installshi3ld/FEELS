@@ -21,7 +21,7 @@ public class S_GridDebug : MonoBehaviour
 
     private int _debugTileInt, _mapTileSize;
 
-    private void Start()
+    private void Awake()
     {
         _gridData.Init();
         gridDebugHighlight = S_StaticFunc.Create2DimensionalList(_gridData.tileAmount, () => false);

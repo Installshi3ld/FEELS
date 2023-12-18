@@ -29,6 +29,7 @@ public class ConstructionSystem : MonoBehaviour
 
     GameObject objectSpawned = null;
     Vector3 lastCursorPosition;
+
     private void OnDestroy()
     {
         buildingListContainer.ResetOnDestroy();
@@ -80,7 +81,7 @@ public class ConstructionSystem : MonoBehaviour
         {
             if (objectSpawned != null)
             {
-                PlaceBuilding(objectSpawned);
+                PlaceBuilding();
             }
         }
     }
@@ -95,10 +96,8 @@ public class ConstructionSystem : MonoBehaviour
     /// </summary>
     /// <param name="building"></param>
     /// <param name="doPlayerPlaceIt"> If player place it (put it to False if it spawn by Computer)</param>
-    void PlaceBuilding(GameObject building, bool isPlayerBuilding = true)
+    public void PlaceBuilding()
     {
-        objectSpawned = building;
-
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
         List<Vector2Int> objectSpawnTilesUsage = GetObjectSpawnTileUsage();
 
@@ -120,14 +119,13 @@ public class ConstructionSystem : MonoBehaviour
         CheckBoostBuilding();
         objectSpawnedBuildingScript.PlacedBuilding();
 
-        if (isPlayerBuilding)
-        {
-            consciousTreeToken.AddAmount(1);
-            buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
-        }
+        consciousTreeToken.AddAmount(1);
+        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
         objectSpawned = null;
     }
+
+
 
     bool IsValidPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage)
     {
