@@ -123,6 +123,7 @@ public class S_CamV2 : MonoBehaviour
         else if (MinimumHeight < cam.transform.position.y - value)
         {
             Camera.main.orthographic = true;
+            zoomDestination = Vector3.zero;
             Camera.main.orthographicSize = 45;
             cam.transform.rotation = Quaternion.Euler(90, 0, 0);
             cam.transform.localPosition = new Vector3(0, cam.transform.position.y, 0);

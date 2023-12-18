@@ -87,9 +87,10 @@ public class ConstructionSystem : MonoBehaviour
 
         feelsUI.RefreshUI();
 
-        if (objectSpawnedBuildingScript.BuildingData.feelTypeCostList[0].feelTypeCurrency)
+        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+        {
             objectSpawnedBuildingScript.RemoveFeelCost();
-
+        }
         consciousTreeToken.AddAmount(1);
 
         CheckBoostBuilding();
@@ -114,7 +115,7 @@ public class ConstructionSystem : MonoBehaviour
         }
         return true;
     }
-
+   
     bool IsWithinGridBounds(int x, int y)
     {
         int gridSize = _gridData.gridsUsageStatement.Count;

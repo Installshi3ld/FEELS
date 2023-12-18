@@ -45,6 +45,7 @@ public class S_FeelAssignationManager : MonoBehaviour
                 BuildingClickedOn = hit.collider.gameObject;
             }
 
+            //print(BuildingClickedOn);
             //Set data
             if (BuildingClickedOn)
             {
@@ -81,8 +82,9 @@ public class S_FeelAssignationManager : MonoBehaviour
     public void AssignFeel()
     {
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
+        var prices = s_Building.GetCosts();
 
-        _valueAssigned = s_FeelAssignationBuilding.AssignFeels(s_Building.BuildingData.feelTypeCostList[0].feelTypeCurrency);
+        _valueAssigned = s_FeelAssignationBuilding.AssignFeels(prices[0].feelTypeCurrency);
         if (_valueAssigned)
         {
             RefreshUi.Invoke();
@@ -93,8 +95,9 @@ public class S_FeelAssignationManager : MonoBehaviour
     public void UnassignFeel()
     {
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
+        var prices = s_Building.GetCosts();
 
-        _valueAssigned = s_FeelAssignationBuilding.UnassignFeels(s_Building.BuildingData.feelTypeCostList[0].feelTypeCurrency);
+        _valueAssigned = s_FeelAssignationBuilding.UnassignFeels(prices[0].feelTypeCurrency);
         if (_valueAssigned)
         {
             RefreshUi.Invoke();

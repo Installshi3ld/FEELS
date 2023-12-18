@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class S_BuildingData
+public class S_BuildingData : IEquatable<S_BuildingData> 
 {
     [Header("General Data")]
     public string buildingName;
@@ -17,6 +17,20 @@ public class S_BuildingData
     [Header("Building pool")]
     public int tier = 0;
     public Sprite BuildingImage;
+
+    public bool Equals(S_BuildingData other)
+    {
+        return other != null &&
+            other.buildingName == this.buildingName &&
+            other.feelType == this.feelType &&
+            other.tier == this.tier &&
+            other.BuildingTheme == this.BuildingTheme;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(buildingName, feelType, tier, BuildingTheme);
+    }
 }
 
 [Serializable]
@@ -24,6 +38,16 @@ public struct FeelTypeData
 {
     public S_Currencies feelTypeCurrency;
     public int feelPrice;
+
+    public bool HasEnoughFeels()
+    {
+        return feelTypeCurrency.HasEnoughFeels(feelPrice);
+    }
+
+    public void Pay()
+    { 
+        feelTypeCurrency.RemoveAmount(feelPrice);
+    }
 }
 #region Enumeration FeelType and Theme
 public enum FeelType
@@ -56,6 +80,7 @@ public class S_Building : MonoBehaviour
     [NonSerialized] public Vector3 location;
     float lerpAlpha = 0f;
 
+    [SerializeField] private S_BuildingCostManager costManager;
 
     private void Awake()
     {
@@ -81,25 +106,37 @@ public class S_Building : MonoBehaviour
         }
     }
 
+    public List<FeelTypeData> GetCosts()
+    {
+        return costManager.GetBuildingCost(BuildingData, false);
+    }
+
+    private List<FeelTypeData> GetCosts(bool consume)
+    {
+        return costManager.GetBuildingCost(BuildingData, consume);
+    }
+
     public bool HasEnoughMoney()
     {
-        foreach (FeelTypeData _feelTypeData in BuildingData.feelTypeCostList)
+        var prices = GetCosts();
+
+        foreach (FeelTypeData price in prices)
         {
-            if (!_feelTypeData.feelTypeCurrency.HasEnoughFeels(_feelTypeData.feelPrice))
+            if (!price.HasEnoughFeels())
                 return false;
         }
         return true;
     }
-    /// <summary> This function don't check if enough money, use HasEnoughMoney() to check.
-    /// </summary>
+
     public void RemoveFeelCost()
     {
-        foreach (FeelTypeData _feelTypeData in BuildingData.feelTypeCostList)
+        var prices = GetCosts(true);
+
+        foreach (FeelTypeData price in prices)
         {
-            _feelTypeData.feelTypeCurrency.RemoveAmount(_feelTypeData.feelPrice);
+            price.Pay();
         }
     }
-
     public void PlacedBuilding()
     {
         isPlacedAnimation = true;

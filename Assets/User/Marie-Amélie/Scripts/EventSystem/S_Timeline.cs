@@ -11,10 +11,7 @@ public class S_Timeline : MonoBehaviour
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    private float secondsBetweenNewConstraint;
-
-    [SerializeField]
-    private int chanceForLifeExperienceToSpawn;
+    public float secondsBetweenNewConstraint;
 
     private int currentPhaseIndex;
 
@@ -65,7 +62,7 @@ public class S_Timeline : MonoBehaviour
     {
         S_Requirement currentRequirement;
 
-        while (!IsAvailableRequirementListEmpty()) //I never remove the phase from the list
+        while (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
@@ -78,16 +75,22 @@ public class S_Timeline : MonoBehaviour
 
             if (currentRequirement != null)
             {
-                Debug.Log(currentRequirement.NarrativeDescription);
+                //Debug.Log(currentRequirement.NarrativeDescription);
 
                 currentEvent.SetNewRequirement(currentRequirement);
-            }
+
+                if (OnRequirementChecked != null)
+                {
+                    currentRequirement.CheckIsRequirementFulfilled();
+                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                }
+                }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
-                foreach (IDisaster consequence in currentRequirement.LinkedDisaster)
+                foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
                     Debug.Log("provoke disaster : " + consequence.Description);
 
@@ -101,9 +104,9 @@ public class S_Timeline : MonoBehaviour
             }
             else
             {
-                if (OnRequirementChecked != null)
+                foreach(S_Reward reward in currentRequirement.LinkedRewards)
                 {
-                    OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+                    reward.GetReward();
                 }
             }
             if (hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
@@ -218,7 +221,6 @@ public class S_Timeline : MonoBehaviour
         {
             int index = Random.Range(0, available.Count - 1);
             S_Requirement picked = available[index];
-            RequirementToReturn = available[index];
             already_done_requirement.Add(picked);
 
             if (available.Count == 1)
@@ -231,8 +233,6 @@ public class S_Timeline : MonoBehaviour
 
         return null;
     }
-    // A Partir de la Adrien fais son num�ro de Cirque : TPC !
-    public S_Requirement RequirementToReturn;
 }
 
 
