@@ -20,7 +20,7 @@ public class S_ThemeRequirement : S_BuildingRequirement
             }
 
             //if (IsRequirementBuildingOnMap(building /*param name */ => building.feelType == typeRequirement.feelType, typeRequirement.numberOfRequiredBuildings);
-            if (!IsRequirementBuildingOnMap(check, themeRequirements.Count))
+            if (!IsRequirementBuildingOnMap(check, themeRequirement.numberOfRequiredBuildings))
             {
                 HasBeenFulfilled = false;
                 return false;
