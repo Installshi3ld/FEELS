@@ -83,6 +83,10 @@ public class S_BuildingPoolUI : MonoBehaviour
                 button[i].image.sprite = _currentBuilding.GetComponent<S_Building>().BuildingData.BuildingImage;
                 button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
             }
+            else
+            {
+                button[i].image.sprite = null;
+            }
         }
     }
 
