@@ -29,6 +29,12 @@ public class ConstructionSystem : MonoBehaviour
 
     GameObject objectSpawned = null;
     Vector3 lastCursorPosition;
+    GameObject _planePlacementValid;
+
+    private void Start()
+    {
+        _planePlacementValid = Instantiate(planePlacementValid);
+    }
 
     private void OnDestroy()
     {
@@ -52,12 +58,7 @@ public class ConstructionSystem : MonoBehaviour
                 _building.SetDestination(_gridData.ClampPositionToGrid(hit.point));
                 lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
 
-                //Change color on valid
-                if (IsValidPlacement(GetObjectIndexInGridUsage(_building.destination), GetObjectSpawnTileUsage()))
-                {
-                    _building.SetMeshRendererMaterial(_placementValid);
-                }
-                else _building.SetMeshRendererMaterial(_placementNotValid);
+                ChangePlanePlacementUnderBuilding(_building);
             }
         }
     }
@@ -123,9 +124,32 @@ public class ConstructionSystem : MonoBehaviour
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
         objectSpawned = null;
+        _planePlacementValid.transform.position = new Vector3(0, -5, 0);
     }
 
+    void ChangePlanePlacementUnderBuilding(S_Building _building)
+    {
+        if (_planePlacementValid)
+        {
+            //Plane under building
+            Vector3 _planePlacementCoordinate = _building.destination + objectSpawned.transform.GetChild(0).localPosition;
+            _planePlacementCoordinate.y = 0.05f;
+            _planePlacementValid.transform.position = _planePlacementCoordinate;
 
+
+            int x = Mathf.Abs(_building.minimumX) * _gridData.tileSize + Mathf.Abs(_building.maximumX) * _gridData.tileSize + _gridData.tileSize;
+            int y = Mathf.Abs(_building.minimumY) * _gridData.tileSize + Mathf.Abs(_building.maximumY) * _gridData.tileSize + _gridData.tileSize;
+
+            _planePlacementValid.transform.localScale = new Vector3(x, 0, y);
+
+            //Change color on valid
+            if (IsValidPlacement(GetObjectIndexInGridUsage(_building.destination), GetObjectSpawnTileUsage()))
+            {
+                _planePlacementValid.GetComponent<MeshRenderer>().material = _placementValid;
+            }
+            else _planePlacementValid.GetComponent<MeshRenderer>().material = _placementNotValid;
+        }
+    }
 
     bool IsValidPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage)
     {
