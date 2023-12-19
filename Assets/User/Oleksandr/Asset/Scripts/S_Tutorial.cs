@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class S_Tutorial : MonoBehaviour
 {
+
+    public S_TutorialInfo[] Tutorial;
     void Start()
     {
-       
+        
 
 
  

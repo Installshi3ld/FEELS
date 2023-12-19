@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class S_TutorialInfo : MonoBehaviour
+public class S_TutorialInfo 
 {
 
     public short id;
