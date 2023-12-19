@@ -112,10 +112,13 @@ public class ConstructionSystem : MonoBehaviour
 
         UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
-        if (objectSpawnedBuildingScript.BuildingData.feelTypeCostList[0].feelTypeCurrency)
-            objectSpawnedBuildingScript.RemoveFeelCost();
-
         feelsUI.RefreshUI();
+
+        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+        {
+            objectSpawnedBuildingScript.RemoveFeelCost();
+        }
+        consciousTreeToken.AddAmount(1);
 
         CheckBoostBuilding();
         objectSpawnedBuildingScript.PlacedBuilding();
@@ -165,7 +168,7 @@ public class ConstructionSystem : MonoBehaviour
         }
         return true;
     }
-
+   
     bool IsWithinGridBounds(int x, int y)
     {
         int gridSize = _gridData.gridsUsageStatement.Count;

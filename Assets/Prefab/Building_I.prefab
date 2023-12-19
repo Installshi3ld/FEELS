@@ -150,10 +150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d587346fcffc942bdad0e457f34011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingData:
+    buildingName: 
+    feelType: 0
+    BuildingTheme: 0
+    feelTypeCostList: []
+    tier: 0
+    BuildingImage: {fileID: 0}
+  probabilityToSpawnInPool: 100
   tilesCoordinate:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
   - {x: 0, y: -1}
-  feelsCostList:
-  - feelsType: 0
-    cost: 5
+  costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}

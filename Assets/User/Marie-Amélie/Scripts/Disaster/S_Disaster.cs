@@ -2,20 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class S_Disaster : ScriptableObject, IDisaster
+public abstract class S_Disaster : ScriptableObject
 {
-    private string description = string.Empty;
-    public string Description
-    {
-        get
-        {
-            return this.description;
-        }
-        set
-        {
-            this.description = value;
-        }
-    }
-
+    public string Description = string.Empty;
     public abstract void ProvoqueDisaster();
 }

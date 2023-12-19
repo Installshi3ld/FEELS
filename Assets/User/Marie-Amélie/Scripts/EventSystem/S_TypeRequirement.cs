@@ -19,7 +19,7 @@ public class S_TypeRequirement : S_BuildingRequirement
             }
 
             //if (IsRequirementBuildingOnMap(building /*param name */ => building.feelType == typeRequirement.feelType, typeRequirement.numberOfRequiredBuildings);
-            if (!IsRequirementBuildingOnMap(check, typeRequirements.Count))
+            if (!IsRequirementBuildingOnMap(check, typeRequirement.numberOfRequiredBuildings))
             {
                 HasBeenFulfilled = false;
                 return false;

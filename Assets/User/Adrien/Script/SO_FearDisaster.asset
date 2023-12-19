@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SO_FearDisaster
   m_EditorClassIdentifier: 
   description: Thunderstorm
-  feelsToKill:
-  - {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
-  howMany: 64000000
+  costs:
+  - currency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+    amount: 100
