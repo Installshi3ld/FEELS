@@ -10,7 +10,6 @@ public class S_GridDebug : MonoBehaviour
     [Header("Data")]
     [SerializeField] private S_GridDebugTileInt _debugTile;
     [SerializeField] private S_GridData _gridData;
-    [SerializeField] private S_FogData fogData = default;
 
     [Header("Gizmos display")]
     [SerializeField, InfoBox("Use 'WireFramePlane'")] private GameObject _wireframePlane;
@@ -84,12 +83,12 @@ public class S_GridDebug : MonoBehaviour
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _usedTileMat;
         }
 
-        else if (fogData.fogGridsUsageStatement[x][y])
+        else if (Grid.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _fogTileMat;
         }
 
-        else if (!fogData.fogGridsUsageStatement[x][y])
+        else if (!Grid.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _nonUsedTileMat;
         }

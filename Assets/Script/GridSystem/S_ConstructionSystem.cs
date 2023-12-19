@@ -9,7 +9,6 @@ public class ConstructionSystem : MonoBehaviour
     [Header("General Data")]
     [SerializeField] private S_BuildingList buildingListContainer;
     [SerializeField]private S_GridData _gridData;
-    [SerializeField] private S_FogData fogData = default;
 
     public GameObject objectToSpawn;
     public GameObject planePlacementValid;
@@ -151,7 +150,7 @@ public class ConstructionSystem : MonoBehaviour
 
     bool IsTileOccupied(int x, int y)
     {
-        return _gridData.gridsUsageStatement[x][y].statement || fogData.fogGridsUsageStatement[x][y];
+        return _gridData.gridsUsageStatement[x][y].statement || Grid.fogGridsUsageStatement[x][y];
     }
 
     bool HasEnoughMoney(S_Building buildingScript)

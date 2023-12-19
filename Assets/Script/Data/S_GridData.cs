@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SO_GridData", menuName = "Data/SO_Grid Data")]
@@ -64,7 +63,7 @@ public class S_GridData : ScriptableObject, InitializeSO
         return new Vector3(_clampedX, position.y, _clampedZ);
     }
 
-    public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius, bool emptyTile)
+    public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius, bool gridUsageStatement)
     {
         List<Vector2Int> tmpAllCoordinateAroundBase = new List<Vector2Int>();
         List<Vector2Int> tmpCoordinateFree = new List<Vector2Int>();
@@ -80,7 +79,7 @@ public class S_GridData : ScriptableObject, InitializeSO
         foreach (Vector2Int coordinate in tmpAllCoordinateAroundBase)
         {
             if (coordinate.x >= 0 && coordinate.x < gridsUsageStatement.Count && coordinate.y >= 0 && coordinate.y < gridsUsageStatement.Count)
-                if (emptyTile)
+                if (gridUsageStatement)
                 {
                     if (radius * tileSize >= Vector3.Distance(GetPositionBasedOnIndex(BaseCoordinate.x, BaseCoordinate.y), GetPositionBasedOnIndex(coordinate.x, coordinate.y))
                     && !gridsUsageStatement[coordinate.x][coordinate.y].statement

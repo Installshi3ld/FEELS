@@ -8,7 +8,6 @@ public class S_FogExtension : MonoBehaviour
     public float delayBetweenFogUnlock = 3f;
 
     [SerializeField] private S_GridData _gridData;
-    [SerializeField] private S_FogData fogData = default;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +31,7 @@ public class S_FogExtension : MonoBehaviour
                 if (tmpCoordinate != Vector3.zero)
                 {
                     Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(tmpCoordinate);
-                    fogData.fogGridsUsageStatement[tmpIndex.x][tmpIndex.y] = false;
+                    Grid.fogGridsUsageStatement[tmpIndex.x][tmpIndex.y] = false;
                     Destroy(Grid.fogGameObjects[tmpIndex.x][tmpIndex.y]);
 
                 }
