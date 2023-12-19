@@ -21,7 +21,7 @@ public class S_GridDebug : MonoBehaviour
 
     private int _debugTileInt, _mapTileSize;
 
-    private void Start()
+    private void Awake()
     {
         _gridData.Init();
         gridDebugHighlight = S_StaticFunc.Create2DimensionalList(_gridData.tileAmount, () => false);
@@ -81,20 +81,19 @@ public class S_GridDebug : MonoBehaviour
         if (_gridData.gridsUsageStatement[x][y].statement)
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _usedTileMat;
-            _wireframeCubes[x][y].SetActive(true);
         }
 
         else if (Grid.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _fogTileMat;
-            _wireframeCubes[x][y].SetActive(true);
         }
 
         else if (!Grid.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _nonUsedTileMat;
-            _wireframeCubes[x][y].SetActive(true);
         }
+        if (_debugTile.GetValue() != 0)
+            _wireframeCubes[x][y].SetActive(true);
     }
 
     void RefreshAllDebugTile()

@@ -17,6 +17,7 @@ public abstract class S_BuildingRequirement : S_Requirement
             if (filter(building))
             {
                 counter++;
+                Debug.Log("counter " + counter);
             }
         }
 
