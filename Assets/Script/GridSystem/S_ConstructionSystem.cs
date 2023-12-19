@@ -152,6 +152,8 @@ public class ConstructionSystem : MonoBehaviour
             }
             else _planePlacementValid.GetComponent<MeshRenderer>().material = _placementNotValid;
         }
+        else
+            Debug.LogWarning("Plane under building is not refer in construction manager");
     }
 
     bool IsValidPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage)
