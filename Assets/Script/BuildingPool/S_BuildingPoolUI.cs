@@ -15,6 +15,7 @@ public class S_BuildingPoolUI : MonoBehaviour
     //Adriano ajoute des trucs pour l'interface
     public List<TextMeshProUGUI> feelsCost = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> buildingName = new List<TextMeshProUGUI>();
+    public List<Image> imageFeelType = new List<Image>();
     // C'est tout pour ici
 
     public GameObject InfoScreen;
@@ -92,12 +93,18 @@ public class S_BuildingPoolUI : MonoBehaviour
                 buildingName[i].text = _currentBuilding.GetComponent<S_Building>().BuildingData.buildingName;
                 buildingName[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
 
+                feelsCost[i].text = _currentBuilding.GetComponent<S_Building>().BuildingData.feelTypeCostList[i].feelPrice.ToString();
+                feelsCost[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
 
                 // La fin du cirque
             }
             else
             {
                 button[i].image.sprite = null;
+                // C'est le retour du Cirque Adriano
+                buildingName[i].text= null;
+                feelsCost[i].text = null;
+                // La fin du cirque
             }
         }
     }
