@@ -348,7 +348,7 @@ PrefabInstance:
     - target: {fileID: 3349927658395617477, guid: 6c9f38be6b0e5e64dbe796b451363a39, type: 3}
       propertyPath: manageEvent
       value: 
-      objectReference: {fileID: 1196866525}
+      objectReference: {fileID: 0}
     - target: {fileID: 3349927658395617477, guid: 6c9f38be6b0e5e64dbe796b451363a39, type: 3}
       propertyPath: disasterIsHere1
       value: 
@@ -810,6 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464625814}
   - component: {fileID: 464625813}
+  - component: {fileID: 464625815}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -846,6 +847,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &464625815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464625812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5eda94b583264d4192dceba088541f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugTile: {fileID: 11400000, guid: eac73ebf415d86143b92aeb0fc518968, type: 2}
+  _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
+  _wireframePlane: {fileID: 319090188900270873, guid: ffd40af9bc2660242b6a65e95ce2a4e0, type: 3}
+  _nonUsedTileMat: {fileID: 0}
+  _usedTileMat: {fileID: 0}
+  _fogTileMat: {fileID: 0}
 --- !u!1 &504972931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,17 +1406,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20a39c41a69562d41a4edf140f5a914d, type: 3}
---- !u!114 &1196866525 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6110601713418193746, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
-  m_PrefabInstance: {fileID: 1723043072}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c2ebccf050a8b4086508149423e45a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1260906612
 GameObject:
   m_ObjectHideFlags: 0
