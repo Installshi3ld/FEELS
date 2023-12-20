@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class S_LifeExperience : MonoBehaviour
 {
-
     public GameObject smallFire;
-
     public GameObject wonderBuilding;
 
     List<GameObject> allFire = new List<GameObject>();
     List<Vector2Int> gridUsage = new List<Vector2Int>();
 
     public float delayBeforeFlamePropagation = 5;
+
+    [SerializeField] private S_GridData _gridData = default(S_GridData);
     private void Awake()
     {
         wonderBuilding.GetComponent<S_Building>().isPlacedAnimation = true;
@@ -22,18 +22,18 @@ public class S_LifeExperience : MonoBehaviour
     private void Start()
     {
         S_Building building = wonderBuilding.GetComponent<S_Building>();
-        this.transform.position = Grid.GetRandomTileInGrid(building.tilesCoordinate) + new Vector3(0, 50, 0);
+        this.transform.position = _gridData.GetRandomTileInGrid(building.tilesCoordinate) + new Vector3(0, 50, 0);
 
         if (this.transform.position.y <= -500)
             Destroy(this);
 
         
-        Vector2Int tmpIndex = Grid.getIndexbasedOnPosition(this.transform.position);
+        Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(this.transform.position);
 
-        Grid.SetTileUsed(tmpIndex.x, tmpIndex.y);
+        _gridData.SetTileUsed(tmpIndex.x, tmpIndex.y);
         foreach (Vector2Int element in building.tilesCoordinate)
-        {
-            Grid.SetTileUsed(tmpIndex.x + element.x, tmpIndex.y + element.y);
+        {   
+            _gridData.SetTileUsed(tmpIndex.x + element.x, tmpIndex.y + element.y);
         }
         
     }
@@ -54,7 +54,8 @@ public class S_LifeExperience : MonoBehaviour
 
     void SpawnWonder()
     {
-        GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        wonder.GetComponent<S_Building>().PlacedBuilding();
         Destroy(this.gameObject);
     }
 
@@ -65,16 +66,16 @@ public class S_LifeExperience : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            Vector3 tmpCoordinate = Grid.GetRandomTileAroundOtherOne(Grid.getIndexbasedOnPosition(this.transform.position), 3, false);
+            Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, false);
             if(tmpCoordinate != Vector3.zero)
             {
-                if (!Grid.gridsUsageStatement[Grid.getIndexbasedOnPosition(tmpCoordinate).x][Grid.getIndexbasedOnPosition(tmpCoordinate).y])
+                if (!_gridData.gridsUsageStatement[_gridData.GetIndexbasedOnPosition(tmpCoordinate).x][_gridData.GetIndexbasedOnPosition(tmpCoordinate).y].statement)
                 {
                     allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
 
-                    Vector2Int tmpIndex = Grid.getIndexbasedOnPosition(tmpCoordinate);
+                    Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(tmpCoordinate);
                     gridUsage.Add(tmpIndex);
-                    Grid.SetTileUsed(tmpIndex.x, tmpIndex.y);
+                    _gridData.SetTileUsed(tmpIndex.x, tmpIndex.y);
                 }
 
             }
@@ -86,7 +87,7 @@ public class S_LifeExperience : MonoBehaviour
     {
         foreach (Vector2Int element in gridUsage)
         {
-            Grid.RemoveTileUsed(element.x, element.y);
+            _gridData.RemoveTileUsed(element.x, element.y);
         }
         foreach (GameObject Object in allFire)
         {

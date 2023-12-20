@@ -152,15 +152,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d587346fcffc942bdad0e457f34011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingData:
+    buildingName: 
+    feelType: 0
+    BuildingTheme: 0
+    feelTypeCostList: []
+    tier: 0
+    BuildingImage: {fileID: 0}
+  probabilityToSpawnInPool: 100
   tilesCoordinate:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
   - {x: 0, y: 1}
-  tier: 1
-  probabilityToSpawnInPool: 100
-  BuildingImage: {fileID: 21300000, guid: 993baadde5af1c546829750b2b267bb3, type: 3}
-  FeelType: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-  price: 5
+  costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
 --- !u!114 &1310220443837562143
 MonoBehaviour:
   m_ObjectHideFlags: 0

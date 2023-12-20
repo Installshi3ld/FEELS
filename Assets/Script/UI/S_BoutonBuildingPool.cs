@@ -11,11 +11,13 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     //[NonSerialized]
     public GameObject BuildingReference
     {
-        get {
+        get
+        {
             return _BuildingReference;
         }
-        set {
-            _BuildingReference = value; 
+        set
+        {
+            _BuildingReference = value;
             buildingScript = _BuildingReference.GetComponent<S_Building>();
             s_BuildingManager = _BuildingReference.GetComponent<S_BuildingManager>();
         }
@@ -24,39 +26,46 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     private GameObject _BuildingReference;
 
     [NonSerialized]
-    public S_BuildingPool _buildingPool;
+    public S_BuildingPoolUI _buildingPoolUI;
 
     S_Building buildingScript;
     S_BuildingManager s_BuildingManager;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!_BuildingReference)
+            return;
 
         int feelCost, increaseDecreseEquilibrium;
 
-        feelCost = buildingScript ? buildingScript.price : 0;
+        feelCost = buildingScript ? buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
+
         increaseDecreseEquilibrium = s_BuildingManager ? s_BuildingManager.increaseOrDecreaseAmount : 0;
 
-        if (_buildingPool)
+        if (_buildingPoolUI)
         {
-            if(buildingScript)
-                _buildingPool.SetInfoFeel(buildingScript.FeelType,  feelCost);
+            if (buildingScript)
+                _buildingPoolUI.SetInfoFeel(buildingScript.GetCosts()[0].feelTypeCurrency, feelCost);
             else
-                _buildingPool.SetInfoFeel(null, feelCost);
+                _buildingPoolUI.SetInfoFeel(null, feelCost);
 
             if (s_BuildingManager)
-                _buildingPool.SetInfoEquilibrium(buildingScript.GetComponent<S_BuildingManager>().emotionType, increaseDecreseEquilibrium);
+                _buildingPoolUI.SetInfoEquilibrium(buildingScript.GetComponent<S_BuildingManager>().emotionType, increaseDecreseEquilibrium);
             else
-                _buildingPool.SetInfoEquilibrium(null, increaseDecreseEquilibrium);
+                _buildingPoolUI.SetInfoEquilibrium(null, increaseDecreseEquilibrium);
 
-            _buildingPool.ShowInformation(true);
+            _buildingPoolUI.ShowInformation(true);
+        }
+        else
+        {
+            Debug.LogWarning("No building pool UI reference for button, abort show building data");
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (_buildingPool != null) 
-            _buildingPool.ShowInformation(false);
+        if (_buildingPoolUI != null)
+            _buildingPoolUI.ShowInformation(false);
     }
 
 }

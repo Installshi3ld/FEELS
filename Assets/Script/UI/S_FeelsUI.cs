@@ -23,17 +23,17 @@ public class S_FeelsUI : MonoBehaviour
         fearFeels.OnRefreshUi += RefreshUI;
         sadnessFeels.OnRefreshUi += RefreshUI;
         currency.OnRefreshUi += RefreshUI;
-        moodManager.OnChangeUIFeelsColor += ChangeColor;
+        //moodManager.OnChangeUIFeelsColor += ChangeColor;
         RefreshUI();
     }
 
     public void RefreshUI()
     {
-        jFeelsValue.text = joyFeels.amount.ToString();
-        aFeelsValue.text = angerFeels.amount.ToString();
-        fFeelsValue.text = fearFeels.amount.ToString();
-        sFeelsValue.text = sadnessFeels.amount.ToString();
-        tokenValue.text = currency.amount.ToString();
+        jFeelsValue.text = joyFeels.Amount.ToString();
+        aFeelsValue.text = angerFeels.Amount.ToString();
+        fFeelsValue.text = fearFeels.Amount.ToString();
+        sFeelsValue.text = sadnessFeels.Amount.ToString();
+        tokenValue.text = currency.Amount.ToString();
     }
 
     public void Info(string msg)

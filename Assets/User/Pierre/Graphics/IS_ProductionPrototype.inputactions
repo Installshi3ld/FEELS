@@ -1,0 +1,45 @@
+{
+    "name": "IS_ProductionPrototype",
+    "maps": [
+        {
+            "name": "Proto",
+            "id": "72c6b724-8b0b-4bde-807a-9e2e8e86123f",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "5ec9ec80-1c80-494e-9ee8-70aa77a1f9a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "363d6044-d7f9-4b7c-a916-bb3fab2c095e",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fd457ad-f092-435d-8e73-cc788618e015",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -1,36 +1,44 @@
-using System;
-using System.Collections;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 
 
 public class ConstructionSystem : MonoBehaviour
 {
+    [Header("General Data")]
+    [SerializeField] private S_BuildingList buildingListContainer;
+    [SerializeField]private S_GridData _gridData;
+
     public GameObject objectToSpawn;
-    public GameObject objectToSpawn2;
-    //private bool isObjectPlaced = false;
-    GameObject objectSpawned = null;
+    public GameObject planePlacementValid;
 
-    public S_Currencies joyCurrency, angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
+    [Header("Currencies Data")]
+    public S_Currencies joyCurrency;
+    public S_Currencies angerCurrency, sadCurrency, fearCurrency, consciousTreeToken;
+
+    [Header("Material")]
+    [SerializeField]  private Material _placementValid;
+    [SerializeField]  private Material _placementNotValid;
+    private Material _buildingMaterial;
+
+
+    [Space]
     public S_FeelsUI feelsUI;
+    private GameObject planePlacement;
 
-    public List<int> TierLimitInPool = new List<int>();
-    public List<GameObject> AllBuildings = new List<GameObject>();
-    [NonSerialized]
-    public List<GameObject> BuildingInPool = new List<GameObject>();
-    public List<List<GameObject>> buildingPerTier = new List<List<GameObject>>();
-
-    public delegate void RefreshBuildingPoolDelegate();
-    public event RefreshBuildingPoolDelegate OnRefreshBuildingPool;
-
+    GameObject objectSpawned = null;
     Vector3 lastCursorPosition;
+    GameObject _planePlacementValid;
 
     private void Start()
     {
-        StoreBuildingPerTier();
-        RefreshBuildingPool();
-        
+        _planePlacementValid = Instantiate(planePlacementValid);
+    }
+
+    private void OnDestroy()
+    {
+        buildingListContainer.ResetOnDestroy();
     }
 
     void Update()
@@ -39,26 +47,28 @@ public class ConstructionSystem : MonoBehaviour
         RaycastHit hit;
 
         //Mouse raycast
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 7))
         {
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
 
-            if(objectSpawned != null && Grid.ClampPositionToGrid(hit.point) != lastCursorPosition)
+            if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
             {
-                objectSpawned.GetComponent<S_Building>().SetDestination(Grid.ClampPositionToGrid(hit.point));
-               
-                lastCursorPosition = Grid.ClampPositionToGrid(hit.point);
+                S_Building _building = objectSpawned.GetComponent<S_Building>();
+
+                _building.SetDestination(_gridData.ClampPositionToGrid(hit.point));
+                lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
+
+                ChangePlanePlacementUnderBuilding(_building);
             }
-
-            UnityEngine.Debug.DrawRay(hit.point, hit.normal, Color.blue);
-
         }
-
-
+    }
+    private void LateUpdate()
+    {
         //Spawn object
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (objectSpawned == null) {
+            if (objectSpawned == null)
+            {
                 objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn);
             }
             else if (objectSpawned != null)
@@ -67,161 +77,137 @@ public class ConstructionSystem : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (objectSpawned == null)
-            {
-                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn2);
-            }
-            else if (objectSpawned != null)
-            {
-                Destroy(objectSpawned);
-            }
-        }
-
         //Place Object
-        if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
+        if (Input.GetMouseButtonDown(0) && !S_StaticFunc.IsMouseOverUI())
         {
-            if(objectSpawned != null )
+            if (objectSpawned != null)
             {
                 PlaceBuilding();
             }
         }
     }
 
-    void StoreBuildingPerTier()
+    List<Vector2Int> GetObjectSpawnTileUsage()
     {
-        for(int i = 0; i < TierLimitInPool.Count; i++)
-        {
-            buildingPerTier.Add(new List<GameObject>());
-        }
-        //Sort
-        foreach (var build in AllBuildings)
-        {
-            buildingPerTier[build.GetComponent<S_Building>().tier].Add(build);
-        }
+        return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
     }
 
-    public void RefreshBuildingPool()
-    {
-        
-        BuildingInPool.Clear();
-        List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
-
-        //Initiate list
-        for (int i = 0; i < TierLimitInPool.Count; i++)
-        {
-            tmpBuildingPerTier.Add(new List<GameObject>());
-        }
-
-        //Add element base on probability
-        for (int i = 1; i < buildingPerTier.Count; i++)
-        {
-            for(int j = 0; j < buildingPerTier[i].Count; j++)
-            {
-                if (UnityEngine.Random.Range(0, 101) < buildingPerTier[i][j].GetComponent<S_Building>().probabilityToSpawnInPool)
-                    tmpBuildingPerTier[i].Add(buildingPerTier[i][j]);
-            }
-        }
-        //Add element base on limitation
-        for (int i = 1; i < TierLimitInPool.Count; ++i)
-        {
-            S_GameFunction.Shuffle<GameObject>(tmpBuildingPerTier[i]);
-
-            for (int j = 0; j < TierLimitInPool[i]; j++)
-                if (tmpBuildingPerTier[i].Count > 0)
-                    BuildingInPool.Add(tmpBuildingPerTier[i][j]);
-        }
-
-        //Fill with tier 0
-        if(BuildingInPool.Count < 8)
-        {
-            int index = 0;
-            S_GameFunction.Shuffle<GameObject>(buildingPerTier[0]);
-            for (int i = BuildingInPool.Count; i < 8; i++)
-            {
-                BuildingInPool.Add(buildingPerTier[0][index]);
-                index++;
-            }
-        }
-        S_GameFunction.Shuffle<GameObject>(BuildingInPool);
-
-        print("RefreshPool");
-        OnRefreshBuildingPool.Invoke();
-    }
-
-
-    void PlaceBuilding()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="building"></param>
+    /// <param name="doPlayerPlaceIt"> If player place it (put it to False if it spawn by Computer)</param>
+    public void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
-        List<Vector2Int> objectSpawnTilesUsage = objectSpawnedBuildingScript.tilesCoordinate;
-       
-        Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawned);
-        bool canPlaceBuilding = true;
+        List<Vector2Int> objectSpawnTilesUsage = GetObjectSpawnTileUsage();
 
-        //Check if Index are on non used tile
-        for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+        Vector2Int tmpIndexInGrid = GetObjectIndexInGridUsage(objectSpawnedBuildingScript.destination);
+
+        if (!IsValidPlacement(tmpIndexInGrid, objectSpawnTilesUsage) || !HasEnoughMoney(objectSpawnedBuildingScript))
         {
-            //If building is outside 2 dimension list
-            if (tmpIndexInGrid.x + objectSpawnTilesUsage[i].x >= Grid.gridsUsageStatement.Count ||
-                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y >= Grid.gridsUsageStatement.Count ||
-                tmpIndexInGrid.y + objectSpawnTilesUsage[i].y < 0 ||
-                tmpIndexInGrid.x + objectSpawnTilesUsage[i].x < 0)
-            {
-                canPlaceBuilding = false;
-                break;
-            }
-
-            //1 -> Tile used 2 -> If outside mapSphereArea 
-            if (Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] 
-                ||
-                Grid.fogGridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y])
-            {
-                canPlaceBuilding = false;
-            }
-
+            feelsUI.Info("Need more feels");
+            return;
         }
 
-        //Check if enough Money
-        if(objectSpawnedBuildingScript.FeelType && objectSpawnedBuildingScript.FeelType.amount - objectSpawnedBuildingScript.price < 0)
-            canPlaceBuilding = false;
+        UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
-        if (canPlaceBuilding)
+        feelsUI.RefreshUI();
+
+        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
         {
-            for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+            objectSpawnedBuildingScript.RemoveFeelCost();
+        }
+        consciousTreeToken.AddAmount(1);
+
+        CheckBoostBuilding();
+        objectSpawnedBuildingScript.PlacedBuilding();
+
+        consciousTreeToken.AddAmount(1);
+        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
+
+        objectSpawned = null;
+        _planePlacementValid.transform.position = new Vector3(0, -5, 0);
+    }
+
+    void ChangePlanePlacementUnderBuilding(S_Building _building)
+    {
+        if (_planePlacementValid)
+        {
+            //Plane under building
+            Vector3 _planePlacementCoordinate = _building.destination + objectSpawned.transform.GetChild(0).localPosition;
+            _planePlacementCoordinate.y = 0.05f;
+            _planePlacementValid.transform.position = _planePlacementCoordinate;
+
+
+            int x = Mathf.Abs(_building.minimumX) * _gridData.tileSize + Mathf.Abs(_building.maximumX) * _gridData.tileSize + _gridData.tileSize;
+            int y = Mathf.Abs(_building.minimumY) * _gridData.tileSize + Mathf.Abs(_building.maximumY) * _gridData.tileSize + _gridData.tileSize;
+
+            _planePlacementValid.transform.localScale = new Vector3(x, 0, y);
+
+            //Change color on valid
+            if (IsValidPlacement(GetObjectIndexInGridUsage(_building.destination), GetObjectSpawnTileUsage()))
             {
-                Grid.gridsUsageStatement[tmpIndexInGrid.x + objectSpawnTilesUsage[i].x][tmpIndexInGrid.y - objectSpawnTilesUsage[i].y] = true;
+                _planePlacementValid.GetComponent<MeshRenderer>().material = _placementValid;
             }
-
-
-            feelsUI.RefreshUI();
-            if(objectSpawnedBuildingScript.FeelType)
-                objectSpawnedBuildingScript.FeelType.RemoveAmount(objectSpawnedBuildingScript.price);
-
-            consciousTreeToken.AddAmount(1);
-
-            objectSpawned.GetComponent<S_Building>().PlacedBuilding();
-            objectSpawned = null;
+            else _planePlacementValid.GetComponent<MeshRenderer>().material = _placementNotValid;
         }
         else
-            feelsUI.Info("Need more feels");
+            Debug.LogWarning("Plane under building is not refer in construction manager");
+    }
+
+    bool IsValidPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage)
+    {
+        for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+        {
+            int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
+            int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
+
+            if (!IsWithinGridBounds(x, y) || IsTileOccupied(x, y))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+   
+    bool IsWithinGridBounds(int x, int y)
+    {
+        int gridSize = _gridData.gridsUsageStatement.Count;
+        return x >= 0 && x < gridSize && y >= 0 && y < gridSize;
+    }
+
+    bool IsTileOccupied(int x, int y)
+    {
+        return _gridData.gridsUsageStatement[x][y].statement || Grid.fogGridsUsageStatement[x][y];
+    }
+
+    bool HasEnoughMoney(S_Building buildingScript)
+    {
+        return buildingScript.HasEnoughMoney();
+    }
+
+    void UpdateGridOnPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage, S_Building buildingScript)
+    {
+        for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
+        {
+            int x = tmpIndexInGrid.x + objectSpawnTilesUsage[i].x;
+            int y = tmpIndexInGrid.y - objectSpawnTilesUsage[i].y;
+
+            _gridData.SetTileUsed(x, y);
+            _gridData.gridsUsageStatement[x][y].building = objectSpawned;
+        }
     }
 
 
-    Vector2Int GetObjectIndexInGridUsage(GameObject objectSpawned)
+
+    Vector2Int GetObjectIndexInGridUsage(Vector3 objectSpawned)
     {
         //Get index base in gridUsageStatement based on position
-        int indexX = (int)objectSpawned.transform.position.x / Grid.tileSize + Grid.gridsUsageStatement.Count / 2;
-        int indexZ = (int)objectSpawned.transform.position.z / Grid.tileSize + Grid.gridsUsageStatement.Count / 2;
+        int indexX = (int)objectSpawned.x / _gridData.tileSize + _gridData.gridsUsageStatement.Count / 2;
+        int indexZ = (int)objectSpawned.z / _gridData.tileSize + _gridData.gridsUsageStatement.Count / 2;
 
         return new Vector2Int(indexX, indexZ);
-    }
-
-    bool GetTileStatementWithIndex(Vector2Int positionOnGrid)
-    {
-        float positionX = (float)positionOnGrid.x * Grid.tileSize - Grid.gridsUsageStatement.Count * 2;
-
-        return true;
     }
 
     public void SpawnObject(GameObject gameObject)
@@ -235,9 +221,23 @@ public class ConstructionSystem : MonoBehaviour
     GameObject SpawnGameObject(Vector3 spawnPoint, GameObject gameObject = null)
     {
         Vector3 spawnPoinTtmp = Vector3.zero;
+        S_Building tmpBuilding = gameObject.GetComponent<S_Building>();
+
         if (objectToSpawn != null && spawnPoinTtmp != null)
         {
             GameObject tmp = Instantiate(gameObject, spawnPoinTtmp, Quaternion.identity);
+
+            /*
+            Vector3 childPos = gameObject.transform.GetChild(0).position;
+            childPos.y = 0.05f;
+
+            planePlacement = Instantiate(planePlacementValid, childPos, Quaternion.identity);
+            planePlacement.transform.localScale = new Vector3(tmpBuilding.maximumX * 5, 0, tmpBuilding.maximumY * 5);
+
+            planePlacement.transform.SetParent(gameObject.transform);
+            */
+
+            _buildingMaterial = tmp.GetComponent<Material>();
             return tmp;
 
         }
@@ -248,9 +248,121 @@ public class ConstructionSystem : MonoBehaviour
         }
 
     }
-
-    private bool IsMouseOverUI()
+    void CheckBoostBuilding()
     {
-        return EventSystem.current.IsPointerOverGameObject();
+        List<Vector2Int> _tilesToCheckForBoost = new List<Vector2Int>();
+        S_Building s_building = objectSpawned.GetComponent<S_Building>();
+        _tilesToCheckForBoost = s_building.GetSurroundingTiles();
+
+        FeelType _feelType = FeelType.None;
+        if (s_building)
+            _feelType = s_building.BuildingData.feelType;
+
+        GameObject _currentBuildingToCheck = null;
+        Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned.transform.position);
+
+        //Check tile for boost
+        for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
+        {
+
+            _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
+
+            // Apply behavior of case to boost bellow
+
+
+            CheckTileAndBoost(_currentBuildingToCheck, _feelType);
+        }
+
+        if (_feelType == FeelType.Sad)
+        {
+            List<GameObject> buildingSadToBoost = new List<GameObject>();
+
+            List<Vector2Int> corners = s_building.GetCornerTiles();
+
+            for (int i = 0; i < corners.Count; i++)
+            {
+                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
+                if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
+                {
+                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
+
+                    if (_feelType == _currentBuildingToCheckFeelType && !buildingSadToBoost.Contains(_currentBuildingToCheck))
+                    {
+                        buildingSadToBoost.Add(_currentBuildingToCheck);
+                    }
+                }
+            }
+        
+            for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
+            {
+                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
+                if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
+                {
+                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
+
+                    if (_feelType == _currentBuildingToCheckFeelType && buildingSadToBoost.Contains(_currentBuildingToCheck))
+                    {
+                        buildingSadToBoost.Remove(_currentBuildingToCheck);
+                    }
+
+                }
+            }
+
+            foreach (GameObject sadBuild in buildingSadToBoost)
+            {
+                if (sadBuild.GetComponent<S_FeelAssignationBuilding>()) { }
+                    sadBuild.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+            }
+
+            if(buildingSadToBoost.Count > 0)
+            {
+                if(objectSpawned.GetComponent<S_FeelAssignationBuilding>())
+                    objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+            }
+        }
+
     }
+
+    private void CheckTileAndBoost(GameObject _currentBuildingToCheck, FeelType _feelType)
+    {
+        FeelType _currentBuildingToCheckFeelType;
+
+        if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
+        {
+            _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
+
+            switch (_feelType)
+            {
+                case FeelType.Joy:
+                    if (_feelType == _currentBuildingToCheckFeelType)
+                    {
+                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                    }
+                    break;
+
+                case FeelType.Anger:
+                    if (_feelType == _currentBuildingToCheckFeelType)
+                    {
+                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                    }
+                    break;
+                case FeelType.Fear:
+
+                    if (_feelType != _currentBuildingToCheckFeelType)
+                    {
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                    }
+                    if (_feelType == _currentBuildingToCheckFeelType)
+                    {
+                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                    }
+
+                    break;
+            }
+        }
+    }
+
 }
