@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: 
+    buildingName: SodaRocket
     feelType: 1
     BuildingTheme: 2
     feelTypeCostList:
@@ -62,7 +62,12 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 1, y: 1}
   - {x: 1, y: 0}
+  _meshRenderer: {fileID: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!114 &5837937716876014161
 MonoBehaviour:
   m_ObjectHideFlags: 0

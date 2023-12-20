@@ -86,6 +86,8 @@ public class S_BuildingPoolUI : MonoBehaviour
 
             if (_currentBuilding)
             {
+                print(i);
+
                 button[i].image.sprite = _currentBuilding.GetComponent<S_Building>().BuildingData.BuildingImage;
                 button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
 
@@ -93,7 +95,7 @@ public class S_BuildingPoolUI : MonoBehaviour
                 buildingName[i].text = _currentBuilding.GetComponent<S_Building>().BuildingData.buildingName;
                 buildingName[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
 
-                feelsCost[i].text = _currentBuilding.GetComponent<S_Building>().BuildingData.feelTypeCostList[i].feelPrice.ToString();
+                feelsCost[i].text = _currentBuilding.GetComponent<S_Building>().BuildingData.feelTypeCostList[0].feelPrice.ToString();
                 feelsCost[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
 
                 // La fin du cirque

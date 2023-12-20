@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: 
+    buildingName: Piano
     feelType: 3
     BuildingTheme: 1
     feelTypeCostList:
@@ -61,7 +61,12 @@ MonoBehaviour:
   probabilityToSpawnInPool: 0
   tilesCoordinate:
   - {x: -1, y: 0}
+  _meshRenderer: {fileID: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!114 &-8296961094700234852
 MonoBehaviour:
   m_ObjectHideFlags: 0
