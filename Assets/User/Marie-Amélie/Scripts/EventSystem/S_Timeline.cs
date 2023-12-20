@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
+using UnityEngine.Events;
 
 public class S_Timeline : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class S_Timeline : MonoBehaviour
     public S_EventTimer eventTimer;
 
     private bool hasLifeEventBeenPicked;
-    private S_LifeExperienceScriptableObject pickedLifeExperience;
+    public S_LifeExperienceScriptableObject pickedLifeExperience;
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
@@ -31,6 +32,10 @@ public class S_Timeline : MonoBehaviour
     public delegate void RefreshFromEvent(S_Requirement currentEvent);
     public static event RefreshFromEvent OnRequirementChecked;
     public static event RefreshFromEvent OnDisasterOccuring;
+
+    private bool hasBeenPaid = false;
+
+    private S_LifeExperience currentLifeExperience;
 
     // Start is called before the first frame update
     void Start()
@@ -77,9 +82,19 @@ public class S_Timeline : MonoBehaviour
 
             eventTimer.StartTimerOver();
 
+            if (!pickedLifeExperience) //If not null means that an unresolved one is already on the map
+            {
+                ChooseOrNotLifeExperience();
+            }
+
+
+            if (hasLifeEventBeenPicked && pickedLifeExperience && !hasBeenPaid)
+            {
+                AddFireLifeExperience(pickedLifeExperience);
+            }
+
             currentRequirement = chooseOneRequirementRandomly();
 
-            ChooseOrNotLifeExperience();
 
             if (currentRequirement != null)
             {
@@ -112,13 +127,14 @@ public class S_Timeline : MonoBehaviour
                     reward.GetReward();
                 }
             }
-            if (hasLifeEventBeenPicked && pickedLifeExperience && !pickedLifeExperience.hasBeenPaid)
-            {
-                //SET FIRE
-            }
         }
     }
 
+
+    public void AddFireLifeExperience(S_LifeExperienceScriptableObject lifeExpScript)
+    {
+        currentLifeExperience = Instantiate(lifeExpScript.lifeExperience, new Vector3(0, -500, 0), Quaternion.identity);
+    }
     private bool IsAvailableRequirementListEmpty()
     {
         if (GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)
@@ -148,6 +164,7 @@ public class S_Timeline : MonoBehaviour
 
     private S_LifeExperienceScriptableObject PickRandomLifeExperience()
     {
+        hasBeenPaid = false;
         S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
 
         if (currentPhaseObject.requirements.Count > 0)
@@ -235,6 +252,27 @@ public class S_Timeline : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void PayLifeExperience()
+    {
+        if (pickedLifeExperience == null)
+        {
+            return;
+        }
+        if (pickedLifeExperience.feelTypeToPay.HasEnoughFeels(pickedLifeExperience.priceToPayToResolve))
+        {
+            pickedLifeExperience.feelTypeToPay.RemoveAmount(pickedLifeExperience.priceToPayToResolve);
+            currentLifeExperience.SpawnWonder();
+            currentLifeExperience.Clear();
+
+            pickedLifeExperience = null;
+            Debug.Log("Life experience solved");
+        }
+        else
+        {
+            Debug.Log("you do not have enough money");
+        }
     }
 }
 

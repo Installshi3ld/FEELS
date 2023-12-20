@@ -7,29 +7,12 @@ using UnityEngine;
 public class S_LifeExperienceScriptableObject : ScriptableObject
 {
     [SerializeField]
+    public S_LifeExperience lifeExperience;
+
+    [SerializeField]
     public string description;
     [SerializeField]
-    private int priceToPayToResolve;
+    public int priceToPayToResolve;
     [SerializeField]
-    private S_Currencies feelTypeToPay;
-    [SerializeField]
-    private int firePropagationTimer;
-
-    [NonSerialized]
-    public bool hasBeenPaid;
-
-    private void OnEnable()
-    {
-        hasBeenPaid = false;
-    }
-
-    IEnumerator SetWorldOnFire()
-    {
-        while(hasBeenPaid == false)
-        {
-            Debug.Log("fire is propagating");
-            yield return new WaitForSeconds(firePropagationTimer);
-        }
-        Debug.Log("end of fire");
-    }
+    public S_Currencies feelTypeToPay;
 }

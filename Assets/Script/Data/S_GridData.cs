@@ -22,6 +22,7 @@ public class S_GridData : ScriptableObject, InitializeSO
     {
         tileAmount = mapSphereArea * 2 / tileSize + 1 + (padding * 2);
         gridsUsageStatement = S_StaticFunc.Create2DimensionalList(tileAmount, () => new S_GridUsage());
+        _fogData.Init(tileAmount);
     }
 
     public Vector2Int GetIndexbasedOnPosition(Vector3 position)
