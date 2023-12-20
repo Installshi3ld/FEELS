@@ -14,12 +14,14 @@ public class S_Timeline : MonoBehaviour
     [SerializeField]
     public float secondsBetweenNewConstraint;
 
+    [SerializeField]
+    private S_UILifeExpDelegateScriptableObject uiLifeExp;
+
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
 
     private bool hasLifeEventBeenPicked;
-    public S_LifeExperienceScriptableObject pickedLifeExperience;
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
@@ -37,6 +39,22 @@ public class S_Timeline : MonoBehaviour
 
     private S_LifeExperience currentLifeExperience;
 
+    public bool isLifeExperienceActive;
+
+    private S_LifeExperienceScriptableObject pickedLifeExperience;
+    public S_LifeExperienceScriptableObject PickedLifeExperience
+    {
+        get
+        {
+            return pickedLifeExperience;
+        }
+        private set
+        {
+            pickedLifeExperience = value;
+            uiLifeExp.SetLifeExperienceBool(value);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +71,7 @@ public class S_Timeline : MonoBehaviour
         if (OnRequirementChecked != null && currentRequirement != null)
         {
             currentRequirement.CheckIsRequirementFulfilled();
-            Debug.Log(currentRequirement.HasBeenFulfilled);
+
             OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
         }
     }
@@ -82,15 +100,15 @@ public class S_Timeline : MonoBehaviour
 
             eventTimer.StartTimerOver();
 
-            if (!pickedLifeExperience) //If not null means that an unresolved one is already on the map
+            if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map
             {
                 ChooseOrNotLifeExperience();
             }
 
 
-            if (hasLifeEventBeenPicked && pickedLifeExperience && !hasBeenPaid)
+            if (hasLifeEventBeenPicked && PickedLifeExperience && !hasBeenPaid)
             {
-                AddFireLifeExperience(pickedLifeExperience);
+                AddFireLifeExperience(PickedLifeExperience);
             }
 
             currentRequirement = chooseOneRequirementRandomly();
@@ -195,11 +213,11 @@ public class S_Timeline : MonoBehaviour
         if (randomInt <= chanceForLifeExpToOccur)
         {
             hasLifeEventBeenPicked = true;
-            pickedLifeExperience = PickRandomLifeExperience();
+            PickedLifeExperience = PickRandomLifeExperience();
 
-            if (pickedLifeExperience != null)
+            if (PickedLifeExperience != null)
             {
-                Debug.Log("Random Life experience have been picked : " + pickedLifeExperience.description);
+                Debug.Log("Random Life experience have been picked : " + PickedLifeExperience.description);
             }
             else
             {
@@ -256,17 +274,17 @@ public class S_Timeline : MonoBehaviour
 
     public void PayLifeExperience()
     {
-        if (pickedLifeExperience == null)
+        if (PickedLifeExperience == null)
         {
             return;
         }
-        if (pickedLifeExperience.feelTypeToPay.HasEnoughFeels(pickedLifeExperience.priceToPayToResolve))
+        if (PickedLifeExperience.feelTypeToPay.HasEnoughFeels(PickedLifeExperience.priceToPayToResolve))
         {
-            pickedLifeExperience.feelTypeToPay.RemoveAmount(pickedLifeExperience.priceToPayToResolve);
+            PickedLifeExperience.feelTypeToPay.RemoveAmount(PickedLifeExperience.priceToPayToResolve);
             currentLifeExperience.SpawnWonder();
             currentLifeExperience.Clear();
 
-            pickedLifeExperience = null;
+            PickedLifeExperience = null;
             Debug.Log("Life experience solved");
         }
         else
