@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865c4390da7b5c44aaf5015f5ea838ba, type: 3}
-  m_Name: SO_AngryFeels
+  m_Script: {fileID: 11500000, guid: 3e0bf30f8613c1345b06384cf8d71aba, type: 3}
+  m_Name: SO_FeelsReward_Joy
   m_EditorClassIdentifier: 
-  feelType: 2
-  amount: 70
-  image: {fileID: 21300000, guid: e33e17245f3b2c84d9e586b58bdeb444, type: 3}
+  Description: 
+  rewards:
+  - currencyType: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
+    howManyForReward: 50

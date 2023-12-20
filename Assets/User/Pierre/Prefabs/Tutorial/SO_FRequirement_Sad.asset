@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32c985dc66a06644788faa67854ccb1c, type: 3}
-  m_Name: SO_FeelRequirement
+  m_Name: SO_FRequirement_Sad
   m_EditorClassIdentifier: 
-  NarrativeDescription: 
-  ConstraintDescription: 
+  NarrativeDescription: My goldfish died
+  ConstraintDescription: Generate 40 Sad Feels
   LinkedDisaster:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
   LinkedRewards:
-  - {fileID: 11400000, guid: dfef236c100b7f740b8ec360d9f77099, type: 2}
+  - {fileID: 11400000, guid: 4cb2a0ba97316b34d8aae9fdae1c19e3, type: 2}
   soFeelType:
-  - {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-  targetedNumberOfFeels: 14000000
+  - {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+  targetedNumberOfFeels: 28000000
