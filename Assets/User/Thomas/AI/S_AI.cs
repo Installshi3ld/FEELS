@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class S_AI : MonoBehaviour
 {
     NavMeshAgent m_Agent;
+    public FeelType m_FeelType;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,6 @@ public class S_AI : MonoBehaviour
     {
         if(!haveTask && m_Agent.velocity == Vector3.zero)
         {
-            print("greger");
             StartCoroutine(WaitForNextMovement());
         }
     }

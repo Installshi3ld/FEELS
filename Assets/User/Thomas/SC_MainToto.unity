@@ -1017,6 +1017,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7840d67682ff8c24e91d060481b80312, type: 3}
+--- !u!1 &821942357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821942359}
+  - component: {fileID: 821942358}
+  m_Layer: 0
+  m_Name: AIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &821942358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821942357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb7d44c3df17144f8f21fd7cecc9358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FeelsTypePrefab:
+  - {fileID: 470729882371435919, guid: 13ea894b99933ae48aaec90aea941e74, type: 3}
+  - {fileID: 470729882371435919, guid: 32c99dd00b0a5be4ba24d3c26c377df1, type: 3}
+  - {fileID: 470729882371435919, guid: cb2a2ef0f9291f04e9443bc98a8ecfdd, type: 3}
+  - {fileID: 470729882371435919, guid: c27d9d658d475924f88590f0b6a7ffbf, type: 3}
+  _aiScript: []
+--- !u!4 &821942359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821942357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &884278450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,6 +2967,7 @@ GameObject:
   - component: {fileID: 1899475727}
   - component: {fileID: 1899475726}
   - component: {fileID: 1899475725}
+  - component: {fileID: 1899475729}
   m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
@@ -3011,6 +3062,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1899475729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899475724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 247
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: cc1a64325804e084b935d84fd559399e, type: 2}
 --- !u!1001 &1957571989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3095,6 +3175,7 @@ SceneRoots:
   - {fileID: 1048768608}
   - {fileID: 317501062}
   - {fileID: 906901444}
+  - {fileID: 821942359}
   - {fileID: 1721796737}
   - {fileID: 599518560}
   - {fileID: 88315131}
