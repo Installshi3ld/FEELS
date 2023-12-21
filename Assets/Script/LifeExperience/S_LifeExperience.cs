@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Principal;
@@ -8,13 +9,14 @@ public class S_LifeExperience : MonoBehaviour
 {
     public GameObject smallFire;
     public GameObject wonderBuilding;
+    private bool isFirePropagating;
 
     List<GameObject> allFire = new List<GameObject>();
     List<Vector2Int> gridUsage = new List<Vector2Int>();
 
     public float delayBeforeFlamePropagation = 5;
 
-    [SerializeField] private S_GridData _gridData = default(S_GridData);
+    [SerializeField] public S_GridData _gridData = default(S_GridData);
     private void Awake()
     {
         wonderBuilding.GetComponent<S_Building>().isPlacedAnimation = true;
@@ -52,17 +54,17 @@ public class S_LifeExperience : MonoBehaviour
         }
     }
 
-    void SpawnWonder()
+    public void SpawnWonder()
     {
         GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
         wonder.GetComponent<S_Building>().PlacedBuilding();
-        Destroy(this.gameObject);
     }
 
     IEnumerator FlamePropagation()
     {
+        isFirePropagating = true;
         yield return new WaitForSeconds(delayBeforeFlamePropagation);
-        while (true)
+        while (isFirePropagating)
         {
             yield return new WaitForSeconds(1f);
 
@@ -79,11 +81,10 @@ public class S_LifeExperience : MonoBehaviour
                 }
 
             }
-            
+
         }
-        
     }
-    private void OnDisable()
+    public void Clear()
     {
         foreach (Vector2Int element in gridUsage)
         {
@@ -94,6 +95,6 @@ public class S_LifeExperience : MonoBehaviour
             Destroy(Object);
         }
 
-        SpawnWonder();
+        Destroy(gameObject);
     }
 }
