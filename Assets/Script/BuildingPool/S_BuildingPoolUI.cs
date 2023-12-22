@@ -67,16 +67,16 @@ public class S_BuildingPoolUI : MonoBehaviour
         else
             FeelTypeImage.enabled = false;
     }
-    public void SetInfoEquilibrium(S_EmotionScriptableObject EquilibriumType, int EquilibriumCost = 0)
-    {
-        EquilibriumTypeImage.enabled = true;
-        T_EquilibriumCost.text = EquilibriumCost.ToString();
-
-        if (EquilibriumType)
-            EquilibriumTypeImage.sprite = EquilibriumType.image;
-        else
-            EquilibriumTypeImage.enabled = false;
-    }
+//  public void SetInfoEquilibrium(S_EmotionScriptableObject EquilibriumType, int EquilibriumCost = 0)
+//  {
+//      EquilibriumTypeImage.enabled = true;
+//      T_EquilibriumCost.text = EquilibriumCost.ToString();
+//  
+//      if (EquilibriumType)
+//          EquilibriumTypeImage.sprite = EquilibriumType.image;
+//      else
+//          EquilibriumTypeImage.enabled = false;
+//  }
 
     void RefreshUI()
     {
