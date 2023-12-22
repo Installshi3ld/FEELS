@@ -203,12 +203,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 2061357171863665176}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
       propertyPath: m_LocalPosition.z
@@ -242,10 +254,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d47f99269d1af9e4d89d5bed85d85428, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -7779636663561894942, guid: b7231177de0d1fd4994d93a0b4ffd4de, type: 3}
     - target: {fileID: 919132149155446097, guid: 9528799c630d7ca49b3ea9622f833168, type: 3}
       propertyPath: m_Name
       value: Sad_Piano
