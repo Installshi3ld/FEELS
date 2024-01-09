@@ -17,6 +17,9 @@ public class S_Timeline : MonoBehaviour
     [SerializeField]
     private S_UILifeExpDelegateScriptableObject uiLifeExp;
 
+    [SerializeField]
+    private S_UILifeExperiencePriceScriptableObject priceLifeExpUI;
+
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
@@ -52,6 +55,7 @@ public class S_Timeline : MonoBehaviour
         {
             pickedLifeExperience = value;
             uiLifeExp.SetLifeExperienceBool(value);
+            priceLifeExpUI.CallDelegate_UpdatePriceUILifeExp(value);
         }
     }
 
