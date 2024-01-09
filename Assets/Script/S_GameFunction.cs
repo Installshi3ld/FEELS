@@ -15,11 +15,11 @@ public class S_GameFunction : MonoBehaviour
     public GameObject PauseMenu;
     public void SwitchTimeScalePauseResume()
     {
-        if (Time.timeScale > 0.5)
+        if (Time.timeScale > 0.5f)
         {
             PauseMenu.SetActive(true);
             isPaused = true;
-            Time.timeScale = 0.000f;
+            Time.timeScale = 0f;
         }
 
         else
