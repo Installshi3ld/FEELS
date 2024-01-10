@@ -11,8 +11,6 @@ public abstract class S_Requirement : ScriptableObject
 
     public string ConstraintDescription = string.Empty;
 
-    public bool isNarrativeRequirement = false;
-
     [NonSerialized]
     public bool HasBeenFulfilled = false;
 

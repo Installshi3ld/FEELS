@@ -7,9 +7,6 @@ public class S_PhaseScriptableObject : ScriptableObject
 {
     public string nameOfPhase;
 
-    public int numberOfRequirementsToFulfill;
-    public int fulfilledRequirements = 0;
-
     public List<S_Requirement> requirements = new List<S_Requirement>();
     public List<S_LifeExperienceScriptableObject> lifeExperiences = new List<S_LifeExperienceScriptableObject>();
 }
