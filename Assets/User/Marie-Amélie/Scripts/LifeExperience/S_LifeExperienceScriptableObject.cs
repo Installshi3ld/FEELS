@@ -10,6 +10,9 @@ public class S_LifeExperienceScriptableObject : ScriptableObject
     public S_LifeExperience lifeExperience;
 
     [SerializeField]
+    public bool isNarrativeRequirement;
+
+    [SerializeField]
     public string description;
     [SerializeField]
     public int priceToPayToResolve;
