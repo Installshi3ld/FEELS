@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
-using UnityEngine.Events;
 
 public class S_Timeline : MonoBehaviour
 {
@@ -80,9 +79,15 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private void ChangePhaseIndex()//LOGIC HERE NOT CORRECT
+    //Now the phases should be updated regarding the numberOfRequirementsToFulfill in each phase. The requirement have to have been fullfilled.
+    private void TryChangePhaseIndex()
     {
-        if (phases.Count == currentPhaseIndex + 1)
+        if (phases[currentPhaseIndex].fulfilledRequirements >= phases[currentPhaseIndex].numberOfRequirementsToFulfill)
+        {
+            //switch phase -- visual feedback you grew up + choose your personality again. 
+            currentPhaseIndex++;
+        }
+        /*if (phases.Count == currentPhaseIndex + 1)
         {
             Debug.Log("all phases ended");
         }
@@ -91,12 +96,11 @@ public class S_Timeline : MonoBehaviour
             currentPhaseIndex++;
             already_done_requirement.Clear(); // clear actual requirement list
             already_done_lifeExperience.Clear();
-        }
+        }*/
     }
 
     private IEnumerator UpdateEvents()
     {
-
         while (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
@@ -117,14 +121,22 @@ public class S_Timeline : MonoBehaviour
 
             currentRequirement = chooseOneRequirementRandomly();
 
-
             if (currentRequirement != null)
             {
                 //Debug.Log(currentRequirement.NarrativeDescription);
 
                 currentEvent.SetNewRequirement(currentRequirement);
 
+                if(currentRequirement.isNarrativeRequirement)
+                {
+                    bool isNarrativeEventDone = false;
+                    while (!isNarrativeEventDone)
+                    {
+
+                    }
+                    
                 }
+            }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
@@ -147,6 +159,8 @@ public class S_Timeline : MonoBehaviour
                 foreach(S_Reward reward in currentRequirement.LinkedRewards)
                 {
                     reward.GetReward();
+
+                    phases[currentPhaseIndex].numberOfRequirementsToFulfill++;
                 }
             }
         }
@@ -210,6 +224,11 @@ public class S_Timeline : MonoBehaviour
         return null;
     }
 
+    IEnumerator PlayNarrativeEvent()
+    {
+        yield return true;
+    }
+
     private void ChooseOrNotLifeExperience()
     {
         int randomInt = Random.Range(0, 99);
@@ -253,10 +272,8 @@ public class S_Timeline : MonoBehaviour
         yield break;
     }
 
-    private S_Requirement chooseOneRequirementRandomly()
+    private S_Requirement chooseOneRequirementRandomly()//We gonna remove everything from available after pick, except narrative if failed that can happen again
     {
-        S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
-
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
 
         if (available.Count > 0)
@@ -267,7 +284,7 @@ public class S_Timeline : MonoBehaviour
 
             if (available.Count == 1)
             {
-                ChangePhaseIndex();
+                TryChangePhaseIndex();
             }
 
             return picked;
