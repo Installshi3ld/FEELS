@@ -9,6 +9,12 @@ public class S_LifeExperienceManager : MonoBehaviour
     public GameObject wonderFireLifeExperience;
     [Space]
     List<GameObject> firelifeExperienceList = new List<GameObject>();
+
+    private void Start()
+    {
+        fireLifeExperience.GetComponent<S_LifeExperience>()._gridData.Init();
+        AddFireLifeExperience();
+    }
     public void AddFireLifeExperience() 
     {
         firelifeExperienceList.Add(GameObject.Instantiate(fireLifeExperience, new Vector3(0, -500, 0), Quaternion.identity));
