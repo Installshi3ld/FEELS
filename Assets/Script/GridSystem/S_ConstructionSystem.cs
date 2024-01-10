@@ -265,7 +265,7 @@ public class ConstructionSystem : MonoBehaviour
 
             _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
 
-            // Apply behavior of case to boost bellow
+            //Apply behavior of case to boost bellow
 
 
             CheckTileAndBoost(_currentBuildingToCheck, _feelType);
@@ -277,6 +277,7 @@ public class ConstructionSystem : MonoBehaviour
 
             List<Vector2Int> corners = s_building.GetCornerTiles();
 
+            
             for (int i = 0; i < corners.Count; i++)
             {
                 _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;

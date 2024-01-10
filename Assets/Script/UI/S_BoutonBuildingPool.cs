@@ -49,11 +49,11 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
             else
                 _buildingPoolUI.SetInfoFeel(null, feelCost);
 
-            if (s_BuildingManager)
-                _buildingPoolUI.SetInfoEquilibrium(buildingScript.GetComponent<S_BuildingManager>().emotionType, increaseDecreseEquilibrium);
-            else
-                _buildingPoolUI.SetInfoEquilibrium(null, increaseDecreseEquilibrium);
-
+      // if (s_BuildingManager)
+      //     _buildingPoolUI.SetInfoEquilibrium(buildingScript.GetComponent<S_BuildingManager>().emotionType, increaseDecreseEquilibrium);
+      // else
+      //     _buildingPoolUI.SetInfoEquilibrium(null, increaseDecreseEquilibrium);
+      //
             _buildingPoolUI.ShowInformation(true);
         }
         else

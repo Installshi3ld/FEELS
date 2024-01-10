@@ -8,6 +8,7 @@ public class S_UIPayLifeExperienceButton : MonoBehaviour
 
     [SerializeField] private S_Timeline timeLine;
 
+
     private void OnEnable()
     {
         payLifeExpButton.onClick.AddListener(OnPay);
