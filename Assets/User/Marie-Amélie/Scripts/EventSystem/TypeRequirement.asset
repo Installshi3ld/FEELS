@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NarrativeDescription: test type REQUIREMENT
   ConstraintDescription: Have 3 joy buildings
-  LinkedDisaster: []
-  LinkedRewards: []
+  LinkedDisaster:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
+  LinkedRewards:
+  - {fileID: 11400000, guid: dfef236c100b7f740b8ec360d9f77099, type: 2}
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   typeRequirements:
   - feelType: 1
