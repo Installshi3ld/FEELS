@@ -1133,6 +1133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_UI_BuildVersion
       objectReference: {fileID: 0}
+    - target: {fileID: 7800571446973675458, guid: 7840d67682ff8c24e91d060481b80312, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8826545724802896529, guid: 7840d67682ff8c24e91d060481b80312, type: 3}
       propertyPath: m_text
       value: FEELS Version 0.4.0 - 22nd December 2023
@@ -2099,6 +2103,10 @@ PrefabInstance:
     - target: {fileID: 2869192200963842479, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: m_Name
       value: UI_BuildinPool_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2869192200963842479, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3145131591264160296, guid: a6d0d03a9a9d08140bb864a3e008748d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3388,7 +3396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1836207238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3524,6 +3532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_PauseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3661180989773836768, guid: 5b5b9df17e0621b46a3d13d739f143b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3647,13 +3659,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_EventRequirementMarie
       objectReference: {fileID: 0}
-    - target: {fileID: 4667901680644183839, guid: 65a3bc6620293ab43a29e97464678995, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 1407163774778911722, guid: 65a3bc6620293ab43a29e97464678995, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4667901680644183839, guid: 65a3bc6620293ab43a29e97464678995, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4667901680644183839, guid: 65a3bc6620293ab43a29e97464678995, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8509455704627862241, guid: 65a3bc6620293ab43a29e97464678995, type: 3}
       propertyPath: m_Pivot.x
