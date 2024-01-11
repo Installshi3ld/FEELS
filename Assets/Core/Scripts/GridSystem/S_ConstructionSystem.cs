@@ -57,6 +57,26 @@ public class ConstructionSystem : MonoBehaviour
                 lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
 
                 ChangePlanePlacementUnderBuilding(_building);
+
+
+                foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
+                {
+                    if(build.feelType == FeelType.Joy)
+                    {
+                        foreach (Vector2Int coord in build.building.GetSurroundingTiles())
+                        {
+                            //Calculate Vector3 Global Coord
+                            Vector3 tmpVect = build.building.destination;
+                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+                            tmpVect.z = tmpVect.z + coord.y * _gridData.tileSize;
+                            
+                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
+                        }
+                    }
+
+                }
             }
         }
     }

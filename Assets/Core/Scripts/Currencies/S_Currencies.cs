@@ -28,7 +28,7 @@ public class S_Currencies : ScriptableObject
     [SerializeField]
     public FeelType feelType;
 
-   private int amount = 0;
+    public int amount = 0;
     public int Amount
     {
         get { return amount; } //read

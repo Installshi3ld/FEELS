@@ -13,6 +13,9 @@ public class S_GridData : ScriptableObject, InitializeSO
     [NonSerialized] public int tileAmount;
     [SerializeField] public List<List<S_GridUsage>> gridsUsageStatement;
 
+    //Set by S_GridDebug
+    [NonSerialized] public List<List<GameObject>> __planeFeedbackBoostBuildingList = new List<List<GameObject>>();
+
     [SerializeField]private S_FogData _fogData;
 
     public delegate void RefreshDebugTileDelegate(int x, int y);
@@ -62,6 +65,22 @@ public class S_GridData : ScriptableObject, InitializeSO
         float _clampedZ = RoundToGrid(position.z, tileSize);
 
         return new Vector3(_clampedX, position.y, _clampedZ);
+    }
+
+    public void SetPlaneFeedbackBuildingStatement(int x, int y, bool statement)
+    {
+        __planeFeedbackBoostBuildingList[x][y].SetActive(statement);
+    }
+
+    public void ClearPlaneFeedbackBuildingStatement()
+    {
+        for (int i = 0; i < __planeFeedbackBoostBuildingList.Count; i++)
+        {
+            for (int j = 0; j < __planeFeedbackBoostBuildingList[i].Count; j++)
+            {
+                __planeFeedbackBoostBuildingList[i][j].SetActive(false);
+            }
+        }
     }
 
     public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius, bool gridUsageStatement)
