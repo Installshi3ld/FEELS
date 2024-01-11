@@ -158,10 +158,10 @@ MonoBehaviour:
   - title: ImpactGlow
     position:
       serializedVersion: 2
-      x: 3996
+      x: 3929
       y: -298
-      width: 757
-      height: 1707
+      width: 824
+      height: 1706
     contents:
     - model: {fileID: 8926484042661615544}
       id: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: -15
+      m_SerializableObject: -500
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -406,7 +406,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":0.16373926401138307,"outTangent":0.16373926401138307,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.28940150141716006,"value":0.14908921718597413,"inTangent":0.014388391748070717,"outTangent":0.014388391748070717,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.0,"inTangent":-0.052178140729665759,"outTangent":-0.052178140729665759,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":0.16373926401138307,"outTangent":0.16373926401138307,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.29198548197746279,"value":0.9923728108406067,"inTangent":0.014388391748070717,"outTangent":0.014388391748070717,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.0,"inTangent":-0.052178140729665759,"outTangent":-0.052178140729665759,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: curve
@@ -7670,9 +7670,7 @@ MonoBehaviour:
   m_Tooltip: 
   m_Nodes:
   - m_Id: 0
-    linkedSlots:
-    - outputSlot: {fileID: 8926484042661615446}
-      inputSlot: {fileID: 8926484042661615507}
+    linkedSlots: []
     position: {x: 2507, y: 461}
     expandedSlots: []
     expanded: 0
@@ -7715,7 +7713,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: -15
+      m_SerializableObject: -500
     m_Space: -1
   m_Property:
     name: o
@@ -7724,7 +7722,6 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 1
   m_LinkedSlots:
-  - {fileID: 8926484042661615507}
   - {fileID: 8926484042661615604}
   - {fileID: 8926484042661615611}
 --- !u!114 &8926484042661615447
@@ -9269,7 +9266,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":0.0,"y":-6.0,"z":0.0}}'
+      m_SerializableObject: '{"position":{"x":0.0,"y":-50.0,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Position
@@ -9379,8 +9376,7 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
-  m_LinkedSlots:
-  - {fileID: 8926484042661615446}
+  m_LinkedSlots: []
 --- !u!114 &8926484042661615508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11535,7 +11531,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 4021, y: 1307}
+  m_UIPosition: {x: 3954, y: 1306}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -12516,7 +12512,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1, y: 1057}
+  m_UIPosition: {x: -1, y: 1056}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -12549,7 +12545,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":8.0,"outTangent":8.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":8.0,"inTangent":8.0,"outTangent":8.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":50.0,"outTangent":50.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":50.0,"inTangent":50.0,"outTangent":50.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: curve
