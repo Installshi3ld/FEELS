@@ -42,8 +42,6 @@ public class S_Timeline : MonoBehaviour
 
     private S_LifeExperience currentLifeExperience;
 
-    public bool isLifeExperienceActive;
-
     private S_LifeExperienceScriptableObject pickedLifeExperience;
     public S_LifeExperienceScriptableObject PickedLifeExperience
     {

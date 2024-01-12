@@ -34,7 +34,7 @@ public class S_BuildingData : IEquatable<S_BuildingData>
 }
 
 [Serializable]
-public struct FeelTypeData
+public struct FeelTypeData 
 {
     public S_Currencies feelTypeCurrency;
     public int feelPrice;
