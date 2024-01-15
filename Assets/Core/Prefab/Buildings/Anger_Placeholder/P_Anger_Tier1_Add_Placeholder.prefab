@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7152823084136780056}
   - component: {fileID: -2736265476922950939}
-  - component: {fileID: -1447829594988193417}
   - component: {fileID: 247532068668486919}
   - component: {fileID: 6879603993109383543}
   m_Layer: 6
@@ -154,21 +153,6 @@ MonoBehaviour:
   minimumY: 0
   maximumX: 0
   maximumY: 0
---- !u!114 &-1447829594988193417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7873085785543044208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40204478d642df446998fd548433fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emotionType: {fileID: 11400000, guid: b4fb49cacf3c7b6438110dc87b6f9310, type: 2}
-  isIncreasing: 1
-  increaseOrDecreaseAmount: 5
 --- !u!114 &247532068668486919
 MonoBehaviour:
   m_ObjectHideFlags: 0
