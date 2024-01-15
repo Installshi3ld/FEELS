@@ -16,7 +16,7 @@ public class S_GridData : ScriptableObject, InitializeSO
     //Set by S_GridDebug
     [NonSerialized] public List<List<GameObject>> __planeFeedbackBoostBuildingList = new List<List<GameObject>>();
 
-    [SerializeField]private S_FogData _fogData;
+    [SerializeField]public S_FogData _fogData;
 
     public delegate void RefreshDebugTileDelegate(int x, int y);
     public RefreshDebugTileDelegate RefreshDebugTile;
@@ -152,6 +152,8 @@ public class S_GridData : ScriptableObject, InitializeSO
                         isEnoughSpace = false;
                         break;
                     }
+
+                    Debug.Log(_fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y]);
 
                     if (gridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y].statement
                         || _fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y])

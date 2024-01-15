@@ -57,7 +57,9 @@ public class S_LifeExperience : MonoBehaviour
     public void SpawnWonder()
     {
         GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
-        wonder.GetComponent<S_Building>().PlacedBuilding();
+        S_Building tmpWonder = wonder.GetComponent<S_Building>();
+        tmpWonder.PlacedBuilding();
+        tmpWonder.isPlacedAnimation = true;
     }
 
     IEnumerator FlamePropagation()
@@ -68,7 +70,7 @@ public class S_LifeExperience : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, false);
+            Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, true);
             if(tmpCoordinate != Vector3.zero)
             {
                 if (!_gridData.gridsUsageStatement[_gridData.GetIndexbasedOnPosition(tmpCoordinate).x][_gridData.GetIndexbasedOnPosition(tmpCoordinate).y].statement)

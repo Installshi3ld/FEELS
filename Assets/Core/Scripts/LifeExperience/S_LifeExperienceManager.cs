@@ -12,8 +12,15 @@ public class S_LifeExperienceManager : MonoBehaviour
 
     private void Start()
     {
-        fireLifeExperience.GetComponent<S_LifeExperience>()._gridData.Init();
+        //fireLifeExperience.GetComponent<S_LifeExperience>()._gridData.Init();
         AddFireLifeExperience();
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            GameObject.Instantiate(wonderFireLifeExperience, new Vector3(0, -500, 0), Quaternion.identity);
+        }
     }
     public void AddFireLifeExperience() 
     {
