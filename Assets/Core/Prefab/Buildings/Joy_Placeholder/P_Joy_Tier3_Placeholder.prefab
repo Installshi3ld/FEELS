@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2532200806805447067}
   - component: {fileID: -2389136303342474746}
-  - component: {fileID: -8025053567413572384}
   - component: {fileID: 1350270701348185945}
   - component: {fileID: 3598570398503591890}
   m_Layer: 6
-  m_Name: P_Joy_Tier3_Add_Placeholder
+  m_Name: P_Joy_Tier3_Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,21 +73,6 @@ MonoBehaviour:
   minimumY: 0
   maximumX: 0
   maximumY: 0
---- !u!114 &-8025053567413572384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8982322069608947216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40204478d642df446998fd548433fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emotionType: {fileID: 11400000, guid: f2907559fa7433b4593706a58329e3fc, type: 2}
-  isIncreasing: 1
-  increaseOrDecreaseAmount: 25
 --- !u!114 &1350270701348185945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,11 +85,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxFeel: 100
-  productionAmount: 25
-  delayBetweenEachProduction: 1
-  productionAmountBoosted: 37
-  delayBetweenEachProductionBoosted: 1
+  MaxFeel: 40
+  productionAmount: 30
+  delayBetweenEachProduction: 2
+  productionAmountBoosted: 45
+  delayBetweenEachProductionBoosted: 2
 --- !u!65 &3598570398503591890
 BoxCollider:
   m_ObjectHideFlags: 0

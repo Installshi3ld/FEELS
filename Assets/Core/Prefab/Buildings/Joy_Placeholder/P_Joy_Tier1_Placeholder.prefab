@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &225879463937314325
+--- !u!1 &1862040177292058
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5448500623317814811}
-  - component: {fileID: 218867960693481362}
-  - component: {fileID: 421679978312214402}
+  - component: {fileID: 8265226895331762998}
+  - component: {fileID: 5233019520981817965}
+  - component: {fileID: 4571284812813151002}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5448500623317814811
+--- !u!4 &8265226895331762998
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225879463937314325}
+  m_GameObject: {fileID: 1862040177292058}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 609428092487183807}
+  m_Father: {fileID: 8863515601869540757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &218867960693481362
+--- !u!33 &5233019520981817965
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225879463937314325}
+  m_GameObject: {fileID: 1862040177292058}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &421679978312214402
+--- !u!23 &4571284812813151002
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225879463937314325}
+  m_GameObject: {fileID: 1862040177292058}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 75ad885e0a5c7704bb54eeaebbd92d74, type: 2}
+  - {fileID: 2100000, guid: 79556aebd75a85f4a8c85469449c7320, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &2588321170191220697
+--- !u!1 &4358802898342307799
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,61 +91,60 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 609428092487183807}
-  - component: {fileID: -1966861165710934959}
-  - component: {fileID: -4969348318561874552}
-  - component: {fileID: 60213144995542733}
-  - component: {fileID: -8042222503945718567}
+  - component: {fileID: 8863515601869540757}
+  - component: {fileID: -5837796329654851847}
+  - component: {fileID: 7549420965668022821}
+  - component: {fileID: 3647208124888469761}
   m_Layer: 6
-  m_Name: P_Sad_Tier1_Add_Placeholder
+  m_Name: P_Joy_Tier1_Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &609428092487183807
+--- !u!4 &8863515601869540757
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2588321170191220697}
+  m_GameObject: {fileID: 4358802898342307799}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5448500623317814811}
+  - {fileID: 8265226895331762998}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1966861165710934959
+--- !u!114 &-5837796329654851847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2588321170191220697}
+  m_GameObject: {fileID: 4358802898342307799}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2d587346fcffc942bdad0e457f34011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: Sad T1
-    feelType: 3
-    BuildingTheme: 1
+    buildingName: Joy T1
+    feelType: 1
+    BuildingTheme: 0
     feelTypeCostList:
-    - feelTypeCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-      feelPrice: 15
-    - feelTypeCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
-      feelPrice: 15
-    - feelTypeCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
-      feelPrice: 15
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-      feelPrice: 15
+      feelPrice: 10
+    - feelTypeCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
+      feelPrice: 10
+    - feelTypeCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
+      feelPrice: 10
+    - feelTypeCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
+      feelPrice: 10
     tier: 0
-    BuildingImage: {fileID: 21300000, guid: b8c9315b9ca4f5744889c5263b1f1ec2, type: 3}
+    BuildingImage: {fileID: 21300000, guid: 14b6d1d5fdd4687418b0549130180b3a, type: 3}
   probabilityToSpawnInPool: 100
   tilesCoordinate: []
   _meshRenderer: {fileID: 0}
@@ -154,28 +153,13 @@ MonoBehaviour:
   minimumY: 0
   maximumX: 0
   maximumY: 0
---- !u!114 &-4969348318561874552
+--- !u!114 &7549420965668022821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2588321170191220697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40204478d642df446998fd548433fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emotionType: {fileID: 11400000, guid: bfe1247bf2825e74aaf98720894d95b0, type: 2}
-  isIncreasing: 1
-  increaseOrDecreaseAmount: 5
---- !u!114 &60213144995542733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2588321170191220697}
+  m_GameObject: {fileID: 4358802898342307799}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
@@ -183,16 +167,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxFeel: 10
   productionAmount: 1
-  delayBetweenEachProduction: 1
+  delayBetweenEachProduction: 2
   productionAmountBoosted: 2
-  delayBetweenEachProductionBoosted: 1
---- !u!65 &-8042222503945718567
+  delayBetweenEachProductionBoosted: 2
+--- !u!65 &3647208124888469761
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2588321170191220697}
+  m_GameObject: {fileID: 4358802898342307799}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
