@@ -70,6 +70,11 @@ public class S_Currencies : ScriptableObject
             Amount -= Mathf.FloorToInt(removeAmount);
     }
 
+    public void SetAmount(int amount)
+    {
+        Amount = amount;
+    }
+
     public bool HasEnoughFeels(int _amount)
     {
         return _amount <= amount;
