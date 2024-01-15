@@ -15,7 +15,7 @@ public class S_CommandAddingFeels : S_ConsoleCommand
 
         foreach (S_Currencies cur in currencies)
         {
-            cur.AddAmount(1000);
+            cur.AddAmount(50000);
         }
     
         return true;

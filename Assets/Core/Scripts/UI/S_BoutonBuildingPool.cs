@@ -19,7 +19,6 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             _BuildingReference = value;
             buildingScript = _BuildingReference.GetComponent<S_Building>();
-            s_BuildingManager = _BuildingReference.GetComponent<S_BuildingManager>();
         }
     }
 
@@ -29,18 +28,15 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     public S_BuildingPoolUI _buildingPoolUI;
 
     S_Building buildingScript;
-    S_BuildingManager s_BuildingManager;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!_BuildingReference)
             return;
 
-        int feelCost, increaseDecreseEquilibrium;
+        int feelCost;
 
         feelCost = buildingScript ? buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
-
-        increaseDecreseEquilibrium = s_BuildingManager ? s_BuildingManager.increaseOrDecreaseAmount : 0;
 
         if (_buildingPoolUI)
         {

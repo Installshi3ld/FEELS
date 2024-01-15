@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1862040177292058}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8863515601869540757}
@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8863515601869540757}
   - component: {fileID: -5837796329654851847}
-  - component: {fileID: -7819921148222984770}
   - component: {fileID: 7549420965668022821}
   - component: {fileID: 3647208124888469761}
   m_Layer: 6
@@ -154,21 +153,6 @@ MonoBehaviour:
   minimumY: 0
   maximumX: 0
   maximumY: 0
---- !u!114 &-7819921148222984770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4358802898342307799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40204478d642df446998fd548433fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emotionType: {fileID: 11400000, guid: f2907559fa7433b4593706a58329e3fc, type: 2}
-  isIncreasing: 1
-  increaseOrDecreaseAmount: 5
 --- !u!114 &7549420965668022821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,5 +189,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0, y: 2.5, z: 0}
+  m_Size: {x: 4, y: 4, z: 4}
+  m_Center: {x: 0, y: 2, z: 0}

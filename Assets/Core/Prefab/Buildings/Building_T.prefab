@@ -115,7 +115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8054536465598365587}
   - component: {fileID: 1100917632155010525}
-  - component: {fileID: 1310220443837562143}
   m_Layer: 0
   m_Name: Building_T
   m_TagString: Untagged
@@ -164,22 +163,12 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
   - {x: 0, y: 1}
+  _meshRenderer: {fileID: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
---- !u!114 &1310220443837562143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7425674230459827353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40204478d642df446998fd548433fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emotionType: {fileID: 11400000, guid: f2907559fa7433b4593706a58329e3fc, type: 2}
-  isIncreasing: 1
-  increaseOrDecreaseAmount: 20
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!1 &8654142187429754817
 GameObject:
   m_ObjectHideFlags: 0
