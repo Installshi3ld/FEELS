@@ -5,14 +5,10 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 
-[CreateAssetMenu(fileName = "SO_VFXTsunami", menuName = "SingletonContainer/VFX/Tsunami")]
-public class S_TsunamiVFX : S_VFXElement
+public class S_TsunamiVFX : MonoBehaviour
 {
-    public override void Triggers()
+    private void OnEnable()
     {
-        VisualEffect vfx = effect.GetComponent<VisualEffect>();
-        vfx.pause = false;
-
-        throw new System.NotImplementedException();
+        
     }
 }

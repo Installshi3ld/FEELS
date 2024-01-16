@@ -6,9 +6,8 @@ using UnityEngine.VFX;
 public class S_StartVFX : MonoBehaviour
 {
     [SerializeField] private VisualEffect vfx;
-
     void Start()
     {
-        vfx.pause = true;
+        vfx.pause = false;
     }
 }
