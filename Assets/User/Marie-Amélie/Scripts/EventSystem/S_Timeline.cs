@@ -59,6 +59,10 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private S_VFXManager VFXManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -146,6 +150,8 @@ public class S_Timeline : MonoBehaviour
                     }
 
                     consequence.ProvoqueDisaster();
+
+                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
                 }
             }
             else
