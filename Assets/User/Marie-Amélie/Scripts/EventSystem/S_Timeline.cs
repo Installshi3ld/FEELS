@@ -59,6 +59,10 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private S_VFXManager VFXManager;
+    private S_UIDisasterImage disasterBlink;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -138,6 +142,7 @@ public class S_Timeline : MonoBehaviour
             {
                 foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
+                    
                     Debug.Log("provoke disaster : " + consequence.Description);
 
                     if (OnDisasterOccuring != null)
@@ -146,6 +151,8 @@ public class S_Timeline : MonoBehaviour
                     }
 
                     consequence.ProvoqueDisaster();
+
+                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
                 }
             }
             else
