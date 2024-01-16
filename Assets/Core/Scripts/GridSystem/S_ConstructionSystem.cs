@@ -63,13 +63,9 @@ public class ConstructionSystem : MonoBehaviour
     private void LateUpdate()
     {
         //Spawn object
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (objectSpawned == null)
-            {
-                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn);
-            }
-            else if (objectSpawned != null)
+            if (objectSpawned != null)
             {
                 Destroy(objectSpawned);
             }
