@@ -31,6 +31,8 @@ public class S_BuildingData : IEquatable<S_BuildingData>
     {
         return HashCode.Combine(buildingName, feelType, tier, BuildingTheme);
     }
+
+    [NonSerialized]public S_Building building;
 }
 
 [Serializable]
@@ -77,7 +79,7 @@ public class S_Building : MonoBehaviour
 
     [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
     [NonSerialized] public Vector3 destination;
-    [NonSerialized] public Vector3 location;
+
     float lerpAlpha = 0f;
 
     public MeshRenderer _meshRenderer;
@@ -90,6 +92,7 @@ public class S_Building : MonoBehaviour
         GetMinMaxCoordinate();
         _meshRenderer = GetComponentInChildren<MeshRenderer>();
         _originalMaterial = _meshRenderer.material;
+        BuildingData.building = this;
     }
 
     public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;

@@ -7,6 +7,7 @@ public class ConstructionSystem : MonoBehaviour
     [Header("General Data")]
     [SerializeField] private S_BuildingList buildingListContainer;
     [SerializeField]private S_GridData _gridData;
+    [SerializeField] private S_FogData _fogData;
 
     public GameObject objectToSpawn;
     public GameObject planePlacementValid;
@@ -57,9 +58,45 @@ public class ConstructionSystem : MonoBehaviour
                 lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
 
                 ChangePlanePlacementUnderBuilding(_building);
+
+                //Feedback for tile which will boost building
+                foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
+                {
+                    if(build.feelType == FeelType.Joy)
+                    {
+                        foreach (Vector2Int coord in build.building.GetSurroundingTiles())
+                        {
+                            //Calculate Vector3 Global Coord
+                            Vector3 tmpVect = build.building.destination;
+                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+                            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
+                            
+                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
+                        }
+                    }
+                    
+                    if (build.feelType == FeelType.Sad)
+                    {
+                        foreach (Vector2Int coord in build.building.GetCornerTiles())
+                        {
+                            //Calculate Vector3 Global Coord
+                            Vector3 tmpVect = build.building.destination;
+                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+                            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
+
+                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
+                        }
+                    }
+
+                }
             }
         }
     }
+    
     private void LateUpdate()
     {
         //Spawn object
@@ -86,11 +123,7 @@ public class ConstructionSystem : MonoBehaviour
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="building"></param>
-    /// <param name="doPlayerPlaceIt"> If player place it (put it to False if it spawn by Computer)</param>
+    
     public void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
@@ -112,10 +145,13 @@ public class ConstructionSystem : MonoBehaviour
         {
             objectSpawnedBuildingScript.RemoveFeelCost();
         }
+
         consciousTreeToken.AddAmount(1);
 
         CheckBoostBuilding();
+
         objectSpawnedBuildingScript.PlacedBuilding();
+        _gridData.ClearPlaneFeedbackBuildingStatement();
 
         consciousTreeToken.AddAmount(1);
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
@@ -173,7 +209,7 @@ public class ConstructionSystem : MonoBehaviour
 
     bool IsTileOccupied(int x, int y)
     {
-        return _gridData.gridsUsageStatement[x][y].statement || Grid.fogGridsUsageStatement[x][y];
+        return _gridData.gridsUsageStatement[x][y].statement || _fogData.fogGridsUsageStatement[x][y];
     }
 
     bool HasEnoughMoney(S_Building buildingScript)
