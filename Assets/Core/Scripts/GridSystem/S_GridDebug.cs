@@ -4,20 +4,25 @@ using System;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Rendering;
+using System.Security.Principal;
 
 public class S_GridDebug : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private S_GridDebugTileInt _debugTile;
     [SerializeField] private S_GridData _gridData;
+    [SerializeField] private S_FogData _fogData;
 
     [Header("Gizmos display")]
     [SerializeField, InfoBox("Use 'WireFramePlane'")] private GameObject _wireframePlane;
+    [SerializeField] private GameObject _planeFeedbackBoostBuilding;
+
     [SerializeField, BoxGroup] private Material _nonUsedTileMat, _usedTileMat, _fogTileMat;
 
 
     List<List<bool>> gridDebugHighlight = new List<List<bool>>();
     List<List<GameObject>> _wireframeCubes = new List<List<GameObject>>();
+    
 
     private int _debugTileInt, _mapTileSize;
 
@@ -58,20 +63,28 @@ public class S_GridDebug : MonoBehaviour
 
         for (int x = 0; x < _gridData.gridsUsageStatement.Count; x++)
         {
-            List<GameObject> list = new List<GameObject>(); 
+            List<GameObject> list = new List<GameObject>();
+            List<GameObject> listPlane = new List<GameObject>();
 
             for (int y = 0; y < _gridData.gridsUsageStatement[x].Count; y++)
             {
-                GameObject tmp = Instantiate(_wireframePlane,
-                    new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
-                    0,
-                    _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize),
-                    Quaternion.identity);
+                Vector3 tmpVectorPos = new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
+                    0.05f,
+                    _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize);
 
+                //Wireframe
+                GameObject tmp = Instantiate(_wireframePlane, tmpVectorPos, Quaternion.identity);
                 list.Add(tmp);
-                tmp.SetActive(false);  
+                tmp.SetActive(false);
+
+                //Plane feedback
+                GameObject tmpPlane = Instantiate(_planeFeedbackBoostBuilding, tmpVectorPos, Quaternion.identity);
+                tmpPlane.transform.localScale = new Vector3(4, 4, 4);
+                listPlane.Add(tmpPlane);
+                tmpPlane.SetActive(false);
             }
             _wireframeCubes.Add(list);
+            _gridData.__planeFeedbackBoostBuildingList.Add(listPlane);
         }
     }
 
@@ -83,12 +96,12 @@ public class S_GridDebug : MonoBehaviour
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _usedTileMat;
         }
 
-        else if (Grid.fogGridsUsageStatement[x][y])
+        else if (_fogData.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _fogTileMat;
         }
 
-        else if (!Grid.fogGridsUsageStatement[x][y])
+        else if (!_fogData.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _nonUsedTileMat;
         }

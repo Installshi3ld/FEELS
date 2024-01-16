@@ -90,7 +90,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
-            feelProductionType.AddAmount(productionAmount);
+            feelProductionType.AddAmount(currentProduction);
         }
     }
 

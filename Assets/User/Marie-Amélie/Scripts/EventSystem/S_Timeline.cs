@@ -40,6 +40,8 @@ public class S_Timeline : MonoBehaviour
 
     private bool hasBeenPaid = false;
 
+    private int succeededRequirementForThisPhase;
+
     private S_LifeExperience currentLifeExperience;
 
     private S_LifeExperienceScriptableObject pickedLifeExperience;
@@ -56,6 +58,10 @@ public class S_Timeline : MonoBehaviour
             priceLifeExpUI.CallDelegate_UpdatePriceUILifeExp(value);
         }
     }
+
+    [SerializeField]
+    private S_VFXManager VFXManager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,9 +84,15 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private void ChangePhaseIndex()//LOGIC HERE NOT CORRECT
+    private void TryChangePhaseIndex()//LOGIC HERE SHOULD CHANGE 
     {
-        if (phases.Count == currentPhaseIndex + 1)
+        if(succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
+        {
+            currentPhaseIndex++;
+            already_done_requirement.Clear(); // clear actual requirement list
+            already_done_lifeExperience.Clear();
+        }
+        /*if (phases.Count == currentPhaseIndex + 1)
         {
             Debug.Log("all phases ended");
         }
@@ -89,7 +101,7 @@ public class S_Timeline : MonoBehaviour
             currentPhaseIndex++;
             already_done_requirement.Clear(); // clear actual requirement list
             already_done_lifeExperience.Clear();
-        }
+        }*/
     }
 
     private IEnumerator UpdateEvents()
@@ -138,11 +150,15 @@ public class S_Timeline : MonoBehaviour
                     }
 
                     consequence.ProvoqueDisaster();
+
+                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
                 }
             }
             else
             {
-                foreach(S_Reward reward in currentRequirement.LinkedRewards)
+                succeededRequirementForThisPhase++;
+
+                foreach (S_Reward reward in currentRequirement.LinkedRewards)
                 {
                     reward.GetReward();
                 }
@@ -263,14 +279,12 @@ public class S_Timeline : MonoBehaviour
             S_Requirement picked = available[index];
             already_done_requirement.Add(picked);
 
-            if (available.Count == 1)
-            {
-                ChangePhaseIndex();
-            }
+            TryChangePhaseIndex();
 
             return picked;
         }
 
+        //TryChangePhaseIndex(); In case there is no one left but can switch ?? Not sure 
         return null;
     }
 
