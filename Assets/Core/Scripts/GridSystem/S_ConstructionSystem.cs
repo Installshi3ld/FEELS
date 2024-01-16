@@ -33,6 +33,7 @@ public class ConstructionSystem : MonoBehaviour
     private void Start()
     {
         _planePlacementValid = Instantiate(planePlacementValid);
+        HidePlanePlacement();
     }
 
     private void OnDestroy()
@@ -105,6 +106,7 @@ public class ConstructionSystem : MonoBehaviour
             if (objectSpawned != null)
             {
                 Destroy(objectSpawned);
+                HidePlanePlacement();
             }
         }
 
@@ -123,7 +125,10 @@ public class ConstructionSystem : MonoBehaviour
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
     }
 
-    
+    void HidePlanePlacement()
+    {
+        _planePlacementValid.transform.position = new Vector3(0, -10, 0);
+    }
     public void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
@@ -157,7 +162,7 @@ public class ConstructionSystem : MonoBehaviour
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
         objectSpawned = null;
-        _planePlacementValid.transform.position = new Vector3(0, -5, 0);
+        HidePlanePlacement();
     }
 
     void ChangePlanePlacementUnderBuilding(S_Building _building)
