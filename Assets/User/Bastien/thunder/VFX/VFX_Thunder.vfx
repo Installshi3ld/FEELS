@@ -36,18 +36,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614882}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614851}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661615309}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614853}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614864}
-      id: 0
-      isStickyNote: 0
   - title: Thunder
     position:
       serializedVersion: 2
@@ -136,6 +124,9 @@ MonoBehaviour:
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661615682}
+      id: 0
+      isStickyNote: 0
+    - model: {fileID: 8926484042661615690}
       id: 0
       isStickyNote: 0
   - title: Particle
@@ -291,6 +282,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615619}
   - {fileID: 8926484042661615623}
   - {fileID: 8926484042661615682}
+  - {fileID: 8926484042661615690}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -7296,7 +7288,8 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661615691}
 --- !u!114 &8926484042661615416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12569,7 +12562,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615683}
   m_ExposedName: ImpactOffset
   m_Exposed: 1
-  m_Order: 7
+  m_Order: 3
   m_Category: 
   m_Min:
     m_Type:
@@ -12744,3 +12737,83 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 1
   m_LinkedSlots: []
+--- !u!114 &8926484042661615690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661615691}
+  m_ExposedName: New AnimationCurve
+  m_Exposed: 0
+  m_Order: 4
+  m_Category: 
+  m_Min:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_IsOutput: 0
+  m_EnumValues: []
+  m_ValueFilter: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661615691}
+      inputSlot: {fileID: 8926484042661615415}
+    position: {x: 800, y: 3506}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661615691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c117b74c5c58db542bffe25c78fe92db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UIIgnoredErrors: []
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661615691}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661615690}
+    m_Value:
+      m_Type:
+        m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":3.0,"inTangent":-3.0,"outTangent":-3.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":0.0,"inTangent":-3.0,"outTangent":-3.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+    m_Space: -1
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  m_Direction: 1
+  m_LinkedSlots:
+  - {fileID: 8926484042661615415}
