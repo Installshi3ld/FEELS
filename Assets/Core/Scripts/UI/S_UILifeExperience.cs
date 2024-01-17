@@ -2,16 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class S_UILifeExperience : MonoBehaviour
 {
     public TextMeshProUGUI text;
     [SerializeField] private S_UILifeExpDelegateScriptableObject methodUIRefresh;
-
-
-    [SerializeField] private float fadeInDuration = 1f;
-    [SerializeField] private float fadeOutDuration = 1f;
-    [SerializeField] private float delayBetweenEffects = 1f;
 
     private void OnEnable()
     {
@@ -23,12 +19,6 @@ public class S_UILifeExperience : MonoBehaviour
         methodUIRefresh.OnLifeExperienceSpawned -= CallShowAndHideText;
     }
 
-
-    void Start()
-    {
-        // Start the initial animation
-        StartCoroutine(ShowAndHideText());
-    }
     
     private void CallShowAndHideText(bool isLifeExpActive)
     {
@@ -36,57 +26,34 @@ public class S_UILifeExperience : MonoBehaviour
 
         if (isLifeExpActive)
         {
-            StartCoroutine(ShowAndHideText());
+            ShowAndHideText();
         }
     }
-    IEnumerator ShowAndHideText()
+
+    private void ShowAndHideText()
     {
-        while (methodUIRefresh.IsLifeExperienceActive)
-        {
-            // Show text with fade-in effect
-            yield return FadeTextIn(fadeInDuration);
-
-            // Delay between effects
-            yield return new WaitForSeconds(delayBetweenEffects);
-
-            // Hide text with fade-out effect
-            yield return FadeTextOut(fadeOutDuration);
-
-            // Repeat the process
-            StartCoroutine(ShowAndHideText());
-        }
-
+        //Call BlinkText function after a 0 seconds delay || Don't touch that
+        Invoke("StartBlinking", 0f);
     }
 
-    IEnumerator FadeTextIn(float duration)
+    void StartBlinking()
     {
-        float elapsedTime = 0f;
-        Color initialColor = text.color;
-
-        while (elapsedTime < duration)
+        // Utilisez DOTween pour faire apparaître puis disparaître le texte sur une durée totale de 4 secondes
+        text.DOFade(1f, 0.75f).SetLoops(4, LoopType.Yoyo).OnComplete(() =>
         {
-            elapsedTime += Time.deltaTime;
-            text.color = Color.Lerp(initialColor, Color.white, elapsedTime / duration);
-            yield return null;
-        }
-
-        // Ensure the final color is set
-        text.color = Color.white;
+            // Called when the animation is over
+            HideText();
+        });
     }
 
-    IEnumerator FadeTextOut(float duration)
+    void HideText()
     {
-        float elapsedTime = 0f;
-        Color initialColor = text.color;
-
-        while (elapsedTime < duration)
+        // Use DOTween to make the text disappear in one second
+        text.DOFade(0f, 1f).OnComplete(() =>
         {
-            elapsedTime += Time.deltaTime;
-            text.color = Color.Lerp(initialColor, Color.clear, elapsedTime / duration);
-            yield return null;
-        }
-
-        // Ensure the final color is set
-        text.color = Color.clear;
+            //Call when the anim is over
+            text.alpha = 0f;
+            Debug.Log("Text hidden");
+        });
     }
 }
