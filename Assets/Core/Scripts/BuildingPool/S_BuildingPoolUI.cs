@@ -40,7 +40,7 @@ public class S_BuildingPoolUI : MonoBehaviour
             InfoScreen.transform.position = Input.mousePosition + new Vector3(-0.1f, 0.1f, 0);
     }
 
-    //Create button, with good offset and button function reference
+    //Create button & add function reference
     void SpawnButton()
     {
         RemoveButton();
@@ -52,8 +52,6 @@ public class S_BuildingPoolUI : MonoBehaviour
         {
             //Spawn + add offset
             tmpGameobject = Instantiate(buttonTemplate, PannelButton.transform);
-            tmpGameobject.transform.position += new Vector3(tmpOffset, 0, 0);
-            tmpOffset += xOffsetBetweenElement;
             button.Add(tmpGameobject);
 
             // lambda take reference of variable, i variable won't work 
