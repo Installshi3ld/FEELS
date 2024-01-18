@@ -859,18 +859,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constructionSystem: {fileID: 187110596}
-  _poolData: {fileID: 11400000, guid: e4581568f8eb4c04da54636b6c05288b, type: 2}
-  AmountOfBuildingPerTier: e8030000
-  InitialBuildingList:
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-  buildingPoolSizePerTier: 8
 --- !u!4 &906901444
 Transform:
   m_ObjectHideFlags: 0
@@ -1981,7 +1969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: chanceForLifeExpToOccur
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: secondsBetweenNewConstraint
