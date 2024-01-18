@@ -10,19 +10,21 @@ using UnityEngine;
 public class S_BuildingPoolData : SerializedScriptableObject
 {
     [OdinSerialize, InfoBox("Each list in Building pool is consider as Tier, based on index")]
-    private List<List<GameObject>> BuildingPool;
+    public List<List<GameObject>> list;
 
+    /*
     [ReadOnly]
-    public List<List<GameObject>> BuildingPoolData;
+    //public List<List<GameObject>> BuildingPoolData;
 
     public void InitBuildingPoolData(int buildingPoolSizePerTier)
     {
-        BuildingPoolData = new List<List<GameObject>>();
+        //BuildingPoolData = new List<List<GameObject>>();
 
         BuildingPoolData.Clear();
-        StoreBuildingPoolData(buildingPoolSizePerTier);
+        //StoreBuildingPoolData(buildingPoolSizePerTier);
     }
 
+    
     /// <summary>
     /// Create an instance of building pool, fill it with null based on Building Pool Size, defined in S_BuildingPoolManager
     /// </summary>
@@ -39,12 +41,8 @@ public class S_BuildingPoolData : SerializedScriptableObject
                 {
                     tmpList.Add(BuildingPool[i][j]);
                 }
-                else
-                {
-                    tmpList.Add(null);
-                }
             }
             BuildingPoolData.Add(tmpList);
         }
-    }
+    }*/
 }

@@ -31,8 +31,8 @@ public class S_BuildingPoolManager : MonoBehaviour
     {
         //StoreBuildingPerTier();
         //RefreshBuildingPool();
-        _poolData.InitBuildingPoolData(buildingPoolSizePerTier);
-        RefreshUI();
+        //_poolData.InitBuildingPoolData(buildingPoolSizePerTier);
+        //RefreshUI();
     }
 
     public void ChangeCurrentTier(int _newTier)
@@ -57,7 +57,6 @@ public class S_BuildingPoolManager : MonoBehaviour
 
     public void RefreshBuildingPool()
     {
-
         BuildingPool.Clear();
         List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
 
