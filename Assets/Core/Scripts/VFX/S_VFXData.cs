@@ -9,6 +9,7 @@ using UnityEngine;
 public class S_VFXData : SerializedScriptableObject
 {
     [SerializeField] private GameObject EndOfConstruction;
+    public S_VFXDataDustBuidling DustVFX;
 
     public GameObject GetVFXEndOfConstruction()
     {

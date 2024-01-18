@@ -107,19 +107,29 @@ public class S_Building : MonoBehaviour
                 this.transform.position = destination;
                 isPlacedAnimation = true;
                 GetOutOfGroundAnimation();
+
+                //Dust VFX
+                buildingVFX = Instantiate(VFXData.DustVFX.effects[0], this.transform);
+                buildingVFX.transform.position = GetRootCoordinate();
             }
         }
     }
-
+    GameObject buildingVFX;
     public void GetOutOfGroundAnimation()
     {
-        this.transform.position = new Vector3(this.transform.position.x, -10, this.transform.position.z);
-        this.transform.DOMoveY(0, 1)
+        Transform tmpChild = this.transform.GetChild(0).transform;
+        tmpChild.position = new Vector3(tmpChild.position.x, -10, tmpChild.position.z);
+        tmpChild.transform.DOMoveY(0, 2)
             .OnComplete(() => {
+                //Explosion end building
                 GameObject tmpFX = Instantiate(VFXData.GetVFXEndOfConstruction(), this.transform);
                 tmpFX.transform.position = GetRootCoordinate();
+
+                Destroy(buildingVFX);
                 }) ; 
     }
+
+
 
     public List<FeelTypeData> GetCosts()
     {
