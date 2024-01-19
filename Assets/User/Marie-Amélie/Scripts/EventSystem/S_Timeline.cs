@@ -59,6 +59,8 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
+    private bool timerDone = false;
+
     [SerializeField]
     private S_VFXManager VFXManager;
     private S_UIDisasterImage disasterBlink;
@@ -74,8 +76,11 @@ public class S_Timeline : MonoBehaviour
     }
     private void Update()
     {
-        eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
-        
+        if (!timerDone)
+        {
+            eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
+        }
+
         if (OnRequirementChecked != null && currentRequirement != null)
         {
             currentRequirement.CheckIsRequirementFulfilled();
@@ -134,7 +139,7 @@ public class S_Timeline : MonoBehaviour
 
                 currentEvent.SetNewRequirement(currentRequirement);
 
-                }
+            }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
@@ -165,6 +170,7 @@ public class S_Timeline : MonoBehaviour
                 }
             }
         }
+        timerDone = true;
     }
 
 
