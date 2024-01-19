@@ -97,16 +97,6 @@ public class S_Timeline : MonoBehaviour
             already_done_requirement.Clear(); // clear actual requirement list
             already_done_lifeExperience.Clear();
         }
-        /*if (phases.Count == currentPhaseIndex + 1)
-        {
-            Debug.Log("all phases ended");
-        }
-        else
-        {
-            currentPhaseIndex++;
-            already_done_requirement.Clear(); // clear actual requirement list
-            already_done_lifeExperience.Clear();
-        }*/
     }
 
     private IEnumerator UpdateEvents()
