@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: Sad T3
+    buildingName: Book
     feelType: 3
     BuildingTheme: 0
     feelTypeCostList:
@@ -62,12 +62,11 @@ MonoBehaviour:
       feelPrice: 500
     tier: 2
     BuildingImage: {fileID: 21300000, guid: 955140c11857e8942aaac6f3bbf2e210, type: 3}
-  probabilityToSpawnInPool: 100
+  VFXData: {fileID: 11400000, guid: e41ddc557e178ee42a6cf21506743e79, type: 2}
   tilesCoordinate:
   - {x: 1, y: 0}
   - {x: 0, y: 1}
   - {x: 1, y: 1}
-  _meshRenderer: {fileID: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
   minimumX: 0
   minimumY: 0
