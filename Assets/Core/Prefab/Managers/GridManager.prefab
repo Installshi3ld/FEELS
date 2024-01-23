@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &303872074483584394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8527876376227867637}
+  - component: {fileID: 1557853553954466217}
+  - component: {fileID: 1278358376849423274}
+  m_Layer: 0
+  m_Name: GridManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: fef73bd7a3449e44a9c0efb47f52b7fe, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8527876376227867637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303872074483584394}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1557853553954466217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303872074483584394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64964c8f14da1a94fb196dbca74b7fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
+  _fogData: {fileID: 11400000, guid: e03ef3cdc5238c342b1ab581cf377697, type: 2}
+  fog: {fileID: 1022026808326466124, guid: de0bcb2c0f53d164f8bd2d264aee5ecd, type: 3}
+--- !u!114 &1278358376849423274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303872074483584394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5eda94b583264d4192dceba088541f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugTile: {fileID: 11400000, guid: eac73ebf415d86143b92aeb0fc518968, type: 2}
+  _gridData: {fileID: 11400000, guid: 26dec29ce4857074ab2d920f501aeb84, type: 2}
+  _fogData: {fileID: 11400000, guid: e03ef3cdc5238c342b1ab581cf377697, type: 2}
+  _wireframePlane: {fileID: 319090188900270873, guid: ffd40af9bc2660242b6a65e95ce2a4e0, type: 3}
+  _planeFeedbackBoostBuilding: {fileID: 548962610017911646, guid: 5058cdf97cafda646aa305e64219787b, type: 3}
+  _nonUsedTileMat: {fileID: 2100000, guid: 8bda4bda474e0ec43b891d09fa2f8fc1, type: 2}
+  _usedTileMat: {fileID: 2100000, guid: f7065831206fbae4ba56dd7014a621a1, type: 2}
+  _fogTileMat: {fileID: 2100000, guid: 7e3fc851e6f88eb4683dae4baf309719, type: 2}
