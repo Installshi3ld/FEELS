@@ -283,79 +283,61 @@ public class ConstructionSystem : MonoBehaviour
         }
 
     }
+
+
     void CheckBoostBuilding()
     {
-        List<Vector2Int> _tilesToCheckForBoost = new List<Vector2Int>();
-        S_Building s_building = objectSpawned.GetComponent<S_Building>();
-        _tilesToCheckForBoost = s_building.GetSurroundingTiles();
-
-        FeelType _feelType = FeelType.None;
-        if (s_building)
-            _feelType = s_building.BuildingData.feelType;
-
-        GameObject _currentBuildingToCheck = null;
         Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned.transform.position);
+        List<GameObject> _buildingsToBoost = new List<GameObject>();
+        List<Vector2Int> _tilesToCheckForBoost;
+        FeelType _feelType;
 
-        //Check tile for boost
+        //Set variable for function
+        if (objectSpawned.TryGetComponent(out S_Building s_building))
+        {
+            _feelType = s_building.BuildingData.feelType;
+            //corner tile for sad, surrounding with other
+            _tilesToCheckForBoost = (_feelType == FeelType.Sad) ? s_building.GetCornerTiles() : s_building.GetSurroundingTiles();
+        }
+        else 
+            return;
+
+        //Get building to check for boost
         for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
         {
+            GameObject _currentBuildingToCheck = _gridData.GetBuildingAtTile(buildingCoordinate + _tilesToCheckForBoost[i]);
 
-            _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
+            //Tile got building on it
+            if (_currentBuildingToCheck != null)
+            {
+                S_Building _currentBuildingToCheckS_Building = _currentBuildingToCheck.GetComponent<S_Building>();
 
-            //Apply behavior of case to boost bellow
-
-
-            CheckTileAndBoost(_currentBuildingToCheck, _feelType);
+                if (_currentBuildingToCheckS_Building.BuildingData.feelType == _feelType)
+                {
+                    _buildingsToBoost.Add(_currentBuildingToCheck);
+                }
+            }
         }
+        //add check, for fear and anger
 
-        if (_feelType == FeelType.Sad)
+
+        if(_buildingsToBoost.Count != 0)
         {
-            List<GameObject> buildingSadToBoost = new List<GameObject>();
-
-            List<Vector2Int> corners = s_building.GetCornerTiles();
-
-            
-            for (int i = 0; i < corners.Count; i++)
-            {
-                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
-                if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
-                {
-                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
-
-                    if (_feelType == _currentBuildingToCheckFeelType && !buildingSadToBoost.Contains(_currentBuildingToCheck))
-                    {
-                        buildingSadToBoost.Add(_currentBuildingToCheck);
-                    }
-                }
-            }
-        
-            for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
-            {
-                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
-                if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
-                {
-                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
-
-                    if (_feelType == _currentBuildingToCheckFeelType && buildingSadToBoost.Contains(_currentBuildingToCheck))
-                    {
-                        buildingSadToBoost.Remove(_currentBuildingToCheck);
-                    }
-
-                }
-            }
-
-            foreach (GameObject sadBuild in buildingSadToBoost)
-            {
-                if (sadBuild.GetComponent<S_FeelAssignationBuilding>()) { }
-                    sadBuild.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-            }
-
-            if(buildingSadToBoost.Count > 0)
-            {
-                if(objectSpawned.GetComponent<S_FeelAssignationBuilding>())
-                    objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-            }
+            //Boost object spawned
         }
+        else if (_feelType == FeelType.Anger)
+        {
+            //Boost object spawned
+        }
+
+
+        foreach (GameObject _building in _buildingsToBoost)
+        {
+            print("Boost");
+        }
+         
+
+
 
     }
 
@@ -363,37 +345,41 @@ public class ConstructionSystem : MonoBehaviour
     {
         FeelType _currentBuildingToCheckFeelType;
 
+        //check if building + has script S_Building + has script S_FeelAssignation
         if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
         {
             _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
+
+            S_FeelAssignationBuilding _CurrBuildingAssignMan = _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>();
+            S_FeelAssignationBuilding _objSpawnAssignMan = objectSpawned.GetComponent<S_FeelAssignationBuilding>();
 
             switch (_feelType)
             {
                 case FeelType.Joy:
                     if (_feelType == _currentBuildingToCheckFeelType)
                     {
-                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                        _CurrBuildingAssignMan.BoostBuilding();
+                        _objSpawnAssignMan.BoostBuilding();
                     }
                     break;
 
                 case FeelType.Anger:
                     if (_feelType == _currentBuildingToCheckFeelType)
                     {
-                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                        _CurrBuildingAssignMan.UnBoostBuilding();
+                        _objSpawnAssignMan.UnBoostBuilding();
                     }
                     break;
                 case FeelType.Fear:
 
                     if (_feelType != _currentBuildingToCheckFeelType)
                     {
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                        _objSpawnAssignMan.BoostBuilding();
                     }
                     if (_feelType == _currentBuildingToCheckFeelType)
                     {
-                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                        _CurrBuildingAssignMan.UnBoostBuilding();
+                        _objSpawnAssignMan.UnBoostBuilding();
                     }
 
                     break;

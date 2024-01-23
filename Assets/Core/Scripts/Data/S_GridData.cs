@@ -44,6 +44,12 @@ public class S_GridData : ScriptableObject, InitializeSO
         return new Vector3Int(xCoord, 0, zCoord);
     }
 
+    //Get building script
+    public GameObject GetBuildingAtTile(Vector2Int coord)
+    {
+        return gridsUsageStatement[coord.x][coord.y].building;
+    }
+
     public void SetTileUsed(int x, int y)
     {
         gridsUsageStatement[x][y].statement = true;
