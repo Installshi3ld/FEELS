@@ -79,11 +79,11 @@ public class S_FeelAssignationManager : MonoBehaviour
 
     public void AssignFeel()
     {
-        print("Je fonctionne");
         S_Building s_Building = BuildingClickedOn.GetComponent<S_Building>();
         var prices = s_Building.GetCosts();
 
         _valueAssigned = s_FeelAssignationBuilding.AssignFeels(prices[0].feelTypeCurrency);
+
         if (_valueAssigned)
         {
             RefreshUi.Invoke();

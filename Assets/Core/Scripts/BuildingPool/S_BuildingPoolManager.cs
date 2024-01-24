@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class S_BuildingPoolManager : MonoBehaviour
 {
+    //This system is deprecated
+
+    
     public ConstructionSystem constructionSystem;
+    /*
     public Action RefreshUI;
     [SerializeField, LabelText("Pool Data")] private S_BuildingPoolData _poolData;
 
@@ -27,12 +31,13 @@ public class S_BuildingPoolManager : MonoBehaviour
     [NonSerialized] public int currentTierSelected = 0;
     #endregion
 
+    /*
     private void Start()
     {
         //StoreBuildingPerTier();
         //RefreshBuildingPool();
-        _poolData.InitBuildingPoolData(buildingPoolSizePerTier);
-        RefreshUI();
+        //_poolData.InitBuildingPoolData(buildingPoolSizePerTier);
+        //RefreshUI();
     }
 
     public void ChangeCurrentTier(int _newTier)
@@ -54,10 +59,9 @@ public class S_BuildingPoolManager : MonoBehaviour
             buildingPerTier[build.GetComponent<S_Building>().BuildingData.tier].Add(build);
         }
     }
-
+    
     public void RefreshBuildingPool()
     {
-
         BuildingPool.Clear();
         List<List<GameObject>> tmpBuildingPerTier = new List<List<GameObject>>();
 
@@ -100,5 +104,5 @@ public class S_BuildingPoolManager : MonoBehaviour
         S_StaticFunc.Shuffle<GameObject>(BuildingPool);
 
         RefreshUI();
-    }
+    }*/
 }

@@ -59,6 +59,14 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
+    private bool timerDone = false;
+    private bool isThereLifeExperienceOnMap = false;
+
+    [SerializeField]
+    private S_VFXManager VFXManager;
+
+    private S_UIDisasterImage disasterBlink;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,8 +78,11 @@ public class S_Timeline : MonoBehaviour
     }
     private void Update()
     {
-        eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
-        
+        if (!timerDone)
+        {
+            eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
+        }
+
         if (OnRequirementChecked != null && currentRequirement != null)
         {
             currentRequirement.CheckIsRequirementFulfilled();
@@ -88,21 +99,10 @@ public class S_Timeline : MonoBehaviour
             already_done_requirement.Clear(); // clear actual requirement list
             already_done_lifeExperience.Clear();
         }
-        /*if (phases.Count == currentPhaseIndex + 1)
-        {
-            Debug.Log("all phases ended");
-        }
-        else
-        {
-            currentPhaseIndex++;
-            already_done_requirement.Clear(); // clear actual requirement list
-            already_done_lifeExperience.Clear();
-        }*/
     }
 
     private IEnumerator UpdateEvents()
     {
-
         while (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
@@ -110,9 +110,10 @@ public class S_Timeline : MonoBehaviour
 
             eventTimer.StartTimerOver();
 
-            if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map
+            if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
             {
                 ChooseOrNotLifeExperience();
+
             }
 
 
@@ -130,7 +131,7 @@ public class S_Timeline : MonoBehaviour
 
                 currentEvent.SetNewRequirement(currentRequirement);
 
-                }
+            }
 
             yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
@@ -138,6 +139,7 @@ public class S_Timeline : MonoBehaviour
             {
                 foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
+                    
                     Debug.Log("provoke disaster : " + consequence.Description);
 
                     if (OnDisasterOccuring != null)
@@ -146,6 +148,8 @@ public class S_Timeline : MonoBehaviour
                     }
 
                     consequence.ProvoqueDisaster();
+
+                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
                 }
             }
             else
@@ -158,12 +162,13 @@ public class S_Timeline : MonoBehaviour
                 }
             }
         }
+        timerDone = true;
     }
-
 
     public void AddFireLifeExperience(S_LifeExperienceScriptableObject lifeExpScript)
     {
-        currentLifeExperience = Instantiate(lifeExpScript.lifeExperience, new Vector3(0, -500, 0), Quaternion.identity);
+        Debug.Log("SOMEONE IS CALLING MEEEEEE");
+
     }
     private bool IsAvailableRequirementListEmpty()
     {
@@ -230,6 +235,7 @@ public class S_Timeline : MonoBehaviour
             if (PickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + PickedLifeExperience.description);
+                currentLifeExperience = Instantiate(PickedLifeExperience.lifeExperience, new Vector3(0, -500, 0), Quaternion.identity);
             }
             else
             {
@@ -295,6 +301,7 @@ public class S_Timeline : MonoBehaviour
             currentLifeExperience.Clear();
 
             PickedLifeExperience = null;
+            isThereLifeExperienceOnMap = false;
             Debug.Log("Life experience solved");
         }
         else

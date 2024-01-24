@@ -51,7 +51,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     /// <returns></returns>
     public bool AssignFeels(S_Currencies feelType)
     {
-        if(!isProducing) {
+        if(!isProducing && feelType.HasEnoughFeels(MaxFeel)) {
             delayBetweenEachProductionForUI = delayBetweenEachProduction;
             productionAmountForUI = productionAmount;
 

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] private TextMeshProUGUI _buildingName;
+    [SerializeField] private Image _buildingImage;
+    public Button button;
 
-    //[NonSerialized]
     public GameObject BuildingReference
     {
         get
@@ -19,6 +22,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             _BuildingReference = value;
             buildingScript = _BuildingReference.GetComponent<S_Building>();
+            RefreshUI();
         }
     }
 
@@ -28,6 +32,16 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     public S_BuildingPoolUI _buildingPoolUI;
 
     S_Building buildingScript;
+
+
+    //Ajouter le spawn du building sur le listener du button
+    // Reaficher les infos
+
+    public void RefreshUI()
+    {
+        _buildingName.text = buildingScript.BuildingData.buildingName;
+        _buildingImage.sprite = buildingScript.BuildingData.BuildingImage;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -45,11 +59,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
             else
                 _buildingPoolUI.SetInfoFeel(null, feelCost);
 
-      // if (s_BuildingManager)
-      //     _buildingPoolUI.SetInfoEquilibrium(buildingScript.GetComponent<S_BuildingManager>().emotionType, increaseDecreseEquilibrium);
-      // else
-      //     _buildingPoolUI.SetInfoEquilibrium(null, increaseDecreseEquilibrium);
-      //
+
             _buildingPoolUI.ShowInformation(true);
         }
         else
@@ -63,5 +73,4 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
         if (_buildingPoolUI != null)
             _buildingPoolUI.ShowInformation(false);
     }
-
 }
