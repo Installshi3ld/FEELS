@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "SO_VFXManager", menuName = "SingletonContainer/VFXManager")]
-public class S_VFXManager : ScriptableObject
+public class S_VFXManager : MonoBehaviour
 {
     [SerializeField] private GameObject vfxPrefabJoy;
     [SerializeField] private GameObject vfxPrefabAnger;
@@ -41,7 +39,15 @@ public class S_VFXManager : ScriptableObject
 
         Quaternion rotation = Quaternion.Euler(0f, yRotation, 0f);
 
-        Instantiate(vfxPrefab, spawningSpotsTsunami[randomNumber].transform.position, rotation);
+        GameObject tsunamiInstance = Instantiate(vfxPrefab, spawningSpotsTsunami[randomNumber].transform.position, rotation);
+        StartCoroutine(DestroyVFX(tsunamiInstance));
+
+    }
+
+    IEnumerator DestroyVFX(GameObject toDestroy)
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(toDestroy);
     }
 
     private void InstantiateThunder()

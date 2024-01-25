@@ -56,7 +56,7 @@ public class S_LifeExperience : MonoBehaviour
 
     public void SpawnWonder()
     {
-        GameObject wonder = GameObject.Instantiate(wonderBuilding, this.transform.position, Quaternion.identity);
+        GameObject wonder = GameObject.Instantiate(wonderBuilding, new Vector3(this.transform.position.x, 0, this.transform.position.z), Quaternion.identity);
         S_Building tmpWonder = wonder.GetComponent<S_Building>();
         tmpWonder.PlacedBuilding();
         tmpWonder.isPlacedAnimation = true;
