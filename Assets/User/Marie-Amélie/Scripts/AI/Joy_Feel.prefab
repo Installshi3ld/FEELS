@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4126876545419966268}
   - component: {fileID: 8252984030412668640}
   - component: {fileID: 5189569816850013291}
-  - component: {fileID: 1098859741617930469}
-  - component: {fileID: 6851262530825748606}
   - component: {fileID: 9062011217238919680}
+  - component: {fileID: 5961261522521736210}
   m_Layer: 0
   m_Name: Joy_Feel
   m_TagString: Untagged
@@ -86,55 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1098859741617930469
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303238791753926035}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &6851262530825748606
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303238791753926035}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &9062011217238919680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,4 +97,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078aa2be630b91244b5a7f76a5428aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkRange: 10
   myNavMesh: {fileID: 23800000, guid: b125e560557b8324195c6a8005288ac6, type: 2}
+  agent: {fileID: 5961261522521736210}
+--- !u!195 &5961261522521736210
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303238791753926035}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 5.0000024
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.00001
+  m_BaseOffset: 0.000001192093
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

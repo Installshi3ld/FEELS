@@ -88,7 +88,6 @@ public class S_AIManager : MonoBehaviour
 
     private void SpawnPrefab(FeelsMatchSprite toSpawn, int instancesToSpawn)
     {
-        Debug.Log("spawning instance of " + toSpawn.feelType.feelType);
         for (int i = 0; i < instancesToSpawn; i++)
         {
             Vector3 randomPosition = GetRandomPositionOnNavMesh();
@@ -100,11 +99,10 @@ public class S_AIManager : MonoBehaviour
 
     private Vector3 GetRandomPositionOnNavMesh()
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * 10f;
-        randomDirection += transform.position;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
-        return hit.position;
+        float xCoord = UnityEngine.Random.Range(this.gameObject.transform.position.x - 30, this.gameObject.transform.position.x + 30);
+        float zCoord = UnityEngine.Random.Range(this.gameObject.transform.position.z - 30, this.gameObject.transform.position.z + 30);
+
+        return new Vector3(xCoord, 0, zCoord);
     }
 
     public void IAmDead(FeelsMatchSprite sprite)
