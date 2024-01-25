@@ -31,6 +31,7 @@ public class S_FeelAssignationManager : MonoBehaviour
             s_panelFeelAssignation.mouseExitPanel += HideContainer;
     }
 
+    /*
     public void OnLeftClick()
     {
         if (!s_panelFeelAssignation.MouseHoverPanel)
@@ -59,7 +60,8 @@ public class S_FeelAssignationManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
+
     public static void SpawnVFXBoost(Transform building)
     {
         if (VFXBoost)
