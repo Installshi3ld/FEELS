@@ -72,6 +72,17 @@ public class S_GridData : ScriptableObject, InitializeSO
         __planeFeedbackBoostBuildingList[x][y].SetActive(statement);
     }
 
+    public void SetAllPlaneFeedbackBuildingEnable()
+    {
+        for (int i = 0; i < __planeFeedbackBoostBuildingList.Count; i++)
+        {
+            for (int j = 0; j < __planeFeedbackBoostBuildingList[i].Count; j++)
+            {
+                __planeFeedbackBoostBuildingList[i][j].SetActive(true);
+            }
+        }
+    }
+
     public void ClearPlaneFeedbackBuildingStatement()
     {
         for (int i = 0; i < __planeFeedbackBoostBuildingList.Count; i++)

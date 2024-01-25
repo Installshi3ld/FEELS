@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca97570999774646a844add2de49992, type: 3}
+  m_Name: SO_Sad_2_Build_Requirement
+  m_EditorClassIdentifier: 
+  NarrativeDescription: Your cat is dead
+  ConstraintDescription: Have 2 sadness buildings
+  LinkedDisaster:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
+  LinkedRewards:
+  - {fileID: 11400000, guid: 08ce7f05f6757bd47b2c67f876a96171, type: 2}
+  buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
+  typeRequirements:
+  - feelType: 3
+    numberOfRequiredBuildings: 2
