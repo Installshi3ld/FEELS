@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,8 +20,10 @@ public class S_BuildingPoolUI : MonoBehaviour
 
     public GameObject InfoScreen;
 
-    public TextMeshProUGUI T_FeelCost, T_EquilibriumCost;
-    public Image FeelTypeImage, EquilibriumTypeImage;
+
+    public TextMeshProUGUI T_AngerFeelsCost,T_JoyFeelsCost,T_SadFeelsCost,T_FearFeelsCost;
+    public Image AngerFeelsTypeImage, JoyFeelsTypeImage, SadFeelsTypeImage, FearFeelsTypeImage;
+
 
     bool showInformation = false;
 
@@ -58,14 +60,18 @@ public class S_BuildingPoolUI : MonoBehaviour
 
     public void SetInfoFeel(S_Currencies FeelType, int FeelCost = 0)
     {
-        FeelTypeImage.enabled = true;
+       // Adrien a mis le texte en dessous en commentaire car il essaye d'afficher les 4 variable de prix.
+      //  FeelTypeImage.enabled = true;
 
-        T_FeelCost.text = FeelCost.ToString();
+        T_AngerFeelsCost.text = FeelCost.ToString();
+        T_JoyFeelsCost.text = FeelCost.ToString();
+        T_SadFeelsCost.text = FeelCost.ToString();  
+        T_FearFeelsCost.text = FeelCost.ToString(); 
 
-        if(FeelType)
-            FeelTypeImage.sprite = FeelType.image;
-        else
-            FeelTypeImage.enabled = false;
+    //   if(FeelType)
+    //       FeelTypeImage.sprite = FeelType.image;
+    //   else
+    //       FeelTypeImage.enabled = false;
     }
 //  public void SetInfoEquilibrium(S_EmotionScriptableObject EquilibriumType, int EquilibriumCost = 0)
 //  {
