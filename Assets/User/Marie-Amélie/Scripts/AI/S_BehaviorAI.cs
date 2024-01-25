@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
+using System.IO.Compression;
 
 public class S_BehaviorAI : MonoBehaviour
 {
     [SerializeField]
     private float walkRange;
-    [SerializeField]
-    private NavMeshData myNavMesh;
     [SerializeField]
     private NavMeshAgent agent;
 
@@ -18,6 +18,11 @@ public class S_BehaviorAI : MonoBehaviour
 
     private Vector3 destination;
     private bool walkPointSet = false;
+
+    private void Start()
+    {
+        StartCoroutine(EndingMyOwnSuffering());
+    }
 
     private void Update()
     {
@@ -38,11 +43,6 @@ public class S_BehaviorAI : MonoBehaviour
         destination = new Vector3(transform.position.x + x, 0, transform.position.z + z);
 
         walkPointSet = true;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(EndingMyOwnSuffering());
     }
 
     IEnumerator EndingMyOwnSuffering()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 public class S_AIManager : MonoBehaviour
 {
@@ -21,9 +22,6 @@ public class S_AIManager : MonoBehaviour
 
     private List<GameObject> spawnedPrefabs = new List<GameObject>();
     private Dictionary<FeelsMatchSprite, int> PrefabsPerFeelType = new Dictionary<FeelsMatchSprite, int>();
-
-    [SerializeField]
-    private NavMeshData navMeshAgent;
 
     private void Start()
     {
@@ -56,7 +54,7 @@ public class S_AIManager : MonoBehaviour
 
     }
 
-    private void MonitorSpecificFeel(FeelsMatchSprite targetFeel, int totalFeel)
+private void MonitorSpecificFeel(FeelsMatchSprite targetFeel, int totalFeel)
     {
         float feelRatio = (float)targetFeel.feelType.amount / (float)totalFeel;
 
@@ -91,7 +89,12 @@ public class S_AIManager : MonoBehaviour
         for (int i = 0; i < instancesToSpawn; i++)
         {
             Vector3 randomPosition = GetRandomPositionOnNavMesh();
-            GameObject spawnedPrefab = Instantiate(toSpawn.feelSprite, randomPosition, Quaternion.identity);
+            GameObject spawnedPrefab = Instantiate(toSpawn.feelSprite, randomPosition, toSpawn.feelSprite.transform.rotation);
+
+            var truc = spawnedPrefab.GetComponent<S_BehaviorAI>();
+            Debug.Log(truc);
+            if(truc == null) Debug.Log("YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
             spawnedPrefab.GetComponent<S_BehaviorAI>().Toto(this, toSpawn);
             spawnedPrefabs.Add(spawnedPrefab);
         }
