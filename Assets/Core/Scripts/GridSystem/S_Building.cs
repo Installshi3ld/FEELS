@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,7 +73,7 @@ public enum BuildingTheme
 public class S_Building : MonoBehaviour
 {
     public S_BuildingData BuildingData;
-    public float probabilityToSpawnInPool = 100f;
+    public S_VFXData VFXData;
 
     [Space]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
@@ -82,16 +83,12 @@ public class S_Building : MonoBehaviour
 
     float lerpAlpha = 0f;
 
-    public MeshRenderer _meshRenderer;
-    private Material _originalMaterial;
     [SerializeField] private S_BuildingCostManager costManager;
 
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
         GetMinMaxCoordinate();
-        _meshRenderer = GetComponentInChildren<MeshRenderer>();
-        _originalMaterial = _meshRenderer.material;
         BuildingData.building = this;
     }
 
@@ -109,9 +106,30 @@ public class S_Building : MonoBehaviour
             {
                 this.transform.position = destination;
                 isPlacedAnimation = true;
+                GetOutOfGroundAnimation();
+
+                //Dust VFX
+                buildingVFX = Instantiate(VFXData.DustVFX.effects[0], this.transform);
+                buildingVFX.transform.position = GetRootCoordinate();
             }
         }
     }
+    GameObject buildingVFX;
+    public void GetOutOfGroundAnimation()
+    {
+        Transform tmpChild = this.transform.GetChild(0).transform;
+        tmpChild.position = new Vector3(tmpChild.position.x, -10, tmpChild.position.z);
+        tmpChild.transform.DOMoveY(0, 2)
+            .OnComplete(() => {
+                //Explosion end building
+                GameObject tmpFX = Instantiate(VFXData.GetVFXEndOfConstruction(), this.transform);
+                tmpFX.transform.position = GetRootCoordinate();
+
+                Destroy(buildingVFX);
+                }) ; 
+    }
+
+
 
     public List<FeelTypeData> GetCosts()
     {
@@ -144,16 +162,10 @@ public class S_Building : MonoBehaviour
             price.Pay();
         }
     }
-    public void SetMeshRendererMaterial(Material _material)
-    {
-        _meshRenderer.material = _material;
-    }
 
     public void PlacedBuilding()
     {
         isPlaced = true;
-
-        _meshRenderer.material = _originalMaterial;
     }
 
     public void SetDestination(Vector3 dest)
@@ -161,6 +173,14 @@ public class S_Building : MonoBehaviour
         destination = dest;
         if (lerpAlpha > 0.5f)
             lerpAlpha = 0;
+    }
+
+    /// <summary>
+    /// Get the center of the building, base on it size in tile coordinate
+    /// </summary>
+    public Vector3 GetRootCoordinate()
+    {
+        return new Vector3((minimumX * 5 + maximumX * 5) / 2, 0, (minimumY * 5 - maximumY * 5)/2) + this.transform.position;
     }
 
     void GetMinMaxCoordinate()

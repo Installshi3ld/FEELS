@@ -14,6 +14,11 @@ public class S_UILifeExperiencePrice : MonoBehaviour
     private void OnEnable()
     {
         UIPriceSO.UpdatePriceUILifeExp += UpdatePriceUI;
+
+        foreach (var item in currencyUIPanelList)
+        {
+            item.currencyUI.SetActive(false);
+        }
     }
 
     private void OnDisable()
