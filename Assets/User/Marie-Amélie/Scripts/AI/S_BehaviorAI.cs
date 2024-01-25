@@ -27,7 +27,8 @@ public class S_BehaviorAI : MonoBehaviour
 	
 	private IEnumerator DoFadeInAndOut()
 	{
-		var renderer = gameObject.GetComponent<SpriteRenderer>();
+		var renderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        if (renderer == null) yield break;
 		var color = renderer.color;
 		color.a = 0f;
 		renderer.color = color;
