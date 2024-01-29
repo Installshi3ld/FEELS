@@ -5,6 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.Events;
+using TMPro;
 
 public class S_Timeline : MonoBehaviour
 {
@@ -76,6 +77,7 @@ public class S_Timeline : MonoBehaviour
 
         StartCoroutine(UpdateEvents());
     }
+
     private void Update()
     {
         if (!timerDone)
@@ -88,6 +90,7 @@ public class S_Timeline : MonoBehaviour
             currentRequirement.CheckIsRequirementFulfilled();
 
             OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+
         }
     }
 
@@ -282,6 +285,7 @@ public class S_Timeline : MonoBehaviour
             TryChangePhaseIndex();
 
             return picked;
+     
         }
 
         //TryChangePhaseIndex(); In case there is no one left but can switch ?? Not sure 
