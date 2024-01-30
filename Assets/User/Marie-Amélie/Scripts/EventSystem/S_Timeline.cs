@@ -5,15 +5,11 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
 using UnityEngine.Events;
-using TMPro;
 
 public class S_Timeline : MonoBehaviour
 {
     [SerializeField]
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
-
-    [SerializeField]
-    public float secondsBetweenNewConstraint;
 
     [SerializeField]
     private S_UILifeExpDelegateScriptableObject uiLifeExp;
@@ -24,8 +20,6 @@ public class S_Timeline : MonoBehaviour
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
-
-    private bool hasLifeEventBeenPicked;
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
@@ -41,7 +35,11 @@ public class S_Timeline : MonoBehaviour
 
     private bool hasBeenPaid = false;
 
+    private bool hasLifeEventBeenPicked;
+
     private int succeededRequirementForThisPhase;
+
+    [SerializeField] private S_ScriptableRounds rounds;
 
     private S_LifeExperience currentLifeExperience;
 
@@ -73,24 +71,17 @@ public class S_Timeline : MonoBehaviour
     {
         currentPhaseIndex = 0;
 
-        eventTimer.MaxTime = secondsBetweenNewConstraint;
+        rounds.OnChangedRound += UpdateEvents;
 
-        StartCoroutine(UpdateEvents());
+        UpdateEvents();
     }
 
     private void Update()
     {
-        if (!timerDone)
+        if (currentRequirement)
         {
-            eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
-        }
-
-        if (OnRequirementChecked != null && currentRequirement != null)
-        {
-            currentRequirement.CheckIsRequirementFulfilled();
-
-            OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
-
+            Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
+            OnRequirementChecked?.Invoke(currentRequirement);
         }
     }
 
@@ -104,73 +95,58 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateEvents()
+    private void UpdateEvents()
     {
-        while (!IsAvailableRequirementListEmpty())
+        if (currentRequirement != null && !currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled : provoke disaster
+        {
+            foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
+            {
+                Debug.Log("provoke disaster : " + consequence.Description);
+
+                if (OnDisasterOccuring != null)
+                {
+                    OnDisasterOccuring.Invoke(currentRequirement);
+                }
+
+                consequence.ProvoqueDisaster();
+
+                VFXManager.InstantiateCorrectVFX(consequence.feelType);
+            }
+
+            currentRequirement = null;
+        }
+
+        if (currentRequirement == null)
+        {
+            currentRequirement = chooseOneRequirementRandomly();
+            currentEvent.SetNewRequirement(currentRequirement);
+            //Debug.Log(currentRequirement.NarrativeDescription);
+        }
+
+        if(currentRequirement != null && currentRequirement.CheckIsRequirementFulfilled()) //If fulfilled : get reward
+        {
+            succeededRequirementForThisPhase++;
+            OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
+
+            foreach (S_Reward reward in currentRequirement.LinkedRewards)
+            {
+                reward.GetReward();
+            }
+
+            currentRequirement = null;
+        }
+
+        if (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            eventTimer.StartTimerOver();
-
             if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
             {
                 ChooseOrNotLifeExperience();
-
             }
 
-
-            if (hasLifeEventBeenPicked && PickedLifeExperience && !hasBeenPaid)
-            {
-                AddFireLifeExperience(PickedLifeExperience);
-            }
-
-            currentRequirement = chooseOneRequirementRandomly();
-
-
-            if (currentRequirement != null)
-            {
-                //Debug.Log(currentRequirement.NarrativeDescription);
-
-                currentEvent.SetNewRequirement(currentRequirement);
-
-            }
-
-            yield return new WaitForSeconds(secondsBetweenNewConstraint);
-
-            if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
-            {
-                foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
-                {
-                    
-                    Debug.Log("provoke disaster : " + consequence.Description);
-
-                    if (OnDisasterOccuring != null)
-                    {
-                        OnDisasterOccuring.Invoke(currentRequirement);
-                    }
-
-                    consequence.ProvoqueDisaster();
-
-                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
-                }
-            }
-            else
-            {
-                succeededRequirementForThisPhase++;
-
-                foreach (S_Reward reward in currentRequirement.LinkedRewards)
-                {
-                    reward.GetReward();
-                }
-            }
         }
-        timerDone = true;
-    }
-
-    public void AddFireLifeExperience(S_LifeExperienceScriptableObject lifeExpScript)
-    {
-        Debug.Log("SOMEONE IS CALLING MEEEEEE");
 
     }
     private bool IsAvailableRequirementListEmpty()
@@ -285,7 +261,6 @@ public class S_Timeline : MonoBehaviour
             TryChangePhaseIndex();
 
             return picked;
-     
         }
 
         //TryChangePhaseIndex(); In case there is no one left but can switch ?? Not sure 

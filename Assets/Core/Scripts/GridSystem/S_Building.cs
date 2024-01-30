@@ -67,13 +67,19 @@ public enum BuildingTheme
     Music,
     Food,
     Animals,
+    Face,
+    Activity,
+    Profession,
 }
 #endregion
 
 public class S_Building : MonoBehaviour
 {
     public S_BuildingData BuildingData;
+
+    [Header("Data")]
     public S_VFXData VFXData;
+    public int actionPointCost = 1;
 
     [Space]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
@@ -98,7 +104,7 @@ public class S_Building : MonoBehaviour
         }
     }
 
-    public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
+    [NonSerialized] public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
 
     private void Update()
     {

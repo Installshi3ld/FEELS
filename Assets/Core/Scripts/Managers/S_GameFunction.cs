@@ -13,6 +13,7 @@ public class S_GameFunction : MonoBehaviour
 
     public static bool isPaused = false;
     public GameObject PauseMenu;
+    public S_ScriptableRounds ScriptableRounds;
     public void SwitchTimeScalePauseResume()
     {
         if (Time.timeScale > 0.5f)
@@ -29,6 +30,12 @@ public class S_GameFunction : MonoBehaviour
             Time.timeScale = 1;
         }
             
+    }
+
+    //Change round 
+    public void ChangeRound()
+    {
+        ScriptableRounds.SwitchRound();
     }
 
     public void PauseTimeResume()
