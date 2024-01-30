@@ -84,12 +84,18 @@ public class S_Building : MonoBehaviour
     float lerpAlpha = 0f;
 
     [SerializeField] private S_BuildingCostManager costManager;
+    private S_FeelAssignationBuilding _FeelAssignationBuilding = null;
 
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
         GetMinMaxCoordinate();
         BuildingData.building = this;
+         
+        if(gameObject.TryGetComponent<S_FeelAssignationBuilding>(out S_FeelAssignationBuilding comp))
+        {
+            _FeelAssignationBuilding = comp;
+        }
     }
 
     public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
@@ -166,6 +172,8 @@ public class S_Building : MonoBehaviour
     public void PlacedBuilding()
     {
         isPlaced = true;
+        if (_FeelAssignationBuilding)
+            _FeelAssignationBuilding.AssignFeels(BuildingData.feelTypeCostList[0].feelTypeCurrency);
     }
 
     public void SetDestination(Vector3 dest)
