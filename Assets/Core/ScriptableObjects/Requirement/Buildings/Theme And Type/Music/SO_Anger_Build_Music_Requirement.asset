@@ -9,16 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be26444280b4f954b9a8d7688a194aeb, type: 3}
-  m_Name: SO_Anger_Build_Food_Requirement
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
+  m_Name: SO_Anger_Build_Music_Requirement
   m_EditorClassIdentifier: 
-  NarrativeDescription: You got a bad grade idiot !
-  ConstraintDescription: Have 1 food anger building
+  NarrativeDescription: Your neighbourg make a lot of noise in the nights. Let's
+    start a contest !
+  ConstraintDescription: Have 1 music anger building
   LinkedDisaster:
   - {fileID: 11400000, guid: 9c5bd5ad4df942246aea0950d2ffdf81, type: 2}
   LinkedRewards:
-  - {fileID: 11400000, guid: 663b53b728bd0d24d88b798676165b88, type: 2}
+  - {fileID: 11400000, guid: 71157540f22b8f8418223ccd0152abd8, type: 2}
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
-  themeRequirements:
-  - buildingTheme: 2
+  themeAndTypeRequirements:
+  - feelType: 2
+    buildingTheme: 1
     numberOfRequiredBuildings: 1

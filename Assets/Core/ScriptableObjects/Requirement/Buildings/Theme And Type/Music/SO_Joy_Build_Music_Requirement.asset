@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be26444280b4f954b9a8d7688a194aeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
   m_Name: SO_Joy_Build_Music_Requirement
   m_EditorClassIdentifier: 
   NarrativeDescription: Go to your favorite band concert. Hell yeah !
@@ -19,6 +19,7 @@ MonoBehaviour:
   LinkedRewards:
   - {fileID: 11400000, guid: 82727ae4955a40b43b7f801f2b0f76a6, type: 2}
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
-  themeRequirements:
-  - buildingTheme: 1
+  themeAndTypeRequirements:
+  - feelType: 1
+    buildingTheme: 1
     numberOfRequiredBuildings: 1
