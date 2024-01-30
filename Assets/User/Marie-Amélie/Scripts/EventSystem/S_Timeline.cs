@@ -35,6 +35,8 @@ public class S_Timeline : MonoBehaviour
 
     private bool hasBeenPaid = false;
 
+    private bool hasLifeEventBeenPicked;
+
     private int succeededRequirementForThisPhase;
 
     [SerializeField] private S_ScriptableRounds rounds;
@@ -68,6 +70,8 @@ public class S_Timeline : MonoBehaviour
     void Start()
     {
         currentPhaseIndex = 0;
+
+        rounds.OnChangedRound += UpdateEvents;
 
         UpdateEvents();
     }
@@ -103,12 +107,9 @@ public class S_Timeline : MonoBehaviour
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            eventTimer.StartTimerOver();
-
             if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
             {
                 ChooseOrNotLifeExperience();
-
             }
 
             currentRequirement = chooseOneRequirementRandomly();
@@ -126,7 +127,6 @@ public class S_Timeline : MonoBehaviour
             {
                 foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
-                    
                     Debug.Log("provoke disaster : " + consequence.Description);
 
                     if (OnDisasterOccuring != null)
@@ -139,6 +139,7 @@ public class S_Timeline : MonoBehaviour
                     VFXManager.InstantiateCorrectVFX(consequence.feelType);
                 }
             }
+
             else
             {
                 succeededRequirementForThisPhase++;
@@ -149,6 +150,7 @@ public class S_Timeline : MonoBehaviour
                 }
             }
         }
+
         timerDone = true;
     }
     private bool IsAvailableRequirementListEmpty()
