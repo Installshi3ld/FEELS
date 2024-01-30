@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.UI;
 using static Unity.Burst.Intrinsics.X86.Avx;
@@ -25,7 +26,8 @@ public class S_BuildingPoolUI : MonoBehaviour
     public TextMeshProUGUI T_JoyFeelCost, T_AngerFeelCost, T_SadFeelCost, T_FearFeelCost;
     public Image JoyFeelTypeImage, AngerFeelTypeImage, SadFeelTypeImage, FearFeelTypeImage;
     public TextMeshProUGUI BuildingName, ScoreInformation;
-    public Image BuildingType, BuildingTheme;
+    public TextMeshProUGUI BuildingType, BuildingTheme;
+    public Image BuildingIcon;
     //C'est immonde je sais bien mais c'est tout pour l'instant
 
 
@@ -99,20 +101,22 @@ public class S_BuildingPoolUI : MonoBehaviour
     }
 
     //Set pop up information
-    public void SetInfoFeel(S_Currencies FeelType, int FeelCost = 0)
+    public void SetInfoFeel(S_Building _buildingScript, int FeelCost = 0)
     {
         //Adrien Modification to display the price of the 4 type of Feels
         //FeelTypeImage.enabled = true;
-
+        FeelCost = _buildingScript ? _buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
         T_JoyFeelCost.text = FeelCost.ToString();
         T_AngerFeelCost.text = FeelCost.ToString();
         T_SadFeelCost.text = FeelCost.ToString();
         T_FearFeelCost.text = FeelCost.ToString();
 
-       // buildingScript = _BuildingReference.GetComponent<S_Building>();
+        //buildingScript = _BuildingReference.GetComponent<S_Building>();
 
-       // BuildingName.text = _buildingPoolData.buildingName.ToString();
-
+        BuildingName.text = _buildingScript.BuildingData.buildingName.ToString();
+        BuildingType.text = _buildingScript.BuildingData.feelType.ToString();
+        BuildingTheme.text = _buildingScript.BuildingData.BuildingTheme.ToString();
+        BuildingIcon.sprite = _buildingScript.BuildingData.BuildingImage;
    //
    //   if (FeelType)
    //       FeelTypeImage.sprite = FeelType.image;

@@ -67,6 +67,9 @@ public enum BuildingTheme
     Music,
     Food,
     Animals,
+    Face,
+    Activity,
+    Profession,
 }
 #endregion
 

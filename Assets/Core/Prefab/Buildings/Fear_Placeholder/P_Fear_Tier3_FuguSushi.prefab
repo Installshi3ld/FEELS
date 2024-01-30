@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3790995426943319417}
   - component: {fileID: 5982396008594923415}
   m_Layer: 6
-  m_Name: P_Fear_Tier3_Placeholder
+  m_Name: P_Fear_Tier3_FuguSushi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   BuildingData:
     buildingName: Fear T3
     feelType: 4
-    BuildingTheme: 0
+    BuildingTheme: 2
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
       feelPrice: 500
@@ -62,12 +62,11 @@ MonoBehaviour:
       feelPrice: 500
     tier: 2
     BuildingImage: {fileID: 21300000, guid: 45a89840a42821e41b6a92571cd7ee15, type: 3}
-  probabilityToSpawnInPool: 100
+  VFXData: {fileID: 0}
   tilesCoordinate:
   - {x: 1, y: 0}
   - {x: 0, y: -1}
   - {x: 1, y: -1}
-  _meshRenderer: {fileID: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
   minimumX: 0
   minimumY: 0
