@@ -14,17 +14,7 @@ public class S_FeelsUI : MonoBehaviour
     public Color increaseColor = Color.green;
     public Color decreaseColor = Color.red;
 
-    public GameObject JFIncreasespriteObject;
-    public GameObject JFDecreasespriteObject;
-
-    public GameObject AFIncreasespriteObject;
-    public GameObject AFDecreasespriteObject;
-
-    public GameObject FFIncreasespriteObject;
-    public GameObject FFDecreasespriteObject;
-
-    public GameObject SFIncreasespriteObject;
-    public GameObject SFDecreasespriteObject;
+    public GameObject JFIncreasespriteObject, JFDecreasespriteObject, AFIncreasespriteObject, AFDecreasespriteObject, FFIncreasespriteObject, FFDecreasespriteObject, SFIncreasespriteObject, SFDecreasespriteObject;
 
     private float lastJoyFeelsAmount;
     private float lastAngerFeelsAmount;
@@ -65,6 +55,7 @@ public class S_FeelsUI : MonoBehaviour
             StartCoroutine(JChangeColorCoroutine(increaseColor));
             StartCoroutine(JShowObjectForTime(JFIncreasespriteObject, 4.25f));
             JFDecreasespriteObject.SetActive(false);
+
         }
         else if (joyFeels.Amount < lastJoyFeelsAmount)
         {
