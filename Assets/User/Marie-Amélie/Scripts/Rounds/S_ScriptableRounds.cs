@@ -9,7 +9,7 @@ public class S_ScriptableRounds : ScriptableObject
     [SerializeField] private int numberOfRoundToSwitchEvent;
     private int _currentRound;
 
-    private int _actionPoints;
+    [SerializeField] private int _actionPoints;
 
     public Action OnChangedTurn;
     public Action OnChangedRound;
@@ -27,6 +27,16 @@ public class S_ScriptableRounds : ScriptableObject
 
             OnChangedTurn?.Invoke(); //if not null
         }
+    }
+
+    private void OnEnable()
+    {
+        _currentRound = 1;
+    }
+
+    public int GetNumberOfRounds()
+    {
+        return _currentRound;
     }
     public void SwitchRound()
     {
@@ -50,9 +60,16 @@ public class S_ScriptableRounds : ScriptableObject
 
     private void CheckChangeEvent()
     {
-        if(_currentRound % numberOfRoundToSwitchEvent == 0)
+        if(_currentRound == numberOfRoundToSwitchEvent)
         {
+            _currentRound = 0;
+            Debug.Log("calling delegate");
             OnChangedRound?.Invoke();
         }
+    }
+
+    public int GetRoundsLeft()
+    {
+        return numberOfRoundToSwitchEvent - CurrentRound;
     }
 }

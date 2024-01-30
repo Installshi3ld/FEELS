@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class S_TourCounter : MonoBehaviour
+public class S_TourCounterUI: MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI counterTextFied;
-    [SerializeField] private S_TourCounter counter;
+    [SerializeField] private S_ScriptableRounds counter;
 
     private void Update()
     {
-        //counterTextFied.text = counter.Get
+        counterTextFied.text = "Round " + counter.GetNumberOfRounds().ToString();
     }
 }

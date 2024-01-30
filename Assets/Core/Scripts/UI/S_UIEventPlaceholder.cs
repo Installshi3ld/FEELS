@@ -21,8 +21,14 @@ public class S_UIEventPlaceholder : MonoBehaviour
         currentEvent.OnChangingRequirement -= UpdateMenu;
     }
 
-    private void UpdateMenu(S_Requirement currentR)
+    private void UpdateMenu(S_Requirement currentR, float delay)
     {
+        StartCoroutine(UpdateWithDelayOrNot(currentR, delay));
+    }
+
+    IEnumerator UpdateWithDelayOrNot(S_Requirement currentR, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         textEventDescription.text = currentR.NarrativeDescription;
         textEventRequirement.text = currentR.ConstraintDescription;
     }

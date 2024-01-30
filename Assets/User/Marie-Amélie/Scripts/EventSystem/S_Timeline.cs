@@ -29,8 +29,9 @@ public class S_Timeline : MonoBehaviour
 
     S_Requirement currentRequirement;
 
-    public delegate void RefreshFromEvent(S_Requirement currentEvent);
-    public static event RefreshFromEvent OnRequirementChecked;
+    public delegate void RefreshFromRequirement(S_Requirement currentEvent);
+    public static event RefreshFromRequirement OnRequirementChecked;
+    public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
 
     private bool hasBeenPaid = false;
@@ -38,6 +39,8 @@ public class S_Timeline : MonoBehaviour
     private bool hasLifeEventBeenPicked;
 
     private int succeededRequirementForThisPhase;
+
+    private float currentDelay;
 
     [SerializeField] private S_ScriptableRounds rounds;
 
@@ -62,7 +65,7 @@ public class S_Timeline : MonoBehaviour
     private bool isThereLifeExperienceOnMap = false;
 
     [SerializeField]
-    private S_VFXManager VFXManager;
+    private S_EventResolutionManager resolutionManager;
 
     private S_UIDisasterImage disasterBlink;
 
@@ -81,7 +84,6 @@ public class S_Timeline : MonoBehaviour
         if (currentRequirement)
         {
             Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
-            OnRequirementChecked?.Invoke(currentRequirement);
         }
     }
 
@@ -105,21 +107,27 @@ public class S_Timeline : MonoBehaviour
 
                 if (OnDisasterOccuring != null)
                 {
-                    OnDisasterOccuring.Invoke(currentRequirement);
+                    OnDisasterOccuring.Invoke(currentRequirement, 0);
                 }
 
-                consequence.ProvoqueDisaster();
+                resolutionManager.ResolveEvent(consequence.feelType, currentRequirement);
+                StartCoroutine(DelayDisasterConsequences(resolutionManager.delayBetweenEventResolutionPhases, consequence));
 
-                VFXManager.InstantiateCorrectVFX(consequence.feelType);
             }
 
             currentRequirement = null;
+            currentDelay = resolutionManager.delayBetweenEventResolutionPhases;
+        }
+        else
+        {
+            currentDelay = -5;
         }
 
         if (currentRequirement == null)
         {
             currentRequirement = chooseOneRequirementRandomly();
-            currentEvent.SetNewRequirement(currentRequirement);
+            currentEvent.SetNewRequirement(currentRequirement, currentDelay + 5);
+            OnRequirementChecked?.Invoke(currentRequirement);
             //Debug.Log(currentRequirement.NarrativeDescription);
         }
 
@@ -149,6 +157,15 @@ public class S_Timeline : MonoBehaviour
         }
 
     }
+
+    IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
+    {
+        yield return new WaitForSeconds(delay);
+        consequence.ProvoqueDisaster();
+        yield return new WaitForSeconds(delay);
+        OnRequirementChecked?.Invoke(currentRequirement);
+    }
+
     private bool IsAvailableRequirementListEmpty()
     {
         if (GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)

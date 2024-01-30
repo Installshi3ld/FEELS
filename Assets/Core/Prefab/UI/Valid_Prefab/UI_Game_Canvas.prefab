@@ -198,6 +198,10 @@ PrefabInstance:
       propertyPath: SFIncreasespriteObject
       value: 
       objectReference: {fileID: 7869206784910683699}
+    - target: {fileID: 9215884210567331911, guid: 7976fb8aade66c3498d64ebcd9646ea2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -420,9 +424,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 913966128382396931}
     m_Modifications:
+    - target: {fileID: 1604738757294109872, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_text
+      value: Animal/Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604738757294109872, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604738757294109872, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064892878193485838, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_text
+      value: Food/Activity
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064892878193485838, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064892878193485838, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2518291927486283795, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
       propertyPath: m_Name
       value: UI_BuildingPool_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451974884934415723, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_text
+      value: Basic
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451974884934415723, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451974884934415723, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329011184985874986, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329011184985874986, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8572828382695663255, guid: 9778c298d2a75f64e857014b721d79dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -551,10 +599,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1617260306660260209, guid: 061c56fed736da841802da76265133f0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1617260306660260209, guid: 061c56fed736da841802da76265133f0, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755629620542901931, guid: 061c56fed736da841802da76265133f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298778234419075178, guid: 061c56fed736da841802da76265133f0, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7350385861701228196, guid: 061c56fed736da841802da76265133f0, type: 3}
