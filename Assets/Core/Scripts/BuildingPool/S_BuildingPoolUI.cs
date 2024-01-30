@@ -21,8 +21,13 @@ public class S_BuildingPoolUI : MonoBehaviour
     [Header("Pop Up info")]
     public GameObject InfoScreen;
 
+    //Adrien Le Vaurien passe dans le coin
     public TextMeshProUGUI T_JoyFeelCost, T_AngerFeelCost, T_SadFeelCost, T_FearFeelCost;
     public Image JoyFeelTypeImage, AngerFeelTypeImage, SadFeelTypeImage, FearFeelTypeImage;
+    public TextMeshProUGUI BuildingName, ScoreInformation;
+    public Image BuildingType, BuildingTheme;
+    //C'est immonde je sais bien mais c'est tout pour l'instant
+
 
     private List<GameObject> button = new List<GameObject>();
     bool showInformation = false;
@@ -104,11 +109,16 @@ public class S_BuildingPoolUI : MonoBehaviour
         T_SadFeelCost.text = FeelCost.ToString();
         T_FearFeelCost.text = FeelCost.ToString();
 
+       // buildingScript = _BuildingReference.GetComponent<S_Building>();
+
+       // BuildingName.text = _buildingPoolData.buildingName.ToString();
+
    //
    //   if (FeelType)
    //       FeelTypeImage.sprite = FeelType.image;
    //   else
    //       FeelTypeImage.enabled = false;
+   // Fin de Modification Adrien
     }
 
     //Refresh building pool UI
