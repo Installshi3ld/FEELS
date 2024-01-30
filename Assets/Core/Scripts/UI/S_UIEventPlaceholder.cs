@@ -10,7 +10,6 @@ public class S_UIEventPlaceholder : MonoBehaviour
 
     [SerializeField]
     private S_CurrentEventScriptableObject currentEvent;
-
     private void OnEnable()
     {
         currentEvent.OnChangingRequirement += UpdateMenu;
@@ -32,5 +31,4 @@ public class S_UIEventPlaceholder : MonoBehaviour
         textEventDescription.text = currentR.NarrativeDescription;
         textEventRequirement.text = currentR.ConstraintDescription;
     }
-
 }

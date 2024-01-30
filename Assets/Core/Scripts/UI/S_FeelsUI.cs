@@ -14,17 +14,7 @@ public class S_FeelsUI : MonoBehaviour
     public Color increaseColor = Color.green;
     public Color decreaseColor = Color.red;
 
-    public GameObject JFIncreasespriteObject;
-    public GameObject JFDecreasespriteObject;
-
-    public GameObject AFIncreasespriteObject;
-    public GameObject AFDecreasespriteObject;
-
-    public GameObject FFIncreasespriteObject;
-    public GameObject FFDecreasespriteObject;
-
-    public GameObject SFIncreasespriteObject;
-    public GameObject SFDecreasespriteObject;
+    public GameObject JFIncreasespriteObject, JFDecreasespriteObject, AFIncreasespriteObject, AFDecreasespriteObject, FFIncreasespriteObject, FFDecreasespriteObject, SFIncreasespriteObject, SFDecreasespriteObject;
 
     private float lastJoyFeelsAmount;
     private float lastAngerFeelsAmount;
@@ -64,11 +54,14 @@ public class S_FeelsUI : MonoBehaviour
         {
             StartCoroutine(JChangeColorCoroutine(increaseColor));
             StartCoroutine(JShowObjectForTime(JFIncreasespriteObject, 4.25f));
+            JFDecreasespriteObject.SetActive(false);
+
         }
         else if (joyFeels.Amount < lastJoyFeelsAmount)
         {
             StartCoroutine(JChangeColorCoroutine(decreaseColor));
             StartCoroutine(JShowObjectForTime(JFDecreasespriteObject, 4.25f));
+            JFIncreasespriteObject.SetActive(false);
         }
 
         // Check if angerFeels amount has increased or decreased
@@ -76,11 +69,13 @@ public class S_FeelsUI : MonoBehaviour
         {
             StartCoroutine(AChangeColorCoroutine(increaseColor));
             StartCoroutine(AShowObjectForTime(AFIncreasespriteObject, 4.25f));
+            AFDecreasespriteObject.SetActive(false);
         }
         else if (angerFeels.Amount < lastAngerFeelsAmount)
         {
             StartCoroutine(AChangeColorCoroutine(decreaseColor));
             StartCoroutine(AShowObjectForTime(AFDecreasespriteObject, 4.25f));
+            AFIncreasespriteObject.SetActive(false);
         }
 
         // Check if fearFeels amount has increased or decreased
@@ -88,11 +83,13 @@ public class S_FeelsUI : MonoBehaviour
         {
             StartCoroutine(FChangeColorCoroutine(increaseColor));
             StartCoroutine(FShowObjectForTime(FFIncreasespriteObject, 4.25f));
+            FFDecreasespriteObject.SetActive(false);
         }
         else if (fearFeels.Amount < lastFearFeelsAmount)
         {
             StartCoroutine(FChangeColorCoroutine(decreaseColor));
             StartCoroutine(FShowObjectForTime(FFDecreasespriteObject, 4.25f));
+            FFIncreasespriteObject.SetActive(false);
         }
 
         // Check if sadnessFeels amount has increased or decreased
@@ -100,11 +97,13 @@ public class S_FeelsUI : MonoBehaviour
         {
             StartCoroutine(SChangeColorCoroutine(increaseColor));
             StartCoroutine(SShowObjectForTime(SFIncreasespriteObject, 4.25f));
+            SFDecreasespriteObject.SetActive(false);
         }
         else if (sadnessFeels.Amount < lastSadnessFeelsAmount)
         {
             StartCoroutine(SChangeColorCoroutine(decreaseColor));
             StartCoroutine(SShowObjectForTime(SFDecreasespriteObject, 4.25f));
+            SFIncreasespriteObject.SetActive(false);
         }
 
 
