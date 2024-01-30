@@ -30,12 +30,12 @@ public class S_ImageAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-  //      S_Timeline.OnDisasterOccuring += ImageScaleAndMove;
+        //S_Timeline.OnDisasterOccuring += ImageScaleAndMove;
     }
 
     private void OnDisable()
     {
-   //     S_Timeline.OnDisasterOccuring -= ImageScaleAndMove;
+        //S_Timeline.OnDisasterOccuring -= ImageScaleAndMove;
     }
 
     private IEnumerator OnAnimationEnded()
