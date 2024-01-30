@@ -178,7 +178,8 @@ public class ConstructionSystem : MonoBehaviour
 
         //Change token
         consciousTreeToken.AddAmount(1);
-        //ScriptableRounds.RemoveAction(objectSpawnedBuildingScript.actionPointCost);
+        ScriptableRounds.TryRemoveActionPoints(objectSpawnedBuildingScript.actionPointCost);
+
         if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
             objectSpawnedBuildingScript.RemoveFeelCost();
         feelsUI.RefreshUI();
