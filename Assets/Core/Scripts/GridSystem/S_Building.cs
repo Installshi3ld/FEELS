@@ -127,9 +127,16 @@ public class S_Building : MonoBehaviour
         }
     }
     GameObject buildingVFX;
+
+    private Vector3 initialScale; // Variable pour stocker la scale initiale
+
     public void GetOutOfGroundAnimation()
     {
+
+
         Transform tmpChild = this.transform.GetChild(0).GetChild(0).transform;
+
+        initialScale = tmpChild.localScale;
 
         tmpChild.position = new Vector3(tmpChild.position.x, -10, tmpChild.position.z);
 
@@ -152,7 +159,7 @@ public class S_Building : MonoBehaviour
         sequence.Append(tmpChild.DOScaleY(0.25f, 0.1f));  // Rescale de 0.25 sur l'axe Y
         sequence.Join(tmpChild.DOScaleX(2f, 0.5f));  // Rescale de 2 sur l'axe X
 
-        sequence.Append(tmpChild.DOScale(new Vector3(1, 1, 1), 0.5f));  // Retrouve une scale de 1,1
+        sequence.Append(tmpChild.DOScale(initialScale, 0.5f));  // Retrouve une scale de 1,1
         sequence.Join(tmpChild.DOMoveY(0f, 0.5f));  // Retrouve sa position en 0 sur l'axe Y
 
         // Optionnel : démarre automatiquement la séquence
