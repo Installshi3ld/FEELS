@@ -15,6 +15,8 @@ public class S_ScriptableRounds : ScriptableObject
     {
         currentRound++;
         CheckChangeEvent();
+
+        OnChangedRound?.Invoke(); //if not null
     }
 
     private void CheckChangeEvent()
