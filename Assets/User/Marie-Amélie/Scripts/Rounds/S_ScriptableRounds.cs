@@ -9,18 +9,33 @@ public class S_ScriptableRounds : ScriptableObject
     [SerializeField] private int numberOfRoundToSwitchEvent;
     private int currentRound;
 
+    public Action OnChangedTurn;
     public Action OnChangedRound;
 
+    public int CurrentRound
+    {
+        get
+        {
+            return currentRound;
+        }
+        private set
+        {
+            currentRound = value;
+
+            OnChangedTurn?.Invoke(); //if not null
+        }
+    }
     public void SwitchRound()
     {
         currentRound++;
         CheckChangeEvent();
-
-        OnChangedRound?.Invoke(); //if not null
     }
 
     private void CheckChangeEvent()
     {
-        //
+        if(currentRound % numberOfRoundToSwitchEvent == 0)
+        {
+            OnChangedRound?.Invoke();
+        }
     }
 }

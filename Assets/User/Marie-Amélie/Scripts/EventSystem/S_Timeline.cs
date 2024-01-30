@@ -12,9 +12,6 @@ public class S_Timeline : MonoBehaviour
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    public float secondsBetweenNewConstraint;
-
-    [SerializeField]
     private S_UILifeExpDelegateScriptableObject uiLifeExp;
 
     [SerializeField]
@@ -23,8 +20,6 @@ public class S_Timeline : MonoBehaviour
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
-
-    private bool hasLifeEventBeenPicked;
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
@@ -41,6 +36,8 @@ public class S_Timeline : MonoBehaviour
     private bool hasBeenPaid = false;
 
     private int succeededRequirementForThisPhase;
+
+    [SerializeField] private S_ScriptableRounds rounds;
 
     private S_LifeExperience currentLifeExperience;
 
@@ -72,9 +69,7 @@ public class S_Timeline : MonoBehaviour
     {
         currentPhaseIndex = 0;
 
-        eventTimer.MaxTime = secondsBetweenNewConstraint;
-
-        StartCoroutine(UpdateEvents());
+        UpdateEvents();
     }
     private void Update()
     {
@@ -101,7 +96,7 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateEvents()
+    private void UpdateEvents()
     {
         while (!IsAvailableRequirementListEmpty())
         {
@@ -126,8 +121,6 @@ public class S_Timeline : MonoBehaviour
                 currentEvent.SetNewRequirement(currentRequirement);
 
             }
-
-            yield return new WaitForSeconds(secondsBetweenNewConstraint);
 
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
