@@ -62,14 +62,10 @@ MonoBehaviour:
       feelPrice: 15
     tier: 0
     BuildingImage: {fileID: 21300000, guid: c49106a387f42ff46af6955330f2e7ca, type: 3}
-  probabilityToSpawnInPool: 100
+  VFXData: {fileID: 0}
+  actionPointCost: 1
   tilesCoordinate: []
-  _meshRenderer: {fileID: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
-  minimumX: 0
-  minimumY: 0
-  maximumX: 0
-  maximumY: 0
 --- !u!114 &-6129549663309600517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +83,7 @@ MonoBehaviour:
   delayBetweenEachProduction: 2
   productionAmountBoosted: 1.5
   delayBetweenEachProductionBoosted: 2
+  scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!65 &8711676751392839174
 BoxCollider:
   m_ObjectHideFlags: 0

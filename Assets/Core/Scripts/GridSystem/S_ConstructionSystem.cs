@@ -8,6 +8,7 @@ public class ConstructionSystem : MonoBehaviour
     [SerializeField] private S_BuildingList buildingListContainer;
     [SerializeField]private S_GridData _gridData;
     [SerializeField] private S_FogData _fogData;
+    [SerializeField] private S_ScriptableRounds ScriptableRounds;
 
     public GameObject objectToSpawn;
     public GameObject planePlacementValid;
@@ -106,21 +107,6 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
-    //Use for the tutorial
-    void EnableFeedBuildingTile(S_BuildingData build, List<Vector2Int> tile, bool statement = true)
-    {
-        foreach (Vector2Int coord in tile)
-        {
-            //Calculate Vector3 Global Coord
-            Vector3 tmpVect = build.building.destination;
-            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
-            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
-
-            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
-
-            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
-        }
-    }
     
     private void LateUpdate()
     {
@@ -145,6 +131,21 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
+    //Use for the tutorial
+    void EnableFeedBuildingTile(S_BuildingData build, List<Vector2Int> tile, bool statement = true)
+    {
+        foreach (Vector2Int coord in tile)
+        {
+            //Calculate Vector3 Global Coord
+            Vector3 tmpVect = build.building.destination;
+            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
+
+            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
+        }
+    }
     List<Vector2Int> GetObjectSpawnTileUsage()
     {
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
@@ -169,21 +170,20 @@ public class ConstructionSystem : MonoBehaviour
 
         UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
-        feelsUI.RefreshUI();
-
-        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
-        {
-            objectSpawnedBuildingScript.RemoveFeelCost();
-        }
-
-        consciousTreeToken.AddAmount(1);
-
         CheckBoostBuilding();
 
         objectSpawnedBuildingScript.PlacedBuilding();
         _gridData.ClearPlaneFeedbackBuildingStatement();
 
+
+        //Change token
         consciousTreeToken.AddAmount(1);
+        //ScriptableRounds.RemoveAction(objectSpawnedBuildingScript.actionPointCost);
+        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+            objectSpawnedBuildingScript.RemoveFeelCost();
+        feelsUI.RefreshUI();
+
+
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
         switch (objectSpawnedBuildingScript.BuildingData.feelType)

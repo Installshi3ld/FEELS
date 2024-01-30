@@ -2291,10 +2291,6 @@ PrefabInstance:
       propertyPath: PauseMenu
       value: 
       objectReference: {fileID: 947817064}
-    - target: {fileID: 4767701129476957686, guid: 77dcba4af15ada24698388895fef522d, type: 3}
-      propertyPath: ScriptableRounds
-      value: 
-      objectReference: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
     - target: {fileID: 6370013581054466304, guid: 77dcba4af15ada24698388895fef522d, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -2781,6 +2777,34 @@ PrefabInstance:
     - target: {fileID: 6491184084042555850, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 606532259}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeRound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: S_GameFunction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540747271521486029, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6671777436572470447, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: timeLine
