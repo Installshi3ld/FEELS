@@ -20,6 +20,6 @@ public class S_TimerTextUpdate : MonoBehaviour
 
     private void UpdateTimerValue()
     {
-        textField.text = ((int)Math.Floor(timer.maxTime - timer.eventTimerState) + " seconds left");
+        textField.text = ((int)Math.Max(0, Math.Floor(timer.maxTime - timer.eventTimerState))) + " seconds left"; //prevent this value from being under 0
     }
 }

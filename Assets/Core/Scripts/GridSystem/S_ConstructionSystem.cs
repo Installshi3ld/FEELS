@@ -33,12 +33,15 @@ public class ConstructionSystem : MonoBehaviour
     private void Start()
     {
         _planePlacementValid = Instantiate(planePlacementValid);
+        HidePlanePlacement();
     }
 
     private void OnDestroy()
     {
         buildingListContainer.ResetOnDestroy();
     }
+
+    int joyPlaced=0, angerPlaced=0, sadPlaced=0, fearPlaced=0;
 
     void Update()
     {
@@ -59,56 +62,76 @@ public class ConstructionSystem : MonoBehaviour
 
                 ChangePlanePlacementUnderBuilding(_building);
 
+
                 //Feedback for tile which will boost building
                 foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
                 {
-                    if(build.feelType == FeelType.Joy)
+                    if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 2)
                     {
-                        foreach (Vector2Int coord in build.building.GetSurroundingTiles())
-                        {
-                            //Calculate Vector3 Global Coord
-                            Vector3 tmpVect = build.building.destination;
-                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
-                            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
-                            
-                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
 
-                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
-                        }
-                    }
-                    
-                    if (build.feelType == FeelType.Sad)
-                    {
-                        foreach (Vector2Int coord in build.building.GetCornerTiles())
-                        {
-                            //Calculate Vector3 Global Coord
-                            Vector3 tmpVect = build.building.destination;
-                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
-                            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
-
-                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
-
-                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
-                        }
                     }
 
+                    //Sad 
+                    if (_building.BuildingData.feelType == build.feelType &&  build.feelType == FeelType.Sad && sadPlaced < 2)
+                    {
+                        EnableFeedBuildingTile(build, build.building.GetCornerTiles());
+
+                    }
+
+                    //Anger 
+                    if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < 2)
+                    {
+                        _gridData.SetAllPlaneFeedbackBuildingEnable();
+
+                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles(), false);
+                    }
+                    //Fear
+                    if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < 2)
+                    {
+                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
+
+                        //Remove tile around fear building
+                        foreach (S_BuildingData tmpbuild in buildingListContainer.builidingsInfos)
+                        {
+                            if(tmpbuild.feelType == FeelType.Fear)
+                            {
+                                EnableFeedBuildingTile(tmpbuild, tmpbuild.building.GetSurroundingTiles(), false);
+                            }
+
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    //Use for the tutorial
+    void EnableFeedBuildingTile(S_BuildingData build, List<Vector2Int> tile, bool statement = true)
+    {
+        foreach (Vector2Int coord in tile)
+        {
+            //Calculate Vector3 Global Coord
+            Vector3 tmpVect = build.building.destination;
+            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
+
+            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
         }
     }
     
     private void LateUpdate()
     {
         //Spawn object
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (objectSpawned == null)
-            {
-                objectSpawned = SpawnGameObject(Vector3.zero, objectToSpawn);
-            }
-            else if (objectSpawned != null)
+            if (objectSpawned != null)
             {
                 Destroy(objectSpawned);
+                HidePlanePlacement();
+                _gridData.ClearPlaneFeedbackBuildingStatement();
             }
         }
 
@@ -127,7 +150,10 @@ public class ConstructionSystem : MonoBehaviour
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
     }
 
-    
+    void HidePlanePlacement()
+    {
+        _planePlacementValid.transform.position = new Vector3(0, -10, 0);
+    }
     public void PlaceBuilding()
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
@@ -160,8 +186,16 @@ public class ConstructionSystem : MonoBehaviour
         consciousTreeToken.AddAmount(1);
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
+        switch (objectSpawnedBuildingScript.BuildingData.feelType)
+        {
+            case FeelType.Joy: joyPlaced++; break;
+            case FeelType.Anger: angerPlaced++; break;
+            case FeelType.Sad: sadPlaced++; break;
+            case FeelType.Fear: fearPlaced++; break;
+        }
+
         objectSpawned = null;
-        _planePlacementValid.transform.position = new Vector3(0, -5, 0);
+        HidePlanePlacement();
     }
 
     void ChangePlanePlacementUnderBuilding(S_Building _building)

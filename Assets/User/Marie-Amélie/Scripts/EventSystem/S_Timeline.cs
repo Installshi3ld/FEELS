@@ -12,9 +12,6 @@ public class S_Timeline : MonoBehaviour
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    public float secondsBetweenNewConstraint;
-
-    [SerializeField]
     private S_UILifeExpDelegateScriptableObject uiLifeExp;
 
     [SerializeField]
@@ -23,8 +20,6 @@ public class S_Timeline : MonoBehaviour
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
-
-    private bool hasLifeEventBeenPicked;
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
@@ -41,6 +36,8 @@ public class S_Timeline : MonoBehaviour
     private bool hasBeenPaid = false;
 
     private int succeededRequirementForThisPhase;
+
+    [SerializeField] private S_ScriptableRounds rounds;
 
     private S_LifeExperience currentLifeExperience;
 
@@ -59,23 +56,28 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
+    private bool timerDone = false;
+    private bool isThereLifeExperienceOnMap = false;
+
     [SerializeField]
     private S_VFXManager VFXManager;
 
+    private S_UIDisasterImage disasterBlink;
 
     // Start is called before the first frame update
     void Start()
     {
         currentPhaseIndex = 0;
 
-        eventTimer.MaxTime = secondsBetweenNewConstraint;
-
-        StartCoroutine(UpdateEvents());
+        UpdateEvents();
     }
     private void Update()
     {
-        eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
-        
+        if (!timerDone)
+        {
+            eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
+        }
+
         if (OnRequirementChecked != null && currentRequirement != null)
         {
             currentRequirement.CheckIsRequirementFulfilled();
@@ -92,21 +94,10 @@ public class S_Timeline : MonoBehaviour
             already_done_requirement.Clear(); // clear actual requirement list
             already_done_lifeExperience.Clear();
         }
-        /*if (phases.Count == currentPhaseIndex + 1)
-        {
-            Debug.Log("all phases ended");
-        }
-        else
-        {
-            currentPhaseIndex++;
-            already_done_requirement.Clear(); // clear actual requirement list
-            already_done_lifeExperience.Clear();
-        }*/
     }
 
-    private IEnumerator UpdateEvents()
+    private void UpdateEvents()
     {
-
         while (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
@@ -114,15 +105,10 @@ public class S_Timeline : MonoBehaviour
 
             eventTimer.StartTimerOver();
 
-            if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map
+            if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
             {
                 ChooseOrNotLifeExperience();
-            }
 
-
-            if (hasLifeEventBeenPicked && PickedLifeExperience && !hasBeenPaid)
-            {
-                AddFireLifeExperience(PickedLifeExperience);
             }
 
             currentRequirement = chooseOneRequirementRandomly();
@@ -134,14 +120,13 @@ public class S_Timeline : MonoBehaviour
 
                 currentEvent.SetNewRequirement(currentRequirement);
 
-                }
-
-            yield return new WaitForSeconds(secondsBetweenNewConstraint);
+            }
 
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
                 foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
+                    
                     Debug.Log("provoke disaster : " + consequence.Description);
 
                     if (OnDisasterOccuring != null)
@@ -164,12 +149,7 @@ public class S_Timeline : MonoBehaviour
                 }
             }
         }
-    }
-
-
-    public void AddFireLifeExperience(S_LifeExperienceScriptableObject lifeExpScript)
-    {
-        currentLifeExperience = Instantiate(lifeExpScript.lifeExperience, new Vector3(0, -500, 0), Quaternion.identity);
+        timerDone = true;
     }
     private bool IsAvailableRequirementListEmpty()
     {
@@ -236,6 +216,7 @@ public class S_Timeline : MonoBehaviour
             if (PickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + PickedLifeExperience.description);
+                currentLifeExperience = Instantiate(PickedLifeExperience.lifeExperience, new Vector3(0, -500, 0), Quaternion.identity);
             }
             else
             {
@@ -301,6 +282,7 @@ public class S_Timeline : MonoBehaviour
             currentLifeExperience.Clear();
 
             PickedLifeExperience = null;
+            isThereLifeExperienceOnMap = false;
             Debug.Log("Life experience solved");
         }
         else

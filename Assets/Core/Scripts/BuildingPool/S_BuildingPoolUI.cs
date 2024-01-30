@@ -4,83 +4,128 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class S_BuildingPoolUI : MonoBehaviour
 {
+    #region Variable
     [SerializeField] private S_BuildingPoolManager _buildingPoolManager;
-    [SerializeField] private S_BuildingPoolData _buildingPoolData;
 
-    public List<Button> button = new List<Button>();
+    [Header("Data"), SerializeField] private S_BuildingPoolData _buildingPoolData;
+    public float xOffsetBetweenElement = 145;
 
-    //Adriano ajoute des trucs pour l'interface
-    public List<TextMeshProUGUI> feelsCost = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> buildingName = new List<TextMeshProUGUI>();
-    public List<Image> imageFeelType = new List<Image>();
-    // C'est tout pour ici
+    [Header("UI Reference")]
+    [SerializeField] private GameObject buttonTemplate;
+    [SerializeField] private GameObject PannelButton;
 
+    [Header("Pop Up info")]
     public GameObject InfoScreen;
 
-    public TextMeshProUGUI T_FeelCost, T_EquilibriumCost;
-    public Image FeelTypeImage, EquilibriumTypeImage;
+    public TextMeshProUGUI T_JoyFeelCost, T_AngerFeelCost, T_SadFeelCost, T_FearFeelCost;
+    public Image JoyFeelTypeImage, AngerFeelTypeImage, SadFeelTypeImage, FearFeelTypeImage;
 
+    private List<GameObject> button = new List<GameObject>();
     bool showInformation = false;
 
-    private void Awake()
-    {
-        _buildingPoolManager.RefreshUI += RefreshUI;
-    }
+    [NonSerialized] public int currentTierSelected = 0;
+    #endregion
+
     private void Start()
     {
-        for (int i = 0; i < button.Count; i++)
-        {
-            button[i].GetComponentInParent<S_BoutonBuildingPool>()._buildingPoolUI = this;
-        }
+        RefreshUI();
     }
-
-    public void SpawnBuilding(int Index)
-    {
-        GameObject _currentBuildingToSpawn = _buildingPoolData.BuildingPoolData[_buildingPoolManager.currentTierSelected][Index];
-
-        if (_currentBuildingToSpawn)
-            _buildingPoolManager.constructionSystem.SpawnObject(_currentBuildingToSpawn);
-    }
-
     private void Update()
     {
         if(showInformation)
             InfoScreen.transform.position = Input.mousePosition + new Vector3(-0.1f, 0.1f, 0);
     }
+
+    //Create button & add function reference
+    void SpawnButton()
+    {
+        RemoveButton();
+        //Spawn Buttons building pool
+        float tmpOffset = -xOffsetBetweenElement/2 * (_buildingPoolData.list[currentTierSelected].Count -1);
+        GameObject tmpGameobject;
+
+        for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
+        {
+            //Spawn + add offset
+            tmpGameobject = Instantiate(buttonTemplate, PannelButton.transform);
+            button.Add(tmpGameobject);
+
+            // lambda take reference of variable, i variable won't work 
+            int currentIndex = i;
+            S_BoutonBuildingPool tmpBouton = tmpGameobject.GetComponent<S_BoutonBuildingPool>();
+
+            tmpBouton.button.onClick.AddListener(() => SpawnBuilding(currentIndex));
+            tmpBouton._buildingPoolUI = this;
+        }
+    }
+
+    void RemoveButton()
+    {
+        button.Clear();
+        foreach (Transform child in PannelButton.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void ChangeCurrentTier(int _newTier)
+    {
+        currentTierSelected = _newTier;
+        RefreshUI();
+    }
+
+    //Create building instance (based on bouton clicked in pool)
+    public void SpawnBuilding(int Index)
+    {
+        GameObject _currentBuildingToSpawn = _buildingPoolData.list[currentTierSelected][Index];
+        if (_currentBuildingToSpawn)
+            _buildingPoolManager.constructionSystem.SpawnObject(_currentBuildingToSpawn);
+    }
+
+    //Show pop up information
     public void ShowInformation(bool statement)
     {
         showInformation = statement;
         InfoScreen.SetActive(statement);
     }
 
+    //Set pop up information
     public void SetInfoFeel(S_Currencies FeelType, int FeelCost = 0)
     {
-        FeelTypeImage.enabled = true;
+        //Adrien Modification to display the price of the 4 type of Feels
+        //FeelTypeImage.enabled = true;
 
-        T_FeelCost.text = FeelCost.ToString();
+        T_JoyFeelCost.text = FeelCost.ToString();
+        T_AngerFeelCost.text = FeelCost.ToString();
+        T_SadFeelCost.text = FeelCost.ToString();
+        T_FearFeelCost.text = FeelCost.ToString();
 
-        if(FeelType)
-            FeelTypeImage.sprite = FeelType.image;
-        else
-            FeelTypeImage.enabled = false;
+   //
+   //   if (FeelType)
+   //       FeelTypeImage.sprite = FeelType.image;
+   //   else
+   //       FeelTypeImage.enabled = false;
     }
-//  public void SetInfoEquilibrium(S_EmotionScriptableObject EquilibriumType, int EquilibriumCost = 0)
-//  {
-//      EquilibriumTypeImage.enabled = true;
-//      T_EquilibriumCost.text = EquilibriumCost.ToString();
-//  
-//      if (EquilibriumType)
-//          EquilibriumTypeImage.sprite = EquilibriumType.image;
-//      else
-//          EquilibriumTypeImage.enabled = false;
-//  }
 
+    //Refresh building pool UI
     void RefreshUI()
     {
-        for (int i = 0; i < button.Count; i++)
+        SpawnButton();
+
+        for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
+        {
+            GameObject _currentBuilding = _buildingPoolData.list[currentTierSelected][i];
+            button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding; 
+        }
+    }
+}
+
+
+/* for (int i = 0; i < button.Count; i++)
         {
             GameObject _currentBuilding = _buildingPoolData.BuildingPoolData[_buildingPoolManager.currentTierSelected][i];
 
@@ -108,7 +153,4 @@ public class S_BuildingPoolUI : MonoBehaviour
                 feelsCost[i].text = null;
                 // La fin du cirque
             }
-        }
-    }
-
-}
+        }*/
