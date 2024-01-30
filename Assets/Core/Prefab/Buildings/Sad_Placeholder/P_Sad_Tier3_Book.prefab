@@ -63,15 +63,12 @@ MonoBehaviour:
     tier: 2
     BuildingImage: {fileID: 21300000, guid: 955140c11857e8942aaac6f3bbf2e210, type: 3}
   VFXData: {fileID: 11400000, guid: e41ddc557e178ee42a6cf21506743e79, type: 2}
+  actionPointCost: 1
   tilesCoordinate:
   - {x: 1, y: 0}
   - {x: 0, y: 1}
   - {x: 1, y: 1}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
-  minimumX: 0
-  minimumY: 0
-  maximumX: 0
-  maximumY: 0
 --- !u!114 &728349474892835494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +86,7 @@ MonoBehaviour:
   delayBetweenEachProduction: 2
   productionAmountBoosted: 30
   delayBetweenEachProductionBoosted: 2
+  scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!65 &8233696067823130851
 BoxCollider:
   m_ObjectHideFlags: 0

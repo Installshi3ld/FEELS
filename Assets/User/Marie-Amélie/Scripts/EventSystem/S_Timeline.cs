@@ -12,9 +12,6 @@ public class S_Timeline : MonoBehaviour
     private List<S_PhaseScriptableObject> phases = new List<S_PhaseScriptableObject>();
 
     [SerializeField]
-    public float secondsBetweenNewConstraint;
-
-    [SerializeField]
     private S_UILifeExpDelegateScriptableObject uiLifeExp;
 
     [SerializeField]
@@ -23,8 +20,6 @@ public class S_Timeline : MonoBehaviour
     private int currentPhaseIndex;
 
     public S_EventTimer eventTimer;
-
-    private bool hasLifeEventBeenPicked;
 
     [SerializeField]
     private int chanceForLifeExpToOccur;
@@ -40,7 +35,11 @@ public class S_Timeline : MonoBehaviour
 
     private bool hasBeenPaid = false;
 
+    private bool hasLifeEventBeenPicked;
+
     private int succeededRequirementForThisPhase;
+
+    [SerializeField] private S_ScriptableRounds rounds;
 
     private S_LifeExperience currentLifeExperience;
 
@@ -72,9 +71,9 @@ public class S_Timeline : MonoBehaviour
     {
         currentPhaseIndex = 0;
 
-        eventTimer.MaxTime = secondsBetweenNewConstraint;
+        rounds.OnChangedRound += UpdateEvents;
 
-        StartCoroutine(UpdateEvents());
+        UpdateEvents();
     }
     private void Update()
     {
@@ -101,19 +100,16 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateEvents()
+    private void UpdateEvents()
     {
         while (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            eventTimer.StartTimerOver();
-
             if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
             {
                 ChooseOrNotLifeExperience();
-
             }
 
             currentRequirement = chooseOneRequirementRandomly();
@@ -127,13 +123,10 @@ public class S_Timeline : MonoBehaviour
 
             }
 
-            yield return new WaitForSeconds(secondsBetweenNewConstraint);
-
             if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
             {
                 foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
                 {
-                    
                     Debug.Log("provoke disaster : " + consequence.Description);
 
                     if (OnDisasterOccuring != null)
@@ -146,6 +139,7 @@ public class S_Timeline : MonoBehaviour
                     VFXManager.InstantiateCorrectVFX(consequence.feelType);
                 }
             }
+
             else
             {
                 succeededRequirementForThisPhase++;
@@ -156,6 +150,7 @@ public class S_Timeline : MonoBehaviour
                 }
             }
         }
+
         timerDone = true;
     }
     private bool IsAvailableRequirementListEmpty()
