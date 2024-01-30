@@ -9,6 +9,8 @@ public class S_ScriptableRounds : ScriptableObject
     [SerializeField] private int numberOfRoundToSwitchEvent;
     private int currentRound;
 
+    private int actionPoints;
+
     public Action OnChangedTurn;
     public Action OnChangedRound;
 
@@ -29,6 +31,19 @@ public class S_ScriptableRounds : ScriptableObject
     {
         currentRound++;
         CheckChangeEvent();
+    }
+
+    public bool TryRemoveActionPoints(int toRemove)
+    {
+        if(actionPoints - toRemove < 0)
+        {
+            return false;
+        }
+        else
+        {
+            actionPoints -= toRemove;
+            return true;
+        }
     }
 
     private void CheckChangeEvent()
