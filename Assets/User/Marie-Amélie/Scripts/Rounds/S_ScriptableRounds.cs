@@ -7,48 +7,50 @@ using UnityEngine;
 public class S_ScriptableRounds : ScriptableObject
 {
     [SerializeField] private int numberOfRoundToSwitchEvent;
-    private int currentRound;
+    private int _currentRound;
 
-    private int actionPoints;
+    private int _actionPoints;
 
     public Action OnChangedTurn;
     public Action OnChangedRound;
+    public Action OnActionPointRemoved;
 
     public int CurrentRound
     {
         get
         {
-            return currentRound;
+            return _currentRound;
         }
         private set
         {
-            currentRound = value;
+            _currentRound = value;
 
             OnChangedTurn?.Invoke(); //if not null
         }
     }
     public void SwitchRound()
     {
-        currentRound++;
+        _currentRound++;
         CheckChangeEvent();
     }
 
     public bool TryRemoveActionPoints(int toRemove)
     {
-        if(actionPoints - toRemove < 0)
+        if(_actionPoints - toRemove < 0)
         {
             return false;
         }
         else
         {
-            actionPoints -= toRemove;
+            _actionPoints -= toRemove;
+            OnActionPointRemoved?.Invoke();
             return true;
         }
     }
 
     private void CheckChangeEvent()
     {
-        if(currentRound % numberOfRoundToSwitchEvent == 0)
+        if(_currentRound % numberOfRoundToSwitchEvent == 0)
         {
             OnChangedRound?.Invoke();
         }
