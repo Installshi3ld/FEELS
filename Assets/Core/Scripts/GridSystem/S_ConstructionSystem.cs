@@ -167,6 +167,11 @@ public class ConstructionSystem : MonoBehaviour
             feelsUI.Info("Need more feels");
             return;
         }
+        if (!ScriptableRounds.TryRemoveActionPoints(objectSpawnedBuildingScript.actionPointCost))
+        {
+            feelsUI.Info("No more action point");
+            return;
+        }
 
         UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
@@ -178,7 +183,6 @@ public class ConstructionSystem : MonoBehaviour
 
         //Change token
         consciousTreeToken.AddAmount(1);
-        ScriptableRounds.TryRemoveActionPoints(objectSpawnedBuildingScript.actionPointCost);
 
         if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
             objectSpawnedBuildingScript.RemoveFeelCost();
