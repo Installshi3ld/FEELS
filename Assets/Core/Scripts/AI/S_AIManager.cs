@@ -93,7 +93,6 @@ private void MonitorSpecificFeel(FeelsMatchSprite targetFeel, int totalFeel)
 
             var truc = spawnedPrefab.GetComponent<S_BehaviorAI>();
             Debug.Log(truc);
-            if(truc == null) Debug.Log("YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
             spawnedPrefab.GetComponent<S_BehaviorAI>().Toto(this, toSpawn);
             spawnedPrefabs.Add(spawnedPrefab);

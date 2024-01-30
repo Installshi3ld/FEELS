@@ -75,18 +75,13 @@ public class S_Timeline : MonoBehaviour
 
         UpdateEvents();
     }
+
     private void Update()
     {
-        if (!timerDone)
+        if (currentRequirement)
         {
-            eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
-        }
-
-        if (OnRequirementChecked != null && currentRequirement != null)
-        {
-            currentRequirement.CheckIsRequirementFulfilled();
-
-            OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+            Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
+            OnRequirementChecked?.Invoke(currentRequirement);
         }
     }
 
@@ -102,7 +97,46 @@ public class S_Timeline : MonoBehaviour
 
     private void UpdateEvents()
     {
-        while (!IsAvailableRequirementListEmpty())
+        if (currentRequirement != null && !currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled : provoke disaster
+        {
+            foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
+            {
+                Debug.Log("provoke disaster : " + consequence.Description);
+
+                if (OnDisasterOccuring != null)
+                {
+                    OnDisasterOccuring.Invoke(currentRequirement);
+                }
+
+                consequence.ProvoqueDisaster();
+
+                VFXManager.InstantiateCorrectVFX(consequence.feelType);
+            }
+
+            currentRequirement = null;
+        }
+
+        if (currentRequirement == null)
+        {
+            currentRequirement = chooseOneRequirementRandomly();
+            currentEvent.SetNewRequirement(currentRequirement);
+            //Debug.Log(currentRequirement.NarrativeDescription);
+        }
+
+        if(currentRequirement != null && currentRequirement.CheckIsRequirementFulfilled()) //If fulfilled : get reward
+        {
+            succeededRequirementForThisPhase++;
+            OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
+
+            foreach (S_Reward reward in currentRequirement.LinkedRewards)
+            {
+                reward.GetReward();
+            }
+
+            currentRequirement = null;
+        }
+
+        if (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
@@ -112,46 +146,8 @@ public class S_Timeline : MonoBehaviour
                 ChooseOrNotLifeExperience();
             }
 
-            currentRequirement = chooseOneRequirementRandomly();
-
-
-            if (currentRequirement != null)
-            {
-                //Debug.Log(currentRequirement.NarrativeDescription);
-
-                currentEvent.SetNewRequirement(currentRequirement);
-
-            }
-
-            if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
-            {
-                foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
-                {
-                    Debug.Log("provoke disaster : " + consequence.Description);
-
-                    if (OnDisasterOccuring != null)
-                    {
-                        OnDisasterOccuring.Invoke(currentRequirement);
-                    }
-
-                    consequence.ProvoqueDisaster();
-
-                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
-                }
-            }
-
-            else
-            {
-                succeededRequirementForThisPhase++;
-
-                foreach (S_Reward reward in currentRequirement.LinkedRewards)
-                {
-                    reward.GetReward();
-                }
-            }
         }
 
-        timerDone = true;
     }
     private bool IsAvailableRequirementListEmpty()
     {
