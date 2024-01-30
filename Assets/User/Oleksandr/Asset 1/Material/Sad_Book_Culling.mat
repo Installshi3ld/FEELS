@@ -7,35 +7,30 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Theatr_Mat
+  m_Name: Sad_Book_Culling
   m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: c27c3b70b41b9874ca8bd6eecb2adb7e, type: 2}
+  m_Parent: {fileID: 2100000, guid: d6a6fa5f33c72184c8728f10a2b70594, type: 2}
   m_ModifiedSerializedProperties: 16
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _ALPHABLEND_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - GRABPASS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b5c3f64e6ea17cc44a63fa4186ef286e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _BlendOp: 0
-    - _ColorMode: 0
-    - _DstBlend: 0
-    - _Mode: 0
-    - _SrcBlend: 1
-    - _ZWrite: 1
-    m_Colors:
-    - _ColorAddSubDiff: {r: -1, g: 1, b: 0, a: 0}
+    - _DstBlend: 1
+    - _Mode: 4
+    - _SrcBlend: 5
+    - _ZWrite: 0
+    m_Colors: []
   m_BuildTextureStacks: []
