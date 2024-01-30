@@ -46,6 +46,8 @@ public class S_Timeline : MonoBehaviour
 
     private S_LifeExperience currentLifeExperience;
 
+    [SerializeField]
+    private GameObject successHolder;
     private S_LifeExperienceScriptableObject pickedLifeExperience;
     public S_LifeExperienceScriptableObject PickedLifeExperience
     {
@@ -76,7 +78,7 @@ public class S_Timeline : MonoBehaviour
 
         rounds.OnChangedRound += UpdateEvents;
 
-        UpdateEvents();
+        PickNewEvent();
     }
 
     private void Update()
@@ -84,6 +86,7 @@ public class S_Timeline : MonoBehaviour
         if (currentRequirement)
         {
             Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
+            OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
         }
     }
 
@@ -120,21 +123,12 @@ public class S_Timeline : MonoBehaviour
         }
         else
         {
-            currentDelay = -5;
+            currentDelay = 0;
         }
 
-        if (currentRequirement == null)
-        {
-            currentRequirement = chooseOneRequirementRandomly();
-            currentEvent.SetNewRequirement(currentRequirement, currentDelay + 5);
-            OnRequirementChecked?.Invoke(currentRequirement);
-            //Debug.Log(currentRequirement.NarrativeDescription);
-        }
-
-        if(currentRequirement != null && currentRequirement.CheckIsRequirementFulfilled()) //If fulfilled : get reward
+        if (currentRequirement != null && currentRequirement.CheckIsRequirementFulfilled()) //If fulfilled : get reward
         {
             succeededRequirementForThisPhase++;
-            OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
 
             foreach (S_Reward reward in currentRequirement.LinkedRewards)
             {
@@ -142,6 +136,8 @@ public class S_Timeline : MonoBehaviour
             }
 
             currentRequirement = null;
+            currentDelay = 3;
+            StartCoroutine(DelaySuccess(2));
         }
 
         if (!IsAvailableRequirementListEmpty())
@@ -158,12 +154,33 @@ public class S_Timeline : MonoBehaviour
 
     }
 
+    void PickNewEvent()
+    {
+        Debug.Log("Pick new Event");
+        currentRequirement = chooseOneRequirementRandomly();
+        currentEvent.SetNewRequirement(currentRequirement, currentDelay);
+    }
+
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
     {
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
         yield return new WaitForSeconds(delay);
+        PickNewEvent();
+        yield return new WaitForSeconds(delay);
         OnRequirementChecked?.Invoke(currentRequirement);
+
+    }
+
+    IEnumerator DelaySuccess(float delay)
+    {
+        successHolder.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        PickNewEvent();
+        yield return new WaitForSeconds(delay);
+        OnRequirementChecked?.Invoke(currentRequirement);
+        yield return new WaitForSeconds(delay);
+
     }
 
     private bool IsAvailableRequirementListEmpty()
