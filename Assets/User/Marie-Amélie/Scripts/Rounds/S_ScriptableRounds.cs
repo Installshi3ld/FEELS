@@ -21,10 +21,9 @@ public class S_ScriptableRounds : ScriptableObject
         {
             return _currentRound;
         }
-        private set
+        set
         {
             _currentRound = value;
-
             OnChangedTurn?.Invoke(); //if not null
         }
     }
@@ -40,7 +39,7 @@ public class S_ScriptableRounds : ScriptableObject
     }
     public void SwitchRound()
     {
-        _currentRound++;
+        CurrentRound++;
         CheckChangeEvent();
     }
 
