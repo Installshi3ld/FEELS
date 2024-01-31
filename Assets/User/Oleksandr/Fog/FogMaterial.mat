@@ -50,16 +50,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisplasementStrengh: 0.0007
-    - _NoiseScale: 1.26
-    - _NoiseSpeed: 0.5
+    - _DisplasementStrengh: 0.004
+    - _NoisePowerStreangh: 1.56
+    - _NoiseScale: 0.11
+    - _NoiseSpeed: 2.41
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SmoothEdge1: 0.58
-    - _SmoothEdge2: -0.09
+    - _SmoothEdge1: 1.91
+    - _SmoothEdge2: 0.52
     m_Colors:
-    - _Color_Peak: {r: 0.8537736, g: 1, b: 0.99159, a: 0}
-    - _Color_Valley: {r: 0.5439658, g: 0.6037736, b: 0.60098976, a: 0}
-    - _NoiseRemap: {r: 0, g: 1, b: -1, a: 0}
+    - _Color_Peak: {r: 1, g: 1, b: 1, a: 0}
+    - _Color_Valley: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseRemap: {r: 0.07, g: 1.02, b: -1, a: 0}
     - _RotateProjection: {r: 1, g: 0, b: 0, a: 90}
   m_BuildTextureStacks: []
