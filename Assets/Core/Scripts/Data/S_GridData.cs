@@ -78,6 +78,17 @@ public class S_GridData : ScriptableObject, InitializeSO
         __planeFeedbackBoostBuildingList[x][y].SetActive(statement);
     }
 
+    public void SetAllPlaneFeedbackBuildingEnable()
+    {
+        for (int i = 0; i < __planeFeedbackBoostBuildingList.Count; i++)
+        {
+            for (int j = 0; j < __planeFeedbackBoostBuildingList[i].Count; j++)
+            {
+                __planeFeedbackBoostBuildingList[i][j].SetActive(true);
+            }
+        }
+    }
+
     public void ClearPlaneFeedbackBuildingStatement()
     {
         for (int i = 0; i < __planeFeedbackBoostBuildingList.Count; i++)
@@ -158,8 +169,6 @@ public class S_GridData : ScriptableObject, InitializeSO
                         isEnoughSpace = false;
                         break;
                     }
-
-                    Debug.Log(_fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y]);
 
                     if (gridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y].statement
                         || _fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y])

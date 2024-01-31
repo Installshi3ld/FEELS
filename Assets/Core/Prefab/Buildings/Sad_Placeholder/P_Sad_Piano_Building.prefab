@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2394877025967379136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4246105305039885878}
+  m_Layer: 0
+  m_Name: Shake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4246105305039885878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394877025967379136}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3229719300937116216}
+  m_Father: {fileID: 2061357171863665176}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8532694534459519036
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +64,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3229719300937116216}
+  - {fileID: 4246105305039885878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8825634868270155094
@@ -63,13 +95,10 @@ MonoBehaviour:
     tier: 1
     BuildingImage: {fileID: 21300000, guid: 72dea623d3a23684e9bc0b82ad4c75b5, type: 3}
   VFXData: {fileID: 11400000, guid: e41ddc557e178ee42a6cf21506743e79, type: 2}
+  actionPointCost: 1
   tilesCoordinate:
   - {x: 1, y: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
-  minimumX: 0
-  minimumY: 0
-  maximumX: 0
-  maximumY: 0
 --- !u!114 &8625617033403013418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +116,7 @@ MonoBehaviour:
   delayBetweenEachProduction: 2
   productionAmountBoosted: 8
   delayBetweenEachProductionBoosted: 2
+  scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!65 &5606379182806600169
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114,7 +144,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2061357171863665176}
+    m_TransformParent: {fileID: 4246105305039885878}
     m_Modifications:
     - target: {fileID: -9139508302366383503, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -122,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d47f99269d1af9e4d89d5bed85d85428, type: 2}
     - target: {fileID: -8679921383154817045, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -138,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -146,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4de2165123d2e3f448d227ca77566a3e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

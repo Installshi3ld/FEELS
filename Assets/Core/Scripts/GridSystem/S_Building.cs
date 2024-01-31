@@ -67,13 +67,19 @@ public enum BuildingTheme
     Music,
     Food,
     Animals,
+    Face,
+    Activity,
+    Profession,
 }
 #endregion
 
 public class S_Building : MonoBehaviour
 {
     public S_BuildingData BuildingData;
+
+    [Header("Data")]
     public S_VFXData VFXData;
+    public int actionPointCost = 1;
 
     [Space]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
@@ -84,15 +90,21 @@ public class S_Building : MonoBehaviour
     float lerpAlpha = 0f;
 
     [SerializeField] private S_BuildingCostManager costManager;
+    private S_FeelAssignationBuilding _FeelAssignationBuilding = null;
 
     private void Awake()
     {
         tilesCoordinate.Add(Vector2Int.zero);
         GetMinMaxCoordinate();
         BuildingData.building = this;
+         
+        if(gameObject.TryGetComponent<S_FeelAssignationBuilding>(out S_FeelAssignationBuilding comp))
+        {
+            _FeelAssignationBuilding = comp;
+        }
     }
 
-    public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
+    [NonSerialized] public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
 
     private void Update()
     {
@@ -115,18 +127,57 @@ public class S_Building : MonoBehaviour
         }
     }
     GameObject buildingVFX;
+
+    private Vector3 initialScale; // Variable pour stocker la scale initiale
+
     public void GetOutOfGroundAnimation()
     {
-        Transform tmpChild = this.transform.GetChild(0).transform;
-        tmpChild.position = new Vector3(tmpChild.position.x, -10, tmpChild.position.z);
-        tmpChild.transform.DOMoveY(0, 2)
-            .OnComplete(() => {
-                //Explosion end building
-                GameObject tmpFX = Instantiate(VFXData.GetVFXEndOfConstruction(), this.transform);
-                tmpFX.transform.position = GetRootCoordinate();
 
-                Destroy(buildingVFX);
-                }) ; 
+
+        Transform tmpChild = this.transform.GetChild(0).GetChild(0).transform;
+
+        initialScale = tmpChild.localScale;
+
+        tmpChild.position = new Vector3(tmpChild.position.x, -10, tmpChild.position.z);
+
+        // Crée une séquence DOTween
+        Sequence sequence = DOTween.Sequence();
+
+        // Ajoute les tweens à la séquence
+     // tmpChild.position = new Vector3(tmpChild.position.x, -10, tmpChild.position.z);
+        sequence.Append(tmpChild.DOMoveY(-0.3f, 0.5f));  // Change de position de -2 à 1.2 en Y
+        sequence.Join(this.transform.GetChild(0).DOShakePosition(2f, new Vector3(1, 0.5f, 0)));  // Shake
+        sequence.Join(tmpChild.DOScaleX(0.5f, 0.5f));
+
+     // sequence.AppendInterval(1);  // Ajoute un délai de 1 seconde
+
+        sequence.Append(tmpChild.DOMoveY(10f, 0.5f));  // Change de position de 1.2 à 3 en Y
+        sequence.Append(tmpChild.DOScaleY(2f, 0.5f));  // Rescale sur l'axe Y de 2
+        sequence.Join(tmpChild.DOScaleX(0.25f, 0.5f));  // Rescale sur l'axe X de 0.25
+
+        sequence.Append(tmpChild.DOMoveY(0, 0.25f));  // Change de position en 0 sur l'axe Y
+        sequence.Append(tmpChild.DOScaleY(0.25f, 0.1f));  // Rescale de 0.25 sur l'axe Y
+        sequence.Join(tmpChild.DOScaleX(2f, 0.5f));  // Rescale de 2 sur l'axe X
+
+        sequence.Append(tmpChild.DOScale(initialScale, 0.5f));  // Retrouve une scale de 1,1
+        sequence.Join(tmpChild.DOMoveY(0f, 0.5f));  // Retrouve sa position en 0 sur l'axe Y
+
+        // Optionnel : démarre automatiquement la séquence
+        sequence.Play();
+
+
+        //       
+        //       tmpChild.DOShakePosition(2, new Vector3(0, 3, 0));
+        //       tmpChild.transform.DOMoveY(3, 2);
+        //       tmpChild.transform.DOMoveY(0, 2)
+
+        //          .OnComplete(() => {
+        //              //Explosion end building
+        //              GameObject tmpFX = Instantiate(VFXData.GetVFXEndOfConstruction(), this.transform);
+        //              tmpFX.transform.position = GetRootCoordinate();
+        //
+        //              Destroy(buildingVFX);
+        //              }) ; 
     }
 
 
@@ -166,6 +217,8 @@ public class S_Building : MonoBehaviour
     public void PlacedBuilding()
     {
         isPlaced = true;
+        if (_FeelAssignationBuilding)
+            _FeelAssignationBuilding.AssignFeels(BuildingData.feelTypeCostList[0].feelTypeCurrency);
     }
 
     public void SetDestination(Vector3 dest)

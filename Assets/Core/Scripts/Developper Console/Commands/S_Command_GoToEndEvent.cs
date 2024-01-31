@@ -12,7 +12,7 @@ public class S_TimerEndCommand : S_ConsoleCommand
         string logText = string.Join(" ", args);
 
         Debug.Log("working");
-        eventTimer.secondsBetweenNewConstraint = 5;
+        //eventTimer.secondsBetweenNewConstraint = 5;
 
         return true;
     }

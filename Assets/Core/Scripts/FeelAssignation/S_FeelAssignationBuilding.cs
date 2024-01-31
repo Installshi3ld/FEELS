@@ -27,12 +27,17 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public float productionAmountForUI = 0;
 
     S_Currencies feelProductionType;
+    public S_ScriptableRounds scriptableRounds;
 
     bool bProductionFeels;
     private void Awake()
     {
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
+        if(scriptableRounds) 
+            scriptableRounds.OnChangedTurn += FeelProduction;
+        else 
+            Debug.LogWarning("Missing ScriptableRounds on " + gameObject.name + " abort production");
     }
     private void Start()
     {
@@ -59,7 +64,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
             CurrentStoredFeel = MaxFeel;
             feelType.RemoveAmount(MaxFeel);
             isProducing = true;
-            StartCoroutine(FeelProduction());
+            //StartCoroutine(FeelProduction());
             return true;
         }
         return false;
@@ -85,14 +90,19 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         return false;
     }
 
-    IEnumerator FeelProduction()
+    void FeelProduction()
     {
-        while(true)
-        {
-            yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
-            feelProductionType.AddAmount(currentProduction);
-        }
+        feelProductionType.AddAmount(currentProduction);
     }
+
+    //IEnumerator FeelProduction()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
+    //        feelProductionType.AddAmount(currentProduction);
+    //    }
+    //}
 
     public void BoostBuilding()
     {

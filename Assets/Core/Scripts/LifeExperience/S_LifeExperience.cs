@@ -17,9 +17,11 @@ public class S_LifeExperience : MonoBehaviour
     public float delayBeforeFlamePropagation = 5;
 
     [SerializeField] public S_GridData _gridData = default(S_GridData);
+    [SerializeField] private S_ScriptableRounds _scriptableRounds;
     private void Awake()
     {
         wonderBuilding.GetComponent<S_Building>().isPlacedAnimation = true;
+        _scriptableRounds.OnActionPointRemoved += FlamePropagation;
     }
     private void Start()
     {
@@ -49,7 +51,7 @@ public class S_LifeExperience : MonoBehaviour
         }
         else if (!isFlamePropagation)
         {
-            StartCoroutine(FlamePropagation());
+            //StartCoroutine(FlamePropagation());
             isFlamePropagation =true;
         }
     }
@@ -62,29 +64,26 @@ public class S_LifeExperience : MonoBehaviour
         tmpWonder.isPlacedAnimation = true;
     }
 
-    IEnumerator FlamePropagation()
+    void FlamePropagation()
     {
         isFirePropagating = true;
-        yield return new WaitForSeconds(delayBeforeFlamePropagation);
-        while (isFirePropagating)
+        print("trr");
+
+        Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, true);
+        if(tmpCoordinate != Vector3.zero)
         {
-            yield return new WaitForSeconds(1f);
-
-            Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, true);
-            if(tmpCoordinate != Vector3.zero)
+            if (!_gridData.gridsUsageStatement[_gridData.GetIndexbasedOnPosition(tmpCoordinate).x][_gridData.GetIndexbasedOnPosition(tmpCoordinate).y].statement)
             {
-                if (!_gridData.gridsUsageStatement[_gridData.GetIndexbasedOnPosition(tmpCoordinate).x][_gridData.GetIndexbasedOnPosition(tmpCoordinate).y].statement)
-                {
-                    allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
+                allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
 
-                    Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(tmpCoordinate);
-                    gridUsage.Add(tmpIndex);
-                    _gridData.SetTileUsed(tmpIndex.x, tmpIndex.y);
-                }
-
+                Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(tmpCoordinate);
+                gridUsage.Add(tmpIndex);
+                _gridData.SetTileUsed(tmpIndex.x, tmpIndex.y);
             }
 
         }
+
+
     }
     public void Clear()
     {
@@ -99,4 +98,29 @@ public class S_LifeExperience : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    //IEnumerator FlamePropagation()
+    //{
+    //    isFirePropagating = true;
+    //    yield return new WaitForSeconds(delayBeforeFlamePropagation);
+    //    while (isFirePropagating)
+    //    {
+    //        yield return new WaitForSeconds(1f);
+
+    //        Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, true);
+    //        if (tmpCoordinate != Vector3.zero)
+    //        {
+    //            if (!_gridData.gridsUsageStatement[_gridData.GetIndexbasedOnPosition(tmpCoordinate).x][_gridData.GetIndexbasedOnPosition(tmpCoordinate).y].statement)
+    //            {
+    //                allFire.Add(GameObject.Instantiate(smallFire, tmpCoordinate, Quaternion.identity));
+
+    //                Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(tmpCoordinate);
+    //                gridUsage.Add(tmpIndex);
+    //                _gridData.SetTileUsed(tmpIndex.x, tmpIndex.y);
+    //            }
+
+    //        }
+
+    //    }
+    //}
 }

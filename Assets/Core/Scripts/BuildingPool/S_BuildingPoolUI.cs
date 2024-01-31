@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.UI;
 using static Unity.Burst.Intrinsics.X86.Avx;
@@ -21,8 +22,14 @@ public class S_BuildingPoolUI : MonoBehaviour
     [Header("Pop Up info")]
     public GameObject InfoScreen;
 
-    public TextMeshProUGUI T_FeelCost;
-    public Image FeelTypeImage;
+    //Adrien Le Vaurien passe dans le coin
+    public TextMeshProUGUI T_JoyFeelCost, T_AngerFeelCost, T_SadFeelCost, T_FearFeelCost;
+    public Image JoyFeelTypeImage, AngerFeelTypeImage, SadFeelTypeImage, FearFeelTypeImage;
+    public TextMeshProUGUI BuildingName, ScoreInformation;
+    public TextMeshProUGUI BuildingType, BuildingTheme;
+    public Image BuildingIcon;
+    //C'est immonde je sais bien mais c'est tout pour l'instant
+
 
     private List<GameObject> button = new List<GameObject>();
     bool showInformation = false;
@@ -94,16 +101,28 @@ public class S_BuildingPoolUI : MonoBehaviour
     }
 
     //Set pop up information
-    public void SetInfoFeel(S_Currencies FeelType, int FeelCost = 0)
+    public void SetInfoFeel(S_Building _buildingScript, int FeelCost = 0)
     {
-        FeelTypeImage.enabled = true;
+        //Adrien Modification to display the price of the 4 type of Feels
+        //FeelTypeImage.enabled = true;
+        FeelCost = _buildingScript ? _buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
+        T_JoyFeelCost.text = FeelCost.ToString();
+        T_AngerFeelCost.text = FeelCost.ToString();
+        T_SadFeelCost.text = FeelCost.ToString();
+        T_FearFeelCost.text = FeelCost.ToString();
 
-        T_FeelCost.text = FeelCost.ToString();
+        //buildingScript = _BuildingReference.GetComponent<S_Building>();
 
-        if(FeelType)
-            FeelTypeImage.sprite = FeelType.image;
-        else
-            FeelTypeImage.enabled = false;
+        BuildingName.text = _buildingScript.BuildingData.buildingName.ToString();
+        BuildingType.text = _buildingScript.BuildingData.feelType.ToString();
+        BuildingTheme.text = _buildingScript.BuildingData.BuildingTheme.ToString();
+        BuildingIcon.sprite = _buildingScript.BuildingData.BuildingImage;
+   //
+   //   if (FeelType)
+   //       FeelTypeImage.sprite = FeelType.image;
+   //   else
+   //       FeelTypeImage.enabled = false;
+   // Fin de Modification Adrien
     }
 
     //Refresh building pool UI

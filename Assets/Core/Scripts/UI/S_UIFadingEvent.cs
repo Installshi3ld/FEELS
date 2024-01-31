@@ -23,8 +23,15 @@ public class S_UIFadingEvent : MonoBehaviour
         currentEvent.OnChangingRequirement -= FadeMenu;
     }
 
-    private void FadeMenu(S_Requirement newEvent)
+    private void FadeMenu(S_Requirement newEvent, float delay)
     {
+        StartCoroutine(UpdateWithDelayOrNot(newEvent, delay));
+    }
+
+    IEnumerator UpdateWithDelayOrNot(S_Requirement newEvent, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
         textToFade.text = newEvent.NarrativeDescription;
 
         // Initial setup: set alpha to zero

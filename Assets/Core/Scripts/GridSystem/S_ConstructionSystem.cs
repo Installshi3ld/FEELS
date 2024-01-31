@@ -8,6 +8,7 @@ public class ConstructionSystem : MonoBehaviour
     [SerializeField] private S_BuildingList buildingListContainer;
     [SerializeField]private S_GridData _gridData;
     [SerializeField] private S_FogData _fogData;
+    [SerializeField] private S_ScriptableRounds ScriptableRounds;
 
     public GameObject objectToSpawn;
     public GameObject planePlacementValid;
@@ -41,6 +42,8 @@ public class ConstructionSystem : MonoBehaviour
         buildingListContainer.ResetOnDestroy();
     }
 
+    int joyPlaced=0, angerPlaced=0, sadPlaced=0, fearPlaced=0;
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -60,43 +63,50 @@ public class ConstructionSystem : MonoBehaviour
 
                 ChangePlanePlacementUnderBuilding(_building);
 
+
                 //Feedback for tile which will boost building
                 foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
                 {
-                    if(build.feelType == FeelType.Joy)
+                    if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 2)
                     {
-                        foreach (Vector2Int coord in build.building.GetSurroundingTiles())
-                        {
-                            //Calculate Vector3 Global Coord
-                            Vector3 tmpVect = build.building.destination;
-                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
-                            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
-                            
-                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
 
-                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
-                        }
-                    }
-                    
-                    if (build.feelType == FeelType.Sad)
-                    {
-                        foreach (Vector2Int coord in build.building.GetCornerTiles())
-                        {
-                            //Calculate Vector3 Global Coord
-                            Vector3 tmpVect = build.building.destination;
-                            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
-                            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
-
-                            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
-
-                            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, true);
-                        }
                     }
 
+                    //Sad 
+                    if (_building.BuildingData.feelType == build.feelType &&  build.feelType == FeelType.Sad && sadPlaced < 2)
+                    {
+                        EnableFeedBuildingTile(build, build.building.GetCornerTiles());
+
+                    }
+
+                    //Anger 
+                    if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < 2)
+                    {
+                        _gridData.SetAllPlaneFeedbackBuildingEnable();
+
+                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles(), false);
+                    }
+                    //Fear
+                    if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < 2)
+                    {
+                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
+
+                        //Remove tile around fear building
+                        foreach (S_BuildingData tmpbuild in buildingListContainer.builidingsInfos)
+                        {
+                            if(tmpbuild.feelType == FeelType.Fear)
+                            {
+                                EnableFeedBuildingTile(tmpbuild, tmpbuild.building.GetSurroundingTiles(), false);
+                            }
+
+                        }
+                    }
                 }
             }
         }
     }
+
     
     private void LateUpdate()
     {
@@ -107,6 +117,7 @@ public class ConstructionSystem : MonoBehaviour
             {
                 Destroy(objectSpawned);
                 HidePlanePlacement();
+                _gridData.ClearPlaneFeedbackBuildingStatement();
             }
         }
 
@@ -120,6 +131,21 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
+    //Use for the tutorial
+    void EnableFeedBuildingTile(S_BuildingData build, List<Vector2Int> tile, bool statement = true)
+    {
+        foreach (Vector2Int coord in tile)
+        {
+            //Calculate Vector3 Global Coord
+            Vector3 tmpVect = build.building.destination;
+            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
+
+            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
+        }
+    }
     List<Vector2Int> GetObjectSpawnTileUsage()
     {
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
@@ -141,25 +167,37 @@ public class ConstructionSystem : MonoBehaviour
             feelsUI.Info("Need more feels");
             return;
         }
-
-        UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
-
-        feelsUI.RefreshUI();
-
-        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+        if (!ScriptableRounds.TryRemoveActionPoints(objectSpawnedBuildingScript.actionPointCost))
         {
-            objectSpawnedBuildingScript.RemoveFeelCost();
+            feelsUI.Info("No more action point");
+            return;
         }
 
-        consciousTreeToken.AddAmount(1);
+        UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
         CheckBoostBuilding();
 
         objectSpawnedBuildingScript.PlacedBuilding();
         _gridData.ClearPlaneFeedbackBuildingStatement();
 
+
+        //Change token
         consciousTreeToken.AddAmount(1);
+
+        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+            objectSpawnedBuildingScript.RemoveFeelCost();
+        feelsUI.RefreshUI();
+
+
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
+
+        switch (objectSpawnedBuildingScript.BuildingData.feelType)
+        {
+            case FeelType.Joy: joyPlaced++; break;
+            case FeelType.Anger: angerPlaced++; break;
+            case FeelType.Sad: sadPlaced++; break;
+            case FeelType.Fear: fearPlaced++; break;
+        }
 
         objectSpawned = null;
         HidePlanePlacement();
