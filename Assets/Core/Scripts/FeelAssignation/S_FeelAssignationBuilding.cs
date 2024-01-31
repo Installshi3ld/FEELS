@@ -35,7 +35,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
         if(scriptableRounds) 
-            scriptableRounds.OnChangedRound += FeelProduction;
+            scriptableRounds.OnChangedTurn += FeelProduction;
         else 
             Debug.LogWarning("Missing ScriptableRounds on " + gameObject.name + " abort production");
     }
