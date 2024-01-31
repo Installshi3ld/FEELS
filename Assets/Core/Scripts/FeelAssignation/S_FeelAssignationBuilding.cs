@@ -44,9 +44,6 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         if (gameObject.TryGetComponent(out S_Building _building))
         {
             var prices = _building.GetCosts();
-
-            if (prices[0].feelTypeCurrency && prices[0].feelTypeCurrency.feelType == S_Currencies.FeelType.Anger)
-                BoostBuilding();
         }
     }
     /// <summary>
@@ -114,6 +111,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
 
     public void UnBoostBuilding()
     {
+        print("Unboosted");
         isBoosted = false;
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
