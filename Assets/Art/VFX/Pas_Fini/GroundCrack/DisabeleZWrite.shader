@@ -11,5 +11,3 @@ Shader "Custom/DisableZWrite"
         }
     }
 }
-
-   
