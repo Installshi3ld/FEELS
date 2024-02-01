@@ -37,13 +37,11 @@ public class S_UIRequirementCheckbox : MonoBehaviour
             textEventRequirement.rectTransform.localScale = new Vector3(2f, 2f, 1f);
             StartCoroutine(ScaleTextOverTime(2f, 1f, 3.5f));
             //textEventRequirement.transform.DOScale(1f, 2.5f);  Dotween
-            Debug.Log("text to rescale");
         }
         else
         {
             // Reset the scale immediately when the requirement has been fulfilled
             textEventRequirement.rectTransform.localScale = new Vector3(1f, 1f, 1f);
-            Debug.Log("text not to rescale");
         }
     }
 

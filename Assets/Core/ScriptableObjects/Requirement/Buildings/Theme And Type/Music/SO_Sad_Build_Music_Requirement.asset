@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
+  m_Name: SO_Sad_Build_Music_Requirement
+  m_EditorClassIdentifier: 
+  NarrativeDescription: My favorite band's concert was cancelled.
+  ConstraintDescription: Build a piano.
+  LinkedDisaster:
+  - {fileID: 11400000, guid: b7cc9768767c1c446a00afaa7b11a16a, type: 2}
+  LinkedRewards:
+  - {fileID: 11400000, guid: d695a49cc25d2474dabf1e9f9bfad6da, type: 2}
+  buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
+  themeAndTypeRequirements:
+  - feelType: 3
+    buildingTheme: 1
+    numberOfRequiredBuildings: 1

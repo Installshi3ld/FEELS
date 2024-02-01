@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1515021535460391659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4301238291523239893}
+  m_Layer: 6
+  m_Name: Shake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4301238291523239893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515021535460391659}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3276108937496089518}
+  m_Father: {fileID: 7152823084136780056}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7873085785543044208
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +64,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3276108937496089518}
+  - {fileID: 4301238291523239893}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-2736265476922950939
@@ -54,21 +86,12 @@ MonoBehaviour:
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
       feelPrice: 15
-    - feelTypeCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
-      feelPrice: 15
-    - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-      feelPrice: 15
-    - feelTypeCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-      feelPrice: 15
     tier: 0
     BuildingImage: {fileID: 21300000, guid: eb26832fedd243d439ff2d81f1262257, type: 3}
   VFXData: {fileID: 0}
+  actionPointCost: 1
   tilesCoordinate: []
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
-  minimumX: 0
-  minimumY: 0
-  maximumX: 0
-  maximumY: 0
 --- !u!114 &247532068668486919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,11 +104,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxFeel: 5
+  MaxFeel: 0
   productionAmount: 1
   delayBetweenEachProduction: 2
   productionAmountBoosted: 1.5
   delayBetweenEachProductionBoosted: 2
+  scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!65 &6879603993109383543
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113,7 +137,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7152823084136780056}
+    m_TransformParent: {fileID: 4301238291523239893}
     m_Modifications:
     - target: {fileID: 2804624514839892034, guid: e04444b931f2aca46927262fa0b7a98f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -133,7 +157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2804624514839892034, guid: e04444b931f2aca46927262fa0b7a98f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2804624514839892034, guid: e04444b931f2aca46927262fa0b7a98f, type: 3}
       propertyPath: m_LocalRotation.y
@@ -141,7 +165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2804624514839892034, guid: e04444b931f2aca46927262fa0b7a98f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2804624514839892034, guid: e04444b931f2aca46927262fa0b7a98f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
