@@ -29,18 +29,26 @@ public class S_Timeline : MonoBehaviour
 
     S_Requirement currentRequirement;
 
-    public delegate void RefreshFromEvent(S_Requirement currentEvent);
-    public static event RefreshFromEvent OnRequirementChecked;
+    public delegate void RefreshFromRequirement(S_Requirement currentEvent);
+    public static event RefreshFromRequirement OnRequirementChecked;
+    public static event RefreshFromRequirement OnAfterRequirementChecked;
+    public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
 
     private bool hasBeenPaid = false;
 
+    private bool hasLifeEventBeenPicked;
+
     private int succeededRequirementForThisPhase;
+
+    private float currentDelay;
 
     [SerializeField] private S_ScriptableRounds rounds;
 
     private S_LifeExperience currentLifeExperience;
 
+    [SerializeField]
+    private GameObject successHolder;
     private S_LifeExperienceScriptableObject pickedLifeExperience;
     public S_LifeExperienceScriptableObject PickedLifeExperience
     {
@@ -60,7 +68,7 @@ public class S_Timeline : MonoBehaviour
     private bool isThereLifeExperienceOnMap = false;
 
     [SerializeField]
-    private S_VFXManager VFXManager;
+    private S_EventResolutionManager resolutionManager;
 
     private S_UIDisasterImage disasterBlink;
 
@@ -69,20 +77,17 @@ public class S_Timeline : MonoBehaviour
     {
         currentPhaseIndex = 0;
 
-        UpdateEvents();
+        rounds.OnChangedRound += UpdateEvents;
+
+        PickNewEvent();
     }
+
     private void Update()
     {
-        if (!timerDone)
+        if (currentRequirement)
         {
-            eventTimer.IncreaseTimer(Time.deltaTime); //Normally it would be done in the coroutine (if it was possible) that's why the logic is there
-        }
-
-        if (OnRequirementChecked != null && currentRequirement != null)
-        {
-            currentRequirement.CheckIsRequirementFulfilled();
-
-            OnRequirementChecked.Invoke(currentRequirement); //Update CheckBox
+            Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
+            OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
         }
     }
 
@@ -98,59 +103,91 @@ public class S_Timeline : MonoBehaviour
 
     private void UpdateEvents()
     {
-        while (!IsAvailableRequirementListEmpty())
+        if (currentRequirement != null && !currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled : provoke disaster
+        {
+            foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
+            {
+                Debug.Log("provoke disaster : " + consequence.Description);
+
+                if (OnDisasterOccuring != null)
+                {
+                    OnDisasterOccuring.Invoke(currentRequirement, 0);
+                }
+
+                resolutionManager.ResolveEvent(consequence.feelType, currentRequirement);
+                StartCoroutine(DelayDisasterConsequences(resolutionManager.delayBetweenEventResolutionPhases, consequence));
+
+            }
+
+            currentRequirement = null;
+            currentDelay = resolutionManager.delayBetweenEventResolutionPhases;
+        }
+        else
+        {
+            currentDelay = 0;
+        }
+
+        if (currentRequirement != null && currentRequirement.CheckIsRequirementFulfilled()) //If fulfilled : get reward
+        {
+            succeededRequirementForThisPhase++;
+
+            foreach (S_Reward reward in currentRequirement.LinkedRewards)
+            {
+                reward.GetReward();
+            }
+
+            currentRequirement = null;
+            currentDelay = 3;
+            StartCoroutine(DelaySuccess(2));
+        }
+
+        if (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            eventTimer.StartTimerOver();
-
             if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
             {
                 ChooseOrNotLifeExperience();
-
             }
 
-            currentRequirement = chooseOneRequirementRandomly();
-
-
-            if (currentRequirement != null)
-            {
-                //Debug.Log(currentRequirement.NarrativeDescription);
-
-                currentEvent.SetNewRequirement(currentRequirement);
-
-            }
-
-            if (!currentRequirement.CheckIsRequirementFulfilled()) //If not fulfilled after delay : provoke disaster
-            {
-                foreach (S_Disaster consequence in currentRequirement.LinkedDisaster)
-                {
-                    
-                    Debug.Log("provoke disaster : " + consequence.Description);
-
-                    if (OnDisasterOccuring != null)
-                    {
-                        OnDisasterOccuring.Invoke(currentRequirement);
-                    }
-
-                    consequence.ProvoqueDisaster();
-
-                    VFXManager.InstantiateCorrectVFX(consequence.feelType);
-                }
-            }
-            else
-            {
-                succeededRequirementForThisPhase++;
-
-                foreach (S_Reward reward in currentRequirement.LinkedRewards)
-                {
-                    reward.GetReward();
-                }
-            }
         }
-        timerDone = true;
+
     }
+
+    void PickNewEvent()
+    {
+        Debug.Log("Pick new Event");
+        currentRequirement = chooseOneRequirementRandomly();
+        currentEvent.SetNewRequirement(currentRequirement, currentDelay);
+    }
+
+    IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
+    {
+        yield return new WaitForSeconds(delay);
+        consequence.ProvoqueDisaster();
+        yield return new WaitForSeconds(delay);
+        PickNewEvent();
+        yield return new WaitForSeconds(delay);
+        OnAfterRequirementChecked?.Invoke(currentRequirement);
+
+        //OnRequirementChecked?.Invoke(currentRequirement);
+
+    }
+
+    IEnumerator DelaySuccess(float delay)
+    {
+        successHolder.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        Debug.Log("picking new event");
+        PickNewEvent();
+        yield return new WaitForSeconds(delay);
+        OnAfterRequirementChecked?.Invoke(currentRequirement);
+        //OnRequirementChecked?.Invoke(currentRequirement);
+        yield return new WaitForSeconds(delay);
+
+    }
+
     private bool IsAvailableRequirementListEmpty()
     {
         if (GetAvailableRequirementsInCurrentPhase().FirstOrDefault() != null)

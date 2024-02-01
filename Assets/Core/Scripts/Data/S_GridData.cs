@@ -44,6 +44,12 @@ public class S_GridData : ScriptableObject, InitializeSO
         return new Vector3Int(xCoord, 0, zCoord);
     }
 
+    //Get building script
+    public GameObject GetBuildingAtTile(Vector2Int coord)
+    {
+        return gridsUsageStatement[coord.x][coord.y].building;
+    }
+
     public void SetTileUsed(int x, int y)
     {
         gridsUsageStatement[x][y].statement = true;
@@ -163,8 +169,6 @@ public class S_GridData : ScriptableObject, InitializeSO
                         isEnoughSpace = false;
                         break;
                     }
-
-                    Debug.Log(_fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y]);
 
                     if (gridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y].statement
                         || _fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y])

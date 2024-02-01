@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6658454833255594147}
+  - {fileID: 4225111850729539378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5071408139865936807
@@ -48,13 +48,14 @@ MonoBehaviour:
   BuildingData:
     buildingName: Comedy Theater
     feelType: 1
-    BuildingTheme: 0
+    BuildingTheme: 6
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 1000
     tier: 3
     BuildingImage: {fileID: 21300000, guid: 0a04c99677bcd34499769598a7ac9671, type: 3}
   VFXData: {fileID: 0}
+  actionPointCost: 1
   tilesCoordinate:
   - {x: -1, y: -1}
   - {x: 0, y: -1}
@@ -65,17 +66,45 @@ MonoBehaviour:
   - {x: -1, y: 1}
   - {x: -1, y: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
-  minimumX: 0
-  minimumY: 0
-  maximumX: 0
-  maximumY: 0
+--- !u!1 &917671987420033511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4225111850729539378}
+  m_Layer: 0
+  m_Name: Shake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4225111850729539378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917671987420033511}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6658454833255594147}
+  m_Father: {fileID: 9134916804627123114}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3607419264250238968
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 9134916804627123114}
+    m_TransformParent: {fileID: 4225111850729539378}
     m_Modifications:
     - target: {fileID: 7294817084819092961, guid: bd6507f4f9964cb48923316fa026bac2, type: 3}
       propertyPath: m_Name
@@ -99,7 +128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7960030778483011419, guid: bd6507f4f9964cb48923316fa026bac2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7960030778483011419, guid: bd6507f4f9964cb48923316fa026bac2, type: 3}
       propertyPath: m_LocalRotation.y
@@ -107,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7960030778483011419, guid: bd6507f4f9964cb48923316fa026bac2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7960030778483011419, guid: bd6507f4f9964cb48923316fa026bac2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

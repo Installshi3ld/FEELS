@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ConstructionSystem : MonoBehaviour
@@ -8,6 +9,7 @@ public class ConstructionSystem : MonoBehaviour
     [SerializeField] private S_BuildingList buildingListContainer;
     [SerializeField]private S_GridData _gridData;
     [SerializeField] private S_FogData _fogData;
+    [SerializeField] private S_ScriptableRounds ScriptableRounds;
 
     public GameObject objectToSpawn;
     public GameObject planePlacementValid;
@@ -106,21 +108,6 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
-    //Use for the tutorial
-    void EnableFeedBuildingTile(S_BuildingData build, List<Vector2Int> tile, bool statement = true)
-    {
-        foreach (Vector2Int coord in tile)
-        {
-            //Calculate Vector3 Global Coord
-            Vector3 tmpVect = build.building.destination;
-            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
-            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
-
-            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
-
-            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
-        }
-    }
     
     private void LateUpdate()
     {
@@ -145,6 +132,21 @@ public class ConstructionSystem : MonoBehaviour
         }
     }
 
+    //Use for the tutorial
+    void EnableFeedBuildingTile(S_BuildingData build, List<Vector2Int> tile, bool statement = true)
+    {
+        foreach (Vector2Int coord in tile)
+        {
+            //Calculate Vector3 Global Coord
+            Vector3 tmpVect = build.building.destination;
+            tmpVect.x = tmpVect.x + coord.x * _gridData.tileSize;
+            tmpVect.z = tmpVect.z - coord.y * _gridData.tileSize;
+
+            Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
+
+            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
+        }
+    }
     List<Vector2Int> GetObjectSpawnTileUsage()
     {
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
@@ -166,24 +168,28 @@ public class ConstructionSystem : MonoBehaviour
             feelsUI.Info("Need more feels");
             return;
         }
-
-        UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
-
-        feelsUI.RefreshUI();
-
-        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+        if (!ScriptableRounds.TryRemoveActionPoints(objectSpawnedBuildingScript.actionPointCost))
         {
-            objectSpawnedBuildingScript.RemoveFeelCost();
+            feelsUI.Info("No more action point");
+            return;
         }
 
-        consciousTreeToken.AddAmount(1);
+        UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
         CheckBoostBuilding();
 
         objectSpawnedBuildingScript.PlacedBuilding();
         _gridData.ClearPlaneFeedbackBuildingStatement();
 
+
+        //Change token
         consciousTreeToken.AddAmount(1);
+
+        if (objectSpawnedBuildingScript.GetCosts()[0].feelTypeCurrency)
+            objectSpawnedBuildingScript.RemoveFeelCost();
+        feelsUI.RefreshUI();
+
+
         buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
 
         switch (objectSpawnedBuildingScript.BuildingData.feelType)
@@ -316,122 +322,107 @@ public class ConstructionSystem : MonoBehaviour
         }
 
     }
+
+
     void CheckBoostBuilding()
     {
-        List<Vector2Int> _tilesToCheckForBoost = new List<Vector2Int>();
-        S_Building s_building = objectSpawned.GetComponent<S_Building>();
-        _tilesToCheckForBoost = s_building.GetSurroundingTiles();
-
-        FeelType _feelType = FeelType.None;
-        if (s_building)
-            _feelType = s_building.BuildingData.feelType;
-
-        GameObject _currentBuildingToCheck = null;
         Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned.transform.position);
+        List<GameObject> _buildingsToBoost = new List<GameObject>();
+        List<Vector2Int> _tilesToCheckForBoost;
+        FeelType _feelType;
 
-        //Check tile for boost
+        //Set s_building for function
+        if (objectSpawned.TryGetComponent(out S_Building s_building))
+        {
+            _feelType = s_building.BuildingData.feelType;
+            //corner tile for sad, surrounding with other
+            _tilesToCheckForBoost = (_feelType == FeelType.Sad) ? s_building.GetCornerTiles() : s_building.GetSurroundingTiles();
+            if(_feelType == FeelType.Anger)
+                _tilesToCheckForBoost.AddRange(s_building.GetCornerTiles());   
+        }
+        else
+        {
+            Debug.LogWarning("Missing S_Building on " +  objectSpawned.name + ", check building boost abort.");
+            return;
+        }
+
+        //Set s_feelAssignation
+        if(objectSpawned.TryGetComponent(out S_FeelAssignationBuilding s_feelAssignation)) { }
+        else
+        {
+            Debug.LogWarning("Missing S_FeelAssignationBuilding on " + objectSpawned.name + ", check building boost abort.");
+            return;
+        }
+
+        //Get building to check for boost
         for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
         {
+            GameObject _currentBuildingToCheck = _gridData.GetBuildingAtTile(buildingCoordinate + _tilesToCheckForBoost[i]);
 
-            _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
+            if (_currentBuildingToCheck != null)
+            {
+                S_Building _currentBuildingToCheckS_Building = _currentBuildingToCheck.GetComponent<S_Building>();
 
-            //Apply behavior of case to boost bellow
+                //Store all building around self
+                if (_feelType == FeelType.Fear)
+                {
+                    _buildingsToBoost.Add(_currentBuildingToCheck);
+                }
+                //Else store same type
+                else if (_currentBuildingToCheckS_Building.BuildingData.feelType == _feelType)
+                {
+                    _buildingsToBoost.Add(_currentBuildingToCheck);
+                }
 
 
-            CheckTileAndBoost(_currentBuildingToCheck, _feelType);
+            }
         }
 
-        if (_feelType == FeelType.Sad)
+        bool tmpFearFound = false;
+
+        //Loop to boost or unboost other building
+        foreach (GameObject _building in _buildingsToBoost)
         {
-            List<GameObject> buildingSadToBoost = new List<GameObject>();
+            S_Building s_tmpBuilding = _building.GetComponent<S_Building>();
 
-            List<Vector2Int> corners = s_building.GetCornerTiles();
-
-            
-            for (int i = 0; i < corners.Count; i++)
+            //fear
+            if (_feelType == FeelType.Fear && s_tmpBuilding.BuildingData.feelType == FeelType.Fear)
             {
-                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + corners[i].x][buildingCoordinate.y - corners[i].y].building;
-                if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
-                {
-                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
-
-                    if (_feelType == _currentBuildingToCheckFeelType && !buildingSadToBoost.Contains(_currentBuildingToCheck))
-                    {
-                        buildingSadToBoost.Add(_currentBuildingToCheck);
-                    }
-                }
+                _building.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+                tmpFearFound = true;
             }
-        
-            for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
+            //Anger
+            else if (_feelType == FeelType.Anger && s_tmpBuilding.BuildingData.feelType == FeelType.Anger)
             {
-                _currentBuildingToCheck = _gridData.gridsUsageStatement[buildingCoordinate.x + _tilesToCheckForBoost[i].x][buildingCoordinate.y - _tilesToCheckForBoost[i].y].building;
-                if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>())
-                {
-                    FeelType _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
-
-                    if (_feelType == _currentBuildingToCheckFeelType && buildingSadToBoost.Contains(_currentBuildingToCheck))
-                    {
-                        buildingSadToBoost.Remove(_currentBuildingToCheck);
-                    }
-
-                }
+                _building.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
+            }
+            //
+            else if (_feelType == FeelType.Joy && s_tmpBuilding.BuildingData.feelType == FeelType.Joy)
+            {
+                _building.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
             }
 
-            foreach (GameObject sadBuild in buildingSadToBoost)
+            else if (_feelType == FeelType.Sad && s_tmpBuilding.BuildingData.feelType == FeelType.Sad)
             {
-                if (sadBuild.GetComponent<S_FeelAssignationBuilding>()) { }
-                    sadBuild.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-            }
-
-            if(buildingSadToBoost.Count > 0)
-            {
-                if(objectSpawned.GetComponent<S_FeelAssignationBuilding>())
-                    objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
+                _building.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
             }
         }
 
+        //Self boost or not boost
+        if (_buildingsToBoost.Count == 0 && _feelType == FeelType.Anger)
+        {
+            s_feelAssignation.BoostBuilding();
+        }
+        else if (_feelType == FeelType.Fear && !tmpFearFound)
+        {
+            s_feelAssignation.BoostBuilding();
+        }
+        else if (_buildingsToBoost.Count != 0 && _feelType == FeelType.Joy || _feelType == FeelType.Sad)
+        {
+            s_feelAssignation.BoostBuilding();
+        }
     }
 
-    private void CheckTileAndBoost(GameObject _currentBuildingToCheck, FeelType _feelType)
-    {
-        FeelType _currentBuildingToCheckFeelType;
 
-        if (_currentBuildingToCheck && _currentBuildingToCheck.GetComponent<S_Building>() && _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>())
-        {
-            _currentBuildingToCheckFeelType = _currentBuildingToCheck.GetComponent<S_Building>().BuildingData.feelType;
-
-            switch (_feelType)
-            {
-                case FeelType.Joy:
-                    if (_feelType == _currentBuildingToCheckFeelType)
-                    {
-                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                    }
-                    break;
-
-                case FeelType.Anger:
-                    if (_feelType == _currentBuildingToCheckFeelType)
-                    {
-                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                    }
-                    break;
-                case FeelType.Fear:
-
-                    if (_feelType != _currentBuildingToCheckFeelType)
-                    {
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().BoostBuilding();
-                    }
-                    if (_feelType == _currentBuildingToCheckFeelType)
-                    {
-                        _currentBuildingToCheck.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                        objectSpawned.GetComponent<S_FeelAssignationBuilding>().UnBoostBuilding();
-                    }
-
-                    break;
-            }
-        }
-    }
 
 }

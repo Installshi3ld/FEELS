@@ -12,12 +12,12 @@ public class S_UIDisasterImage : MonoBehaviour
     private void OnEnable()
     {
         image.enabled = false;
-        S_Timeline.OnDisasterOccuring += MakeBlink;
+        //S_Timeline.OnDisasterOccuring += MakeBlink;
     }
 
     private void OnDisable()
     {
-        S_Timeline.OnDisasterOccuring -= MakeBlink;
+        //S_Timeline.OnDisasterOccuring -= MakeBlink;
     }
 
     private void MakeBlink(S_Requirement currentEvent)
