@@ -16,6 +16,14 @@ public class S_GameFunction : MonoBehaviour
     public S_ScriptableRounds ScriptableRounds;
     public void SwitchTimeScalePauseResume()
     {
+
+  //     if (objectSpawned != null)
+  //     {
+  //          Destroy(objectSpawned);
+  //          HidePlanePlacement();
+  //          _gridData.ClearPlaneFeedbackBuildingStatement();
+  //     }
+
         if (Time.timeScale > 0.5f)
         {
             PauseMenu.SetActive(true);
