@@ -31,6 +31,7 @@ public class S_Timeline : MonoBehaviour
 
     public delegate void RefreshFromRequirement(S_Requirement currentEvent);
     public static event RefreshFromRequirement OnRequirementChecked;
+    public static event RefreshFromRequirement OnAfterRequirementChecked;
     public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
 
@@ -168,7 +169,9 @@ public class S_Timeline : MonoBehaviour
         yield return new WaitForSeconds(delay);
         PickNewEvent();
         yield return new WaitForSeconds(delay);
-        OnRequirementChecked?.Invoke(currentRequirement);
+        OnAfterRequirementChecked?.Invoke(currentRequirement);
+
+        //OnRequirementChecked?.Invoke(currentRequirement);
 
     }
 
@@ -176,9 +179,11 @@ public class S_Timeline : MonoBehaviour
     {
         successHolder.SetActive(true);
         yield return new WaitForSeconds(delay);
+        Debug.Log("picking new event");
         PickNewEvent();
         yield return new WaitForSeconds(delay);
-        OnRequirementChecked?.Invoke(currentRequirement);
+        OnAfterRequirementChecked?.Invoke(currentRequirement);
+        //OnRequirementChecked?.Invoke(currentRequirement);
         yield return new WaitForSeconds(delay);
 
     }
