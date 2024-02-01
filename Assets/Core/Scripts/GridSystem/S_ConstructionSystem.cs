@@ -413,11 +413,12 @@ public class ConstructionSystem : MonoBehaviour
         {
             s_feelAssignation.BoostBuilding();
         }
-        else if (_feelType == FeelType.Fear && !tmpFearFound)
+        else if (_buildingsToBoost.Count != 0 && _feelType == FeelType.Fear && !tmpFearFound)
         {
             s_feelAssignation.BoostBuilding();
+            print("test");
         }
-        else if (_buildingsToBoost.Count != 0 && _feelType == FeelType.Joy || _feelType == FeelType.Sad)
+        else if (_buildingsToBoost.Count != 0 && (_feelType == FeelType.Joy || _feelType == FeelType.Sad))
         {
             s_feelAssignation.BoostBuilding();
         }
