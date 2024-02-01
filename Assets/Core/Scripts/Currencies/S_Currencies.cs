@@ -52,6 +52,7 @@ public class S_Currencies : ScriptableObject
         if (addAmount - Mathf.Floor(addAmount) >= .5f)
         {
             Amount += Mathf.CeilToInt(addAmount);
+
         }
 
         else
@@ -79,4 +80,6 @@ public class S_Currencies : ScriptableObject
     {
         return _amount <= amount;
     }
+
+
 }

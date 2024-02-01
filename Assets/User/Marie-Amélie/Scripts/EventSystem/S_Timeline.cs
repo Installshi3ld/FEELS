@@ -116,12 +116,6 @@ public class S_Timeline : MonoBehaviour
 
             }
 
-
-            if (hasLifeEventBeenPicked && PickedLifeExperience && !hasBeenPaid)
-            {
-                AddFireLifeExperience(PickedLifeExperience);
-            }
-
             currentRequirement = chooseOneRequirementRandomly();
 
 
@@ -163,12 +157,6 @@ public class S_Timeline : MonoBehaviour
             }
         }
         timerDone = true;
-    }
-
-    public void AddFireLifeExperience(S_LifeExperienceScriptableObject lifeExpScript)
-    {
-        Debug.Log("SOMEONE IS CALLING MEEEEEE");
-
     }
     private bool IsAvailableRequirementListEmpty()
     {

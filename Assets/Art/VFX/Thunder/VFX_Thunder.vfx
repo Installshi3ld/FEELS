@@ -41,8 +41,8 @@ MonoBehaviour:
       serializedVersion: 2
       x: 814
       y: -2041
-      width: 993
-      height: 1588
+      width: 1000
+      height: 1605
     contents:
     - model: {fileID: 8926484042661615254}
       id: 0
@@ -218,12 +218,13 @@ MonoBehaviour:
     position:
       serializedVersion: 2
       x: 928
-      y: -1295
+      y: -1294
       width: 362
-      height: 107
+      height: 183
     contents: "change size mouve end point on curve on set scale Z \nmove to the
       mid point of width for the thickness\n\nafter look the stichy note of impact
-      bot\n"
+      bot\n\nmove speed Z you need to modify time of the end point on the curve set
+      scale Z"
     theme: Classic
     textSize: Small
   categories: []
@@ -331,7 +332,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 0.25
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -2978,7 +2979,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661615289}
   - {fileID: 8926484042661615301}
-  m_UIPosition: {x: 1354, y: -1097}
+  m_UIPosition: {x: 1365, y: -1080}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -7642,7 +7643,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 0.25
     m_Space: -1
   m_Property:
     name: o
@@ -12404,7 +12405,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":50.0,"outTangent":50.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":50.0,"inTangent":50.0,"outTangent":50.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":100.0,"outTangent":100.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":0.5,"value":50.0,"inTangent":100.0,"outTangent":100.0,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: curve
