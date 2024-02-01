@@ -121,6 +121,11 @@ public class S_FeelsUI : MonoBehaviour
         lastSadnessFeelsAmount = sadnessFeels.Amount;
     }
 
+    private IEnumerator UpdateFeelsUI()
+    {
+        yield return null;
+    }
+
     private IEnumerator JChangeColorCoroutine(Color targetColor)
     {
         jFeelsValue.color = targetColor;

@@ -17,13 +17,18 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     private void Awake()
     {
         S_Timeline.OnRequirementChecked += UpdateCheckBox;
+        S_Timeline.OnAfterRequirementChecked += UpdateText;
     }
 
     private void UpdateCheckBox(S_Requirement currentR)
     {
         toggle.isOn = currentR.HasBeenFulfilled;
+    }
 
-    //Ajout Naudar 
+    private void UpdateText(S_Requirement currentR)
+    {
+        textEventRequirement.text = currentR.ConstraintDescription;
+        //Ajout Naudar 
         textEventRequirement.color = currentR.HasBeenFulfilled ? Color.green : Color.red;
 
         if (currentR.HasBeenFulfilled == false)
