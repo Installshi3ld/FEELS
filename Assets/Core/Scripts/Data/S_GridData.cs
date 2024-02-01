@@ -170,8 +170,6 @@ public class S_GridData : ScriptableObject, InitializeSO
                         break;
                     }
 
-                    Debug.Log(_fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y]);
-
                     if (gridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y].statement
                         || _fogData.fogGridsUsageStatement[i + tileUsedCoord.x][j + tileUsedCoord.y])
                     {

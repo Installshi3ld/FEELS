@@ -27,21 +27,23 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public float productionAmountForUI = 0;
 
     S_Currencies feelProductionType;
+    public S_ScriptableRounds scriptableRounds;
 
     bool bProductionFeels;
     private void Awake()
     {
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
+        if(scriptableRounds) 
+            scriptableRounds.OnChangedTurn += FeelProduction;
+        else 
+            Debug.LogWarning("Missing ScriptableRounds on " + gameObject.name + " abort production");
     }
     private void Start()
     {
         if (gameObject.TryGetComponent(out S_Building _building))
         {
             var prices = _building.GetCosts();
-
-            if (prices[0].feelTypeCurrency && prices[0].feelTypeCurrency.feelType == S_Currencies.FeelType.Anger)
-                BoostBuilding();
         }
     }
     /// <summary>
@@ -59,7 +61,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
             CurrentStoredFeel = MaxFeel;
             feelType.RemoveAmount(MaxFeel);
             isProducing = true;
-            StartCoroutine(FeelProduction());
+            //StartCoroutine(FeelProduction());
             return true;
         }
         return false;
@@ -85,14 +87,19 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         return false;
     }
 
-    IEnumerator FeelProduction()
+    void FeelProduction()
     {
-        while(true)
-        {
-            yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
-            feelProductionType.AddAmount(currentProduction);
-        }
+        feelProductionType.AddAmount(currentProduction);
     }
+
+    //IEnumerator FeelProduction()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(currenteDelayBetweenEachProduction);
+    //        feelProductionType.AddAmount(currentProduction);
+    //    }
+    //}
 
     public void BoostBuilding()
     {
@@ -104,6 +111,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
 
     public void UnBoostBuilding()
     {
+        print("Unboosted");
         isBoosted = false;
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;

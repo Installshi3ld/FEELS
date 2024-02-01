@@ -27,6 +27,8 @@ public class S_Camera : MonoBehaviour
     private CameraControlActions cameraActions;
     private InputAction movement;
 
+    private float tmpXRota = 25f;
+    float tmpCoordZ = 0;
     #endregion
 
     private void Awake()
@@ -39,6 +41,9 @@ public class S_Camera : MonoBehaviour
         cameraActions.Camera.ZoomCamera.performed += ZoomCamera;
         cameraActions.Camera.Enable();
         cam.transform.LookAt(this.transform);
+
+        tmpXRota = cam.transform.rotation.eulerAngles.x;
+        tmpCoordZ = MaximumHeight - cam.transform.position.y - cam.transform.position.z;
     }
 
 
@@ -48,7 +53,6 @@ public class S_Camera : MonoBehaviour
     Vector3 CameraDestination = Vector3.zero;
 
     Vector3 tmpDestination;
-    float tmpCoordZ;
     void Update()
     {
         // Keyboard movement
@@ -82,7 +86,7 @@ public class S_Camera : MonoBehaviour
         {
             cam.transform.position += zoomDestination * ZoomSpeed * Time.deltaTime;
             zoomDestination -= zoomDestination * ZoomSpeed * Time.deltaTime;
-            cam.transform.LookAt(this.transform);
+            //cam.transform.LookAt(this.transform);
 
             if (!Camera.main.orthographic)
                 tmpCoordZ = cam.transform.position.z;
@@ -103,7 +107,10 @@ public class S_Camera : MonoBehaviour
         if (MinimumHeight < cam.transform.position.y - value && cam.transform.position.y - value < MaximumHeight)
         {
             if (Camera.main.orthographic)
+            {
                 cam.transform.localPosition = new Vector3(0,MaximumHeight - 0.01f, tmpCoordZ);
+                cam.transform.localRotation = Quaternion.Euler(tmpXRota, 0, 0);
+            }
 
             Camera.main.orthographic = false;
             zoomDestination = zoomDestination + new Vector3(0, -value, value);
@@ -125,7 +132,7 @@ public class S_Camera : MonoBehaviour
             Camera.main.orthographic = true;
             zoomDestination = Vector3.zero;
             Camera.main.orthographicSize = 45;
-            cam.transform.rotation = Quaternion.Euler(90, 0, 0);
+            cam.transform.rotation = Quaternion.Euler(89, 0, 0);
             cam.transform.localPosition = new Vector3(0, cam.transform.position.y, 0);
         }
     }

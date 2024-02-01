@@ -6,10 +6,12 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "SO_CurrentEvent", menuName = "SingletonContainer/CurrentEvent")]
 public class S_CurrentEventScriptableObject : ScriptableObject
 {
-    public delegate void RefreshRequirement(S_Requirement currentR);
+    public delegate void RefreshRequirement(S_Requirement currentR, float delay);
     public event RefreshRequirement OnChangingRequirement;
 
+    private float delay;
     private S_Requirement currentRequirement;
+
     public S_Requirement CurrentRequirement
     {
         get { return currentRequirement; } //read
@@ -19,16 +21,18 @@ public class S_CurrentEventScriptableObject : ScriptableObject
 
             if(OnChangingRequirement != null)
             {
-                OnChangingRequirement(currentRequirement);
+                OnChangingRequirement(currentRequirement, delay);
             }
         }
     }
 
-    public void SetNewRequirement(S_Requirement newRequirement)
+    public void SetNewRequirement(S_Requirement newRequirement, float theDelay)
     {
-        if(newRequirement != null)
+        if (newRequirement != null)
         {
+            delay = theDelay;
             CurrentRequirement = newRequirement;
         }
     }
+
 }

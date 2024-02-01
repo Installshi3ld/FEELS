@@ -14,15 +14,9 @@ public class S_UIDisaster : MonoBehaviour
     private void OnEnable()
     {
         textDisasterHere.alpha = 0f;
-        S_Timeline.OnDisasterOccuring += UpdateDisasterUI;
     }
 
-    private void OnDisable()
-    {
-        S_Timeline.OnDisasterOccuring -= UpdateDisasterUI;
-    }
-
-    private void UpdateDisasterUI(S_Requirement currentR)
+    public void UpdateDisasterUI(S_Requirement currentR)
     {
         //Call BlinkText function after a 0 seconds delay || Don't touch that
         Invoke("StartBlinking", 0f);
