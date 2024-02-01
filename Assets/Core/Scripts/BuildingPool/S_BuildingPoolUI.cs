@@ -28,6 +28,7 @@ public class S_BuildingPoolUI : MonoBehaviour
     public TextMeshProUGUI BuildingName, ScoreInformation;
     public TextMeshProUGUI BuildingType, BuildingTheme;
     public Image BuildingIcon;
+    private S_FeelAssignationBuilding _FeelAssignationBuilding;
     //C'est immonde je sais bien mais c'est tout pour l'instant
 
 
@@ -117,7 +118,10 @@ public class S_BuildingPoolUI : MonoBehaviour
         BuildingType.text = _buildingScript.BuildingData.feelType.ToString();
         BuildingTheme.text = _buildingScript.BuildingData.BuildingTheme.ToString();
         BuildingIcon.sprite = _buildingScript.BuildingData.BuildingImage;
+        //ScoreInformation.text = _buildingScript.BuildingData.
    //
+   //  _FeelsAssignationBuilding
+
    //   if (FeelType)
    //       FeelTypeImage.sprite = FeelType.image;
    //   else
