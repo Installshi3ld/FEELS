@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using DG.Tweening;
 
 public class S_GameFunction : MonoBehaviour
 {
@@ -14,28 +16,42 @@ public class S_GameFunction : MonoBehaviour
     public static bool isPaused = false;
     public GameObject PauseMenu;
     public S_ScriptableRounds ScriptableRounds;
+    public S_MenuData isBuilding;
+    public S_MenuData inSkillTreeMenu;
+
     public void SwitchTimeScalePauseResume()
     {
-        if (Time.timeScale > 0.5f)
-        {
-            PauseMenu.SetActive(true);
-            isPaused = true;
-            Time.timeScale = 0f;
-        }
 
-        else
+        //     if (objectSpawned != null)
+        //     {
+        //          Destroy(objectSpawned);
+        //          HidePlanePlacement();
+        //          _gridData.ClearPlaneFeedbackBuildingStatement();
+        //     }
+        if (!isBuilding.value)
         {
-            PauseMenu.SetActive(false);
-            isPaused = false;
-            Time.timeScale = 1;
+            if (Time.timeScale > 0.5f)
+            {
+                PauseMenu.SetActive(true);
+                isPaused = true;
+                Time.timeScale = 0f;
+            }
+
+            else
+            {
+                PauseMenu.SetActive(false);
+                isPaused = false;
+                Time.timeScale = 1;
+            }
         }
+        print("TRes");
             
     }
-
     //Change round 
     public void ChangeRound()
     {
         ScriptableRounds.SwitchRound();
+
     }
 
     public void PauseTimeResume()

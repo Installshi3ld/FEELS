@@ -30,7 +30,7 @@ public class S_ScriptableRounds : ScriptableObject
 
     private void OnEnable()
     {
-        _currentRound = 1;
+        _currentRound = 0;
     }
 
     public int GetNumberOfRounds()

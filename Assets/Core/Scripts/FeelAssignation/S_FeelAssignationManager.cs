@@ -23,12 +23,17 @@ public class S_FeelAssignationManager : MonoBehaviour
     [SerializeField]
     public static GameObject VFXBoost;
 
+    //Ajout Naudar
+    private static MonoBehaviour coroutineContainer; 
+    //Fin Naudar
+
     private void Start()
     {
         VFXBoost = VFXBoostVar;
         s_panelFeelAssignation = UIPanelContainer.GetComponent<S_PanelFeelAssignation>();
         if (s_panelFeelAssignation)
             s_panelFeelAssignation.mouseExitPanel += HideContainer;
+
     }
 
     /*
@@ -62,15 +67,16 @@ public class S_FeelAssignationManager : MonoBehaviour
         }
     }*/
 
-    public static void SpawnVFXBoost(Transform building)
+ public static void SpawnVFXBoost(Transform building)
     {
         if (VFXBoost)
         {
-            GameObject particleSystemInstance = Instantiate(VFXBoost, building.transform.position, Quaternion.Euler(new Vector3(-90,0,0)));
-
-            Destroy(particleSystemInstance.gameObject, 3f);
+           
+           GameObject particleSystemInstance = Instantiate(VFXBoost, building.transform.position, Quaternion.Euler(new Vector3(0,0,0)));
+  
+           Destroy(particleSystemInstance.gameObject, 3f);
         }
-    }
+     }
 
     void HideContainer()
     {

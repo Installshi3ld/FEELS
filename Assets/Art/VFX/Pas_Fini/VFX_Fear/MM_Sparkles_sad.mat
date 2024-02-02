@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d9951cf37d207c44da830edac4aa34ca, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IceAlpha:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7a60d5f5af3418e429e7dbd1697f84a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IceTexture:
@@ -155,18 +155,22 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Cutoff_Height: 15
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Emissive: 0.02
+    - _Emissive: 0.33
     - _EnvironmentReflections: 1
+    - _Flow: 0.16
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _NoiseScale: 50
+    - _NoiseStrength: 3.3
     - _OcclusionStrength: 1
-    - _Opacity: 0.733
+    - _Opacity: 0.6
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -184,7 +188,7 @@ Material:
     - _ZWriteControl: 0
     - _flow: 5
     - _fresnel_strenght: 0.185
-    - _fresnelpower: 1
+    - _fresnelpower: 0.95
     - _normal: -0.87
     - _refract_Strength: 0.09
     - _refract_strength: 0

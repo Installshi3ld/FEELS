@@ -10,6 +10,7 @@ public class ConstructionSystem : MonoBehaviour
     [SerializeField]private S_GridData _gridData;
     [SerializeField] private S_FogData _fogData;
     [SerializeField] private S_ScriptableRounds ScriptableRounds;
+    [SerializeField] private S_MenuData _isBuilding;
 
     public GameObject objectToSpawn;
     public GameObject planePlacementValid;
@@ -116,10 +117,13 @@ public class ConstructionSystem : MonoBehaviour
         {
             if (objectSpawned != null)
             {
-                Destroy(objectSpawned);
-                HidePlanePlacement();
-                _gridData.ClearPlaneFeedbackBuildingStatement();
+                DestroyObjectSpawned();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            DestroyObjectSpawned();
         }
 
         //Place Object
@@ -130,6 +134,14 @@ public class ConstructionSystem : MonoBehaviour
                 PlaceBuilding();
             }
         }
+    }
+
+    void DestroyObjectSpawned()
+    {
+        Destroy(objectSpawned);
+        HidePlanePlacement();
+        _gridData.ClearPlaneFeedbackBuildingStatement();
+        _isBuilding.value = false;
     }
 
     //Use for the tutorial
@@ -290,6 +302,7 @@ public class ConstructionSystem : MonoBehaviour
             Destroy(objectSpawned);
 
         objectSpawned = SpawnGameObject(Vector3.zero, gameObject);
+        _isBuilding.value = true;
     }
 
     GameObject SpawnGameObject(Vector3 spawnPoint, GameObject gameObject = null)
@@ -413,11 +426,11 @@ public class ConstructionSystem : MonoBehaviour
         {
             s_feelAssignation.BoostBuilding();
         }
-        else if (_feelType == FeelType.Fear && !tmpFearFound)
+        else if (_buildingsToBoost.Count != 0 && _feelType == FeelType.Fear && !tmpFearFound)
         {
             s_feelAssignation.BoostBuilding();
         }
-        else if (_buildingsToBoost.Count != 0 && _feelType == FeelType.Joy || _feelType == FeelType.Sad)
+        else if (_buildingsToBoost.Count != 0 && (_feelType == FeelType.Joy || _feelType == FeelType.Sad))
         {
             s_feelAssignation.BoostBuilding();
         }
