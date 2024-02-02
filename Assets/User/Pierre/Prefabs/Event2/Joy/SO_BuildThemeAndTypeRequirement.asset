@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
+  m_Name: SO_BuildThemeAndTypeRequirement
+  m_EditorClassIdentifier: 
+  NarrativeDescription: I started music lessons.
+  ConstraintDescription: Build 2 trumpets.
+  LinkedDisaster:
+  - {fileID: 11400000, guid: 2edc677a4da59db4bbe5d307028139a4, type: 2}
+  LinkedRewards:
+  - {fileID: 11400000, guid: 913b71e66e476744282af0e21b727ed1, type: 2}
+  buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
+  themeAndTypeRequirements:
+  - feelType: 1
+    buildingTheme: 1
+    numberOfRequiredBuildings: 2

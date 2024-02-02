@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f43d264de5546844cbc60fe431370e8c, type: 3}
-  m_Name: Phase1
+  m_Name: Phase2
   m_EditorClassIdentifier: 
-  nameOfPhase: Phase1
-  numberOfRequirementToFulfillToSwitchPhase: 0
+  nameOfPhase: Event 2
+  numberOfRequirementToFulfillToSwitchPhase: 2
   requirements:
-  - {fileID: 11400000, guid: 0838eb31f74784d4cb64560a3a4c66f7, type: 2}
+  - {fileID: 11400000, guid: 4f3acbbdfe4cdd64c97361b920ff935d, type: 2}
+  - {fileID: 11400000, guid: 764135c5652701d40adbacc401358306, type: 2}
+  - {fileID: 11400000, guid: 79b7b231fd7e9184eba39a0fe09868d9, type: 2}
+  - {fileID: 11400000, guid: 04e840e865157c8469f9f181fede6ebe, type: 2}
   lifeExperiences: []

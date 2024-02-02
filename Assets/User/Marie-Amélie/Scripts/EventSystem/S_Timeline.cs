@@ -86,7 +86,7 @@ public class S_Timeline : MonoBehaviour
     {
         if (currentRequirement)
         {
-         //   Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
+            Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
             OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
         }
     }

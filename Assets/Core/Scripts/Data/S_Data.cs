@@ -5,7 +5,7 @@ using UnityEngine;
 public class S_Data<T> : ScriptableObject
 {
     [SerializeField]
-    protected T value;
+    public T value;
     public void SetValue(T newValue)
     {
         value = newValue;
