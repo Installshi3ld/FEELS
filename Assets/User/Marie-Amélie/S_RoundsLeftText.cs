@@ -15,6 +15,6 @@ public class S_RoundsLeftText : MonoBehaviour
 
     public void RefreshText()
     {
-        tm.text = "Rounds Left :" + roundsScriptable.GetRoundsLeft().ToString();
+        tm.text = "Rounds Left: " + roundsScriptable.GetRoundsLeft().ToString();
     }
 }
