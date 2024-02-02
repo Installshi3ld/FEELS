@@ -13,30 +13,8 @@ public class S_BehaviorAI : MonoBehaviour
     [SerializeField]
     private NavMeshAgent agent;
 
-    private S_AIManager myAIManager;
-    private FeelsMatchSprite myMatchSprite;
-
     private Vector3 destination;
     private bool walkPointSet = false;
-
-    private void Start()
-    {
-        StartCoroutine(EndingMyOwnSuffering());
-		StartCoroutine(DoFadeInAndOut());
-    }
-	
-	private IEnumerator DoFadeInAndOut()
-	{
-		var renderer = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        if (renderer == null) yield break;
-		var color = renderer.color;
-		color.a = 0f;
-		renderer.color = color;
-
-		renderer.DOFade(1.0f, 2.5f);
-		yield return new WaitForSeconds(2.5f);
-		renderer.DOFade(0f, 2.5f);
-	}
 
     private void Update()
     {
@@ -59,25 +37,4 @@ public class S_BehaviorAI : MonoBehaviour
         walkPointSet = true;
     }
 
-    IEnumerator EndingMyOwnSuffering()
-    {
-        yield return new WaitForSeconds(5f);
-        Destroy(this.gameObject);
-    }
-
-    public void Toto(S_AIManager manager, FeelsMatchSprite identity)
-    {
-        myAIManager = manager;
-        myMatchSprite = identity;
-    }
-
-    private void OmgIAmDyingFromCringe()
-    {
-        myAIManager.IAmDead(myMatchSprite);
-    }
-
-    private void OnDestroy()
-    {
-        OmgIAmDyingFromCringe();
-    }
 }

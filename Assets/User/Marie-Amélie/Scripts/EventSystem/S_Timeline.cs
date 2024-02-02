@@ -43,6 +43,8 @@ public class S_Timeline : MonoBehaviour
 
     private float currentDelay;
 
+    [SerializeField] private float UIDelay;
+
     [SerializeField] private S_ScriptableRounds rounds;
 
     private S_LifeExperience currentLifeExperience;
@@ -86,7 +88,7 @@ public class S_Timeline : MonoBehaviour
     {
         if (currentRequirement)
         {
-            Debug.Log(currentRequirement.CheckIsRequirementFulfilled());
+            currentRequirement.CheckIsRequirementFulfilled();
             OnRequirementChecked?.Invoke(currentRequirement); //Update CheckBox
         }
     }
@@ -138,7 +140,7 @@ public class S_Timeline : MonoBehaviour
 
             currentRequirement = null;
             currentDelay = 3;
-            StartCoroutine(DelaySuccess(2));
+            StartCoroutine(DelaySuccess(resolutionManager.delayBetweenEventResolutionPhases));
         }
 
         if (!IsAvailableRequirementListEmpty())
