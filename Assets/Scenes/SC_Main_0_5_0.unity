@@ -1949,7 +1949,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: a509316339fad2443af26acfbbca03c3, type: 2}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: phases.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: resolutionManager
@@ -1962,14 +1962,14 @@ PrefabInstance:
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: 'phases.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: ded6d78f6db42354bbaa97512f487b1b, type: 2}
+      objectReference: {fileID: 11400000, guid: f0d4f4b4f8d0b3a4fb319c3a72ed2348, type: 2}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: isLifeExperienceActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: chanceForLifeExpToOccur
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: secondsBetweenNewConstraint
@@ -3084,6 +3084,14 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1380637280183684217, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1380637280183684217, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1403662423040450112, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_Name
       value: UI_Feels_01LX
@@ -3144,12 +3152,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2643001456871584764, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2767244034041822903, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
     - target: {fileID: 2767244034041822903, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816542072381091363, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2911394039797524085, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
@@ -3172,6 +3188,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 606532259}
+    - target: {fileID: 3586588559427995446, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3664688820872152524, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_Name
       value: UI_Feels_03LX
@@ -3280,6 +3300,10 @@ PrefabInstance:
       propertyPath: _buildingPoolManager
       value: 
       objectReference: {fileID: 906901443}
+    - target: {fileID: 5335775336397308166, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5666994178638184808, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_SizeDelta.x
       value: 73.3
@@ -3303,6 +3327,10 @@ PrefabInstance:
     - target: {fileID: 5666994178638184808, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751294398562461393, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5789347892438459716, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3416,6 +3444,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8178538017496851781, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8204652427457441906, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
@@ -3448,6 +3480,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8434810996439385034, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8533398998236098609, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3455,6 +3491,14 @@ PrefabInstance:
     - target: {fileID: 8884272860498586429, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -79
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116899916114822648, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116899916114822648, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
