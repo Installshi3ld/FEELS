@@ -416,7 +416,6 @@ public class ConstructionSystem : MonoBehaviour
         else if (_buildingsToBoost.Count != 0 && _feelType == FeelType.Fear && !tmpFearFound)
         {
             s_feelAssignation.BoostBuilding();
-            print("test");
         }
         else if (_buildingsToBoost.Count != 0 && (_feelType == FeelType.Joy || _feelType == FeelType.Sad))
         {
