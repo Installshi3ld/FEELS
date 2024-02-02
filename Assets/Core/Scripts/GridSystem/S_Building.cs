@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
+
 public class S_BuildingData : IEquatable<S_BuildingData> 
 {
     [Header("General Data")]
@@ -72,6 +73,9 @@ public enum BuildingTheme
     Profession,
 }
 #endregion
+
+
+
 
 public class S_Building : MonoBehaviour
 {

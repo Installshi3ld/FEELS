@@ -9,6 +9,10 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     [SerializeField]
     private Toggle toggle;
     public TMP_Text textEventRequirement;
+    public S_ScriptableRounds s_ScriptableRounds;
+
+    private Vector3 initialScale; // Variable pour stocker la scale initiale
+
 
     //Ajout Naudar
     private Coroutine scaleCoroutine;
@@ -17,6 +21,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     private void Awake()
     {
         S_Timeline.OnRequirementChecked += UpdateCheckBox;
+        s_ScriptableRounds.OnChangedTurn += ShakeRequirementOverRound;
     }
 
     bool tmp = true;
@@ -48,8 +53,15 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     }
 
 
-  // StartCoroutine(ScaleTextOverTime(2f, 1f, 3.5f));
-   private IEnumerator ScaleTextOverTime(float startScale, float targetScale, float duration)
+    private void ShakeRequirementOverRound()
+    {
+     //   initialScale = textEventRequirement.Scale;
+        textEventRequirement.transform.DOPunchScale(textEventRequirement.transform.localScale, 1f, 1, 1f);
+        Debug.Log("TextquibougeRoundOver");
+    }
+
+    // StartCoroutine(ScaleTextOverTime(2f, 1f, 3.5f));
+    private IEnumerator ScaleTextOverTime(float startScale, float targetScale, float duration)
    {
         float elapsedTime = 0f;
 

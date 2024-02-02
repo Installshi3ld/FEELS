@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using DG.Tweening;
 
 public class S_GameFunction : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class S_GameFunction : MonoBehaviour
     public static bool isPaused = false;
     public GameObject PauseMenu;
     public S_ScriptableRounds ScriptableRounds;
+
     public void SwitchTimeScalePauseResume()
     {
 
@@ -39,11 +42,11 @@ public class S_GameFunction : MonoBehaviour
         }
             
     }
-
     //Change round 
     public void ChangeRound()
     {
         ScriptableRounds.SwitchRound();
+
     }
 
     public void PauseTimeResume()
