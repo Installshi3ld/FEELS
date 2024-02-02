@@ -34,10 +34,6 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     {
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
-        if(scriptableRounds) 
-            scriptableRounds.OnChangedTurn += FeelProduction;
-        else 
-            Debug.LogWarning("Missing ScriptableRounds on " + gameObject.name + " abort production");
     }
     private void Start()
     {
@@ -45,6 +41,13 @@ public class S_FeelAssignationBuilding : MonoBehaviour
         {
             var prices = _building.GetCosts();
         }
+
+        if (scriptableRounds)
+        {
+            scriptableRounds.OnChangedTurn += FeelProduction;
+        }
+        else
+            Debug.LogWarning("Missing ScriptableRounds on " + gameObject.name + " abort production");
     }
     /// <summary>
     /// Return true if successfuly assign feels
@@ -111,9 +114,13 @@ public class S_FeelAssignationBuilding : MonoBehaviour
 
     public void UnBoostBuilding()
     {
-        print("Unboosted");
         isBoosted = false;
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
+    }
+
+    private void OnDestroy()
+    {
+        scriptableRounds.OnChangedTurn -= FeelProduction;
     }
 }
