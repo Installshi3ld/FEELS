@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9134916804627123114}
   - component: {fileID: 5071408139865936807}
   - component: {fileID: 2684035615790431434}
+  - component: {fileID: -8264519560938639748}
   m_Layer: 0
   m_Name: Wonder_Joy
   m_TagString: Untagged
@@ -94,6 +95,24 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 0
+--- !u!114 &-8264519560938639748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105918592634555662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFeel: 0
+  productionAmount: 0
+  delayBetweenEachProduction: 0
+  productionAmountBoosted: 0
+  delayBetweenEachProductionBoosted: 0
+  scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!1 &917671987420033511
 GameObject:
   m_ObjectHideFlags: 0

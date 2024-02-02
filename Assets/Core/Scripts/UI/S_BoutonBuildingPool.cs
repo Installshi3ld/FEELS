@@ -22,6 +22,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             _BuildingReference = value;
             buildingScript = _BuildingReference.GetComponent<S_Building>();
+            _assignationBuilding = _BuildingReference.GetComponent<S_FeelAssignationBuilding>();
             RefreshUI();
         }
     }
@@ -32,6 +33,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     public S_BuildingPoolUI _buildingPoolUI;
 
     S_Building buildingScript;
+    S_FeelAssignationBuilding _assignationBuilding;
 
 
     //Ajouter le spawn du building sur le listener du button
@@ -55,10 +57,10 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
         if (_buildingPoolUI)
         {
             if (buildingScript)
-                _buildingPoolUI.SetInfoFeel(buildingScript);
+                _buildingPoolUI.SetInfoFeel(buildingScript, _assignationBuilding);
             //.GetCosts()[0].feelTypeCurrency, feelCost);
             else
-                _buildingPoolUI.SetInfoFeel(null, feelCost);
+                _buildingPoolUI.SetInfoFeel(null,null,feelCost);
 
 
             _buildingPoolUI.ShowInformation(true);

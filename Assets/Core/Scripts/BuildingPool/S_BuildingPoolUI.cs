@@ -25,7 +25,7 @@ public class S_BuildingPoolUI : MonoBehaviour
     //Adrien Le Vaurien passe dans le coin
     public TextMeshProUGUI T_JoyFeelCost, T_AngerFeelCost, T_SadFeelCost, T_FearFeelCost;
     public Image JoyFeelTypeImage, AngerFeelTypeImage, SadFeelTypeImage, FearFeelTypeImage;
-    public TextMeshProUGUI BuildingName, ScoreInformation;
+    public TextMeshProUGUI BuildingName, ScoreInformation, ScoreInformationBoost;
     public TextMeshProUGUI BuildingType, BuildingTheme;
     public Image BuildingIcon;
     private S_FeelAssignationBuilding _FeelAssignationBuilding;
@@ -102,7 +102,7 @@ public class S_BuildingPoolUI : MonoBehaviour
     }
 
     //Set pop up information
-    public void SetInfoFeel(S_Building _buildingScript, int FeelCost = 0)
+    public void SetInfoFeel(S_Building _buildingScript,S_FeelAssignationBuilding _feelAssignationBuilding , int FeelCost = 0)
     {
         //Adrien Modification to display the price of the 4 type of Feels
         //FeelTypeImage.enabled = true;
@@ -118,7 +118,8 @@ public class S_BuildingPoolUI : MonoBehaviour
         BuildingType.text = _buildingScript.BuildingData.feelType.ToString();
         BuildingTheme.text = _buildingScript.BuildingData.BuildingTheme.ToString();
         BuildingIcon.sprite = _buildingScript.BuildingData.BuildingImage;
-        //ScoreInformation.text = _buildingScript.BuildingData.
+        ScoreInformation.text = "+ " + _feelAssignationBuilding.productionAmount.ToString() + "/rounds";
+        ScoreInformationBoost.text = "+ " + _feelAssignationBuilding.productionAmountBoosted.ToString() + "/rounds"; 
    //
    //  _FeelsAssignationBuilding
 
