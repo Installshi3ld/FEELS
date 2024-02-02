@@ -9,15 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32c985dc66a06644788faa67854ccb1c, type: 3}
-  m_Name: SO_FeelRequirement
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
+  m_Name: SO_BuildThemeAndTypeRequirement_Piano
   m_EditorClassIdentifier: 
-  NarrativeDescription: Keep growing!
-  ConstraintDescription: Generate 30 Feels
+  NarrativeDescription: My favorite band's concert was cancelled.
+  ConstraintDescription: Build a piano.
   LinkedDisaster:
   - {fileID: 11400000, guid: 2edc677a4da59db4bbe5d307028139a4, type: 2}
   LinkedRewards:
   - {fileID: 11400000, guid: 913b71e66e476744282af0e21b727ed1, type: 2}
-  soFeelType:
-  - {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-  targetedNumberOfFeels: 1e000000
+  buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
+  themeAndTypeRequirements:
+  - feelType: 3
+    buildingTheme: 1
+    numberOfRequiredBuildings: 1
