@@ -19,14 +19,14 @@ public class S_BuildingList : ScriptableObject
 
         switch (buildingInfo.tier)
         {
-            case 1:
+            case 0:  //Tier 1
                 toSpawn = 1; 
                 break;
-            case 2: toSpawn = 2;
+            case 1: toSpawn = 2; // Tier 2
                 break;
-            case 3: toSpawn = 5;
+            case 2: toSpawn = 5;
                 break;
-            case 4: toSpawn = 10;
+            case 3: toSpawn = 10;
                 break;
         }
 
