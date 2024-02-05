@@ -28,12 +28,11 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     private void UpdateCheckBox(S_Requirement currentR)
     {
         toggle.isOn = currentR.HasBeenFulfilled;
-
         //Ajout Naudar 
+       // Debug.Log(textEventRequirement); Le text existe pas quand on restart
         Transform textKiBouge = textEventRequirement.transform;
         textEventRequirement.color = currentR.HasBeenFulfilled ? Color.green : Color.red;
 
- 
         //SequenceHasBeenFulfilledFalse.Append(textKiBouge.transform.DOScale(2f, 0.1f));
         //SequenceHasBeenFulfilledFalse.Join(textKiBouge.transform.DOScale(1f, 0.5f));
 
@@ -48,7 +47,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
         }
         else
         {
-            textKiBouge.transform.DOScale(1f, 0f); 
+            textKiBouge.transform.DOScale(1f, 0f);
         }
     }
 
