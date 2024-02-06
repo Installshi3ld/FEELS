@@ -41,7 +41,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
             if (tmp)
             {
                 textKiBouge.transform.DOPunchScale(textKiBouge.transform.localScale, 1f, 1, 1f);
-                textKiBouge.transform.DOMoveX(280, 2, false);
+         //       textKiBouge.transform.DOMoveX(280, 2, false);
                 tmp = false;
             }
         }

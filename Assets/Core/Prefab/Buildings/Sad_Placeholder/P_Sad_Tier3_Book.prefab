@@ -53,12 +53,6 @@ MonoBehaviour:
     feelType: 3
     BuildingTheme: 5
     feelTypeCostList:
-    - feelTypeCurrency: {fileID: 11400000, guid: e6e7c902f1bc29244b9c1037facdc227, type: 2}
-      feelPrice: 500
-    - feelTypeCurrency: {fileID: 11400000, guid: 109f0e3ecbcdd91489523115ac6783e2, type: 2}
-      feelPrice: 500
-    - feelTypeCurrency: {fileID: 11400000, guid: 7ec87cdea08139d448257030c9f3054a, type: 2}
-      feelPrice: 500
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 500
     tier: 2
@@ -145,7 +139,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -153,7 +147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -182,6 +176,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8201673930997113793, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_Name
@@ -264,6 +262,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: m_Name
       value: Sad_Book
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5362183834549950690, guid: f90f0e85164bac64cb368fd7935bd0d2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
