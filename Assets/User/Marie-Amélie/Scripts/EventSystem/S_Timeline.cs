@@ -148,7 +148,7 @@ public class S_Timeline : MonoBehaviour
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            if (!PickedLifeExperience) //If not null means that an unresolved one is already on the map LA LOGIQUE ICI SEMBLE ETRE BONNE MAIS SUREMENT APPELE AUTRE PART
+            if (!PickedLifeExperience)
             {
                 ChooseOrNotLifeExperience();
             }
