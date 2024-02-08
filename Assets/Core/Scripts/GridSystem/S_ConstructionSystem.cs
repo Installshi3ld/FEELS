@@ -381,6 +381,27 @@ public class ConstructionSystem : MonoBehaviour
                 {
                     _buildingsToBoost.Add(_currentBuildingToCheck);
                 }
+                else if (_feelType == FeelType.Sad)
+                {
+
+                    //nsm
+                    List<Vector2Int> buildingToCheckAround = _currentBuildingToCheckS_Building.GetSurroundingTiles();
+
+                    foreach(Vector2Int _tileCorner in buildingToCheckAround)
+                    {
+                        Vector2Int _coord = GetObjectIndexInGridUsage(_currentBuildingToCheck.transform.position);
+                        GameObject _building = _gridData.GetBuildingAtTile(_coord + _tileCorner);
+
+                        print(_building ? _building.name : "null");
+                        if (_building && _building == this.gameObject)
+                        {
+                            return;
+                        }
+                        _buildingsToBoost.Add(_currentBuildingToCheck);
+                    }
+                    
+
+                }
                 //Else store same type
                 else if (_currentBuildingToCheckS_Building.BuildingData.feelType == _feelType)
                 {
