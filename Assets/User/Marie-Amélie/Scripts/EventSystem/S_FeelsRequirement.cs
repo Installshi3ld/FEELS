@@ -34,4 +34,9 @@ public class S_FeelsRequirement : S_Requirement
         return hasAllFeelsBeenAcquired;
 
     }
+
+    public override void DoSomethingAtFirst()
+    {
+        //throw new NotImplementedException();
+    }
 }

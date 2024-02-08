@@ -6,9 +6,8 @@ using UnityEngine;
 public abstract class S_BuildingRequirement : S_Requirement
 {
     [SerializeField]
-    private S_BuildingList buildingsOnMap;
-
-    protected bool IsRequirementBuildingOnMap(Func<S_BuildingData, bool> filter, int required_quantity)
+    protected S_BuildingList buildingsOnMap;
+    protected bool IsRequirementBuildingOnMap(Func<S_BuildingData, bool> filter, int required_quantity, int wasAlreadyOnMap)
     {
         int counter = 0;
 
@@ -21,6 +20,6 @@ public abstract class S_BuildingRequirement : S_Requirement
             }
         }
 
-        return counter >= required_quantity;
+        return counter - wasAlreadyOnMap >= required_quantity;
     }
 }

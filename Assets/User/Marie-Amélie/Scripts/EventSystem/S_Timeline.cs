@@ -300,7 +300,7 @@ public class S_Timeline : MonoBehaviour
             already_done_requirement.Add(picked);
 
             TryChangePhaseIndex();
-
+            picked.DoSomethingAtFirst();
             return picked;
         }
 

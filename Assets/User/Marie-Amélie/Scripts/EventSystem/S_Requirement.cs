@@ -18,5 +18,5 @@ public abstract class S_Requirement : ScriptableObject
 
     public List<S_Reward> LinkedRewards = new List<S_Reward>();
     public abstract bool CheckIsRequirementFulfilled();
-
+    public abstract void DoSomethingAtFirst();
 }

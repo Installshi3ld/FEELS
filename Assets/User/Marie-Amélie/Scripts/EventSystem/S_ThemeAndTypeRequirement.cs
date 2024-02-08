@@ -20,7 +20,7 @@ public class S_ThemeAndTypeRequirement : S_BuildingRequirement
             }
 
             //if (IsRequirementBuildingOnMap(building /*param name */ => building.feelType == typeRequirement.feelType, typeRequirement.numberOfRequiredBuildings);
-            if (!IsRequirementBuildingOnMap(check, typeRequirement.numberOfRequiredBuildings))
+            if (!IsRequirementBuildingOnMap(check, typeRequirement.numberOfRequiredBuildings, typeRequirement.numberOfBuildingAlreadyOnMap))
 
             {
                 HasBeenFulfilled = false;
@@ -32,12 +32,35 @@ public class S_ThemeAndTypeRequirement : S_BuildingRequirement
         return HasBeenFulfilled;
     }
 
+    public override void DoSomethingAtFirst()
+    {
+        foreach (var themeAndTypeRequirement in themeAndTypeRequirements)
+        {
+            bool check(S_BuildingData buildingData)
+            {
+                return buildingData.feelType == themeAndTypeRequirement.feelType && buildingData.BuildingTheme == themeAndTypeRequirement.buildingTheme;
+            }
+
+            foreach (var building in buildingsOnMap.builidingsInfos)
+            {
+                if (check(building))
+                {
+                    themeAndTypeRequirement.numberOfBuildingAlreadyOnMap++;
+                    //Debug.Log("counter " +);
+                }
+            }
+        }
+
+    }
 }
 
 [Serializable]
-public struct ThemeAndTypeRequirementMatch
+public class ThemeAndTypeRequirementMatch
 {
     public FeelType feelType;
     public BuildingTheme buildingTheme;
     public int numberOfRequiredBuildings;
+
+    [NonSerialized]
+    public int numberOfBuildingAlreadyOnMap;
 }

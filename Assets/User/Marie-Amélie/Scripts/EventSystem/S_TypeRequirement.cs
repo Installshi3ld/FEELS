@@ -19,7 +19,7 @@ public class S_TypeRequirement : S_BuildingRequirement
             }
 
             //if (IsRequirementBuildingOnMap(building /*param name */ => building.feelType == typeRequirement.feelType, typeRequirement.numberOfRequiredBuildings);
-            if (!IsRequirementBuildingOnMap(check, typeRequirement.numberOfRequiredBuildings))
+            if (!IsRequirementBuildingOnMap(check, typeRequirement.numberOfRequiredBuildings, typeRequirement.numberOfBuildingAlreadyOnMap))
             {
                 HasBeenFulfilled = false;
                 return false;
@@ -30,11 +30,35 @@ public class S_TypeRequirement : S_BuildingRequirement
         return HasBeenFulfilled;
     }
 
+    public override void DoSomethingAtFirst()
+    {
+        foreach (var typeRequirement in typeRequirements)
+        {
+            bool check(S_BuildingData buildingData)
+            {
+                return buildingData.feelType == typeRequirement.feelType;
+            }
+
+            foreach (var building in buildingsOnMap.builidingsInfos)
+            {
+                if (check(building))
+                {
+                    typeRequirement.numberOfBuildingAlreadyOnMap++;
+                    //Debug.Log("counter " +);
+                }
+            }
+        }
+
+    }
+
 }
 
 [Serializable]
-public struct TypeRequirementMatch
+public class TypeRequirementMatch
 {
     public FeelType feelType;
     public int numberOfRequiredBuildings;
+
+    [NonSerialized]
+    public int numberOfBuildingAlreadyOnMap;
 }

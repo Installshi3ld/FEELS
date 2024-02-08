@@ -44,4 +44,9 @@ public class S_TotalFeelsRequirement : S_Requirement
             return false;
         }
     }
+
+    public override void DoSomethingAtFirst()
+    {
+        //
+    }
 }
