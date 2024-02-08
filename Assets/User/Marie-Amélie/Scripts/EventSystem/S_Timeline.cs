@@ -301,6 +301,7 @@ public class S_Timeline : MonoBehaviour
 
             TryChangePhaseIndex();
             picked.DoSomethingAtFirst();
+            rounds.numberOfRoundToSwitchEvent = picked.numberOfTurnToFulfill;
             return picked;
         }
 

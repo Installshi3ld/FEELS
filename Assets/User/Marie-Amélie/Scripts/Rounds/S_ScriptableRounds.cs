@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SO_Rounds", menuName = "SingletonContainer/Rounds")]
 public class S_ScriptableRounds : ScriptableObject
 {
-    [SerializeField] private int numberOfRoundToSwitchEvent;
+    [SerializeField] public int numberOfRoundToSwitchEvent;
     private int _currentRound;
 
     [SerializeField] private int _actionPoints;

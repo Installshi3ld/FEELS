@@ -11,6 +11,8 @@ public abstract class S_Requirement : ScriptableObject
 
     public string ConstraintDescription = string.Empty;
 
+    public int numberOfTurnToFulfill;
+
     [NonSerialized]
     public bool HasBeenFulfilled = false;
 
