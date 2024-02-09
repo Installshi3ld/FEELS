@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3960909868932051862}
   - component: {fileID: 1583033330231353207}
   - component: {fileID: 4183916553025187096}
+  - component: {fileID: 4241280038442464794}
   m_Layer: 0
   m_Name: P_Anger_Feel
   m_TagString: Untagged
@@ -73,6 +74,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 10
+
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0
@@ -98,6 +100,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkRange: 10
   agent: {fileID: 1583033330231353207}
+--- !u!114 &4241280038442464794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5410742992807634432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be907a892dfa163499b59d434022a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerSpeed: 0.25
 --- !u!1 &6706716084380152341
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +296,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.6, y: 4.36}
+  m_Size: {x: 6.53, y: 9.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
