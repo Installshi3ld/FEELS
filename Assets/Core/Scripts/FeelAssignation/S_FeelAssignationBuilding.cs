@@ -19,7 +19,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public float productionAmountBoosted = 4.0f;
     public float delayBetweenEachProductionBoosted = 2.0f;
 
-    float currentProduction, currenteDelayBetweenEachProduction;
+    public float currentProduction, currenteDelayBetweenEachProduction; //Modif Adrien
 
     [NonSerialized]
     public float delayBetweenEachProductionForUI = 0;

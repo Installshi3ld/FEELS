@@ -94,7 +94,7 @@ public class S_Building : MonoBehaviour
     float lerpAlpha = 0f;
 
     [SerializeField] private S_BuildingCostManager costManager;
-    private S_FeelAssignationBuilding _FeelAssignationBuilding = null;
+    public S_FeelAssignationBuilding _FeelAssignationBuilding = null; //Adrien Modif
 
     private void Awake()
     {
