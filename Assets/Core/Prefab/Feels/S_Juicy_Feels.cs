@@ -70,26 +70,86 @@ public class S_Juicy_Feels : MonoBehaviour
 
 
 
+//
+// private Vector3 initialScale;
+// private NavMeshAgent navMeshAgent;
+// public float triggerSpeed = 1f; // Seuil de vitesse pour déclencher la séquence
+//
+// void Start()
+// {
+//     initialScale = transform.localScale;
+//     navMeshAgent = GetComponent<NavMeshAgent>();
+//
+//      // StartScalingSequence();
+//
+//       // Vérifier la vitesse du NavMeshAgent à intervalles réguliers
+//         InvokeRepeating("CheckSpeed", 0f, 0.1f);
+//   }
+//
+// void CheckSpeed()
+// {
+//     // Vérifier si la vitesse dépasse le seuil
+//     if (navMeshAgent.velocity.magnitude > triggerSpeed)
+//     {
+//           StartCoroutine(ScalingSequence());
+//       }
+//     else
+//     {
+//         RerurnToPrefabScale();
+//     }
+// }
+//
+//   IEnumerator ScalingSequence()
+//   {
+//     Sequence sequence = DOTween.Sequence();
+//
+// //    sequence.Append(transform.DOScale(initialScale, 0.20f));
+//
+//     // Animation de rescale sur l'axe Y
+//     sequence.Append(transform.DOScaleY(initialScale.y + 0.30f, 0.3f));
+//
+//     // Animation de retour à l'échelle initiale sur l'axe Y
+//     sequence.Append(transform.DOScale(initialScale, 0.3f));
+//
+//     // Animation de rescale sur l'axe X
+//     sequence.Append(transform.DOScaleX(initialScale.x + 0.425f, 0.3f));
+//
+//     // Animation de retour à l'échelle initiale sur l'axe X
+//     sequence.Append(transform.DOScale(initialScale, 0.3f));
+//
+//     // Boucler la séquence en ping-pong (avant-arrière)
+//   //  sequence.SetLoops(-1, LoopType.Yoyo);
+//     sequence.SetLoops(-1);
+// }
+//
+// void RerurnToPrefabScale()
+// {
+//     transform.DOScale(initialScale, 0.15f);
+// }
+
 
     private Vector3 initialScale;
     private NavMeshAgent navMeshAgent;
     public float triggerSpeed = 1f; // Seuil de vitesse pour déclencher la séquence
+    private bool scalingInProgress;
 
     void Start()
     {
         initialScale = transform.localScale;
         navMeshAgent = GetComponent<NavMeshAgent>();
 
+        StartCoroutine(ScalingSequence());
+
         // Vérifier la vitesse du NavMeshAgent à intervalles réguliers
-        InvokeRepeating("CheckSpeed", 0f, 0.1f);
+     //    InvokeRepeating("CheckSpeed", 0f, 1f);
     }
 
     void CheckSpeed()
     {
         // Vérifier si la vitesse dépasse le seuil
-        if (navMeshAgent.velocity.magnitude > triggerSpeed)
+        if (navMeshAgent.velocity.magnitude >= triggerSpeed)
         {
-            StartScalingSequence();
+            StartCoroutine(ScalingSequence());
         }
         else
         {
@@ -97,33 +157,42 @@ public class S_Juicy_Feels : MonoBehaviour
         }
     }
 
-    void StartScalingSequence()
+    IEnumerator ScalingSequence()
     {
+        // Définir scalingInProgress à true pour indiquer que la séquence est en cours
+        scalingInProgress = true;
+
         Sequence sequence = DOTween.Sequence();
 
-    //    sequence.Append(transform.DOScale(initialScale, 0.20f));
-
         // Animation de rescale sur l'axe Y
-        sequence.Append(transform.DOScaleY(initialScale.y + 0.25f, 0.10f));
+        sequence.Append(transform.DOScaleY(initialScale.y + 0.30f, 0.3f));
 
         // Animation de retour à l'échelle initiale sur l'axe Y
-        sequence.Append(transform.DOScale(initialScale, 0.10f));
+        sequence.Append(transform.DOScaleY(initialScale.y, 0.3f));
 
         // Animation de rescale sur l'axe X
-        sequence.Append(transform.DOScaleX(initialScale.x + 0.75f, 0.10f));
+        sequence.Append(transform.DOScaleX(initialScale.x + 0.425f, 0.3f));
 
         // Animation de retour à l'échelle initiale sur l'axe X
-        sequence.Append(transform.DOScale(initialScale, 0.10f));
+        sequence.Append(transform.DOScaleX(initialScale.x, 0.3f));
 
-        // Boucler la séquence en ping-pong (avant-arrière)
-      //  sequence.SetLoops(-1, LoopType.Yoyo);
+        // Définir scalingInProgress à false une fois la séquence terminée
+        sequence.OnComplete(() => scalingInProgress = false);
+
         sequence.SetLoops(-1);
+
+        // Attendre que la séquence soit terminée
+        yield return null;
     }
 
     void RerurnToPrefabScale()
     {
+        if (!scalingInProgress)
         transform.DOScale(initialScale, 0.15f);
     }
+
+
+
 }
 
     

@@ -161,6 +161,8 @@ public class S_Building : MonoBehaviour
         // Optionnel : démarre automatiquement la séquence
         sequence.Play();
 
+        Debug.Log("cc");
+
 
         //       
         //       tmpChild.DOShakePosition(2, new Vector3(0, 3, 0));
