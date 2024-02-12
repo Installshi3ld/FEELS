@@ -10,6 +10,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     [NonSerialized]
     public bool isProducing, isBoosted = false;
     public int MaxFeel;
+    public S_VFXData VFXData;
 
     [Header("Normal")]
     public float productionAmount = 2.0f;
@@ -106,7 +107,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
 
     public void BoostBuilding()
     {
-        S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0));
+        S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0), VFXData.GetVFXEndOfConstruction());
         isBoosted = true;
         currentProduction = productionAmountBoosted;
         currenteDelayBetweenEachProduction = delayBetweenEachProductionBoosted;

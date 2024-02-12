@@ -82,7 +82,6 @@ public class S_Building : MonoBehaviour
     public S_BuildingData BuildingData;
 
     [Header("Data")]
-    public S_VFXData VFXData;
     public int actionPointCost = 1;
 
     [Space]
@@ -90,6 +89,11 @@ public class S_Building : MonoBehaviour
 
     [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
     [NonSerialized] public Vector3 destination;
+
+    /// <summary>
+    /// This is use to check boost building on end Animation
+    /// </summary>
+    public Action<GameObject> EndBuildingAnimation;
 
     float lerpAlpha = 0f;
 
@@ -137,7 +141,6 @@ public class S_Building : MonoBehaviour
     public void GetOutOfGroundAnimation()
     {
 
-
         Transform tmpChild = this.transform.GetChild(0).GetChild(0).transform;
 
         initialScale = tmpChild.localScale;
@@ -153,13 +156,20 @@ public class S_Building : MonoBehaviour
 
         sequence.Append(tmpChild.DOMoveY(0, 0.1f)); 
         sequence.Append(tmpChild.DOScaleY(0.25f, 0.05f));  
-        sequence.Join(tmpChild.DOScaleX(2f, 0.25f));  
-
-        sequence.Append(tmpChild.DOScale(initialScale, 0.25f));  
-        sequence.Join(tmpChild.DOMoveY(0f, 0.25f));  
+        sequence.Join(tmpChild.DOScaleX(2f, 0.25f));
+        sequence.Append(tmpChild.DOScale(initialScale, 0.25f));
+        sequence.Join(tmpChild.DOMoveY(0f, 0.25f));
+ 
+        sequence.OnComplete(() =>
+        {
+            EndBuildingAnimation.Invoke(gameObject);
+        }); 
 
         // Optionnel : démarre automatiquement la séquence
         sequence.Play();
+
+        Debug.Log("cc");
+
 
 
         //       
