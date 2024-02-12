@@ -88,10 +88,11 @@ MonoBehaviour:
       feelPrice: 5
     tier: 0
     BuildingImage: {fileID: 21300000, guid: c49106a387f42ff46af6955330f2e7ca, type: 3}
-  VFXData: {fileID: 0}
+  VFXData: {fileID: 11400000, guid: f06cc24bb85101a42ab5ad3f13bc125c, type: 2}
   actionPointCost: 1
   tilesCoordinate: []
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
+  _FeelAssignationBuilding: {fileID: 0}
 --- !u!114 &-6129549663309600517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +110,8 @@ MonoBehaviour:
   delayBetweenEachProduction: 0
   productionAmountBoosted: 2
   delayBetweenEachProductionBoosted: 0
+  currentProduction: 0
+  currenteDelayBetweenEachProduction: 0
   scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!65 &8711676751392839174
 BoxCollider:
