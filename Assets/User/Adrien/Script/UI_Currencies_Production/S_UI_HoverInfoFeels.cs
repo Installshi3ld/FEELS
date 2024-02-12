@@ -5,9 +5,10 @@ using TMPro;
 
 public class UIHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public TextMeshProUGUI infoCurrentProductionDisplay; // Reference to the UI Text component to display information
-    public Image currentProdUI;
+    public TextMeshProUGUI infoCurrentProductionDisplay, valueNextTurn, currentValue; // Reference to the UI Text component to display information
+    public Image currentProdUI,nextTurnProd;
     public S_BuildingList buildingList;
+    public S_Currencies currencies;
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (buildingList != null)
@@ -20,8 +21,12 @@ public class UIHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             }
 
             // Display information when the pointer enters the UI element
-            infoCurrentProductionDisplay.text = totalValue.ToString() + "/rounds";
+            infoCurrentProductionDisplay.text = "+ " + totalValue.ToString() + "/rounds";
             currentProdUI.gameObject.SetActive(true); // Show the text display
+            currentValue.text = currencies.amount.ToString();
+            valueNextTurn.text = (currencies.amount + totalValue).ToString();
+            nextTurnProd.gameObject.SetActive(true);   
+
         }
         else
         {
@@ -34,5 +39,7 @@ public class UIHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         // Hide information when the pointer exits the UI element
         currentProdUI.gameObject.SetActive(false); // Hide the text display
+
+        nextTurnProd.gameObject.SetActive(true);
     }
 }
