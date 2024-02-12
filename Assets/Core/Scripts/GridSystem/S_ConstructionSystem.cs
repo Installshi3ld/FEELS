@@ -188,7 +188,7 @@ public class ConstructionSystem : MonoBehaviour
 
         UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
-        CheckBoostBuilding();
+        objectSpawnedBuildingScript.EndBuildingAnimation += CheckBoostBuilding;
 
         objectSpawnedBuildingScript.PlacedBuilding();
         _gridData.ClearPlaneFeedbackBuildingStatement();
@@ -337,15 +337,15 @@ public class ConstructionSystem : MonoBehaviour
     }
 
 
-    void CheckBoostBuilding()
+    void CheckBoostBuilding(GameObject _gameObjectBuilding)
     {
-        Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned.transform.position);
+        Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(_gameObjectBuilding.transform.position);
         List<GameObject> _buildingsToBoost = new List<GameObject>();
         List<Vector2Int> _tilesToCheckForBoost;
         FeelType _feelType;
 
         //Set s_building for function
-        if (objectSpawned.TryGetComponent(out S_Building s_building))
+        if (_gameObjectBuilding.TryGetComponent(out S_Building s_building))
         {
             _feelType = s_building.BuildingData.feelType;
             //corner tile for sad, surrounding with other
@@ -355,15 +355,15 @@ public class ConstructionSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Missing S_Building on " +  objectSpawned.name + ", check building boost abort.");
+            Debug.LogWarning("Missing S_Building on " + _gameObjectBuilding.name + ", check building boost abort.");
             return;
         }
 
         //Set s_feelAssignation
-        if(objectSpawned.TryGetComponent(out S_FeelAssignationBuilding s_feelAssignation)) { }
+        if(_gameObjectBuilding.TryGetComponent(out S_FeelAssignationBuilding s_feelAssignation)) { }
         else
         {
-            Debug.LogWarning("Missing S_FeelAssignationBuilding on " + objectSpawned.name + ", check building boost abort.");
+            Debug.LogWarning("Missing S_FeelAssignationBuilding on " + _gameObjectBuilding.name + ", check building boost abort.");
             return;
         }
 
@@ -434,6 +434,7 @@ public class ConstructionSystem : MonoBehaviour
         {
             s_feelAssignation.BoostBuilding();
         }
+
     }
 
 

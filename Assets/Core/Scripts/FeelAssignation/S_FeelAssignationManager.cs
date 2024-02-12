@@ -36,45 +36,14 @@ public class S_FeelAssignationManager : MonoBehaviour
 
     }
 
-    /*
-    public void OnLeftClick()
+
+ public static void SpawnVFXBoost(Transform building, GameObject VFX)
     {
-        if (!s_panelFeelAssignation.MouseHoverPanel)
+        if (VFX)
         {
-            //Get Data
-            Vector3 clickPosition = Input.mousePosition;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 6))
-            {
-                BuildingClickedOn = hit.collider.gameObject;
-            }
-            //Set data
-            if (BuildingClickedOn)
-            {
-                s_FeelAssignationBuilding = BuildingClickedOn.GetComponent<S_FeelAssignationBuilding>();
-                S_Building _Building = BuildingClickedOn.GetComponent<S_Building>();
-
-                if (_Building.isPlaced)
-                {
-                    RefreshUi.Invoke();
-
-                    UIPanelContainer.transform.position = clickPosition;
-                    UIPanelContainer.SetActive(true);
-                }
-            }
-        }
-    }*/
-
- public static void SpawnVFXBoost(Transform building)
-    {
-        if (VFXBoost)
-        {
-           
-           GameObject particleSystemInstance = Instantiate(VFXBoost, building.transform.position, Quaternion.Euler(new Vector3(0,0,0)));
+           GameObject particleSystemInstance = Instantiate(VFX, building.transform.position, Quaternion.Euler(new Vector3(0,0,0)));
   
-           Destroy(particleSystemInstance.gameObject, 3f);
+           Destroy(particleSystemInstance.gameObject, 10f);
         }
      }
 
