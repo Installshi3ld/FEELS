@@ -10,20 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
-  m_Name: SO_E2_Drums_1T1
+  m_Name: SO_E2_Zoo_2
   m_EditorClassIdentifier: 
-  NarrativeDescription: I got made fun of and want to let out my frustration.
-  ConstraintDescription: Build Drums and 2 angry-face buildings
+  NarrativeDescription: I went to the zoo and saw so many animals.
+  ConstraintDescription: Build 1 animal-building of each emotion.
   numberOfTurnToFulfill: 3
   LinkedDisaster:
-  - {fileID: 11400000, guid: 43e6e5f1b04296b46aa610521e04d2fc, type: 2}
+  - {fileID: 11400000, guid: ec77ef1d728f9274e847812b393372ce, type: 2}
   LinkedRewards:
-  - {fileID: 11400000, guid: 626212a763aa910448fb6bedd2611e5b, type: 2}
+  - {fileID: 11400000, guid: 6f3a353cb57ffa040b3d78838fcbaaf3, type: 2}
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   themeAndTypeRequirements:
+  - feelType: 1
+    buildingTheme: 3
+    numberOfRequiredBuildings: 1
   - feelType: 2
-    buildingTheme: 4
-    numberOfRequiredBuildings: 2
-  - feelType: 2
-    buildingTheme: 1
+    buildingTheme: 3
+    numberOfRequiredBuildings: 1
+  - feelType: 3
+    buildingTheme: 3
+    numberOfRequiredBuildings: 1
+  - feelType: 4
+    buildingTheme: 3
     numberOfRequiredBuildings: 1
