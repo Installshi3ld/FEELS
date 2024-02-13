@@ -177,10 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Contexte
-
-    Les batiment ne sont pas gratuit malheursement il demande
-    de l''energie mental pour etre construit '
+  m_text: Feels are the habitants of your mind space and your main currency.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -561,9 +558,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Contexte
-
-    Jeu autour des emotions de son humain '
+  m_text: Feels is a game centered around human emotions.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -1706,10 +1701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Contexte
-
-    Les batiment ne sont pas gratuit malheursement il demande
-    de l''energie mental pour etre construit '
+  m_text: You will face life events, react by completing the requirement.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -2146,6 +2138,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1487004588}
+        m_TargetAssemblyTypeName: S_UIEventPlaceholder, Assembly-CSharp
+        m_MethodName: CallOnChangingRequirement
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2740,7 +2744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Utilise ta moula
+  m_text: Feels
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -2879,7 +2883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tu peux poser des batiments !
+  m_text: Buildings !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -3013,7 +3017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Utilise ta moula
+  m_text: Events
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -3413,7 +3417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bonus Placement
+  m_text: Boosted Buildings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -5085,6 +5089,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: _Tuto
+      value: 
+      objectReference: {fileID: 8928609646346338596}
+    - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
+      propertyPath: _TutoData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2449a1be690b7b34cb9b762af113eb7d, type: 2}
+    - target: {fileID: 7041625572707175066, guid: 3c244cd930634fb4098a3eaf3f462379, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -5286,6 +5298,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2518cd81904c5446be0bb6dd2b34b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1487004588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5989567816001817339, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+  m_PrefabInstance: {fileID: 8105409880216595762}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047729145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46e684a0745f884195bb164f84ae44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1487004589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7788872382619567130, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+  m_PrefabInstance: {fileID: 8105409880216595762}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047729145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb7559d793ad4041ad704037299d748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1489716642
 GameObject:
   m_ObjectHideFlags: 0
@@ -5343,9 +5377,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Contexte
-
-    Place en un, ils representent tes emotions'
+  m_text: You can place buildings to represent your emotions.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -6416,9 +6448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Contexte
-
-    Vas dormir tu sera en forme pour demain !'
+  m_text: Buildings will generate Feels at the end of the round.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -6607,10 +6637,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1499254242}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1487004588}
+        m_TargetAssemblyTypeName: S_UIEventPlaceholder, Assembly-CSharp
+        m_MethodName: CallOnChangingRequirement
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6725,8 +6755,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Contexte\nil ya des bonus de placement par rapport a leurs emplacement
-    \nOn veurt une image la "
+  m_text: "Boost a building by following placement patterns. Boosted buildings generate
+    more Feels at the end of rounds.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -6998,7 +7028,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Il y a des rounds
+  m_text: Rounds
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -7952,7 +7982,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to Feels
+  m_text: Welcome to Feels!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
   m_sharedMaterial: {fileID: -833837194975011024, guid: 73f00e631841dd5438b6bd259db34ad8, type: 2}
@@ -9286,6 +9316,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 9059900794485616045, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
+      propertyPath: m_text
+      value: End Round
+      objectReference: {fileID: 0}
     - target: {fileID: 9116899916114822648, guid: 46868d2651200b84ab907ca5cac33446, type: 3}
       propertyPath: m_fontSize
       value: 36
@@ -9484,10 +9518,15 @@ MonoBehaviour:
   tutoEvent: {fileID: 1499254242}
   TutoBonus: {fileID: 2082682061}
   uiFeels: {fileID: 0}
-  uiEndTurn: {fileID: 0}
+  uiEndTurn: {fileID: 324607614}
   uiEvent: {fileID: 0}
   buildingList: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   firstTurnEnd: 0
+  checkCurrencies: 0
+  isBuilding: {fileID: 0}
+  tutoData: {fileID: 11400000, guid: 2449a1be690b7b34cb9b762af113eb7d, type: 2}
+  refreshUI: {fileID: 1487004589}
+  _Requirement: {fileID: 11400000, guid: 86a8f26f19535e948be715023018556b, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

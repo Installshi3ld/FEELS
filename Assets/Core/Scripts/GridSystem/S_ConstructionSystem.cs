@@ -209,8 +209,6 @@ public class ConstructionSystem : MonoBehaviour
         feelsUI.RefreshUI();
 
 
-        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
-
         switch (objectSpawnedBuildingScript.BuildingData.feelType)
         {
             case FeelType.Joy: joyPlaced++; break;
@@ -222,6 +220,8 @@ public class ConstructionSystem : MonoBehaviour
         _isBuilding.value = false;
         objectSpawned = null;
         HidePlanePlacement();
+
+        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
     }
 
     void ChangePlanePlacementUnderBuilding(S_Building _building)

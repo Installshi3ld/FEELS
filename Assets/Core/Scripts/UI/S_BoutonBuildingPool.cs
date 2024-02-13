@@ -11,7 +11,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField] private TextMeshProUGUI _buildingName;
     [SerializeField] private Image _buildingImage;
     public Button button;
-
+    public S_TutoData _TutoData;
     public GameObject BuildingReference
     {
         get
@@ -75,5 +75,15 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         if (_buildingPoolUI != null)
             _buildingPoolUI.ShowInformation(false);
+
+        if (!_TutoData.dataInfo && _TutoData.dataInfoAction != null)
+        {
+            _TutoData.dataInfo = true;
+            _TutoData.dataInfoAction.Invoke();
+            print("zigouigui");
+        }
+        else
+            print(_TutoData.dataInfo.ToString() + " Blalb" + _TutoData.dataInfoAction.ToString());
+
     }
 }
