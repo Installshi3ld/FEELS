@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class S_FeelAssignationBuilding : MonoBehaviour
@@ -19,6 +20,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     [Header("Boosted")]
     public float productionAmountBoosted = 4.0f;
     public float delayBetweenEachProductionBoosted = 2.0f;
+    public TextMeshPro T_Boosted;
 
     public float currentProduction, currenteDelayBetweenEachProduction; //Modif Adrien
 
@@ -109,6 +111,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     {
         S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0), VFXData.GetVFXEndOfConstruction());
         isBoosted = true;
+        T_Boosted.gameObject.SetActive(true);
         currentProduction = productionAmountBoosted;
         currenteDelayBetweenEachProduction = delayBetweenEachProductionBoosted;
     }
@@ -116,6 +119,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public void UnBoostBuilding()
     {
         isBoosted = false;
+        T_Boosted.gameObject.SetActive(false);
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
     }
