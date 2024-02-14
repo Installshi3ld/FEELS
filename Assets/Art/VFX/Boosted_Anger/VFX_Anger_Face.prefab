@@ -55,8 +55,11 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 20, y: 20, z: 20}
         m_Name: PositionMesh
+        m_Overridden: 1
+      - m_Value: {x: 0.2, y: 0.2, z: 0.2}
+        m_Name: ScaleMesh
         m_Overridden: 1
     m_Vector4f:
       m_Array: []
@@ -72,7 +75,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 8643041769963566295, guid: bb70182c8d9efee4a88d49a797328914, type: 3}
+      - m_Value: {fileID: 2391710573937639460, guid: 0d865c8c350ff3c4fbac2a789d238c01, type: 3}
         m_Name: mesh
         m_Overridden: 1
     m_Bool:
