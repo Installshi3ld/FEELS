@@ -27,6 +27,8 @@ public class S_UIEventPlaceholder : MonoBehaviour
 
     IEnumerator UpdateWithDelayOrNot(S_Requirement currentR, float delay)
     {
+        textEventDescription.text = " ";
+        textEventRequirement.text = " ";
         yield return new WaitForSeconds(delay);
         textEventDescription.text = currentR.NarrativeDescription;
         textEventRequirement.text = currentR.ConstraintDescription;

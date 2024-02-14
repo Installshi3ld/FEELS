@@ -166,10 +166,11 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
     {
+        PickNewEvent();
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
         yield return new WaitForSeconds(delay);
-        PickNewEvent();
+
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
 
@@ -179,10 +180,11 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelaySuccess(float delay)
     {
-        successHolder.SetActive(true);
-        yield return new WaitForSeconds(delay);
         Debug.Log("picking new event");
         PickNewEvent();
+        successHolder.SetActive(true);
+        yield return new WaitForSeconds(delay);
+
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
         //OnRequirementChecked?.Invoke(currentRequirement);
@@ -300,7 +302,7 @@ public class S_Timeline : MonoBehaviour
             already_done_requirement.Add(picked);
 
             TryChangePhaseIndex();
-            picked.DoSomethingAtFirst();
+            picked.DoSomethingAtFirst();//implement for the mechanics of building requirement. The player should build x buildings even if some were already on map
             rounds.numberOfRoundToSwitchEvent = picked.numberOfTurnToFulfill;
             return picked;
         }
