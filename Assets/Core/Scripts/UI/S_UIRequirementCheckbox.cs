@@ -25,7 +25,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     }
 
     bool tmp = true;
-    private void UpdateCheckBox(S_Requirement currentR)
+    public void UpdateCheckBox(S_Requirement currentR)
     {
         toggle.isOn = currentR.HasBeenFulfilled;
         //Ajout Naudar 

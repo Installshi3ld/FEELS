@@ -20,7 +20,12 @@ public class S_UIEventPlaceholder : MonoBehaviour
         currentEvent.OnChangingRequirement -= UpdateMenu;
     }
 
-    private void UpdateMenu(S_Requirement currentR, float delay)
+    public void CallOnChangingRequirement()
+    {
+        currentEvent.Call();
+    }
+
+    public void UpdateMenu(S_Requirement currentR, float delay)
     {
         StartCoroutine(UpdateWithDelayOrNot(currentR, delay));
     }

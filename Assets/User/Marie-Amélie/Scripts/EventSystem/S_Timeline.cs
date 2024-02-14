@@ -29,6 +29,9 @@ public class S_Timeline : MonoBehaviour
 
     S_Requirement currentRequirement;
 
+    public S_TutoData _TutoData;
+    public S_Tuto _Tuto;
+
     public delegate void RefreshFromRequirement(S_Requirement currentEvent);
     public static event RefreshFromRequirement OnRequirementChecked;
     public static event RefreshFromRequirement OnAfterRequirementChecked;
@@ -141,6 +144,13 @@ public class S_Timeline : MonoBehaviour
             currentRequirement = null;
             currentDelay = 3;
             StartCoroutine(DelaySuccess(resolutionManager.delayBetweenEventResolutionPhases));
+            if (!_TutoData.dataBonus)
+            {
+                Debug.Log("TutoInfo");
+                _Tuto.ShowBonusPlacement();
+                _TutoData.dataBonus = true;
+            }
+            Debug.Log("TutoAllo");
         }
 
         if (!IsAvailableRequirementListEmpty())

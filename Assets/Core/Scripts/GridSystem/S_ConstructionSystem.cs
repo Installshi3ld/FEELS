@@ -48,64 +48,71 @@ public class ConstructionSystem : MonoBehaviour
 
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        //Mouse raycast
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 7))
+        if (_isBuilding.value)
         {
-            Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
+            //Mouse raycast
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 7))
             {
-                S_Building _building = objectSpawned.GetComponent<S_Building>();
+                Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
 
-                _building.SetDestination(_gridData.ClampPositionToGrid(hit.point));
-                lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
-
-                ChangePlanePlacementUnderBuilding(_building);
-
-
-                //Feedback for tile which will boost building
-                foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
+                if(objectSpawned != null && _gridData.ClampPositionToGrid(hit.point) != lastCursorPosition)
                 {
-                    if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 2)
+                    S_Building _building = objectSpawned.GetComponent<S_Building>();
+
+                    _building.SetDestination(_gridData.ClampPositionToGrid(hit.point));
+                    lastCursorPosition = _gridData.ClampPositionToGrid(hit.point);
+
+                    ChangePlanePlacementUnderBuilding(_building);
+
+
+                    //Feedback for tile which will boost building
+                    foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
                     {
-                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
-
-                    }
-
-                    //Sad 
-                    if (_building.BuildingData.feelType == build.feelType &&  build.feelType == FeelType.Sad && sadPlaced < 2)
-                    {
-                        EnableFeedBuildingTile(build, build.building.GetCornerTiles());
-
-                    }
-
-                    //Anger 
-                    if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < 2)
-                    {
-                        _gridData.SetAllPlaneFeedbackBuildingEnable();
-
-                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles(), false);
-                    }
-                    //Fear
-                    if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < 2)
-                    {
-                        EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
-
-                        //Remove tile around fear building
-                        foreach (S_BuildingData tmpbuild in buildingListContainer.builidingsInfos)
+                        if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 2)
                         {
-                            if(tmpbuild.feelType == FeelType.Fear)
-                            {
-                                EnableFeedBuildingTile(tmpbuild, tmpbuild.building.GetSurroundingTiles(), false);
-                            }
+                            EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
 
+                        }
+
+                        //Sad 
+                        if (_building.BuildingData.feelType == build.feelType &&  build.feelType == FeelType.Sad && sadPlaced < 2)
+                        {
+                            EnableFeedBuildingTile(build, build.building.GetCornerTiles());
+
+                        }
+
+                        //Anger 
+                        if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < 2)
+                        {
+                            _gridData.SetAllPlaneFeedbackBuildingEnable();
+
+                            EnableFeedBuildingTile(build, build.building.GetSurroundingTiles(), false);
+                        }
+                        //Fear
+                        if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < 2)
+                        {
+                            EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
+
+                            //Remove tile around fear building
+                            foreach (S_BuildingData tmpbuild in buildingListContainer.builidingsInfos)
+                            {
+                                if(tmpbuild.feelType == FeelType.Fear)
+                                {
+                                    EnableFeedBuildingTile(tmpbuild, tmpbuild.building.GetSurroundingTiles(), false);
+                                }
+
+                            }
                         }
                     }
                 }
             }
+        }
+        else if(objectSpawned != null)
+        {
+            DestroyObjectSpawned();
         }
     }
 
@@ -188,7 +195,7 @@ public class ConstructionSystem : MonoBehaviour
 
         UpdateGridOnPlacement(tmpIndexInGrid, objectSpawnTilesUsage, objectSpawnedBuildingScript);
 
-        CheckBoostBuilding();
+        objectSpawnedBuildingScript.EndBuildingAnimation += CheckBoostBuilding;
 
         objectSpawnedBuildingScript.PlacedBuilding();
         _gridData.ClearPlaneFeedbackBuildingStatement();
@@ -202,8 +209,6 @@ public class ConstructionSystem : MonoBehaviour
         feelsUI.RefreshUI();
 
 
-        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
-
         switch (objectSpawnedBuildingScript.BuildingData.feelType)
         {
             case FeelType.Joy: joyPlaced++; break;
@@ -212,8 +217,11 @@ public class ConstructionSystem : MonoBehaviour
             case FeelType.Fear: fearPlaced++; break;
         }
 
+        _isBuilding.value = false;
         objectSpawned = null;
         HidePlanePlacement();
+
+        buildingListContainer.AppendToBuildingList(objectSpawnedBuildingScript.BuildingData);
     }
 
     void ChangePlanePlacementUnderBuilding(S_Building _building)
@@ -337,15 +345,15 @@ public class ConstructionSystem : MonoBehaviour
     }
 
 
-    void CheckBoostBuilding()
+    void CheckBoostBuilding(GameObject _gameObjectBuilding)
     {
-        Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(objectSpawned.transform.position);
+        Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(_gameObjectBuilding.transform.position);
         List<GameObject> _buildingsToBoost = new List<GameObject>();
         List<Vector2Int> _tilesToCheckForBoost;
         FeelType _feelType;
 
         //Set s_building for function
-        if (objectSpawned.TryGetComponent(out S_Building s_building))
+        if (_gameObjectBuilding.TryGetComponent(out S_Building s_building))
         {
             _feelType = s_building.BuildingData.feelType;
             //corner tile for sad, surrounding with other
@@ -355,15 +363,15 @@ public class ConstructionSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Missing S_Building on " +  objectSpawned.name + ", check building boost abort.");
+            Debug.LogWarning("Missing S_Building on " + _gameObjectBuilding.name + ", check building boost abort.");
             return;
         }
 
         //Set s_feelAssignation
-        if(objectSpawned.TryGetComponent(out S_FeelAssignationBuilding s_feelAssignation)) { }
+        if(_gameObjectBuilding.TryGetComponent(out S_FeelAssignationBuilding s_feelAssignation)) { }
         else
         {
-            Debug.LogWarning("Missing S_FeelAssignationBuilding on " + objectSpawned.name + ", check building boost abort.");
+            Debug.LogWarning("Missing S_FeelAssignationBuilding on " + _gameObjectBuilding.name + ", check building boost abort.");
             return;
         }
 
@@ -434,6 +442,7 @@ public class ConstructionSystem : MonoBehaviour
         {
             s_feelAssignation.BoostBuilding();
         }
+
     }
 
 
