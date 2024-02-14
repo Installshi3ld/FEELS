@@ -53,7 +53,7 @@ MonoBehaviour:
     BuildingTheme: 5
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-      feelPrice: 500
+      feelPrice: 150
     tier: 2
     BuildingImage: {fileID: 21300000, guid: 99b3c6e87b448784cb1f6a4eae61d325, type: 3}
   actionPointCost: 1
@@ -75,12 +75,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9662f55450116764aaba1db462554db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxFeel: 50
+  MaxFeel: 0
   VFXData: {fileID: 11400000, guid: 10b6a5ed71cfd534b9fe123fb0ad50c0, type: 2}
-  productionAmount: 28
-  delayBetweenEachProduction: 2
-  productionAmountBoosted: 30
-  delayBetweenEachProductionBoosted: 2
+  productionAmount: 8
+  delayBetweenEachProduction: 0
+  productionAmountBoosted: 20
+  delayBetweenEachProductionBoosted: 0
   T_Boosted: {fileID: 6329071375102285920}
   currentProduction: 0
   currenteDelayBetweenEachProduction: 0

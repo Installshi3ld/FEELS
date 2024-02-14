@@ -10,26 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
-  m_Name: SO_E1_4Buildings
+  m_Name: SO_E5_Fight
   m_EditorClassIdentifier: 
-  NarrativeDescription: Discover your emotions!
-  ConstraintDescription: Build 1 face-building of each emotion.
+  NarrativeDescription: I am competing today, I hope win.
+  ConstraintDescription: Build a fighting arena, and a snake.
   numberOfTurnToFulfill: 3
   LinkedDisaster:
-  - {fileID: 11400000, guid: 37b5152153bbe5b47807313e655aa6e8, type: 2}
+  - {fileID: 11400000, guid: b201a22d89ea3c449a9ac8c615912a3b, type: 2}
   LinkedRewards:
-  - {fileID: 11400000, guid: b59f8c968f72572478c1b01adb70aa8d, type: 2}
+  - {fileID: 11400000, guid: 8f11ee4c87a7032448c3ce672290702c, type: 2}
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   themeAndTypeRequirements:
-  - feelType: 1
-    buildingTheme: 4
-    numberOfRequiredBuildings: 1
   - feelType: 2
-    buildingTheme: 4
-    numberOfRequiredBuildings: 1
-  - feelType: 3
-    buildingTheme: 4
+    buildingTheme: 5
     numberOfRequiredBuildings: 1
   - feelType: 4
-    buildingTheme: 4
+    buildingTheme: 3
     numberOfRequiredBuildings: 1
