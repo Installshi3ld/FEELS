@@ -29,6 +29,9 @@ public class S_Timeline : MonoBehaviour
 
     S_Requirement currentRequirement;
 
+    public S_TutoData _TutoData;
+    public S_Tuto _Tuto;
+
     public delegate void RefreshFromRequirement(S_Requirement currentEvent);
     public static event RefreshFromRequirement OnRequirementChecked;
     public static event RefreshFromRequirement OnAfterRequirementChecked;
@@ -141,6 +144,13 @@ public class S_Timeline : MonoBehaviour
             currentRequirement = null;
             currentDelay = 3;
             StartCoroutine(DelaySuccess(resolutionManager.delayBetweenEventResolutionPhases));
+            if (!_TutoData.dataBonus)
+            {
+                Debug.Log("TutoInfo");
+                _Tuto.ShowBonusPlacement();
+                _TutoData.dataBonus = true;
+            }
+            Debug.Log("TutoAllo");
         }
 
         if (!IsAvailableRequirementListEmpty())
@@ -166,10 +176,11 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
     {
+        PickNewEvent();
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
         yield return new WaitForSeconds(delay);
-        PickNewEvent();
+
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
 
@@ -179,10 +190,11 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelaySuccess(float delay)
     {
-        successHolder.SetActive(true);
-        yield return new WaitForSeconds(delay);
         Debug.Log("picking new event");
         PickNewEvent();
+        successHolder.SetActive(true);
+        yield return new WaitForSeconds(delay);
+
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
         //OnRequirementChecked?.Invoke(currentRequirement);
@@ -300,7 +312,7 @@ public class S_Timeline : MonoBehaviour
             already_done_requirement.Add(picked);
 
             TryChangePhaseIndex();
-            picked.DoSomethingAtFirst();
+            picked.DoSomethingAtFirst();//implement for the mechanics of building requirement. The player should build x buildings even if some were already on map
             rounds.numberOfRoundToSwitchEvent = picked.numberOfTurnToFulfill;
             return picked;
         }

@@ -9,6 +9,7 @@ public class UIHoverInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Image currentProdUI,nextTurnProd;
     public S_BuildingList buildingList;
     public S_Currencies currencies;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (buildingList != null)

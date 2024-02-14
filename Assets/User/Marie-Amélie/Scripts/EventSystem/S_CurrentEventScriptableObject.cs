@@ -9,7 +9,7 @@ public class S_CurrentEventScriptableObject : ScriptableObject
     public delegate void RefreshRequirement(S_Requirement currentR, float delay);
     public event RefreshRequirement OnChangingRequirement;
 
-    private float delay;
+    private float delay = 0f;
     private S_Requirement currentRequirement;
 
     public S_Requirement CurrentRequirement
@@ -24,6 +24,12 @@ public class S_CurrentEventScriptableObject : ScriptableObject
                 OnChangingRequirement(currentRequirement, delay);
             }
         }
+    }
+
+    public void Call()
+    {
+        if(currentRequirement != null && OnChangingRequirement != null)
+        OnChangingRequirement(currentRequirement, delay);
     }
 
     public void SetNewRequirement(S_Requirement newRequirement, float theDelay)
