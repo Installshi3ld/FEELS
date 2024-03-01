@@ -7815,8 +7815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Material: {fileID: 2100000, guid: 05e50f653a738464ba871cd73e2f846b, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9507,7 +9507,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4552548899061004293}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -9614,6 +9614,7 @@ MonoBehaviour:
   isBuilding: {fileID: 0}
   tutoData: {fileID: 11400000, guid: 2449a1be690b7b34cb9b762af113eb7d, type: 2}
   refreshUI: {fileID: 1487004589}
+  buildingPool: {fileID: 0}
   _Requirement: {fileID: 11400000, guid: 86a8f26f19535e948be715023018556b, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
