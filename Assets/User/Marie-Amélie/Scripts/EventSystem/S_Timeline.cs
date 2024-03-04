@@ -175,6 +175,7 @@ public class S_Timeline : MonoBehaviour
         currentRequirement = chooseOneRequirementRandomly();
         if(currentRequirement != null)//
         {
+            Debug.Log("YAAAAAAAAAAAAAAAAAAAAAAA" + currentRequirement.ConstraintDescription);
             currentEvent.SetNewRequirement(currentRequirement, currentDelay);
             OnPickedRequirement?.Invoke(currentRequirement);
         }
@@ -309,7 +310,7 @@ public class S_Timeline : MonoBehaviour
         S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
 
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
-        Debug.Log(available.Count + " lazkjhnlezkrbke");
+        Debug.Log(available.Count + " Number of available requirements");
         if (available.Count > 0)
         {
             int index = Random.Range(0, available.Count - 1);
