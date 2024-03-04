@@ -21,7 +21,7 @@ public class S_Tuto : MonoBehaviour
        {
             tutoData.dataInfo = false;
             tutoData.dataBonus = false;
-            tutoData.displayPoolInfo = false;
+            tutoData.displayPoolInfo = true; //Was False before
             tutoData.OneTime = 0;
        }
 
@@ -52,12 +52,14 @@ public class S_Tuto : MonoBehaviour
         if(firstTurnEnd == false)
         {
             
-            tutoCurrency.gameObject.SetActive(true);
+           // tutoCurrency.gameObject.SetActive(true);
 
-            if (tutoData)
-            {
-                tutoData.dataInfoAction += ShowEventTuto;
-            }
+           // if (tutoData)
+           // {
+              //  tutoData.dataInfoAction += ShowEventTuto;
+           // }
+
+            ShowEventTuto();
             firstTurnEnd = true;
             tutoData.displayPoolInfo = true;
         } 
