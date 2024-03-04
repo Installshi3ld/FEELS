@@ -318,7 +318,6 @@ public class S_Timeline : MonoBehaviour
             S_Requirement picked = available[index];
             already_done_requirement.Add(picked);
 
-            TryChangePhaseIndex();
             picked.DoSomethingAtFirst();//implement for the mechanics of building requirement. The player should build x buildings even if some were already on map
             rounds.numberOfRoundToSwitchEvent = picked.numberOfTurnToFulfill;
             return picked;
