@@ -82,8 +82,8 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
             _TutoData.dataInfoAction.Invoke();
             print("zigouigui");
         }
-        else
-            print(_TutoData.dataInfo.ToString() + " Blalb" + _TutoData.dataInfoAction.ToString());
+        //else
+            //print(_TutoData.dataInfo.ToString() + " Blalb" + _TutoData.dataInfoAction.ToString());
 
     }
 }

@@ -34,6 +34,7 @@ public class S_Timeline : MonoBehaviour
 
     public delegate void RefreshFromRequirement(S_Requirement currentEvent);
     public static event RefreshFromRequirement OnRequirementChecked;
+    public static event RefreshFromRequirement OnPickedRequirement;
     public static event RefreshFromRequirement OnAfterRequirementChecked;
     public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
@@ -96,7 +97,7 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private void TryChangePhaseIndex()//LOGIC HERE SHOULD CHANGE 
+    private void TryChangePhaseIndex()
     {
         if(succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
         {
@@ -144,13 +145,14 @@ public class S_Timeline : MonoBehaviour
             currentRequirement = null;
             currentDelay = 3;
             StartCoroutine(DelaySuccess(resolutionManager.delayBetweenEventResolutionPhases));
+            /*
             if (!_TutoData.dataBonus)
             {
                 Debug.Log("TutoInfo");
                 _Tuto.ShowBonusPlacement();
                 _TutoData.dataBonus = true;
             }
-            Debug.Log("TutoAllo");
+            Debug.Log("TutoAllo");*/
         }
 
         if (!IsAvailableRequirementListEmpty())
@@ -171,7 +173,12 @@ public class S_Timeline : MonoBehaviour
     {
         Debug.Log("Pick new Event");
         currentRequirement = chooseOneRequirementRandomly();
-        currentEvent.SetNewRequirement(currentRequirement, currentDelay);
+        if(currentRequirement != null)//
+        {
+            currentEvent.SetNewRequirement(currentRequirement, currentDelay);
+            OnPickedRequirement?.Invoke(currentRequirement);
+        }
+
     }
 
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
@@ -179,8 +186,6 @@ public class S_Timeline : MonoBehaviour
         PickNewEvent();
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
-        yield return new WaitForSeconds(delay);
-
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
 
@@ -304,7 +309,7 @@ public class S_Timeline : MonoBehaviour
         S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
 
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
-
+        Debug.Log(available.Count + " lazkjhnlezkrbke");
         if (available.Count > 0)
         {
             int index = Random.Range(0, available.Count - 1);
