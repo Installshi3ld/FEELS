@@ -86,7 +86,7 @@ public class S_Building : MonoBehaviour
 
     [Space]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
-
+    
     [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
     [NonSerialized] public Vector3 destination;
 

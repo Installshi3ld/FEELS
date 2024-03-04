@@ -100,6 +100,11 @@ public class S_GridData : ScriptableObject, InitializeSO
         }
     }
 
+    public bool IsTileEmpty(Vector2Int coord)
+    {
+        return !gridsUsageStatement[coord.x][coord.y].statement && !_fogData.fogGridsUsageStatement[coord.x][coord.y];
+    }
+
     public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius, bool gridUsageStatement)
     {
         List<Vector2Int> tmpAllCoordinateAroundBase = new List<Vector2Int>();

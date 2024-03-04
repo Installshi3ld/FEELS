@@ -33,6 +33,8 @@ public class ConstructionSystem : MonoBehaviour
     Vector3 lastCursorPosition;
     GameObject _planePlacementValid;
 
+    public int radiusFeedback = 2;
+
     private void Start()
     {
         _planePlacementValid = Instantiate(planePlacementValid);
@@ -68,13 +70,30 @@ public class ConstructionSystem : MonoBehaviour
                     ChangePlanePlacementUnderBuilding(_building);
 
 
+        // -------------------------------  Feedback Boost Plane  ----------------------------------
+
+                    //Specific behavior for Anger 
+                    if(_building.BuildingData.feelType == FeelType.Anger)
+                    {
+                        _gridData.ClearPlaneFeedbackBuildingStatement();
+
+                        List<Vector2Int> tmpList = new List<Vector2Int>();
+                        for (int i = -radiusFeedback; i < radiusFeedback + 1; i++)
+                        {
+                            for (int j = -radiusFeedback; j < radiusFeedback + 1; j++)
+                            {
+                                tmpList.Add(new Vector2Int(i, j));
+                            }
+                        }
+                        EnableFeedBuildingTile(_building.BuildingData, tmpList);
+                    }
+
                     //Feedback for tile which will boost building
                     foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
                     {
-                        if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 2)
+                        if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 10)
                         {
                             EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
-
                         }
 
                         //Sad 
@@ -87,9 +106,11 @@ public class ConstructionSystem : MonoBehaviour
                         //Anger 
                         if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < 2)
                         {
-                            _gridData.SetAllPlaneFeedbackBuildingEnable();
 
-                            EnableFeedBuildingTile(build, build.building.GetSurroundingTiles(), false);
+                            List<Vector2Int> tmpListIndexNotShow = build.building.GetCornerTiles();
+                            tmpListIndexNotShow.AddRange(build.building.GetSurroundingTiles());
+
+                            EnableFeedBuildingTile(build, tmpListIndexNotShow, false);
                         }
                         //Fear
                         if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < 2)
@@ -110,6 +131,7 @@ public class ConstructionSystem : MonoBehaviour
                 }
             }
         }
+        //---------------------------------------------------------------------------------------
         else if(objectSpawned != null)
         {
             DestroyObjectSpawned();
@@ -163,9 +185,21 @@ public class ConstructionSystem : MonoBehaviour
 
             Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
 
-            _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
+            Vector2Int currentBuildingCoord = _gridData.GetIndexbasedOnPosition(objectSpawned.GetComponent<S_Building>().destination);
+
+            //Check if tile there is no building on tile + In radius around building spawned
+            if (_gridData.IsTileEmpty(tmpCoord) && (tmpCoord - currentBuildingCoord).magnitude < radiusFeedback)
+            {
+                _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
+                
+            }
+            else
+            {
+                _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, false);
+            }
         }
     }
+
     List<Vector2Int> GetObjectSpawnTileUsage()
     {
         return objectSpawned.GetComponent<S_Building>().tilesCoordinate;
