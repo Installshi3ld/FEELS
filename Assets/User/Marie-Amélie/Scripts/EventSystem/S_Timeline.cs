@@ -97,9 +97,9 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private void TryChangePhaseIndex()
+    private void TryChangePhaseIndex()//So, it is changing phase correctly but still pick event from previous phase pool
     {
-        if(succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
+        if (succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
         {
             currentPhaseIndex++;
             already_done_requirement.Clear(); // clear actual requirement list
@@ -171,6 +171,7 @@ public class S_Timeline : MonoBehaviour
 
     void PickNewEvent()
     {
+        TryChangePhaseIndex();
         Debug.Log("Pick new Event");
         currentRequirement = chooseOneRequirementRandomly();
         if(currentRequirement != null)//
