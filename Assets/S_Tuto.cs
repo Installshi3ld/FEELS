@@ -13,6 +13,7 @@ public class S_Tuto : MonoBehaviour
     public S_MenuData isBuilding;
     public S_TutoData tutoData;
     public S_UIRequirementCheckbox refreshUI;
+    public S_BoutonBuildingPool buildingPool;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class S_Tuto : MonoBehaviour
        {
             tutoData.dataInfo = false;
             tutoData.dataBonus = false;
+            tutoData.displayPoolInfo = false;
             tutoData.OneTime = 0;
        }
 
@@ -57,6 +59,7 @@ public class S_Tuto : MonoBehaviour
                 tutoData.dataInfoAction += ShowEventTuto;
             }
             firstTurnEnd = true;
+            tutoData.displayPoolInfo = true;
         } 
     }
 

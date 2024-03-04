@@ -10,6 +10,7 @@ public class S_TutoData : ScriptableObject
 {
     public bool dataInfo;
     public bool dataBonus;
+    public bool displayPoolInfo;
     public int OneTime;
     public Action dataInfoAction;
 }
