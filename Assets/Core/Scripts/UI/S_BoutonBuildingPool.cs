@@ -47,27 +47,32 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!_BuildingReference)
-            return;
-
-        int feelCost;
-
-        feelCost = buildingScript ? buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
-
-        if (_buildingPoolUI)
+        if (_TutoData.displayPoolInfo == true)
         {
-            if (buildingScript)
-                _buildingPoolUI.SetInfoFeel(buildingScript, _assignationBuilding);
-            //.GetCosts()[0].feelTypeCurrency, feelCost);
+
+
+            if (!_BuildingReference)
+                return;
+
+            int feelCost;
+
+            feelCost = buildingScript ? buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
+
+            if (_buildingPoolUI)
+            {
+                if (buildingScript)
+                    _buildingPoolUI.SetInfoFeel(buildingScript, _assignationBuilding);
+                //.GetCosts()[0].feelTypeCurrency, feelCost);
+                else
+                    _buildingPoolUI.SetInfoFeel(null, null, feelCost);
+
+
+                _buildingPoolUI.ShowInformation(true);
+            }
             else
-                _buildingPoolUI.SetInfoFeel(null,null,feelCost);
-
-
-            _buildingPoolUI.ShowInformation(true);
-        }
-        else
-        {
-            Debug.LogWarning("No building pool UI reference for button, abort show building data");
+            {
+                Debug.LogWarning("No building pool UI reference for button, abort show building data");
+            }
         }
     }
 
@@ -82,8 +87,8 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
             _TutoData.dataInfoAction.Invoke();
             print("zigouigui");
         }
-        else
-            print(_TutoData.dataInfo.ToString() + " Blalb" + _TutoData.dataInfoAction.ToString());
+        //else
+            //print(_TutoData.dataInfo.ToString() + " Blalb" + _TutoData.dataInfoAction.ToString());
 
     }
 }
