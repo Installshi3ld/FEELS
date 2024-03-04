@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,9 +29,18 @@ public class S_Timeline : MonoBehaviour
 
     S_Requirement currentRequirement;
 
+    //Adrien
+
+    public S_TutoData _TutoData;
+    public S_Tuto _Tuto;
+
+    //Fin Adrien
+
     public delegate void RefreshFromRequirement(S_Requirement currentEvent);
     public static event RefreshFromRequirement OnRequirementChecked;
+    public static event RefreshFromRequirement OnPickedRequirement;
     public static event RefreshFromRequirement OnAfterRequirementChecked;
+    public static event RefreshFromRequirement OnEndRequirement;
     public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
 
@@ -93,9 +102,9 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private void TryChangePhaseIndex()//LOGIC HERE SHOULD CHANGE 
+    private void TryChangePhaseIndex()//So, it is changing phase correctly but still pick event from previous phase pool
     {
-        if(succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
+        if (succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
         {
             currentPhaseIndex++;
             already_done_requirement.Clear(); // clear actual requirement list
@@ -141,6 +150,22 @@ public class S_Timeline : MonoBehaviour
             currentRequirement = null;
             currentDelay = 3;
             StartCoroutine(DelaySuccess(resolutionManager.delayBetweenEventResolutionPhases));
+
+            /*
+
+
+           //Adrien
+            if (!_TutoData.dataBonus)
+            {
+                Debug.Log("TutoInfo");
+                _Tuto.ShowBonusPlacement();
+                _TutoData.dataBonus = true;
+            }
+
+            Debug.Log("TutoAllo");*/
+
+            //FinAdrien
+
         }
 
         if (!IsAvailableRequirementListEmpty())
@@ -159,17 +184,22 @@ public class S_Timeline : MonoBehaviour
 
     void PickNewEvent()
     {
-        Debug.Log("Pick new Event");
+        TryChangePhaseIndex();
         currentRequirement = chooseOneRequirementRandomly();
-        currentEvent.SetNewRequirement(currentRequirement, currentDelay);
+        if(currentRequirement != null)//
+        {
+            currentEvent.SetNewRequirement(currentRequirement, currentDelay);
+            OnPickedRequirement?.Invoke(currentRequirement);
+        }
+
     }
 
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
     {
+        OnEndRequirement?.Invoke(currentRequirement);
+        PickNewEvent();
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
-        yield return new WaitForSeconds(delay);
-        PickNewEvent();
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
 
@@ -179,10 +209,11 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelaySuccess(float delay)
     {
+        OnEndRequirement?.Invoke(currentRequirement);
+        PickNewEvent();
         successHolder.SetActive(true);
         yield return new WaitForSeconds(delay);
-        Debug.Log("picking new event");
-        PickNewEvent();
+
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
         //OnRequirementChecked?.Invoke(currentRequirement);
@@ -292,15 +323,14 @@ public class S_Timeline : MonoBehaviour
         S_PhaseScriptableObject currentPhaseObject = phases[currentPhaseIndex];
 
         List<S_Requirement> available = GetAvailableRequirementsInCurrentPhase().ToList();
-
+        Debug.Log(available.Count + " Number of available requirements");
         if (available.Count > 0)
         {
             int index = Random.Range(0, available.Count - 1);
             S_Requirement picked = available[index];
             already_done_requirement.Add(picked);
 
-            TryChangePhaseIndex();
-            picked.DoSomethingAtFirst();
+            picked.DoSomethingAtFirst();//implement for the mechanics of building requirement. The player should build x buildings even if some were already on map
             rounds.numberOfRoundToSwitchEvent = picked.numberOfTurnToFulfill;
             return picked;
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class S_FeelAssignationBuilding : MonoBehaviour
@@ -10,6 +11,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     [NonSerialized]
     public bool isProducing, isBoosted = false;
     public int MaxFeel;
+    public S_VFXData VFXData;
 
     [Header("Normal")]
     public float productionAmount = 2.0f;
@@ -18,8 +20,9 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     [Header("Boosted")]
     public float productionAmountBoosted = 4.0f;
     public float delayBetweenEachProductionBoosted = 2.0f;
+    public TextMeshPro T_Boosted;
 
-    float currentProduction, currenteDelayBetweenEachProduction;
+    public float currentProduction, currenteDelayBetweenEachProduction; //Modif Adrien
 
     [NonSerialized]
     public float delayBetweenEachProductionForUI = 0;
@@ -106,8 +109,9 @@ public class S_FeelAssignationBuilding : MonoBehaviour
 
     public void BoostBuilding()
     {
-        S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0));
+        S_FeelAssignationManager.SpawnVFXBoost(gameObject.transform.GetChild(0), VFXData.GetVFXEndOfConstruction());
         isBoosted = true;
+        T_Boosted.gameObject.SetActive(true);
         currentProduction = productionAmountBoosted;
         currenteDelayBetweenEachProduction = delayBetweenEachProductionBoosted;
     }
@@ -115,6 +119,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
     public void UnBoostBuilding()
     {
         isBoosted = false;
+        T_Boosted.gameObject.SetActive(false);
         currentProduction = productionAmount;
         currenteDelayBetweenEachProduction = delayBetweenEachProduction;
     }

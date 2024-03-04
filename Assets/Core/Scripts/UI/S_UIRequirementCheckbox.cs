@@ -25,7 +25,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
     }
 
     bool tmp = true;
-    private void UpdateCheckBox(S_Requirement currentR)
+    public void UpdateCheckBox(S_Requirement currentR)
     {
         toggle.isOn = currentR.HasBeenFulfilled;
         //Ajout Naudar 
@@ -57,7 +57,7 @@ public class S_UIRequirementCheckbox : MonoBehaviour
         if (!timer) // Ajoutez une condition pour exécuter le code uniquement si timer est false
         {
             timer = true; // Définir timer sur true avant d'effectuer l'animation
-
+          
             // En utilisant le callback OnComplete de DOTween pour réinitialiser timer
             textEventRequirement.transform.DOPunchScale(textEventRequirement.transform.localScale, 0.3f, 1, 1f)
                 .OnComplete(() =>

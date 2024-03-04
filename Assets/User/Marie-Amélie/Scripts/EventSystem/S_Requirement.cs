@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class S_Requirement : ScriptableObject
 {
+    public Sprite spriteImage;
+
     public string NarrativeDescription = string.Empty;
 
     public string ConstraintDescription = string.Empty;
