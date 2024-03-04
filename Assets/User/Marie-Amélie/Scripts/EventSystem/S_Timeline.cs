@@ -36,6 +36,7 @@ public class S_Timeline : MonoBehaviour
     public static event RefreshFromRequirement OnRequirementChecked;
     public static event RefreshFromRequirement OnPickedRequirement;
     public static event RefreshFromRequirement OnAfterRequirementChecked;
+    public static event RefreshFromRequirement OnEndRequirement;
     public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
 
@@ -172,11 +173,9 @@ public class S_Timeline : MonoBehaviour
     void PickNewEvent()
     {
         TryChangePhaseIndex();
-        Debug.Log("Pick new Event");
         currentRequirement = chooseOneRequirementRandomly();
         if(currentRequirement != null)//
         {
-            Debug.Log("YAAAAAAAAAAAAAAAAAAAAAAA" + currentRequirement.ConstraintDescription);
             currentEvent.SetNewRequirement(currentRequirement, currentDelay);
             OnPickedRequirement?.Invoke(currentRequirement);
         }
@@ -185,6 +184,7 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
     {
+        OnEndRequirement?.Invoke(currentRequirement);
         PickNewEvent();
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
@@ -197,7 +197,7 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelaySuccess(float delay)
     {
-        Debug.Log("picking new event");
+        OnEndRequirement?.Invoke(currentRequirement);
         PickNewEvent();
         successHolder.SetActive(true);
         yield return new WaitForSeconds(delay);

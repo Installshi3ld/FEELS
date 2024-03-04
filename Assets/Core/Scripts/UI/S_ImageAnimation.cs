@@ -30,19 +30,46 @@ public class S_ImageAnimation : MonoBehaviour
     private void OnEnable()
     {
         S_Timeline.OnPickedRequirement += ImageScaleAndMove;
+        S_Timeline.OnEndRequirement += OnCurrentEventEnded;
     }
 
     private void OnDisable()
     {
         S_Timeline.OnPickedRequirement -= ImageScaleAndMove;
+        S_Timeline.OnEndRequirement -= OnCurrentEventEnded;
     }
 
-    private IEnumerator OnAnimationEnded(S_Requirement currentR)
+    private void OnCurrentEventEnded(S_Requirement currentR)
+    {
+        // Set initial scale to zero
+        Vector3 initialScale = new Vector3(0.5f, 0.5f, 0.5f); // Adjust as needed
+        imageSpot.rectTransform.localScale = initialScale;
+
+        // Animation of appearance and scaling
+        imageSpot.rectTransform.DOScale(new Vector3(1f, 1f, 1f), 2.0f)
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                // Animation of shrinkage
+                imageSpot.rectTransform.DOScale(initialScale, 2.0f) // Return to the initial scale
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        imageSpot.gameObject.SetActive(false);
+                        imageSpot.transform.position = initialPosition;
+                    });
+            });
+        /**/
+
+    }
+
+    /*private IEnumerator OnAnimationEnded(S_Requirement currentR)
     {
         yield return new WaitForSeconds(1.5f);
         imageSpot.gameObject.SetActive(false);
         imageSpot.transform.position = initialPosition;
-    }
+    }*/
+
     public void ImageScaleAndMove(S_Requirement currentR)
     {
         initialPosition = imageSpot.transform.position;
@@ -71,7 +98,7 @@ public class S_ImageAnimation : MonoBehaviour
                                 .OnComplete(() =>
                                 {
                                     // Animation completed, do something if needed
-                                    StartCoroutine(OnAnimationEnded(currentR));
+                                    //StartCoroutine(OnAnimationEnded(currentR));
                                 });
                     });
             });
