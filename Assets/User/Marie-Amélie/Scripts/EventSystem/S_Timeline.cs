@@ -36,6 +36,7 @@ public class S_Timeline : MonoBehaviour
     public static event RefreshFromRequirement OnRequirementChecked;
     public static event RefreshFromRequirement OnPickedRequirement;
     public static event RefreshFromRequirement OnAfterRequirementChecked;
+    public static event RefreshFromRequirement OnEndRequirement;
     public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
 
@@ -97,9 +98,9 @@ public class S_Timeline : MonoBehaviour
         }
     }
 
-    private void TryChangePhaseIndex()
+    private void TryChangePhaseIndex()//So, it is changing phase correctly but still pick event from previous phase pool
     {
-        if(succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
+        if (succeededRequirementForThisPhase >= phases[currentPhaseIndex].numberOfRequirementToFulfillToSwitchPhase && !(phases.Count == currentPhaseIndex + 1))
         {
             currentPhaseIndex++;
             already_done_requirement.Clear(); // clear actual requirement list
@@ -171,11 +172,10 @@ public class S_Timeline : MonoBehaviour
 
     void PickNewEvent()
     {
-        Debug.Log("Pick new Event");
+        TryChangePhaseIndex();
         currentRequirement = chooseOneRequirementRandomly();
         if(currentRequirement != null)//
         {
-            Debug.Log("YAAAAAAAAAAAAAAAAAAAAAAA" + currentRequirement.ConstraintDescription);
             currentEvent.SetNewRequirement(currentRequirement, currentDelay);
             OnPickedRequirement?.Invoke(currentRequirement);
         }
@@ -184,6 +184,7 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelayDisasterConsequences(float delay, S_Disaster consequence)
     {
+        OnEndRequirement?.Invoke(currentRequirement);
         PickNewEvent();
         yield return new WaitForSeconds(delay);
         consequence.ProvoqueDisaster();
@@ -196,7 +197,7 @@ public class S_Timeline : MonoBehaviour
 
     IEnumerator DelaySuccess(float delay)
     {
-        Debug.Log("picking new event");
+        OnEndRequirement?.Invoke(currentRequirement);
         PickNewEvent();
         successHolder.SetActive(true);
         yield return new WaitForSeconds(delay);
