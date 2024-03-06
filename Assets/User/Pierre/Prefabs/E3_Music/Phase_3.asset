@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43d264de5546844cbc60fe431370e8c, type: 3}
   m_Name: Phase_3
   m_EditorClassIdentifier: 
-  nameOfPhase: event6
+  nameOfPhase: 
   numberOfRequirementToFulfillToSwitchPhase: 1
-  requirements: []
+  requirements:
+  - {fileID: 11400000, guid: 002d0e6f4f965e24e801673f6d3401ad, type: 2}
+  - {fileID: 11400000, guid: 3570775ca9f3b2e4d86684f4e39132ac, type: 2}
+  - {fileID: 11400000, guid: 04e840e865157c8469f9f181fede6ebe, type: 2}
+  - {fileID: 11400000, guid: ef49b6de8aedac14a88495a286c595e0, type: 2}
+  - {fileID: 11400000, guid: d4b43e5890316c646b4735b3e84c25a2, type: 2}
   lifeExperiences: []

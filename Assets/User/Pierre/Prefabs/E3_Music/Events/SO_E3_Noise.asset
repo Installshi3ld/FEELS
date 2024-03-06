@@ -10,18 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
-  m_Name: SO_E2_Anger_Hippo
+  m_Name: SO_E3_Noise
   m_EditorClassIdentifier: 
   spriteImage: {fileID: 0}
-  NarrativeDescription: Hippo
-  ConstraintDescription: Build a hippo building.
-  numberOfTurnToFulfill: 1
+  NarrativeDescription: Make some noise!
+  ConstraintDescription: Build a Trumpet and a Hippo.
+  numberOfTurnToFulfill: 3
   LinkedDisaster:
-  - {fileID: 11400000, guid: 2edc677a4da59db4bbe5d307028139a4, type: 2}
+  - {fileID: 11400000, guid: 9eeaf21f1adab164f9f19fb52a8599eb, type: 2}
   LinkedRewards:
-  - {fileID: 11400000, guid: f41369891e75d19429d3ff350fdebc1c, type: 2}
+  - {fileID: 11400000, guid: 30ee3b1dcee965649bcdd699fc36ae78, type: 2}
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   themeAndTypeRequirements:
+  - feelType: 1
+    buildingTheme: 1
+    numberOfRequiredBuildings: 1
   - feelType: 2
     buildingTheme: 3
     numberOfRequiredBuildings: 1
