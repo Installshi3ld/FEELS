@@ -59,9 +59,9 @@ public class S_Tuto : MonoBehaviour
               //  tutoData.dataInfoAction += ShowEventTuto;
            // }
 
-            ShowEventTuto();
+           // ShowEventTuto();
             firstTurnEnd = true;
-            tutoData.displayPoolInfo = true;
+          //.  tutoData.displayPoolInfo = true;
         } 
     }
 
