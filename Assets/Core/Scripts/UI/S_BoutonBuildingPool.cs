@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private TextMeshProUGUI _buildingName;
+    [SerializeField] private TextMeshProUGUI _buildingName,_buildingPrice;
     [SerializeField] private Image _buildingImage;
     public Button button;
     public S_TutoData _TutoData;
@@ -43,9 +43,12 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         _buildingName.text = buildingScript.BuildingData.buildingName;
         _buildingImage.sprite = buildingScript.BuildingData.BuildingImage;
+        feelCost = buildingScript ? buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
+        _buildingPrice.text = feelCost.ToString();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public int feelCost;
+        public void OnPointerEnter(PointerEventData eventData)
     {
         if (_TutoData.displayPoolInfo == true)
         {
@@ -54,7 +57,7 @@ public class S_BoutonBuildingPool : MonoBehaviour, IPointerEnterHandler, IPointe
             if (!_BuildingReference)
                 return;
 
-            int feelCost;
+           //int feelCost;
 
             feelCost = buildingScript ? buildingScript?.GetCosts()[0].feelPrice ?? 0 : 0;
 
