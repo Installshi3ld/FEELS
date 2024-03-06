@@ -33,7 +33,10 @@ public class ConstructionSystem : MonoBehaviour
     Vector3 lastCursorPosition;
     GameObject _planePlacementValid;
 
-    public int radiusFeedback = 2;
+    [Header("Feedback")]
+    public int radiusFeedbackBoost = 2;
+    [Tooltip("The player will have to place x amount of building before feedback disable")] 
+    public int feedbackBoostShowAmount = 999;
 
     private void Start()
     {
@@ -78,9 +81,9 @@ public class ConstructionSystem : MonoBehaviour
                         _gridData.ClearPlaneFeedbackBuildingStatement();
 
                         List<Vector2Int> tmpList = new List<Vector2Int>();
-                        for (int i = -radiusFeedback; i < radiusFeedback + 1; i++)
+                        for (int i = -radiusFeedbackBoost; i < radiusFeedbackBoost + 1; i++)
                         {
-                            for (int j = -radiusFeedback; j < radiusFeedback + 1; j++)
+                            for (int j = -radiusFeedbackBoost; j < radiusFeedbackBoost + 1; j++)
                             {
                                 tmpList.Add(new Vector2Int(i, j));
                             }
@@ -91,20 +94,20 @@ public class ConstructionSystem : MonoBehaviour
                     //Feedback for tile which will boost building
                     foreach (S_BuildingData build in buildingListContainer.builidingsInfos)
                     {
-                        if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < 10)
+                        if(_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Joy && joyPlaced < feedbackBoostShowAmount)
                         {
                             EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
                         }
 
                         //Sad 
-                        if (_building.BuildingData.feelType == build.feelType &&  build.feelType == FeelType.Sad && sadPlaced < 2)
+                        if (_building.BuildingData.feelType == build.feelType &&  build.feelType == FeelType.Sad && sadPlaced < feedbackBoostShowAmount)
                         {
                             EnableFeedBuildingTile(build, build.building.GetCornerTiles());
 
                         }
 
                         //Anger 
-                        if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < 2)
+                        if (_building.BuildingData.feelType == build.feelType && build.feelType == FeelType.Anger && angerPlaced < feedbackBoostShowAmount)
                         {
 
                             List<Vector2Int> tmpListIndexNotShow = build.building.GetCornerTiles();
@@ -113,7 +116,7 @@ public class ConstructionSystem : MonoBehaviour
                             EnableFeedBuildingTile(build, tmpListIndexNotShow, false);
                         }
                         //Fear
-                        if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < 2)
+                        if (_building.BuildingData.feelType == FeelType.Fear && build.feelType != FeelType.Fear && fearPlaced < feedbackBoostShowAmount)
                         {
                             EnableFeedBuildingTile(build, build.building.GetSurroundingTiles());
 
@@ -185,18 +188,22 @@ public class ConstructionSystem : MonoBehaviour
 
             Vector2Int tmpCoord = _gridData.GetIndexbasedOnPosition(tmpVect);
 
-            Vector2Int currentBuildingCoord = _gridData.GetIndexbasedOnPosition(objectSpawned.GetComponent<S_Building>().destination);
+            if (_gridData.IsTileCoordinateInBound(tmpCoord))
+            {
+                Vector2Int currentBuildingCoord = _gridData.GetIndexbasedOnPosition(objectSpawned.GetComponent<S_Building>().destination);
+                //Check if tile there is no building on tile + In radius around building spawned
+                if (_gridData.IsTileEmpty(tmpCoord) && (tmpCoord - currentBuildingCoord).magnitude < radiusFeedbackBoost)
+                {
+                    _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
 
-            //Check if tile there is no building on tile + In radius around building spawned
-            if (_gridData.IsTileEmpty(tmpCoord) && (tmpCoord - currentBuildingCoord).magnitude < radiusFeedback)
-            {
-                _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, statement);
-                
+                }
+                else
+                {
+                    _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, false);
+                }
+
             }
-            else
-            {
-                _gridData.SetPlaneFeedbackBuildingStatement(tmpCoord.x, tmpCoord.y, false);
-            }
+
         }
     }
 
