@@ -65,6 +65,13 @@ public class S_GridData : ScriptableObject, InitializeSO
         return Mathf.Round(valueToRound / gridSize) * gridSize;
     }
 
+    //To know if coord is in Array lenght
+    public bool IsTileCoordinateInBound(Vector2Int Coord)
+    {
+        return 0 <= Coord.x && Coord.x <= mapSphereArea * 2 / tileSize + padding * 2
+                && 0 <= Coord.y && Coord.y <= mapSphereArea * 2 / tileSize + padding * 2;
+    }
+
     public Vector3 ClampPositionToGrid(Vector3 position)
     {
         float _clampedX = RoundToGrid(position.x, tileSize);
@@ -98,6 +105,11 @@ public class S_GridData : ScriptableObject, InitializeSO
                 __planeFeedbackBoostBuildingList[i][j].SetActive(false);
             }
         }
+    }
+
+    public bool IsTileEmpty(Vector2Int coord)
+    {
+        return !gridsUsageStatement[coord.x][coord.y].statement && !_fogData.fogGridsUsageStatement[coord.x][coord.y];
     }
 
     public Vector3 GetRandomTileAroundOtherOne(Vector2Int BaseCoordinate, int radius, bool gridUsageStatement)

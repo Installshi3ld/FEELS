@@ -86,7 +86,7 @@ public class S_Building : MonoBehaviour
 
     [Space]
     public List<Vector2Int> tilesCoordinate = new List<Vector2Int>();
-
+    
     [NonSerialized] public bool isPlacedAnimation, isPlaced = false;
     [NonSerialized] public Vector3 destination;
 
@@ -112,7 +112,7 @@ public class S_Building : MonoBehaviour
         }
     }
 
-    [NonSerialized] public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
+    public int minimumX = 0, minimumY = 0, maximumX = 0, maximumY = 0;
 
     private void Update()
     {
@@ -267,7 +267,7 @@ public class S_Building : MonoBehaviour
             if (tilesCoordinate[i].x == maximumX && tilesCoordinate[i].y == minimumY)
                 surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x + 1, tilesCoordinate[i].y - 1));
 
-            if (tilesCoordinate[i].x == maximumY && tilesCoordinate[i].y == maximumY)
+            if (tilesCoordinate[i].x == maximumX && tilesCoordinate[i].y == minimumY)
                 surroundingTiles.Add(new Vector2Int(tilesCoordinate[i].x + 1, tilesCoordinate[i].y + 1));
         }
         return surroundingTiles;

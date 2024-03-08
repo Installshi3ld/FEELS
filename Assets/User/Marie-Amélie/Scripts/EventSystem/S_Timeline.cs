@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,8 +29,12 @@ public class S_Timeline : MonoBehaviour
 
     S_Requirement currentRequirement;
 
+    //Adrien
+
     public S_TutoData _TutoData;
     public S_Tuto _Tuto;
+
+    //Fin Adrien
 
     public delegate void RefreshFromRequirement(S_Requirement currentEvent);
     public static event RefreshFromRequirement OnRequirementChecked;
@@ -146,14 +150,22 @@ public class S_Timeline : MonoBehaviour
             currentRequirement = null;
             currentDelay = 3;
             StartCoroutine(DelaySuccess(resolutionManager.delayBetweenEventResolutionPhases));
+
             /*
+
+
+           //Adrien
             if (!_TutoData.dataBonus)
             {
                 Debug.Log("TutoInfo");
                 _Tuto.ShowBonusPlacement();
                 _TutoData.dataBonus = true;
             }
+
             Debug.Log("TutoAllo");*/
+
+            //FinAdrien
+
         }
 
         if (!IsAvailableRequirementListEmpty())
