@@ -138,13 +138,14 @@ public class S_BuildingPoolUI : MonoBehaviour
     void RefreshUI()
     {
         SpawnButton();
-
+        int tmpIndex = 0;
         for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
         {
             if (_buildingPoolData.list[currentTierSelected][i].showInUI)
             {
                 GameObject _currentBuilding = _buildingPoolData.list[currentTierSelected][i].building;
-                button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
+                button[tmpIndex].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
+                tmpIndex++;
             }
         }
     }
