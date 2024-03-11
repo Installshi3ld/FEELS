@@ -9,8 +9,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SO_BuildingPoolData", menuName = "Data/SO_BuildingPoolData")]
 public class S_BuildingPoolData : SerializedScriptableObject
 {
+    public struct BuildingPoolStruct 
+    {
+       public GameObject building;
+       public bool showInUI;
+
+    }
+
     [OdinSerialize, InfoBox("Each list in Building pool is consider as Tier, based on index")]
-    public List<List<GameObject>> list;
+    public List<List<BuildingPoolStruct>> list;
 
     /*
     [ReadOnly]
