@@ -55,19 +55,23 @@ public class S_BuildingPoolUI : MonoBehaviour
         //Spawn Buttons building pool
         float tmpOffset = -xOffsetBetweenElement/2 * (_buildingPoolData.list[currentTierSelected].Count -1);
         GameObject tmpGameobject;
-
+      
         for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
         {
-            //Spawn + add offset
-            tmpGameobject = Instantiate(buttonTemplate, PannelButton.transform);
-            button.Add(tmpGameobject);
+            if(_buildingPoolData.list[currentTierSelected][i].showInUI)
+            {
+                //Spawn + add offset
+                tmpGameobject = Instantiate(buttonTemplate, PannelButton.transform);
+                button.Add(tmpGameobject);
 
-            // lambda take reference of variable, i variable won't work 
-            int currentIndex = i;
-            S_BoutonBuildingPool tmpBouton = tmpGameobject.GetComponent<S_BoutonBuildingPool>();
+                // lambda take reference of variable, i variable won't work 
+                int currentIndex = i;
+                S_BoutonBuildingPool tmpBouton = tmpGameobject.GetComponent<S_BoutonBuildingPool>();
 
-            tmpBouton.button.onClick.AddListener(() => SpawnBuilding(currentIndex));
-            tmpBouton._buildingPoolUI = this;
+                tmpBouton.button.onClick.AddListener(() => SpawnBuilding(currentIndex));
+                tmpBouton._buildingPoolUI = this;
+                
+            }
         }
     }
 
@@ -134,13 +138,14 @@ public class S_BuildingPoolUI : MonoBehaviour
     void RefreshUI()
     {
         SpawnButton();
-
+        int tmpIndex = 0;
         for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
         {
             if (_buildingPoolData.list[currentTierSelected][i].showInUI)
             {
                 GameObject _currentBuilding = _buildingPoolData.list[currentTierSelected][i].building;
-                button[i].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
+                button[tmpIndex].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
+                tmpIndex++;
             }
         }
     }
