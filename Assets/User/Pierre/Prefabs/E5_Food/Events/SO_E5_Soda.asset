@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
+  m_Name: SO_E5_Soda
+  m_EditorClassIdentifier: 
+  NarrativeDescription: I'm celebrating my birthday today!
+  ConstraintDescription: Build 1 soda-rocket, 1 trumpet, and 1 joy-face.
+  numberOfTurnToFulfill: 3
+  LinkedDisaster:
+  - {fileID: 11400000, guid: b201a22d89ea3c449a9ac8c615912a3b, type: 2}
+  LinkedRewards:
+  - {fileID: 11400000, guid: 8f11ee4c87a7032448c3ce672290702c, type: 2}
+  buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
+  themeAndTypeRequirements:
+  - feelType: 1
+    buildingTheme: 2
+    numberOfRequiredBuildings: 1
+  - feelType: 1
+    buildingTheme: 1
+    numberOfRequiredBuildings: 1
+  - feelType: 1
+    buildingTheme: 4
+    numberOfRequiredBuildings: 1
