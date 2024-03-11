@@ -58,16 +58,19 @@ public class S_BuildingPoolUI : MonoBehaviour
 
         for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
         {
-            //Spawn + add offset
-            tmpGameobject = Instantiate(buttonTemplate, PannelButton.transform);
-            button.Add(tmpGameobject);
+            if(_buildingPoolData.list[currentTierSelected][i].showInUI)
+            {
+                //Spawn + add offset
+                tmpGameobject = Instantiate(buttonTemplate, PannelButton.transform);
+                button.Add(tmpGameobject);
 
-            // lambda take reference of variable, i variable won't work 
-            int currentIndex = i;
-            S_BoutonBuildingPool tmpBouton = tmpGameobject.GetComponent<S_BoutonBuildingPool>();
+                // lambda take reference of variable, i variable won't work 
+                int currentIndex = i;
+                S_BoutonBuildingPool tmpBouton = tmpGameobject.GetComponent<S_BoutonBuildingPool>();
 
-            tmpBouton.button.onClick.AddListener(() => SpawnBuilding(currentIndex));
-            tmpBouton._buildingPoolUI = this;
+                tmpBouton.button.onClick.AddListener(() => SpawnBuilding(currentIndex));
+                tmpBouton._buildingPoolUI = this;
+            }
         }
     }
 
