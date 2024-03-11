@@ -440,7 +440,8 @@ public class ConstructionSystem : MonoBehaviour
                         GameObject _building = _gridData.GetBuildingAtTile(_coord + _tileCorner);
 
                         print(_building ? _building.name : "null");
-                        if (_building == objectSpawned)
+                        if (_building && _building == this.gameObject)
+                        // if (_building == objectSpawned)
                         {
                             return;
                         }
