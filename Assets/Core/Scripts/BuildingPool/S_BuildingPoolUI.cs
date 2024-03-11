@@ -55,7 +55,7 @@ public class S_BuildingPoolUI : MonoBehaviour
         //Spawn Buttons building pool
         float tmpOffset = -xOffsetBetweenElement/2 * (_buildingPoolData.list[currentTierSelected].Count -1);
         GameObject tmpGameobject;
-
+      
         for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
         {
             if(_buildingPoolData.list[currentTierSelected][i].showInUI)
@@ -70,6 +70,7 @@ public class S_BuildingPoolUI : MonoBehaviour
 
                 tmpBouton.button.onClick.AddListener(() => SpawnBuilding(currentIndex));
                 tmpBouton._buildingPoolUI = this;
+                
             }
         }
     }
