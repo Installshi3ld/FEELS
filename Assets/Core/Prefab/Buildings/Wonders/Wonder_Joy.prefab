@@ -54,9 +54,8 @@ MonoBehaviour:
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 1000
-    tier: 3
+    tier: 5
     BuildingImage: {fileID: 21300000, guid: 0a04c99677bcd34499769598a7ac9671, type: 3}
-  VFXData: {fileID: 0}
   actionPointCost: 1
   tilesCoordinate:
   - {x: -1, y: -1}
@@ -68,6 +67,11 @@ MonoBehaviour:
   - {x: -1, y: 1}
   - {x: -1, y: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
+  _FeelAssignationBuilding: {fileID: 0}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!205 &2684035615790431434
 LODGroup:
   m_ObjectHideFlags: 0
@@ -108,10 +112,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxFeel: 0
+  VFXData: {fileID: 0}
   productionAmount: 5
   delayBetweenEachProduction: 0
   productionAmountBoosted: 8
   delayBetweenEachProductionBoosted: 0
+  T_Boosted: {fileID: 0}
+  currentProduction: 0
+  currenteDelayBetweenEachProduction: 0
   scriptableRounds: {fileID: 11400000, guid: 77e5dd6555f4ced40bd41a242a604f4d, type: 2}
 --- !u!1 &917671987420033511
 GameObject:

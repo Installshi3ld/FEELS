@@ -87,13 +87,17 @@ MonoBehaviour:
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 40
-    tier: 1
+    tier: 2
     BuildingImage: {fileID: 21300000, guid: 7377b706c2cd48d45a16dac43a67850c, type: 3}
   actionPointCost: 1
   tilesCoordinate:
   - {x: 1, y: 0}
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
   _FeelAssignationBuilding: {fileID: 0}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!114 &-1020594207758135744
 MonoBehaviour:
   m_ObjectHideFlags: 0
