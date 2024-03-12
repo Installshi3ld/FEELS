@@ -16,7 +16,8 @@ MonoBehaviour:
   NarrativeDescription: Went to the zoo.
   ConstraintDescription: Build 1 Dog, 1 Fish Tank, 1 Snake, and 1 Hippo.
   numberOfTurnToFulfill: 3
-  LinkedDisaster: []
+  LinkedDisaster:
+  - {fileID: 11400000, guid: 614f915ed2c5d9449868bacba4b0ac08, type: 2}
   LinkedRewards: []
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   themeAndTypeRequirements:
