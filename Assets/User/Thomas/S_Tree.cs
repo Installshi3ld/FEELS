@@ -21,9 +21,14 @@ public class S_Tree : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(LateStart());
+    }
+    IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(0.06f);
         Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(gameObject.transform.position);
 
-        for(int i = 0; i < coordinateToUse.Length; i++)
+        for (int i = 0; i < coordinateToUse.Length; i++)
         {
             _gridData.SetTileUsed(tmpIndex.x + coordinateToUse[i].x, tmpIndex.y + coordinateToUse[i].y);
         }

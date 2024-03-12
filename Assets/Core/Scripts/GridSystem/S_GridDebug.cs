@@ -14,7 +14,7 @@ public class S_GridDebug : MonoBehaviour
     [SerializeField] private S_FogData _fogData;
 
     [Header("Gizmos display")]
-    [SerializeField, InfoBox("Use 'WireFramePlane'")] private GameObject _wireframePlane;
+    [SerializeField, InfoBox("Use 'WireFramePlane'")] private GameObject _wireframePlane, _fogPlane;
     [SerializeField] private GameObject _planeFeedbackBoostBuilding;
 
     [SerializeField, BoxGroup] private Material _nonUsedTileMat, _usedTileMat, _fogTileMat;
@@ -31,10 +31,10 @@ public class S_GridDebug : MonoBehaviour
         _gridData.Init();
         gridDebugHighlight = S_StaticFunc.Create2DimensionalList(_gridData.tileAmount, () => false);
         //_debugTile.SetValue(0);
-        SpawnDebugTile();
+        //SpawnDebugTile();
+        StartCoroutine(LateSpawnDebug());
         _gridData.RefreshDebugTile += RefreshDebugTile;
     }
-
 
     void Update()
     {
@@ -55,6 +55,12 @@ public class S_GridDebug : MonoBehaviour
         gridDebugHighlight[coordinate.x][coordinate.y] = true;
     }
 
+    IEnumerator LateSpawnDebug()
+    {
+        yield return new WaitForSeconds(0.05f);
+        SpawnDebugTile();
+    }
+    //Do not rename it (Usage of Invoke at awake)
     void SpawnDebugTile()
     {
         _debugTileInt = _debugTile.GetValue();
@@ -72,10 +78,21 @@ public class S_GridDebug : MonoBehaviour
                     0.05f,
                     _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize);
 
+                GameObject tmp;
                 //Wireframe
-                GameObject tmp = Instantiate(_wireframePlane, tmpVectorPos, Quaternion.identity);
+
+                if (_fogData.fogGridsUsageStatement[x][y])
+                {
+                    tmp = Instantiate(_fogPlane, tmpVectorPos, Quaternion.identity);
+                }
+                    
+                else
+                    tmp = Instantiate(_wireframePlane, tmpVectorPos, Quaternion.identity);
+
                 list.Add(tmp);
-                tmp.SetActive(false);
+                //Always show fog
+                if (!_fogData.fogGridsUsageStatement[x][y])
+                    tmp.SetActive(false);
 
                 //Plane feedback
                 GameObject tmpPlane = Instantiate(_planeFeedbackBoostBuilding, tmpVectorPos, Quaternion.identity);
@@ -96,11 +113,6 @@ public class S_GridDebug : MonoBehaviour
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _usedTileMat;
         }
 
-        else if (_fogData.fogGridsUsageStatement[x][y])
-        {
-            _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _fogTileMat;
-        }
-
         else if (!_fogData.fogGridsUsageStatement[x][y])
         {
             _wireframeCubes[x][y].GetComponent<MeshRenderer>().material = _nonUsedTileMat;
@@ -109,13 +121,21 @@ public class S_GridDebug : MonoBehaviour
             _wireframeCubes[x][y].SetActive(true);
     }
 
+    //Use it when you want to refresh tiles
     void RefreshAllDebugTile()
     {
         if (_debugTile.GetValue() == 0)
         {
             for (int x = 0; x < _wireframeCubes.Count; x++)
                 for (int y = 0; y < _wireframeCubes[x].Count; y++)
-                    _wireframeCubes[x][y].SetActive(false);
+                {
+                    //Always show fog
+                    if (!_fogData.fogGridsUsageStatement[x][y])
+                        _wireframeCubes[x][y].SetActive(false);
+                    else
+                        _wireframeCubes[x][y].SetActive(true);
+                }
+
             return;
         }
         
@@ -127,62 +147,6 @@ public class S_GridDebug : MonoBehaviour
             }
         }
     }
-
-    /*
-    private void OnDrawGizmos()
-    {
-        if(_gridData == null  || _gridData.gridsUsageStatement == null)
-            return;
-
-        if(_debugTile == null)
-            return;
-
-        DrawGizmoDisk(_gridData.mapSphereArea);
-        _debugTileInt = _debugTile.GetValue();
-        _mapTileSize = _gridData.tileSize;
-        if (_debugTileInt > 0)
-        {
-            for (int x = 0; x < _gridData.gridsUsageStatement.Count; x++)
-            {
-                for (int y = 0; y < _gridData.gridsUsageStatement[x].Count; y++)
-                {
-                    if (_gridData.gridsUsageStatement[x][y].statement && (_debugTileInt == 1 || _debugTileInt == 3))
-                        Gizmos.color = Color.green;
-
-                    else if (Grid.fogGridsUsageStatement[x][y] && (_debugTileInt == 2 || _debugTileInt == 3))
-                        Gizmos.color = Color.blue;
-
-                    else if (!Grid.fogGridsUsageStatement[x][y] && (_debugTileInt == 1 || _debugTileInt == 3))
-                        Gizmos.color = Color.red;
-                    else
-                        Gizmos.color = Color.clear;
-
-                    if (gridDebugHighlight.Count > x && gridDebugHighlight[x][y])
-                        Gizmos.color = new Vector4(255, 255 / 198, 255 / 41, 1);
-
-                    Gizmos.DrawWireCube(new Vector3(_gridData.gridsUsageStatement[x].Count / 2 * -_mapTileSize + x * _mapTileSize,
-                        0,
-                        _gridData.gridsUsageStatement[y].Count / 2 * -_mapTileSize + y * _mapTileSize), new Vector3(_mapTileSize - 0.6f, _mapTileSize - 0.6f, _mapTileSize - 0.6f));
-
-                }
-            }
-        }
-    }
-    public static void DrawGizmoDisk(float radius)
-    {
-        float corners = 72;
-        Vector3 origin = Vector3.zero;
-        Vector3 startRotation = Vector3.right * radius;
-        Vector3 lastPosition = origin + startRotation;
-        float angle = 0;
-        while (angle <= 360)
-        {
-            angle += 360 / corners;
-            Vector3 nextPosition = origin + (Quaternion.Euler(90, 0, angle) * startRotation);
-            Gizmos.DrawLine(lastPosition, nextPosition);
-            lastPosition = nextPosition;
-        }
-    }*/
 }
 
 
