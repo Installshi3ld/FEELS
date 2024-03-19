@@ -19,6 +19,22 @@ public class S_BuildingPoolData : SerializedScriptableObject
     [OdinSerialize, InfoBox("Each list in Building pool is consider as Tier, based on index")]
     public List<List<BuildingPoolStruct>> list;
 
+    //Adrien 
+
+    public void SetShowInUI(int tierIndex, int elementIndex, bool showInUI)
+    {
+        if (tierIndex >= 0 && tierIndex < list.Count && elementIndex >= 0 && elementIndex < list[tierIndex].Count)
+        {
+             // Récupérez l'élément de la liste
+            BuildingPoolStruct element = list[tierIndex][elementIndex];
+            // Modifiez le booléen showInUI de cet élément
+            element.showInUI = showInUI;
+            // Remettez l'élément modifié dans la liste
+            list[tierIndex][elementIndex] = element;
+        }
+    }
+
+
     /*
     [ReadOnly]
     //public List<List<GameObject>> BuildingPoolData;

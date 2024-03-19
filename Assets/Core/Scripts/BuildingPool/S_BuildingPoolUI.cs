@@ -48,6 +48,12 @@ public class S_BuildingPoolUI : MonoBehaviour
             InfoScreen.transform.position = Input.mousePosition + new Vector3(-0.1f, 0.1f, 0);
     }
 
+    public void EndTurnButtonTuto()
+    {
+        _buildingPoolData.SetShowInUI(currentTierSelected,0, true);
+
+    }
+
     //Create button & add function reference
     void SpawnButton()
     {
@@ -135,7 +141,7 @@ public class S_BuildingPoolUI : MonoBehaviour
     }
 
     //Refresh building pool UI
-    void RefreshUI()
+    public void RefreshUI()
     {
         SpawnButton();
         int tmpIndex = 0;
@@ -150,6 +156,7 @@ public class S_BuildingPoolUI : MonoBehaviour
         }
     }
 }
+
 
 
 /* for (int i = 0; i < button.Count; i++)
