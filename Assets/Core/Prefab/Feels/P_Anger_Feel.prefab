@@ -314,6 +314,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 781948634940525327}
     m_Modifications:
+    - target: {fileID: 3448630060374425698, guid: 491ad3f497998b7449158df173c1c8e4, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3448630060374425698, guid: 491ad3f497998b7449158df173c1c8e4, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5819801217167999718, guid: 491ad3f497998b7449158df173c1c8e4, type: 3}
       propertyPath: m_Name
       value: P_AngerHabitant
@@ -340,7 +348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9081513876839772687, guid: 491ad3f497998b7449158df173c1c8e4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.408
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9081513876839772687, guid: 491ad3f497998b7449158df173c1c8e4, type: 3}
       propertyPath: m_LocalPosition.z
