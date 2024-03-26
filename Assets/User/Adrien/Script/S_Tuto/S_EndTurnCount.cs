@@ -11,17 +11,20 @@ public class S_EndTurnCount : MonoBehaviour
     public int valueFaceSad, valueFaceFear,valueFaceAnger;
     public S_BuildingPoolData buildingPoolData;
     public S_BuildingPoolUI poolUI;
-    // Start is called before the first frame update
+   
     int x = 0;
     int y = 1;
 
-    void Awake()
+    public void Awake()
     {
+        buildingPoolData.ResetB();
         endTurnCount = 0;
         BuildingPoolStruct ms = buildingPoolData.list[0][0];
         ms.showInUI = true;
-
+        buildingPoolData.list[0][0] = ms;
+        poolUI.RefreshUI();
     }
+ 
 
     public void EndTurnPressed()
     {

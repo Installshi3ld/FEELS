@@ -10,17 +10,11 @@ public struct BuildingPoolStruct
        public GameObject building;
        public bool showInUI;
         
-    public BuildingPoolStruct(bool bo, GameObject go)
-    {
-        building = go;
-        showInUI = bo;
-    }
-        public void ChanggeShowInUIStatement(bool _statement)
+        public BuildingPoolStruct(bool bo, GameObject go)
         {
-            showInUI = _statement;
-            Debug.Log("_statement = "+ _statement);
+            building = go;
+            showInUI = bo;
         }
-
     }
 
 [CreateAssetMenu(fileName = "SO_BuildingPoolData", menuName = "Data/SO_BuildingPoolData")]
@@ -32,7 +26,7 @@ public class S_BuildingPoolData : SerializedScriptableObject
 
     //Adrien 
 
-    public void Awake()
+    public void ResetB()
     {
         
         BuildingPoolStruct defaultStruct = new BuildingPoolStruct(false, null);
@@ -42,6 +36,7 @@ public class S_BuildingPoolData : SerializedScriptableObject
             foreach (int i in Enumerable.Range(0, innerList.Count))
             {
                 // Affecter la nouvelle instance de BuildingPoolStruct à chaque élément de la liste
+                defaultStruct.building = innerList[i].building;
                 innerList[i] = defaultStruct;
             }
         }
