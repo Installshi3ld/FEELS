@@ -168,15 +168,17 @@ public class S_Timeline : MonoBehaviour
 
         }
 
+
+        if (!PickedLifeExperience)
+        {
+            ChooseOrNotLifeExperience();
+        }
+
         if (!IsAvailableRequirementListEmpty())
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
 
-            if (!PickedLifeExperience)
-            {
-                ChooseOrNotLifeExperience();
-            }
 
         }
 
@@ -236,6 +238,7 @@ public class S_Timeline : MonoBehaviour
 
     private IEnumerable<S_LifeExperienceScriptableObject> GetAvailableLifeExperienceInCurrentPhase()
     {
+        Debug.Log("GIVE ME A LIFE EXPERIENCE");
         var current = phases[currentPhaseIndex];
 
         foreach (S_LifeExperienceScriptableObject item in current.lifeExperiences)
@@ -282,7 +285,7 @@ public class S_Timeline : MonoBehaviour
         {
             hasLifeEventBeenPicked = true;
             PickedLifeExperience = PickRandomLifeExperience();
-
+            Debug.Log("soqkdjmksfdjnkfdsljdkld");
             if (PickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + PickedLifeExperience.description);

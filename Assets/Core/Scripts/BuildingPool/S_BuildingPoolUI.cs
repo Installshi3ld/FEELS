@@ -48,6 +48,12 @@ public class S_BuildingPoolUI : MonoBehaviour
             InfoScreen.transform.position = Input.mousePosition + new Vector3(-0.1f, 0.1f, 0);
     }
 
+    public void EndTurnButtonTuto()
+    {
+        _buildingPoolData.SetShowInUI(currentTierSelected,0, true);
+
+    }
+
     //Create button & add function reference
     void SpawnButton()
     {
@@ -135,21 +141,24 @@ public class S_BuildingPoolUI : MonoBehaviour
     }
 
     //Refresh building pool UI
-    void RefreshUI()
+    public void RefreshUI()
     {
         SpawnButton();
         int tmpIndex = 0;
+
         for (int i = 0; i < _buildingPoolData.list[currentTierSelected].Count; i++)
         {
             if (_buildingPoolData.list[currentTierSelected][i].showInUI)
             {
+                Debug.Log(tmpIndex);
                 GameObject _currentBuilding = _buildingPoolData.list[currentTierSelected][i].building;
-                button[tmpIndex].GetComponentInParent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
+                button[tmpIndex].GetComponent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
                 tmpIndex++;
             }
         }
     }
 }
+
 
 
 /* for (int i = 0; i < button.Count; i++)

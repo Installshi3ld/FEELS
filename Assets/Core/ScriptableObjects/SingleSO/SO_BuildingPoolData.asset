@@ -16,27 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 4358802898342307799, guid: b7bdf3c681d8b394ea0b8633264e3622, type: 3}
-    - {fileID: 7248736645522736285, guid: 278d787a82d38d144b4cd43b1cb159bc, type: 3}
-    - {fileID: 2588321170191220697, guid: d61cd652d7c49e447b9046b772893d74, type: 3}
-    - {fileID: 7873085785543044208, guid: 56988e714f4f5b047befec7fd67a8a2e, type: 3}
-    - {fileID: 5628785778176273564, guid: f036af3ff4753844c81c63c0bad0b517, type: 3}
-    - {fileID: 8629024917022469479, guid: 669e4e3064564104bb59541eb85c1437, type: 3}
-    - {fileID: 7418667232674008933, guid: be1347e83b3fdcb4b96549bfd53e5732, type: 3}
-    - {fileID: 7423666083300003376, guid: 4295b19f0e03f894a98159be3bb57534, type: 3}
-    - {fileID: 5628785778176273564, guid: a92b9f8700eba0549b1db9750a0e5fcb, type: 3}
-    - {fileID: 8532694534459519036, guid: f1d4db80f601c544a97ef0cd7b0715fa, type: 3}
-    - {fileID: 7418667232674008933, guid: 2f851bece3f3f184e8d9f69215de970e, type: 3}
-    - {fileID: 7423666083300003376, guid: e4b585560b2a78042bf2a7081421770a, type: 3}
-    - {fileID: 2413128733176441389, guid: 58c85c4364c06a24e97a731fa6bcc8ac, type: 3}
-    - {fileID: 7507347723392141773, guid: 415f4f694234fcc4b9c326c26e3e0664, type: 3}
-    - {fileID: 5178277646630828524, guid: bfa3338f4be54574da18751dfdab4114, type: 3}
-    - {fileID: 287636147083573772, guid: 0d51e18ed4a637142b3c6c0f0e27288e, type: 3}
-    - {fileID: 8982322069608947216, guid: 1bdffb387d6cd964f9054e6cf9c335af, type: 3}
-    - {fileID: 7507347723392141773, guid: e1ebb721f96fa0a49b967ebe47d9141d, type: 3}
-    - {fileID: 5178277646630828524, guid: cf7a1e52f14f8814eb36fcf182032a7b, type: 3}
-    - {fileID: 287636147083573772, guid: 6c39d0da3eb8d1e44866af47acd0645b, type: 3}
-    - {fileID: 105918592634555662, guid: f6ed78e8853965e45b2abff59327bce5, type: 3}
+    - {fileID: 0}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -44,21 +24,21 @@ MonoBehaviour:
     SerializationNodes:
     - Name: list
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
+      Data: 0|System.Collections.Generic.List`1[[System.Collections.Generic.List`1[[BuildingPoolStruct,
         Assembly-CSharp]], mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 5
     - Name: 
       Entry: 7
-      Data: 1|System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
-        Assembly-CSharp]], mscorlib
+      Data: 1|System.Collections.Generic.List`1[[BuildingPoolStruct, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
       Entry: 10
       Data: 0
@@ -70,10 +50,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 1
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
       Data: true
@@ -82,25 +62,25 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 2
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 3
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -112,56 +92,56 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
-        Assembly-CSharp]], mscorlib
+      Data: 2|System.Collections.Generic.List`1[[BuildingPoolStruct, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 4
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 5
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 6
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 7
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -173,56 +153,56 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
-        Assembly-CSharp]], mscorlib
+      Data: 3|System.Collections.Generic.List`1[[BuildingPoolStruct, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 8
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 9
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 10
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 11
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -234,56 +214,56 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
-        Assembly-CSharp]], mscorlib
+      Data: 4|System.Collections.Generic.List`1[[BuildingPoolStruct, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 12
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 13
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 14
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 15
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -295,81 +275,56 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
-        Assembly-CSharp]], mscorlib
+      Data: 5|System.Collections.Generic.List`1[[BuildingPoolStruct, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 16
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 17
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 18
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
+      Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 10
-      Data: 19
+      Entry: 6
+      Data: 
     - Name: showInUI
       Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 6|System.Collections.Generic.List`1[[S_BuildingPoolData+BuildingPoolStruct,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: S_BuildingPoolData+BuildingPoolStruct, Assembly-CSharp
-    - Name: building
-      Entry: 10
-      Data: 20
-    - Name: showInUI
-      Entry: 5
-      Data: true
+      Data: false
     - Name: 
       Entry: 8
       Data: 
