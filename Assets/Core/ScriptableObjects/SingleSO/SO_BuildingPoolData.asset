@@ -16,7 +16,10 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 0}
+    - {fileID: 4358802898342307799, guid: b7bdf3c681d8b394ea0b8633264e3622, type: 3}
+    - {fileID: 7248736645522736285, guid: 278d787a82d38d144b4cd43b1cb159bc, type: 3}
+    - {fileID: 2588321170191220697, guid: d61cd652d7c49e447b9046b772893d74, type: 3}
+    - {fileID: 7873085785543044208, guid: 56988e714f4f5b047befec7fd67a8a2e, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -52,20 +55,8 @@ MonoBehaviour:
       Entry: 7
       Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 6
-      Data: 
-    - Name: showInUI
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: BuildingPoolStruct, Assembly-CSharp
-    - Name: building
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: showInUI
       Entry: 5
       Data: false
@@ -76,8 +67,20 @@ MonoBehaviour:
       Entry: 7
       Data: BuildingPoolStruct, Assembly-CSharp
     - Name: building
-      Entry: 6
+      Entry: 10
+      Data: 2
+    - Name: showInUI
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
       Data: 
+    - Name: 
+      Entry: 7
+      Data: BuildingPoolStruct, Assembly-CSharp
+    - Name: building
+      Entry: 10
+      Data: 3
     - Name: showInUI
       Entry: 5
       Data: false
