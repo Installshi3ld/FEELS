@@ -254,8 +254,8 @@ public class ConstructionSystem : MonoBehaviour
         {
             case FeelType.Joy: joyPlaced++; break;
             case FeelType.Anger: angerPlaced++; break;
-            case FeelType.Sad: sadPlaced++; break;
-            case FeelType.Fear: fearPlaced++; break;
+            case FeelType.Sad: sadPlaced++;break;
+            case FeelType.Fear: fearPlaced++;break;
         }
 
         _isBuilding.value = false;

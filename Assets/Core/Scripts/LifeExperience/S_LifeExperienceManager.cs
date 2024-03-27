@@ -15,6 +15,7 @@ public class S_LifeExperienceManager : MonoBehaviour
         //fireLifeExperience.GetComponent<S_LifeExperience>()._gridData.Init();
         AddFireLifeExperience();
     }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.V))

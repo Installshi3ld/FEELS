@@ -178,8 +178,6 @@ public class S_Timeline : MonoBehaviour
         {
             /*Debug.Log("Current phase requirement count : " + GetAvailableRequirementsInCurrentPhase());
             Debug.Log("current Phase index : " + currentPhaseIndex);*/
-
-
         }
 
     }
@@ -285,7 +283,7 @@ public class S_Timeline : MonoBehaviour
         {
             hasLifeEventBeenPicked = true;
             PickedLifeExperience = PickRandomLifeExperience();
-            Debug.Log("soqkdjmksfdjnkfdsljdkld");
+
             if (PickedLifeExperience != null)
             {
                 Debug.Log("Random Life experience have been picked : " + PickedLifeExperience.description);

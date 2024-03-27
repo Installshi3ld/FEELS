@@ -67,7 +67,6 @@ public class S_LifeExperience : MonoBehaviour
     void FlamePropagation()
     {
         isFirePropagating = true;
-        print("trr");
 
         Vector3 tmpCoordinate = _gridData.GetRandomTileAroundOtherOne(_gridData.GetIndexbasedOnPosition(this.transform.position), 3, true);
         if(tmpCoordinate != Vector3.zero)
@@ -91,6 +90,7 @@ public class S_LifeExperience : MonoBehaviour
         {
             _gridData.RemoveTileUsed(element.x, element.y);
         }
+        _scriptableRounds.OnActionPointRemoved -= FlamePropagation;
         foreach (GameObject Object in allFire)
         {
             Destroy(Object);
