@@ -242,7 +242,7 @@ public class S_Building : MonoBehaviour
         return new Vector3((minimumX * 5 + maximumX * 5) / 2, 0, (minimumY * 5 - maximumY * 5)/2) + this.transform.position;
     }
 
-    void GetMinMaxCoordinate()
+    public void GetMinMaxCoordinate()
     {
         for (int i = 0; i < tilesCoordinate.Count; i++)
         {

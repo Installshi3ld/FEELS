@@ -28,8 +28,20 @@ public class S_LifeExperience : MonoBehaviour
         S_Building building = wonderBuilding.GetComponent<S_Building>();
         this.transform.position = _gridData.GetRandomTileInGrid(building.tilesCoordinate) + new Vector3(0, 50, 0);
 
+
+        building.GetMinMaxCoordinate();
+        print("test " +( building.minimumX + building.maximumX));
+        print("max" + building.minimumX);
+
+        transform.GetChild(1).localScale = new Vector3(
+            Mathf.Abs(building.minimumX) + Mathf.Abs(building.maximumX) + 1, 
+            1,
+            Mathf.Abs(building.minimumY) + Mathf.Abs(building.maximumY) + 1);
+        
         if (this.transform.position.y <= -500)
             Destroy(this);
+
+
 
         
         Vector2Int tmpIndex = _gridData.GetIndexbasedOnPosition(this.transform.position);
