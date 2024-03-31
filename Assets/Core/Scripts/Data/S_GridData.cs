@@ -52,6 +52,8 @@ public class S_GridData : ScriptableObject, InitializeSO
 
     public void SetTileUsed(int x, int y)
     {
+        if (x >= tileAmount || y >= tileAmount || x < 0 || y < 0) return;
+
         gridsUsageStatement[x][y].statement = true;
         RefreshDebugTile(x, y);
     }
