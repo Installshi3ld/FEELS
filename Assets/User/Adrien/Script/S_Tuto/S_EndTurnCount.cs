@@ -75,11 +75,23 @@ public class S_EndTurnCount : MonoBehaviour
         {
             ms.showInUI = true;
             buildingPoolData.list[x][y] = ms;
-            buildingPoolData.list[x][1] = ms;
-            buildingPoolData.list[x][2] = ms;
-            buildingPoolData.list[x][3] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
-            x++;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+            y++;
+            Debug.Log(y);
+           if (y == 1)
+           {
+                buildingPoolData.list[x][y] = ms;
+               Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+               y++;
+                Debug.Log(y);
+            }
+       //    buildingPoolData.list[x][y] = ms;
+       //    Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+       //    y++;
+       //    buildingPoolData.list[x][y] = ms;
+       //    Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+       //    x++;
+       //    y = 0;  
         }
 
         if(endTurnCount == valueMusic)
