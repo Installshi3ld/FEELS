@@ -36,7 +36,7 @@ public class S_Tuto : MonoBehaviour
 
              if (buildingList.builidingsInfos.Count == 1)
                 {
-                    tutoRounds.gameObject.SetActive(true);
+                   // tutoRounds.gameObject.SetActive(true);
                     uiEndTurn.gameObject.SetActive(true);  
                     //isBuilding.value = false;
                 }
