@@ -9,6 +9,7 @@ public class S_EndTurnCount : MonoBehaviour
     public int endTurnCount;
     public int valueAnimal,valueMusic,valueFood,valueActivity;
     public int valueFaceSad, valueFaceFear,valueFaceAnger;
+    public int[] values;
     public S_BuildingPoolData buildingPoolData;
     public S_BuildingPoolUI poolUI;
    
@@ -32,90 +33,180 @@ public class S_EndTurnCount : MonoBehaviour
             Debug.Log(endTurnCount.ToString());
     }
 
-    public void ActivateButton()
-    {
-        endTurnCount++;
-        Debug.Log(endTurnCount.ToString());
-        Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI Le mauvais : " + buildingPoolData.list[0][1].showInUI);
-        BuildingPoolStruct ms = buildingPoolData.list[x][y];
-        Debug.Log(buildingPoolData.list[x][y].building);
 
-        if (endTurnCount == valueFaceSad)
-        {
+
+     public void ActivateButton()
+     {
+         endTurnCount++;
+         Debug.Log(endTurnCount.ToString());
+         Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI Le mauvais : " + buildingPoolData.list[0][1].showInUI);
+         BuildingPoolStruct ms = buildingPoolData.list[x][y];
+         Debug.Log(buildingPoolData.list[x][y].building);
     
-                    
-                    // Retrieve the element at position [0][1] and modify its showInUI property
-                    //buildingPoolData.list[x][y].ChanggeShowInUIStatement(true);
-                    ms.showInUI = true;
-                    buildingPoolData.list[x][y] = ms;
-                    Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
-                    y++;
+         if (endTurnCount == valueFaceSad)
+         {
+     
+                     
+                     // Retrieve the element at position [0][1] and modify its showInUI property
+                     //buildingPoolData.list[x][y].ChanggeShowInUIStatement(true);
+                     ms.showInUI = true;
+                     buildingPoolData.list[x][y] = ms;
+                     Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
+                     y++;
+    
+                 
+         }
+    
+         if (endTurnCount == valueFaceFear)
+         {
+             ms.showInUI = true;
+             buildingPoolData.list[x][y] = ms;
+             Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
+             y++;
+         }
+    
+         if(endTurnCount == valueFaceAnger)
+         {
+             ms.showInUI = true;
+             buildingPoolData.list[x][y] = ms;
+             Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
+             x++;
+             y = 0;
+         }
+    
+         if( endTurnCount == valueAnimal)
+         {
+             ms.showInUI = true;
+             buildingPoolData.list[x][y] = ms;
+             Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+             y++;
+             Debug.Log(y);
+            
+                BuildingPoolStruct ms2 = buildingPoolData.list[x][y];
+                ms2.showInUI = true;
+                buildingPoolData.list[x][y] = ms2;
+                Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms2.showInUI);
+                y++;
+                 Debug.Log(y);
 
-                
+                BuildingPoolStruct ms3 = buildingPoolData.list[x][y];
+                ms3.showInUI = true;
+                buildingPoolData.list[x][y] = ms3;
+                Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms3.showInUI);
+                y++;
+                Debug.Log(y);
+
+                BuildingPoolStruct ms4 = buildingPoolData.list[x][y];
+                ms4.showInUI = true;
+                buildingPoolData.list[x][y] = ms4;
+                Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms4.showInUI);
+                y++;
+                Debug.Log(y);
+
+                x++;
+                y = 0;  
         }
-
-        if (endTurnCount == valueFaceFear)
-        {
+    
+         if(endTurnCount == valueMusic)
+         {
             ms.showInUI = true;
             buildingPoolData.list[x][y] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
             y++;
-        }
+            Debug.Log(y);
 
-        if(endTurnCount == valueFaceAnger)
-        {
-            ms.showInUI = true;
-            buildingPoolData.list[x][y] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
+            BuildingPoolStruct ms2 = buildingPoolData.list[x][y];
+            ms2.showInUI = true;
+            buildingPoolData.list[x][y] = ms2;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms2.showInUI);
+            y++;
+            Debug.Log(y);
+
+            BuildingPoolStruct ms3 = buildingPoolData.list[x][y];
+            ms3.showInUI = true;
+            buildingPoolData.list[x][y] = ms3;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms3.showInUI);
+            y++;
+            Debug.Log(y);
+
+            BuildingPoolStruct ms4 = buildingPoolData.list[x][y];
+            ms4.showInUI = true;
+            buildingPoolData.list[x][y] = ms4;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms4.showInUI);
+            y++;
+            Debug.Log(y);
+
             x++;
             y = 0;
         }
-
-        if( endTurnCount == valueAnimal)
-        {
+    
+         if (endTurnCount == valueFood)
+         {
             ms.showInUI = true;
             buildingPoolData.list[x][y] = ms;
-            buildingPoolData.list[x][1] = ms;
-            buildingPoolData.list[x][2] = ms;
-            buildingPoolData.list[x][3] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
-            x++;
-        }
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+            y++;
+            Debug.Log(y);
 
-        if(endTurnCount == valueMusic)
-        {
+            BuildingPoolStruct ms2 = buildingPoolData.list[x][y];
+            ms2.showInUI = true;
+            buildingPoolData.list[x][y] = ms2;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms2.showInUI);
+            y++;
+            Debug.Log(y);
+
+            BuildingPoolStruct ms3 = buildingPoolData.list[x][y];
+            ms3.showInUI = true;
+            buildingPoolData.list[x][y] = ms3;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms3.showInUI);
+            y++;
+            Debug.Log(y);
+
+            BuildingPoolStruct ms4 = buildingPoolData.list[x][y];
+            ms4.showInUI = true;
+            buildingPoolData.list[x][y] = ms4;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms4.showInUI);
+            y++;
+            Debug.Log(y);
+
+            x++;
+            y = 0;
+        }
+    
+         if (endTurnCount == valueActivity)
+         {
             ms.showInUI = true;
             buildingPoolData.list[x][y] = ms;
-            buildingPoolData.list[x][1] = ms;
-            buildingPoolData.list[x][2] = ms;
-            buildingPoolData.list[x][3] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
-            x++;
-        }
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+            y++;
+            Debug.Log(y);
 
-        if (endTurnCount == valueFood)
-        {
-            ms.showInUI = true;
-            buildingPoolData.list[x][y] = ms;
-            buildingPoolData.list[x][1] = ms;
-            buildingPoolData.list[x][2] = ms;
-            buildingPoolData.list[x][3] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
-            x++;
-        }
+            BuildingPoolStruct ms2 = buildingPoolData.list[x][y];
+            ms2.showInUI = true;
+            buildingPoolData.list[x][y] = ms2;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms2.showInUI);
+            y++;
+            Debug.Log(y);
 
-        if (endTurnCount == valueActivity)
-        {
-            ms.showInUI = true;
-            buildingPoolData.list[x][y] = ms;
-            buildingPoolData.list[x][1] = ms;
-            buildingPoolData.list[x][2] = ms;
-            buildingPoolData.list[x][3] = ms;
-            Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
-            x++;
-        }
+            BuildingPoolStruct ms3 = buildingPoolData.list[x][y];
+            ms3.showInUI = true;
+            buildingPoolData.list[x][y] = ms3;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms3.showInUI);
+            y++;
+            Debug.Log(y);
 
-        poolUI.RefreshUI();
-        Debug.Log("Je refresh bg");
-    }
+            BuildingPoolStruct ms4 = buildingPoolData.list[x][y];
+            ms4.showInUI = true;
+            buildingPoolData.list[x][y] = ms4;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms4.showInUI);
+            y++;
+            Debug.Log(y);
+
+            x++;
+            y = 0;
+        }
+    
+         poolUI.RefreshUI();
+         Debug.Log("Je refresh bg");
+     }
 }

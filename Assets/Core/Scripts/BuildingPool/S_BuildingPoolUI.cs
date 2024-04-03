@@ -150,7 +150,6 @@ public class S_BuildingPoolUI : MonoBehaviour
         {
             if (_buildingPoolData.list[currentTierSelected][i].showInUI)
             {
-                Debug.Log(tmpIndex);
                 GameObject _currentBuilding = _buildingPoolData.list[currentTierSelected][i].building;
                 button[tmpIndex].GetComponent<S_BoutonBuildingPool>().BuildingReference = _currentBuilding;
                 tmpIndex++;

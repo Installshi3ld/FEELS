@@ -43,6 +43,7 @@ public class S_Timeline : MonoBehaviour
     public static event RefreshFromRequirement OnEndRequirement;
     public delegate void RefreshFromEvent(S_Requirement currentEvent, float delay);
     public static event RefreshFromEvent OnDisasterOccuring;
+    public static event RefreshFromEvent OnAfterDisaster;
 
     private bool hasBeenPaid = false;
 
@@ -202,6 +203,8 @@ public class S_Timeline : MonoBehaviour
         consequence.ProvoqueDisaster();
         yield return new WaitForSeconds(delay);
         OnAfterRequirementChecked?.Invoke(currentRequirement);
+        yield return new WaitForSeconds(delay);
+        OnAfterDisaster?.Invoke(currentRequirement, 2f);
 
         //OnRequirementChecked?.Invoke(currentRequirement);
 

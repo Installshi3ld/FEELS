@@ -21,6 +21,8 @@ public class S_FeelsUI : MonoBehaviour
     private float lastFearFeelsAmount;
     private float lastSadnessFeelsAmount;
 
+    public S_EndRoundButton endRoundButton;
+
 
     // Start is called before the first frame update
     void Start()
@@ -119,6 +121,13 @@ public class S_FeelsUI : MonoBehaviour
         lastAngerFeelsAmount = angerFeels.Amount;
         lastFearFeelsAmount = fearFeels.Amount;
         lastSadnessFeelsAmount = sadnessFeels.Amount;
+
+        //Adrien 
+        if (joyFeels.amount <= 1)
+        {
+            endRoundButton.Shake();
+            Debug.Log("Currency value is " + joyFeels.amount.ToString());
+        }
     }
 
     private IEnumerator UpdateFeelsUI()

@@ -28,10 +28,10 @@ public class S_BuildingAI : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(AddFeelsOnMap(FeelType.Joy, 1));
-        StartCoroutine(AddFeelsOnMap(FeelType.Anger, 1));
-        StartCoroutine(AddFeelsOnMap(FeelType.Fear, 1));
-        StartCoroutine(AddFeelsOnMap(FeelType.Sad, 1));
+        StartCoroutine(AddFeelsOnMap(FeelType.Joy, 0));
+        StartCoroutine(AddFeelsOnMap(FeelType.Anger, 0));
+        StartCoroutine(AddFeelsOnMap(FeelType.Fear, 0));
+        StartCoroutine(AddFeelsOnMap(FeelType.Sad, 0));
 
         // Instantiate initial prefabs on the map
         for (int i = 0; i < minPrefabInstances-4; i++) 
