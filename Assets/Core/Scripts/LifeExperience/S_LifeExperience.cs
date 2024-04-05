@@ -11,6 +11,8 @@ public class S_LifeExperience : MonoBehaviour
     public GameObject wonderBuilding;
     private bool isFirePropagating;
 
+    public S_BuildingList _BuildingList;
+
     List<GameObject> allFire = new List<GameObject>();
     List<Vector2Int> gridUsage = new List<Vector2Int>();
 
@@ -39,7 +41,8 @@ public class S_LifeExperience : MonoBehaviour
         {   
             _gridData.SetTileUsed(tmpIndex.x + element.x, tmpIndex.y + element.y);
         }
-        
+      // Adrien
+      //_BuildingList.AppendToBuildingList(building.BuildingData);
     }
 
     bool isFlamePropagation = false;
@@ -62,6 +65,8 @@ public class S_LifeExperience : MonoBehaviour
         S_Building tmpWonder = wonder.GetComponent<S_Building>();
         tmpWonder.PlacedBuilding();
         tmpWonder.isPlacedAnimation = true;
+        // Adrien
+        _BuildingList.AppendToBuildingList(tmpWonder.BuildingData);
     }
 
     void FlamePropagation()
