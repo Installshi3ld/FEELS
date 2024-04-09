@@ -80,6 +80,8 @@ public enum BuildingTheme
 public class S_Building : MonoBehaviour
 {
     public S_BuildingData BuildingData;
+    [Header("Sound")]
+    public AudioClip OnBuildingPlacedAudio;
 
     [Header("Data")]
     public int actionPointCost = 1;
@@ -137,7 +139,7 @@ public class S_Building : MonoBehaviour
     GameObject buildingVFX;
 
     private Vector3 initialScale; // Variable pour stocker la scale initiale
-
+    AudioSource tmpAudio;
     public void GetOutOfGroundAnimation()
     {
 
@@ -163,6 +165,11 @@ public class S_Building : MonoBehaviour
         sequence.OnComplete(() =>
         {
             EndBuildingAnimation.Invoke(gameObject);
+            tmpAudio = FindObjectOfType<AudioSource>();
+            if (tmpAudio)
+            {
+                tmpAudio.PlayOneShot(OnBuildingPlacedAudio);
+            }
         }); 
 
         // Optionnel : démarre automatiquement la séquence
