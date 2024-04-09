@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32c985dc66a06644788faa67854ccb1c, type: 3}
-  m_Name: SO_E2_FeelRequirement_25
+  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
+  m_Name: SO_BuildThemeAndTypeRequirement
   m_EditorClassIdentifier: 
   spriteImage: {fileID: 0}
-  NarrativeDescription: Event 1/7
-  ConstraintDescription: Have 25 Feels.
-  numberOfTurnToFulfill: 3
+  NarrativeDescription: 
+  ConstraintDescription: 
+  numberOfTurnToFulfill: 0
   LinkedDisaster: []
   LinkedRewards: []
-  soFeelType:
-  - {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
-  targetedNumberOfFeels: 19000000
+  buildingsOnMap: {fileID: 0}
+  themeAndTypeRequirements: []

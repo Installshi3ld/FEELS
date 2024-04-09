@@ -9,17 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f94d4ed518e3384eb85e3c7f02bcaab, type: 3}
-  m_Name: SO_E8_TypeTheme_Wonder
+  m_Script: {fileID: 11500000, guid: be26444280b4f954b9a8d7688a194aeb, type: 3}
+  m_Name: SO_BuildThemeRequirement
   m_EditorClassIdentifier: 
   spriteImage: {fileID: 0}
-  NarrativeDescription: Event 7/7
-  ConstraintDescription: Build the Wonder.
+  NarrativeDescription: Event 2/5
+  ConstraintDescription: Build any Music building.
   numberOfTurnToFulfill: 3
   LinkedDisaster: []
   LinkedRewards: []
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
-  themeAndTypeRequirements:
-  - feelType: 1
-    buildingTheme: 6
+  themeRequirements:
+  - buildingTheme: 1
     numberOfRequiredBuildings: 1
