@@ -8,7 +8,7 @@ public class S_FeelAssignationBuilding : MonoBehaviour
 {
     [NonSerialized]
     public int CurrentStoredFeel;
-    [NonSerialized]
+    
     public bool isProducing, isBoosted = false;
     public int MaxFeel;
     public S_VFXData VFXData;

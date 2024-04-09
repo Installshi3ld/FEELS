@@ -216,7 +216,7 @@ public class ConstructionSystem : MonoBehaviour
     {
         _planePlacementValid.transform.position = new Vector3(0, -10, 0);
     }
-    public void PlaceBuilding()
+    public void PlaceBuilding(GameObject wonderBoost = null)
     {
         S_Building objectSpawnedBuildingScript = objectSpawned.GetComponent<S_Building>();
         List<Vector2Int> objectSpawnTilesUsage = GetObjectSpawnTileUsage();
@@ -322,7 +322,7 @@ public class ConstructionSystem : MonoBehaviour
         return buildingScript.HasEnoughMoney();
     }
 
-    void UpdateGridOnPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage, S_Building buildingScript)
+    public void UpdateGridOnPlacement(Vector2Int tmpIndexInGrid, List<Vector2Int> objectSpawnTilesUsage, S_Building buildingScript)
     {
         for (int i = 0; i < objectSpawnTilesUsage.Count; i++)
         {
@@ -336,7 +336,7 @@ public class ConstructionSystem : MonoBehaviour
 
 
 
-    Vector2Int GetObjectIndexInGridUsage(Vector3 objectSpawned)
+    public Vector2Int GetObjectIndexInGridUsage(Vector3 objectSpawned)
     {
         //Get index base in gridUsageStatement based on position
         int indexX = (int)objectSpawned.x / _gridData.tileSize + _gridData.gridsUsageStatement.Count / 2;
@@ -386,7 +386,7 @@ public class ConstructionSystem : MonoBehaviour
     }
 
 
-    void CheckBoostBuilding(GameObject _gameObjectBuilding)
+    public void CheckBoostBuilding(GameObject _gameObjectBuilding)
     {
         Vector2Int buildingCoordinate = GetObjectIndexInGridUsage(_gameObjectBuilding.transform.position);
         List<GameObject> _buildingsToBoost = new List<GameObject>();
@@ -420,7 +420,7 @@ public class ConstructionSystem : MonoBehaviour
         for (int i = 0; i < _tilesToCheckForBoost.Count; i++)
         {
             GameObject _currentBuildingToCheck = _gridData.GetBuildingAtTile(buildingCoordinate + _tilesToCheckForBoost[i]);
-
+            print(_currentBuildingToCheck);
             if (_currentBuildingToCheck != null)
             {
                 S_Building _currentBuildingToCheckS_Building = _currentBuildingToCheck.GetComponent<S_Building>();

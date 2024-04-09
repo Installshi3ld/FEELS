@@ -20,6 +20,8 @@ public class S_BuildingData : IEquatable<S_BuildingData>
     public int tier = 0;
     public Sprite BuildingImage;
 
+    public bool wasWonder = false;
+
     public bool Equals(S_BuildingData other)
     {
         return other != null &&
@@ -35,6 +37,7 @@ public class S_BuildingData : IEquatable<S_BuildingData>
     }
 
     [NonSerialized]public S_Building building;
+
 }
 
 [Serializable]
