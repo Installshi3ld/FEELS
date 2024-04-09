@@ -16,7 +16,8 @@ MonoBehaviour:
   NarrativeDescription: Sad buildings BOOST when placed diagonally to each other.
   ConstraintDescription: Build 2 boosted sad-face buildings.
   numberOfTurnToFulfill: 1
-  LinkedDisaster: []
+  LinkedDisaster:
+  - {fileID: 11400000, guid: 5f6b13831abc7f94badee776e9c97966, type: 2}
   LinkedRewards: []
   buildingsOnMap: {fileID: 11400000, guid: 2d0f8d5f61c30804e8ff4b1b3322c6eb, type: 2}
   themeAndTypeRequirements:
