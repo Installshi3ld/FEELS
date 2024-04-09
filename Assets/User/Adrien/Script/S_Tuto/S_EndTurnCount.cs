@@ -7,12 +7,13 @@ using UnityEngine.UI;
 public class S_EndTurnCount : MonoBehaviour
 {
     public int endTurnCount;
-    public int valueAnimal,valueMusic,valueFood,valueActivity;
+    public int valueMusic,valueFood, valueWonder;
     public int valueFaceSad, valueFaceFear,valueFaceAnger;
     public int[] values;
     public S_BuildingPoolData buildingPoolData;
     public S_BuildingPoolUI poolUI;
-   
+    public GameObject musicButton, foodButton, wonderButton, tutoLifeExp;
+
     int x = 0;
     int y = 1;
 
@@ -71,10 +72,11 @@ public class S_EndTurnCount : MonoBehaviour
              buildingPoolData.list[x][y] = ms;
              Debug.Log(buildingPoolData.list[0][1].building + "ShowInUI : " + ms.showInUI);
              x++;
+             x++;
              y = 0;
          }
     
-         if( endTurnCount == valueAnimal)
+      /*   if( endTurnCount == valueAnimal)
          {
              ms.showInUI = true;
              buildingPoolData.list[x][y] = ms;
@@ -106,9 +108,13 @@ public class S_EndTurnCount : MonoBehaviour
                 x++;
                 y = 0;  
         }
-    
+    */
          if(endTurnCount == valueMusic)
          {
+            musicButton.SetActive(true);
+
+            tutoLifeExp.SetActive(true);
+
             ms.showInUI = true;
             buildingPoolData.list[x][y] = ms;
             Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
@@ -142,6 +148,8 @@ public class S_EndTurnCount : MonoBehaviour
     
          if (endTurnCount == valueFood)
          {
+            foodButton.SetActive(true);
+
             ms.showInUI = true;
             buildingPoolData.list[x][y] = ms;
             Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
@@ -170,9 +178,10 @@ public class S_EndTurnCount : MonoBehaviour
             Debug.Log(y);
 
             x++;
+            x++;
             y = 0;
         }
-    
+    /*
          if (endTurnCount == valueActivity)
          {
             ms.showInUI = true;
@@ -205,7 +214,18 @@ public class S_EndTurnCount : MonoBehaviour
             x++;
             y = 0;
         }
-    
+    */
+         if (endTurnCount == valueWonder)
+            {
+            wonderButton.SetActive(true);
+
+            ms.showInUI = true;
+            buildingPoolData.list[x][y] = ms;
+            Debug.Log(buildingPoolData.list[x][y].building + "ShowInUI : " + ms.showInUI);
+            y++;
+            Debug.Log(y);
+
+        }
          poolUI.RefreshUI();
          Debug.Log("Je refresh bg");
      }
