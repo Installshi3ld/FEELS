@@ -219,18 +219,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: Happy Face
+    buildingName: Joy Face
     feelType: 1
     BuildingTheme: 4
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 2
     tier: 0
-    BuildingImage: {fileID: 21300000, guid: 52e3c74eac8e74d489a131167ab2b7b7, type: 3}
+    BuildingImage: {fileID: 21300000, guid: 234a5f8f58330e7458ec34be2df93358, type: 3}
+  OnBuildingPlacedAudio: {fileID: 0}
   actionPointCost: 1
   tilesCoordinate: []
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
   _FeelAssignationBuilding: {fileID: 0}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!114 &7549420965668022821
 MonoBehaviour:
   m_ObjectHideFlags: 0

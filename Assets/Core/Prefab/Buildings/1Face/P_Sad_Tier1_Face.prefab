@@ -48,18 +48,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: Sad Tears
+    buildingName: Sad Face
     feelType: 3
     BuildingTheme: 4
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 5
     tier: 0
-    BuildingImage: {fileID: 21300000, guid: 987a19ea4e4fa0141b44956a209125f0, type: 3}
+    BuildingImage: {fileID: 21300000, guid: 9a9bc086ea018b3439efd6260931e290, type: 3}
+  OnBuildingPlacedAudio: {fileID: 0}
   actionPointCost: 1
   tilesCoordinate: []
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
   _FeelAssignationBuilding: {fileID: 0}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!114 &60213144995542733
 MonoBehaviour:
   m_ObjectHideFlags: 0

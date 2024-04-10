@@ -252,18 +252,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuildingData:
-    buildingName: Fear Scream
+    buildingName: Fear Face
     feelType: 4
     BuildingTheme: 4
     feelTypeCostList:
     - feelTypeCurrency: {fileID: 11400000, guid: 9bcb2fa32519b484eaf6c4ad7f5ee42e, type: 2}
       feelPrice: 5
     tier: 0
-    BuildingImage: {fileID: 21300000, guid: c49106a387f42ff46af6955330f2e7ca, type: 3}
+    BuildingImage: {fileID: 21300000, guid: 16f14601e354baa44bb35c334a79947e, type: 3}
+  OnBuildingPlacedAudio: {fileID: 0}
   actionPointCost: 1
   tilesCoordinate: []
   costManager: {fileID: 11400000, guid: 88ace40173f1e204abb0a1775a51510b, type: 2}
   _FeelAssignationBuilding: {fileID: 0}
+  minimumX: 0
+  minimumY: 0
+  maximumX: 0
+  maximumY: 0
 --- !u!114 &-6129549663309600517
 MonoBehaviour:
   m_ObjectHideFlags: 0
